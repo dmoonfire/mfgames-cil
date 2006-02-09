@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Utility.NunitTest", "MfGames.Utility.NunitTest.csproj", "{31FB752D-61BE-4AFD-8B5F-1CBBA487A225}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Utility", "..\vc7.1\MfGames.Utility.csproj", "{60CD8BA2-8BD5-41F0-9BD2-5731CB33A740}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{31FB752D-61BE-4AFD-8B5F-1CBBA487A225}.Debug.ActiveCfg = Debug|.NET
+		{31FB752D-61BE-4AFD-8B5F-1CBBA487A225}.Debug.Build.0 = Debug|.NET
+		{31FB752D-61BE-4AFD-8B5F-1CBBA487A225}.Release.ActiveCfg = Release|.NET
+		{31FB752D-61BE-4AFD-8B5F-1CBBA487A225}.Release.Build.0 = Release|.NET
+		{60CD8BA2-8BD5-41F0-9BD2-5731CB33A740}.Debug.ActiveCfg = Debug|.NET
+		{60CD8BA2-8BD5-41F0-9BD2-5731CB33A740}.Debug.Build.0 = Debug|.NET
+		{60CD8BA2-8BD5-41F0-9BD2-5731CB33A740}.Release.ActiveCfg = Release|.NET
+		{60CD8BA2-8BD5-41F0-9BD2-5731CB33A740}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

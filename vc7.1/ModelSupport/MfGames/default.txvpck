@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet>
+  <view uin="u8d1phbkr_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="design:view:::1adqeudzr_v">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="10,10,262,1032" />
+      <reference referencedUin="design:view:::dedyqel166tqdm_v" />
+      <reference referencedUin="design:view:::6gd3nkbnn_v" />
+      <reference referencedUin="design:view:::wfdv0bpvj_v" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Log" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IArgumentAttribute" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ILogSink" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.RandomDice" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MfConvert" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IAsset" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.NodeRef" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.SecondGuage" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Logger" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.DiceFactory" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AdditionDice" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MersenneEntropy" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditSeverityHandler" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.UsageFormatter" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ValueTree" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Severity" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TypeChooser" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ITickable" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Logable" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ArgumentScanner" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ConsoleLogger" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ConfigStorage" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AttributeTree" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ITool" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.PositionalAttribute" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IDice" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ToolException" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.InvalidPathException" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Auditable" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ListAssetProvider" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IAuditable" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.DiceException" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ToolManager" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditMessageHandler" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ConstantDice" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.SubtractionDice" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.UtilityException" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IEntropy" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AssetException" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TickManager" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TickHandler" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TickArgs" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MimeFilenameIdentifier" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Version" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IAssetProvider" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.NotAbsolutePathException" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.WeightedSelector" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AssemblyAsset" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Entropy" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MersenneTwister" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.CommandLineArguments" />
+    </reference>
+  </view>
+</nodeSet>

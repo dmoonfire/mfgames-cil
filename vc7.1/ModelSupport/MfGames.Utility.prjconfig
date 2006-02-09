@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<TgConfig Version="3" SubLevelDisabled="False">
+  <Option Name="namespaceFolder.MfGames.Utility" Type="System.String" Value="" IsBrowsable="False" />
+  <Option Name="namespaceFolder.MfGames.Utility.Dice" Type="System.String" Value="ice" IsBrowsable="False" />
+  <Option Name="namespaceFolder.MfGames" Type="System.String" Value="MfGames" IsBrowsable="False" />
+</TgConfig>

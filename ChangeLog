@@ -1,0 +1,167 @@
+mfgames-utility (1.2.0)
+
+  * Dylan R. E. Moonfire <debian@mfgames.com>
+
+    - Added the TimeZones functionality. This covers the apparently
+      missing ability of the System(.Globalization) classes to allow
+      conversion to and from various time zones.
+	
+mfgames-utility (1.1.1)
+
+  * Dylan R. E. Moonfire <debian@mfgames.com>
+
+    - Changed the Makefile to always produce full paths for Emacs.
+
+mfgames-utility (1.1.0)
+
+  * Dylan R. E. Moonfire <debian@mfgames.com>
+
+    - Found and fixed a critical bug with putting +, (, ), or other regex
+      special characters in the NodeRef.
+
+    - Renamed some of the private constants inside NodeRef.
+
+    - Added a method to allow a form of regex matching on a node called
+      IsMatch().
+
+  * Harald Fielker
+
+    - Harald supplied VS 2003 files for this package.
+	
+mfgames-utility (1.0.0)
+
+  * This is a breaking release, so the first number is incremented. The
+    assembly version was updated to 1.0.0.0 to reflect this.
+
+  * Dylan R. E. Moonfire <debian@mfgames.com>
+
+    - Broke IAuditable and added two events to the interface. Updated
+      AuditableObject and renamed it to Auditable and added the
+      events.
+
+    - Expanded the Auditable object with some new functions for setting
+      and simplified the class for extending.
+
+    - Renamed LogObject to Logable and broke a lot of things.
+
+    - Set up the entire library to use autoconf/automake instead of the
+      hand-written Makefile. This required moving some files around to
+      properly get it working.
+
+    - Since there were so many breaking changes, I consolidated the Asset
+      and Tool libraries into the main once. The primary reason is that
+      there weren't that many classes in the sub-package and it simplified
+      many the usage.
+
+    - Merged in the dice library into this one and switched from
+      Grammatica which requires an external library to a Coco/R C# grammar
+      which does not.
+
+mfgames-utility (0.12.1 through 0.12.4)
+
+  * Dylan R. E. Moonfire <debian@mfgames.com>
+
+    - Added the MfGames.Utility.Tool as a generic command-line tool
+      used by some of the other MfGames libraries, such as
+      OpenOfficeOrg and DBMS.
+
+    - Added MfGames.Utility.Asset for some of the core functionality
+      of MfGames.Node and to reduce the need for an extra dependency
+      on MfGames.Plugin, which doesn't need it.
+
+    - Changed MfGamesException to UtilityException to simplify the
+      name and also to make it more consistent.
+
+    - Added the starting documentation for the library, to make it
+      easier to actually use it without memorizing code.
+
+    - Modified the default logger stub to write logs out to
+      Console.Error instead of Console.Out.
+
+    - Set up AttributeTree and NodeRef so it can be serialized via
+      XML.
+
+    - Added the Log object for embedding in other classes.
+
+	- Renamed IAudit to IAuditable and AuditObject to AuditableObject
+      to make it a little more consistent.
+
+	- Added documentation for many of the components.
+
+mfgames-utility (0.11.0)
+
+  * Added a AttributeTreeCollection.Values which returns child
+    objects. (DREM)
+
+  * Found a minor bug that created nodes would always be AttributeTree
+    instead of the base type (see CreateClone()). (DREM)
+
+  * Added a hook in AttributeTree that allow setting of a node
+    attribute at creation. This allows some of the MfGames.Eclectic
+    stuff to work properly. (DREM)
+
+  * Significantlly reworked ConfigStorage to allow for multiple
+    instances in the same application. Also added a singleton instance
+    at ConfigStorage.Singleton.
+
+  * Added the Path property to AttributeTree. (DREM)
+
+  * Added ValueTree as an extension to AttributeTree for the common
+    use of single-value attributes. (DREM)
+
+  * Added some more static triggers for logging. (DREM)
+
+  * Fixed a bug when you create a NodeRef object with "[]" in
+    it. (DREM)
+
+  * Fixed the MONO_SHARE_DIR handling to let the modules be created by
+    non-root users. (DREM)
+
+mfgames-utility (0.10.0)
+
+  * Added Debian-like processing of strings, such as "> 0.3.2" which
+    encapsulates the operation in the string. This is implemented as
+    Version.CompareOp(string). The operations allowed are ">", ">=",
+    "=", "<", and "<=". (DREM)
+
+  * Added a public constructor for Version to enable it to be
+    serialized.
+
+  * Added an exception version of the logging elements. This takes the
+    form of Level(exception, format, ...) because of the parameters.
+
+  * Added some XmlIgnore attributes to the AuditObject to allow it to
+    be serialized via XML.
+
+  * Added AttributeTree collection to allow for a fairly common
+    concept in the MfGames library. This uses NodeRef as a hash table
+    that may have child AttributeTree objects.
+
+  * Added TypeChooser which is a basic utility for selecting zero or
+    more objects based on a type given. This is used by GuiBuilder to
+    selected the appropriate menu and graphical elements.
+
+mfgames-utility (0.9.0)
+
+  * Added the LGPL frontmatter to the files. As a note,
+    MersenneTwister is actually under the Artistic license and not
+    part of the general package, it was just added to the
+    MfGames.Utility library since it was so useful. (DREM)
+
+  * Added the LGPL file as license.txt. (DREM)
+
+  * Added the Version class along with the tests for it. (DREM)
+
+  * Expanded on the IAudited functionality, as in, put it in. (DREM)
+
+  * Make the NUnit tests optional (mainly by ignoring errors during
+    that phase). (DREM)
+
+  * Moved MimeFilenameIdentifier into MfGames.Utility from
+    MfGames.Utility.Mime. It was a little too specific and didn't
+    match the rest of the lack of organization. (DREM)
+
+  * Added some static logging methods to LogObject.
+
+  * Renamed NodeRef.ROOT_CONTEXT to NodeRef.RootContext to match more
+    with the standard naming conventions.

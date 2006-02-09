@@ -1,0 +1,1164 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>/home/dylan/src/mfgames/mfgames-utility/build/MfGames.Utility</name>
+    </assembly>
+    <members>
+        <member name="T:MfGames.Utility.IAuditable">
+            <summary>
+            An audited class is based on the concept that a class is capable
+            of indicating problems or issues with its properties and
+            internal structures.
+            The way this is organized, a class can create the audit messages
+            during creation or setting (such as part of the getter) or at
+            the point of the message request.
+            </summary></member>
+        <member name="E:MfGames.Utility.IAuditable.AuditMessageChanged">
+            <summary>
+            This event is triggered when a message is changed in the
+            system. The given severity will be Severity.None if it is
+            removed.
+            </summary></member>
+        <member name="E:MfGames.Utility.IAuditable.AuditSeverityChanged">
+            <summary>
+            This event is triggered when the severity changes. This
+            will not be called if the message changes, but the
+            severity does not.
+            </summary></member>
+        <member name="P:MfGames.Utility.IAuditable.AuditMessages">
+            <summary>
+            Returns a hashtable that contains messages as the key
+            and the severity as the value for the key value.
+            </summary></member>
+        <member name="P:MfGames.Utility.IAuditable.AuditSeverity">
+            <summary>
+            Returns the highest audit severity of all current audit
+            messages. If there are no audit messages, then this returns
+            Severity.None.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.IArgumentAttribute">
+            <summary>
+            Describes the public interface for argument attributes.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.IArgumentAttribute.Name">
+            <summary>
+            Contains the registered name of this attribute.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.ITool">
+            <summary>
+            Represents a basic tool for use in the ToolManager (and
+            RegisterTool method).
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.ITool.Description">
+            <summary>
+            Returns a service description. Typically this is a single phrase
+            or sentance, with a period at the end.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.ITool.ToolName">
+            <summary>
+            Returns a list of service names that this service handles. These
+            are the second argument of the system, which is a string name,
+            typically dash-delimeted for words.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ITool.Process(System.String[])">
+            <summary>
+            Executes the service with the given parameters.
+            </summary></member>
+        <member name="T:MfGames.Utility.Asset.IAsset">
+            <summary>
+            Defines a single asset or data object. This can be an image, a
+            file, or just about anything. An asset may be on the filesystem,
+            an assembly, or another source. Since the method for creating an
+            asset is specific, this interface actually has no methods for
+            writing to or creating new assets.
+            The model for the IAsset is System.IO.FileInfo, but for a more
+            specialized (read-only) use of generic sources (assemblies,
+            filesystem, zip files, etc).
+            Opening up the stream without closing it can thrown an
+            exception, depending on the provider of the asset.
+            </summary></member>
+        <member name="P:MfGames.Utility.Asset.IAsset.Size">
+            <summary>
+            Contains the length or size of the asset. If this is -1 if the
+            size cannot be read for some reason.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.IAsset.OpenStream">
+            <summary>
+            Opens a stream for reading to this asset.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.IAsset.OpenText">
+            <summary>
+            Opens a StreamReader object for this asset.
+            </summary></member>
+        <member name="T:MfGames.Utility.Asset.IAssetProvider">
+            <summary>
+            Defines the source of assets. In this library, there is the
+            AssemblyAssetProvider and the FileSystemAssetProvider which
+            provide assets from the assembly and filesystem respectively.
+            The primary purpose of the IAssetProvider is to give a static
+            and consistent access to various sources of files and objects
+            (known as "assets"). NodeRef gives a consistent and static
+            access to the assets while still allowing some abstract
+            functionality, such as a cached asset manager or one that is
+            version-aware.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.IAssetProvider.GetAsset(MfGames.Utility.NodeRef,System.Boolean)">
+            <summary>
+            Retrieves an asset from the provider. If the second parameter
+            is true and the asset cannot be found, an AssetException is
+            thrown. Otherwise, this function will return null if it cannot
+            be found.
+            </summary></member>
+        <member name="T:MfGames.Utility.AttributeTree">
+            <summary>
+            Represents an attribute tree which is a class that contains a
+            hashtable (attributes) and may contain zero or more named child
+            objects (tree). The class is fairly straightforward, but it
+            allows additional functionality to create the tree values
+            automatically.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.#ctor">
+            <summary>
+            Creates an empty AttributeTree object.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Item(MfGames.Utility.NodeRef)">
+            <summary>
+            Returns the attribute tree node for the given path. If it does
+            not exist, a null is returned.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Item(MfGames.Utility.NodeRef,System.Boolean)">
+            <summary>
+            Returns an attribute tree object that represents the path. If
+            the second parameter is true, then it automatically creates it
+            and any parent objects above it as needed.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Item(System.String)">
+            <summary>
+            Allows the child to be selected based on node reference. This
+            is wrapped into a NodeRef and may throw an exception if it is
+            an invalid path. The default is not to create the elements as
+            needed.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Item(System.String,System.Boolean)">
+            <summary>
+            Returns a node reference, creating any required nodes as
+            needed, if the second parameter is true.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Attributes">
+            <summary>
+            Allows access to the attributes of this node (or element).
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Children">
+            <summary>
+            Allows access to the child tree objects.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.ChildrenArray">
+            <summary>
+            Contains an XML serializable array of children.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTree.Path">
+            <summary>
+            Contains the path of this node.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.Create(System.String)">
+            <summary>
+            Ensures that the node is created and returns it as
+            appropriate. This automatically creates any parent nodes.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.Create(MfGames.Utility.NodeRef)">
+            <summary>
+            Ensures that the node is created and returns it as
+            appropriate. This automatically creates any parent nodes.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.CreateClone">
+            <summary>
+            Methods for changing what object is used for child elements.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.Clone">
+            <summary>
+            Provides a method for cloning (or duplicating) the attribute
+            tree. This performs a deep copy of the clone.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.Merge(MfGames.Utility.AttributeTree)">
+            <summary>
+            Merges this attribute tree with the given attribute
+            tree. Merging is done by copying all of the attributes from
+            the given tree into the current one. Then, for every child in
+            both trees, they are copied in. Nodes that are not the destination
+            tree are just copied (deep copy) while those in the tree are
+            merged as per this method, recursively.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTree.OnCreatedAsChild(MfGames.Utility.NodeRef,MfGames.Utility.AttributeTree)">
+            <summary>
+            Called when a new child is created (but not cloned).
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTreeCollection.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructs the collection using serialization information.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTreeCollection.Item(MfGames.Utility.NodeRef)">
+            <summary>
+            Returns the attribute tree node for the given path. If it does
+            not exist, a null is returned.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTreeCollection.Item(MfGames.Utility.NodeRef,System.Boolean)">
+            <summary>
+            Returns an attribute tree object that represents the path. If
+            the second parameter is true, then it automatically creates it
+            and any parent objects above it as needed.
+            This does not handle "/" path which means the current
+            one. Instead, you should retrieve it from the
+            AttributeTree["/"].
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTreeCollection.Item(System.String)">
+            <summary>
+            Allows the child to be selected based on node reference. This
+            is wrapped into a NodeRef and may throw an exception if it is
+            an invalid path. The default is not to create the elements as
+            needed.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTreeCollection.Item(System.String,System.Boolean)">
+            <summary>
+            Returns a node reference, creating any required nodes as
+            needed, if the second parameter is true.
+            </summary></member>
+        <member name="P:MfGames.Utility.AttributeTreeCollection.Values">
+            <summary>
+            Returns a list of all child items, as an array of
+            AttributeTree elements.
+            </summary></member>
+        <member name="M:MfGames.Utility.AttributeTreeCollection.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Loads in the attribute data from the given serialization
+            context.
+            </summary></member>
+        <member name="T:MfGames.Utility.AuditMessageArgs">
+            <summary>
+            Contains the parameters of a message changed argument.
+            </summary></member>
+        <member name="T:MfGames.Utility.AuditSeverityArgs">
+            <summary>
+            Contains the parameters of a severity changed argument.
+            </summary></member>
+        <member name="T:MfGames.Utility.Auditable">
+            <summary>
+            An audited object is one that implements both the logging
+            interface and contains a basic functionality for auditing. This
+            implements the IAudited object.
+            This class is serializable, but the data is not stored. Instead,
+            the object is expected to rebuild it as the properties are set.
+            </summary></member>
+        <member name="E:MfGames.Utility.Auditable.AuditMessageChanged">
+            <summary>
+            This event is triggered when a message is changed in the
+            system. The given severity will be Severity.None if it is
+            removed.
+            </summary></member>
+        <member name="E:MfGames.Utility.Auditable.AuditSeverityChanged">
+            <summary>
+            This event is triggered when the severity changes. This
+            will not be called if the message changes, but the
+            severity does not.
+            </summary></member>
+        <member name="P:MfGames.Utility.Auditable.AuditMessages">
+            <summary>
+            Returns a hashtable that contains messages as the key
+            and the severity as the value for the key value.
+            </summary></member>
+        <member name="P:MfGames.Utility.Auditable.AuditSeverity">
+            <summary>
+            Returns the highest audit severity of all current audit
+            messages. If there are no audit messages, then this returns
+            Severity.None.
+            </summary></member>
+        <member name="M:MfGames.Utility.Auditable.ClearAuditMessage(System.String)">
+            <summary>
+            Clears any audit messages that the object may contain.
+            </summary></member>
+        <member name="M:MfGames.Utility.Auditable.FireAuditMessageChanged(System.Object,System.String,MfGames.Utility.Severity)">
+            <summary>
+            Fires the audit message change message.
+            </summary></member>
+        <member name="M:MfGames.Utility.Auditable.FireAuditSeverityChanged(System.Object,MfGames.Utility.Severity,MfGames.Utility.Severity)">
+            <summary>
+            Fires the audit severity changed message.
+            </summary></member>
+        <member name="M:MfGames.Utility.Auditable.RecalculateAuditSeverity">
+            <summary>
+            Recalculates the internal serverity level.
+            </summary></member>
+        <member name="M:MfGames.Utility.Auditable.SetAuditMessage(System.String,MfGames.Utility.Severity)">
+            <summary>
+            Sets an audit message and recalculates the severity. If the
+            severity is Severity.None, then this removes it from the
+            internal hash representation. Nulls and blanks for a message
+            are ignored.
+            </summary></member>
+        <member name="T:MfGames.Utility.ConfigStorage">
+            <summary>
+            This implements a static, singleton-style class that managed a
+            configuration or customization area. It allows for
+            $HOME/.MfGames/ on Unix/Linux while creating a folder called
+            MfGames in the "Application Data" folder on Windows.
+            </summary></member>
+        <member name="M:MfGames.Utility.ConfigStorage.#ctor(System.String)">
+            <summary>
+            Creates a new storage constructor with the given key.
+            </summary></member>
+        <member name="P:MfGames.Utility.ConfigStorage.Singleton">
+            <summary>
+            Contains the singleton storage as defined by the
+            application. This is null unless defined by the application.
+            </summary></member>
+        <member name="P:MfGames.Utility.ConfigStorage.StorageKey">
+            <summary>
+            Getter and setter for StorageKey. A storage key can consist of
+            spaces, letters, and numbers, but no other special
+            characters. It is case-sensitive.
+            </summary></member>
+        <member name="P:MfGames.Utility.ConfigStorage.StorageDirectory">
+            <summary>
+            Returns a DirectoryInfo representing the storage area. The
+            directory is not ensured to be created, unless the
+            InitStorage() method is called.
+            </summary></member>
+        <member name="M:MfGames.Utility.ConfigStorage.InitStorage">
+            <summary>
+            Creates the top-level directory for storage. This assumes that
+            the storage key is defined.
+            </summary></member>
+        <member name="M:MfGames.Utility.ConfigStorage.GetDirectory(System.String)">
+            <summary>
+            Returns a directory to represent a subapplication inside the
+            system. This assumes that the storage directory has already
+            been created, but it will create folders if they have not
+            been. This automatically creates the folder for the
+            application.
+            </summary></member>
+        <member name="T:MfGames.Utility.InvalidPathException">
+            <summary>
+            Indicates that the given path does not conform to the format
+            required by the system. This should be an indicator of invalid
+            characters or something of that manner.
+            </summary></member>
+        <member name="T:MfGames.Utility.Log">
+            <summary>
+            A log object appropriate for embedding in other objects, such as
+            static classes. This is a read-only class with a number of
+            constructors.
+            </summary></member>
+        <member name="P:MfGames.Utility.Log.LogContext">
+            <summary>
+            Contains the current log context for this log object.
+            </summary></member>
+        <member name="T:MfGames.Utility.Logable">
+            <summary>
+            Collects the basic functionality for logging on a class level into
+            a single class that all extending classes may use. These methods
+            are also public to enable other functions to initiate logs. The logging
+            is acutally performed by the Logger singleton in this package.
+            </summary></member>
+        <member name="P:MfGames.Utility.Logger.Singleton">
+            <summary>
+            Contains the ILogger used for the system. This is a singleton
+            and cannot be null. Attempting to assign a null will throw an
+            exception.
+            </summary></member>
+        <member name="T:MfGames.Utility.MersenneTwister">
+            <summary>
+            Class MersenneTwister generates random numbers from a uniform distribution using
+            the Mersenne Twister algorithm.
+            </summary>
+            <remarks>Caution: MT is for MonteCarlo, and is NOT SECURE for CRYPTOGRAPHY
+            as it is.</remarks></member>
+        <member name="M:MfGames.Utility.MersenneTwister.#ctor">
+            <summary>
+            Creates a random number generator using the time of day in milliseconds as
+            the seed.
+            </summary></member>
+        <member name="M:MfGames.Utility.MersenneTwister.#ctor(System.Int32)">
+            <summary>
+            Creates a random number generator initialized with the given seed.
+            </summary>
+            <param name="seed">The seed.</param></member>
+        <member name="M:MfGames.Utility.MersenneTwister.#ctor(System.Int32[])">
+            <summary>
+            Creates a random number generator initialized with the given array.
+            </summary>
+            <param name="init">The array for initializing keys.</param></member>
+        <member name="P:MfGames.Utility.MersenneTwister.MaxRandomInt">
+            <summary>
+            Gets the maximum random integer value. All random integers generated
+            by instances of this class are less than or equal to this value. This
+            value is <c>0x7fffffff</c> (<c>2,147,483,647</c>).
+            </summary></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Next">
+            <summary>
+            Returns a random integer greater than or equal to zero and
+            less than or equal to <c>MaxRandomInt</c>.
+            </summary>
+            <returns>The next random integer.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Next(System.Int32)">
+            <summary>
+            Returns a positive random integer less than the specified maximum.
+            </summary>
+            <param name="maxValue">The maximum value. Must be greater than zero.</param>
+            <returns>A positive random integer less than or equal to <c>maxValue</c>.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Next(System.Int32,System.Int32)">
+            <summary>
+            Returns a random integer within the specified range.
+            </summary>
+            <param name="minValue">The lower bound.</param>
+            <param name="maxValue">The upper bound.</param>
+            <returns>A random integer greater than or equal to <c>minValue</c>, and less than
+            or equal to <c>maxValue</c>.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.NextFloat">
+            <summary>
+            Returns a random number between 0.0 and 1.0.
+            </summary>
+            <returns>A single-precision floating point number greater than or equal to 0.0,
+            and less than 1.0.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.NextFloat(System.Boolean)">
+            <summary>
+            Returns a random number greater than or equal to zero, and either strictly
+            less than one, or less than or equal to one, depending on the value of the
+            given boolean parameter.
+            </summary>
+            <param name="includeOne">
+            If <c>true</c>, the random number returned will be
+            less than or equal to one; otherwise, the random number returned will
+            be strictly less than one.
+            </param>
+            <returns>
+            If <c>includeOne</c> is <c>true</c>, this method returns a
+            single-precision random number greater than or equal to zero, and less
+            than or equal to one. If <c>includeOne</c> is <c>false</c>, this method
+            returns a single-precision random number greater than or equal to zero and
+            strictly less than one.
+            </returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.NextFloatPositive">
+            <summary>
+            Returns a random number greater than 0.0 and less than 1.0.
+            </summary>
+            <returns>A random number greater than 0.0 and less than 1.0.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.NextDouble">
+            <summary>
+            Returns a random number between 0.0 and 1.0.
+            </summary>
+            <returns>A double-precision floating point number greater than or equal to 0.0,
+            and less than 1.0.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.NextDouble(System.Boolean)">
+            <summary>
+            Returns a random number greater than or equal to zero, and either strictly
+            less than one, or less than or equal to one, depending on the value of the
+            given boolean parameter.
+            </summary>
+            <param name="includeOne">
+            If <c>true</c>, the random number returned will be
+            less than or equal to one; otherwise, the random number returned will
+            be strictly less than one.
+            </param>
+            <returns>
+            If <c>includeOne</c> is <c>true</c>, this method returns a
+            single-precision random number greater than or equal to zero, and less
+            than or equal to one. If <c>includeOne</c> is <c>false</c>, this method
+            returns a single-precision random number greater than or equal to zero and
+            strictly less than one.
+            </returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.NextDoublePositive">
+            <summary>
+            Returns a random number greater than 0.0 and less than 1.0.
+            </summary>
+            <returns>A random number greater than 0.0 and less than 1.0.</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Next53BitRes">
+            <summary>
+            Generates a random number on <c>[0,1)</c> with 53-bit resolution.
+            </summary>
+            <returns>A random number on <c>[0,1)</c> with 53-bit resolution</returns></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Initialize">
+            <summary>
+            Reinitializes the random number generator using the time of day in
+            milliseconds as the seed.
+            </summary></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Initialize(System.Int32)">
+            <summary>
+            Reinitializes the random number generator with the given seed.
+            </summary>
+            <param name="seed">The seed.</param></member>
+        <member name="M:MfGames.Utility.MersenneTwister.Initialize(System.Int32[])">
+            <summary>
+            Reinitializes the random number generator with the given array.
+            </summary>
+            <param name="init">The array for initializing keys.</param></member>
+        <member name="T:MfGames.Utility.MfConvert">
+            <summary>
+            Contains various useful string conversion and hash methods. All
+            of the methods in this class are static.
+            </summary></member>
+        <member name="M:MfGames.Utility.MfConvert.ToHexString(System.Byte[])">
+            <summary>
+            Generates a hex string from a give set of bytes. This code
+            came from the Microsoft site.
+            </summary></member>
+        <member name="M:MfGames.Utility.MfConvert.ToMd5HexString(System.String)">
+            <summary>
+            Generates a MD5 hash, using only hex characters, in lower case.
+            </summary></member>
+        <member name="M:MfGames.Utility.MfConvert.ToMd5String(System.String)">
+            <summary>
+            Generates a MD5 hash which includes some additional characters
+            in the uppper ranges.
+            </summary></member>
+        <member name="T:MfGames.Utility.MimeFilenameIdentifier">
+            <summary>
+            A static class that just tries to identify the mime type of a
+            file based on its filename. This is just a simple lookup table,
+            but handles a good number of the "basic" cases.
+            </summary></member>
+        <member name="M:MfGames.Utility.MimeFilenameIdentifier.GetMimeType(System.String)">
+            <summary>
+            Identifies the type of file based on its filename/regex.
+            </summary></member>
+        <member name="T:MfGames.Utility.NodeRef">
+            <summary>
+            A node ref is a generic reference string that bears some
+            resemblance to the Unix file system path. It is used for a path
+            to either assets or some sort of internal system. Methods are
+            included for moving up in the path, bounding it to prevent
+            referencing a file outside of the reference's scope.
+            A top-level reference starts with "/" as <i>absolute</i>. All
+            NodeRef objects are absolute, to create a reference without a
+            leading "/" requires a second, non-null NodeRef object to
+            identify the current context of the reference. Paths also never
+            end in a trailing "/".
+            This is also a read-only object. Once created, no methods alter
+            the internal for the class. Methods that return a different path
+            always create a new object.
+            The choice of using the "/" character as a seperate is that it
+            requires no escaping in a normal C# string.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.#ctor">
+            <summary>
+            Private constructor that makes a root context.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.#ctor(System.String)">
+            <summary>
+            Constructs a node reference using only the given path. If the
+            path is invalid in any manner, including not being absolute,
+            an exception is thrown.
+            </summary></member>
+        <member name="F:MfGames.Utility.NodeRef.FIND_DOUBLE_SLASH">
+            Frequently used regex to simplify dupliate "//" characters</member>
+        <member name="P:MfGames.Utility.NodeRef.Item(System.Int32)">
+            <summary>
+            Returns the nth element of the path.
+            </summary></member>
+        <member name="P:MfGames.Utility.NodeRef.Item(System.String)">
+            <summary>
+            A simple accessor that allows retrieval of a child path
+            from this one. This, in effect, calls CreateChild(). The
+            exception is if the path is given as ".." which then returns
+            the parent object as appropriate (this will already return
+            something, unlike ParentRef or ParentPath.
+            </summary></member>
+        <member name="P:MfGames.Utility.NodeRef.Path">
+            <summary>
+            Returns the string path for comparison or values.
+            </summary></member>
+        <member name="P:MfGames.Utility.NodeRef.Count">
+            <summary>
+            Returns the number of components in the path.
+            </summary></member>
+        <member name="P:MfGames.Utility.NodeRef.Name">
+            <summary>
+            Returns the bottom-most name of the node reference.
+            </summary></member>
+        <member name="P:MfGames.Utility.NodeRef.ParentRef">
+            <summary>
+            Returns the node reference for a parent. If this is already
+            the root, it will automatically return null on this object.
+            </summary></member>
+        <member name="P:MfGames.Utility.NodeRef.ParentPath">
+            <summary>
+            Returns the text-version of the parent path. This just
+            generates the parent and builds up the string path from
+            that. If this is already the top, it returns null.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.ParsePath(System.String,MfGames.Utility.NodeRef)">
+            <summary>
+            This parses the given path and builds up the internal
+            representation into memory. This representation is used
+            for path and additional processing.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.GetSubRef(MfGames.Utility.NodeRef)">
+            <summary>
+            Returns a NodeRef which has this node's path removed from the
+            beginning. If the given reference is not included (as per the
+            Includes), it will be returned completely.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.Equals(System.Object)">
+            <summary>
+            Compares two node references.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.GetHashCode">
+            <summary>
+            Overrides the hash code to prevent the errors.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.Includes(MfGames.Utility.NodeRef)">
+            <summary>
+            Returns true if this path includes the given path. This means
+            that given path is under or part of this node's path.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.ToString">
+            <summary>
+            Returns the path when requested as a string.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.CreateChild(System.String)">
+            <summary>
+            Creates a child from this node, by creating the path that uses
+            this object as a context.
+            </summary></member>
+        <member name="M:MfGames.Utility.NodeRef.ToFileSystemPath">
+            <summary>
+            This returns a file system path, appropriate to the
+            filesystem, but without any roots. So, "/a/b" comes out as
+            "a\b" on Windows and "a/b" on Unix.
+            </summary></member>
+        <member name="T:MfGames.Utility.NotAbsolutePathException">
+            <summary>
+            Indicates that the given path does not have an absolute path nor
+            can it be converted into an absolute path.
+            </summary></member>
+        <member name="T:MfGames.Utility.SecondGuage">
+            <summary>
+            A simple guage which attempts to keep track of how many ticks or
+            activations per second. This is used to calculate the FPS of a
+            program.
+            </summary></member>
+        <member name="M:MfGames.Utility.SecondGuage.Activate">
+            <summary>
+            Activates the counter for the current second.
+            </summary></member>
+        <member name="M:MfGames.Utility.SecondGuage.OnTick(MfGames.Utility.TickArgs)">
+            <summary>
+            Enables the guage to be added directly to a tick manager.
+            </summary></member>
+        <member name="T:MfGames.Utility.TickManager">
+            <summary>
+            This simple class handles a single "tick" thread. It is given a
+            certain time to sleep between the tick. On each tick, it sends a
+            TickEvent to all delegates.
+            </summary></member>
+        <member name="M:MfGames.Utility.TickManager.Run">
+            <summary>
+            Processes the tick server thread. This keeps track of the
+            number of skipped ticks, to give a more accurate count or
+            status of each tick.
+            </summary></member>
+        <member name="M:MfGames.Utility.TickManager.RunTicker">
+            <summary>
+            Executes a single tick statement in a second thread.
+            </summary></member>
+        <member name="M:MfGames.Utility.TickManager.Add(MfGames.Utility.ITickable)">
+            <summary>
+            Convienance function to add an ITickable object into the tick
+            manager.
+            </summary></member>
+        <member name="M:MfGames.Utility.TickArgs.RatePerSecond(System.Int32)">
+            <summary>
+            Calculates a rate, adjusted for seconds. This method takes the
+            rate that something should happen every second and adjusts it
+            by the amount of time since the last tick (typically less than
+            the rate, but potential by more if there are a lot of skipped
+            cycles).
+            </summary></member>
+        <member name="M:MfGames.Utility.TickArgs.RatePerSecond(System.Double)">
+            <summary>
+            Calculates a rate, adjusted for seconds. This method takes the
+            rate that something should happen every second and adjusts it
+            by the amount of time since the last tick (typically less than
+            the rate, but potential by more if there are a lot of skipped
+            cycles).
+            </summary></member>
+        <member name="T:MfGames.Utility.TypeChooser">
+            <summary>
+            Implements a basic type chooser which allows a system to add
+            zero or more objects as strings to a type name
+            ("MfGames.Utility.TypeChooser" for example). Then, by giving the
+            system a type object, it will return the list of all objects
+            that match the type, or any parent class or interface of that
+            type.
+            </summary></member>
+        <member name="M:MfGames.Utility.TypeChooser.#ctor">
+            <summary>
+            Creates an empty type chooser object.
+            </summary></member>
+        <member name="P:MfGames.Utility.TypeChooser.Count">
+            <summary>
+            Returns the type of types in the chooser.
+            </summary></member>
+        <member name="M:MfGames.Utility.TypeChooser.Add(System.String,System.Object)">
+            <summary>
+            Adds a list of objects to the hash table, keyed by the string
+            name which should be the name of the class or interface
+            type.
+            </summary></member>
+        <member name="M:MfGames.Utility.TypeChooser.AddRange(MfGames.Utility.TypeChooser)">
+            <summary>
+            Adds all of the elements in a type chooser to this one. This
+            does not replace, just appends to the individual lists.
+            </summary></member>
+        <member name="M:MfGames.Utility.TypeChooser.FindAllTypes(System.Type,System.Object)">
+            <summary>
+            Delegate for filtering through the types. This just indicates
+            that all types should be found.
+            </summary></member>
+        <member name="M:MfGames.Utility.TypeChooser.Select(System.Type)">
+            <summary>
+            Selects the range of all the lists that are keyed on the type
+            name given or the name of any parent class or interface. For
+            example, giving typeof(string) will return any for
+            "System.String" or "System.Object" and so on.
+            </summary></member>
+        <member name="T:MfGames.Utility.UtilityException">
+            <summary>
+            Top-level for all utility exceptions. This indicates a general
+            problem with the Utility library or one of the methods inside it.
+            </summary></member>
+        <member name="T:MfGames.Utility.ValueTree">
+            <summary>
+            Extends an AttributeTree and wraps a basic value around it,
+            including some translation features for converting to and from
+            various common types.
+            </summary></member>
+        <member name="M:MfGames.Utility.ValueTree.#ctor">
+            <summary>
+            Construct the empty or default values.
+            </summary></member>
+        <member name="P:MfGames.Utility.ValueTree.Int32">
+            <summary>
+            Contains the integer value or throws an exception.
+            </summary></member>
+        <member name="P:MfGames.Utility.ValueTree.String">
+            <summary>
+            Contains the set value, or null if no value.
+            </summary></member>
+        <member name="M:MfGames.Utility.ValueTree.CreateClone">
+            <summary>
+            Methods for changing what object is used for child elements.
+            </summary></member>
+        <member name="T:MfGames.Utility.Version">
+            <summary>
+            Implements a full-featured version parsing and comparison
+            class. This, like String, is an immutable class. Any methods
+            that would adjust a version return a new one.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.#ctor">
+            <summary>
+            Constructs an empty version with a version of zero ("0").
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.#ctor(System.String)">
+            <summary>
+            Constructs a version using the given string as the
+            version. This breaks up the version into version parts (broken
+            down by periods (".") and slashes ("-"). A version part
+            consists of a number, followed optionally by a string. If the
+            version cannot be parsed, it throws an MfGamesException.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.CompareOp(System.String)">
+            <summary>
+            A Debian-like parsing of version numbers that encodes the
+            operation into the string. For example, "&gt; 2.3.4" would be
+            true if the Version object was 2.3.5 but not 2.3.3 or 2.3.4.
+            The following operations are allowed:
+            "&lt;", "&lt;=", "=", "&gt;", "&gt;="
+            There may be any number of spaces between the op and the version.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.Equals(System.Object)">
+            <summary>
+            Determines if the object is equal to the current one. In cases
+            where the object is not a Version class, it returns false.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.GetHashCode">
+            <summary>
+            Overrides the hash code for the version, which is based on all
+            the version parts.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.ToString">
+            <summary>
+            Returns the text version of the string.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.op_Equality(MfGames.Utility.Version,MfGames.Utility.Version)">
+            <summary>
+            Determines if the two versions are syntactically equal. If all
+            the version parts are identical, then so is the entire version.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.op_LessThan(MfGames.Utility.Version,MfGames.Utility.Version)">
+            <summary>
+            Determines if the first is less than the second one. There are
+            some conditions where a version is neither less than or greater
+            than another version, specifcally with version parts that have
+            text in it.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.op_LessThanOrEqual(MfGames.Utility.Version,MfGames.Utility.Version)">
+            <summary>
+            Determines if the first version is less than or equal to
+            the second version. See the &lt; operator for more conditions.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.op_GreaterThan(MfGames.Utility.Version,MfGames.Utility.Version)">
+            <summary>
+            Determines if the first version is greater than the second
+            version. See the &lt; operator for more conditions.
+            </summary></member>
+        <member name="M:MfGames.Utility.Version.op_GreaterThanOrEqual(MfGames.Utility.Version,MfGames.Utility.Version)">
+            <summary>
+            Determines if the first version is greater than or equal to
+            the second version. See the &lt; operator for more conditions.
+            </summary></member>
+        <member name="T:MfGames.Utility.WeightedSelector">
+            <summary>
+            This class contains a list of keys and their weights. It allows
+            a random selection of elements, based on the weights.
+            </summary></member>
+        <member name="M:MfGames.Utility.WeightedSelector.Select(System.Int32)">
+            <summary>
+            Selects a specific object from the weighted chart, based on
+            the given index.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.ArgumentScanner">
+            <summary>
+            Describes the basic argument scanner.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.ArgumentScanner.Arguments">
+            <summary>
+            Contains the dictionary with the argument names.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.ArgumentScanner.AttributeType">
+            <summary>
+            Returns the type of attribute class that this scanner looks
+            for.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ArgumentScanner.IsMatch(System.String)">
+            <summary>
+            Used to identify if this argument can be matched against the
+            format of this scanner. This function has a secondary effect
+            of pulling out the individual components and preparing them
+            for use with the ArgumentNames property.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.CommandLineArguments">
+            <summary>
+            This class manages command line argument processing. This also
+            does the various processing on the command line using the
+            Process() method.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.#ctor(System.String[])">
+            <summary>
+            Constructs the object from the given string [] block.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.CommandLineArguments.Scanners">
+            <summary>
+            Contains the array list of scanners.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.CommandLineArguments.RemainingArguments">
+            <summary>
+            Contains the list of arguments that remain unparsed. This is a
+            live copy, so changes are reflected back in this object.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.Assign(System.Object,MfGames.Utility.Tool.ArgumentScanner)">
+            <summary>
+            Attempts to assign the value into a property or field that has
+            the appropriate attribute and matches the name.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.Assign(System.Object,System.Reflection.MemberInfo,System.String[],System.Boolean)">
+            <summary>
+            Assigns the given array of strings into the given member.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.Assign(System.Object,System.String,System.Int32)">
+            <summary>
+            Attempts to assign a positional argument, with a given
+            index. This scans through the container object, find the
+            appropriate positional attribute, and sets that member.
+            This returns true if it can be assigned. If multiple
+            properties or fields can be set, they are.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.CheckPositionalCount(System.Object,System.Int32)">
+            <summary>
+            Checks for the required positional attributes. If there are
+            unassigned positional attributes, and they were not set, it
+            throws an exception.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.Process(System.Object)">
+            <summary>
+            Processes the command-line arguments, using the various
+            attributes of the given class to handle the processing.
+            Found parameters are removed.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.Process(System.Object,System.Boolean)">
+            <summary>
+            Processes the command-line arguments, using the various
+            attributes of the given class to handle the processing. If the
+            second parameter is true, then the arguments are removed as
+            they are processed.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.CommandLineArguments.MapType(System.Type,System.String[])">
+            <summary>
+            Maps the string [] values to a type that is acceptable to the
+            given type.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.LongArgumentAttribute">
+            <summary>
+            Contains the internal functionality for a single command-line
+            argument descriptor. This indicates that the given property will
+            be set when the command-line is parsed (using the given object)
+            and those command-line arguments are removed.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.LongArgumentAttribute.HasParameter">
+            <summary>
+            Indicates that this argument has a parameter. This defaults to
+            false.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.LongArgumentAttribute.Name">
+            <summary>
+            Contains the registered name of this attribute.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.LongArgumentAttribute.ParameterOptional">
+            <summary>
+            Indicates of a parameter is optional. This defaults to false.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.LongArgumentScanner">
+            <summary>
+            Describes a long command line argument format. This handles the
+            processing for LongArgumentAttribute objects.
+            </summary></member>
+        <member name="F:MfGames.Utility.Tool.LongArgumentScanner.DoubleDash">
+            <summary>
+            Contains a scanner that handles "--" arguments with a
+            equal("=") between the variables and a comma for lists.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.LongArgumentScanner.Arguments">
+            <summary>
+            Contains the dictionary with the argument names.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.LongArgumentScanner.AttributeType">
+            <summary>
+            Returns the type of attribute class that this scanner looks
+            for.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.LongArgumentScanner.IsMatch(System.String)">
+            <summary>
+            Used to identify if this argument can be matched against the
+            format of this scanner. This function has a secondary effect
+            of pulling out the individual components and preparing them
+            for use with the ArgumentNames property.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.PositionalAttribute">
+            <summary>
+            Represents a positional attribute which is used after the long
+            and short arguments are processed. This will not match an
+            argument attribute (based on the regexes).
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.PositionalAttribute.#ctor">
+            <summary>
+            Constructs an empty positional attribute.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.PositionalAttribute.#ctor(System.Int32)">
+            <summary>
+            Constructs the positional attribute with the given index.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.PositionalAttribute.Description">
+            <summary>
+            Contains a short, hopefully one-line description which is used
+            for the usage functionality.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.PositionalAttribute.Index">
+            in the usage
+            <summary>
+            Contains the zero-based index for the position. A position 0
+            attribute will get the first one, the position 1 gets the
+            next, etc.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.PositionalAttribute.IsOptional">
+            <summary>
+            Indicates of a parameter is optional. This defaults to false.
+            </summary></member>
+        <member name="P:MfGames.Utility.Tool.PositionalAttribute.Name">
+            <summary>
+            Contains the name of the positional attribute, which defaults
+            to "argX" where X is the Index property.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.ToolException">
+            <summary>
+            Exceptions for all tool classes.
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.ToolManager">
+            <summary>
+            Implements a basic tool which also includes the internal
+            processing for help and user input.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ToolManager.Process(System.String[])">
+            <summary>
+            Sets up logging and prepares to use the sysetm.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ToolManager.SetArgumentParameters(MfGames.Utility.Tool.CommandLineArguments)">
+            <summary>
+            Allows the various settings, such as the parameter formats, to
+            the arguments before processing.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ToolManager.ProcessCommand(MfGames.Utility.Tool.CommandLineArguments)">
+            <summary>
+            Process the command based on the arguments.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ToolManager.RegisterTool(MfGames.Utility.Tool.ITool)">
+            <summary>
+            Registers a single tool and its keys.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.ToolManager.RegisterTools">
+            <summary>
+            Registers the callbacks into the system by allowing the
+            extending class to RegisterTool().
+            </summary></member>
+        <member name="T:MfGames.Utility.Tool.UsageFormatter">
+            <summary>
+            Formats an object with various argument and positional
+            parameters and produces a nice "usage" screen.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.FormatParameter(MfGames.Utility.Tool.PositionalAttribute)">
+            <summary>
+            Returns a single formatted parameter name.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.GetPositional(System.Object)">
+            <summary>
+            Returns a sorted list of positional attributes.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.GetPositionalNames(System.Object)">
+            <summary>
+            Returns a list of positional names, formatted for optional or
+            non-optional as needed.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.HasParameters(System.Object)">
+            <summary>
+            Returns true if there is at least one parameter
+            (non-positional) defined.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.Format(System.Object,System.String,System.Exception)">
+            <summary>
+            Formats the usage based on the object.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.FormatMessage(System.String,System.Exception)">
+            <summary>
+            Formats the message for this usage.
+            </summary></member>
+        <member name="M:MfGames.Utility.Tool.UsageFormatter.WriteLine(System.String)">
+            <summary>
+            Writes out a single line of the usage.
+            </summary></member>
+        <member name="T:MfGames.Utility.Asset.AssemblyAsset">
+            <summary>
+            Defines a single asset inside the assembly. This is implemented
+            as a resource inside the assembly.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.AssemblyAsset.#ctor(MfGames.Utility.Asset.AssemblyAssetProvider,MfGames.Utility.NodeRef)">
+            <summary>
+            Constructs an asset from the given assembly. If the resource
+            does not exist, this throws an AssetException.
+            </summary></member>
+        <member name="P:MfGames.Utility.Asset.AssemblyAsset.Assembly">
+            <summary>
+            Contains the assembly that this asset is keyed into.
+            </summary></member>
+        <member name="P:MfGames.Utility.Asset.AssemblyAsset.Provider">
+            <summary>
+            Contains the provider.
+            </summary></member>
+        <member name="P:MfGames.Utility.Asset.AssemblyAsset.Size">
+            <summary>
+            Contains the length or size of the asset. If this is -1 if the
+            size cannot be read for some reason.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.AssemblyAsset.OpenStream">
+            <summary>
+            Opens a stream for reading to this asset.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.AssemblyAsset.OpenText">
+            <summary>
+            Opens a StreamReader object for this asset.
+            </summary></member>
+        <member name="T:MfGames.Utility.Asset.AssemblyAssetProvider">
+            <summary>
+            Constructs a basic asset provider that takes an assembly and
+            provides files from the manifest.
+            This provider assumes that the files in the manifest stream are
+            stored in a specific format: "a/b/c" where the leading "/" of
+            the NodeRef is automatically stripped (see StripLeadingSlash
+            property).
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.AssemblyAssetProvider.#ctor(System.Reflection.Assembly)">
+            <summary>
+            Creates a provider with a given assembly.
+            </summary></member>
+        <member name="P:MfGames.Utility.Asset.AssemblyAssetProvider.Assembly">
+            <summary>
+            Contains the assembly that this provider is keyed into.
+            </summary></member>
+        <member name="P:MfGames.Utility.Asset.AssemblyAssetProvider.StripLeadingSlash">
+            <summary>
+            Contains true of the various assets should strip the leading
+            slash of the path (as a NodeRef) before attempting to retrieve
+            the asset.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.AssemblyAssetProvider.GetAsset(MfGames.Utility.NodeRef,System.Boolean)">
+            <summary>
+            Retrieves an asset from the provider. If the second parameter
+            is true and the asset cannot be found, an AssetException is
+            thrown. Otherwise, this function will return null if it cannot
+            be found.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.AssemblyAssetProvider.Debug">
+            <summary>
+            Debugs this provider by dumping out important data.
+            </summary></member>
+        <member name="T:MfGames.Utility.Asset.AssetException">
+            <summary>
+            Exception for assets.
+            </summary></member>
+        <member name="T:MfGames.Utility.Asset.ListAssetProvider">
+            <summary>
+            Defines an asset provider that takes a list of asset providers
+            and gives a central access. This is a form of layered access to
+            the providers, except that the first one found is returned.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.ListAssetProvider.#ctor">
+            <summary>
+            Constructs an empty list asset provider.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.ListAssetProvider.GetAsset(MfGames.Utility.NodeRef,System.Boolean)">
+            <summary>
+            Retrieves an asset from the provider. If the second parameter
+            is true and the asset cannot be found, an AssetException is
+            thrown. Otherwise, this function will return null if it cannot
+            be found.
+            </summary></member>
+        <member name="M:MfGames.Utility.Asset.ListAssetProvider.AddAssetProvider(MfGames.Utility.Asset.IAssetProvider)">
+            <summary>
+            Adds an asset provider to the list.
+            </summary></member>
+        <member name="T:MfGames.Utility.AuditMessageHandler">
+            <summary>
+            This is the handler for delegates for the audit message changes.
+            </summary></member>
+        <member name="T:MfGames.Utility.AuditSeverityHandler">
+            <summary>
+            This is the handler for delegates for the audit severity changes.
+            </summary></member>
+        <member name="T:MfGames.Utility.TickHandler">
+            <summary>
+            Handles the ticks as they are processed by the system.
+            </summary></member>
+        <member name="T:MfGames.Utility.Severity">
+            <summary>
+            Defines the standard levels used by the logging system. These
+            are also used to display the actual level in various messages
+            as needed.
+            </summary></member>
+    </members>
+</doc>

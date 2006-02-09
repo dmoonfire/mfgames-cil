@@ -1,0 +1,486 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{60CD8BA2-8BD5-41F0-9BD2-5731CB33A740}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "MfGames.Utility"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "mfgames_utility"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    Link = "..\src\AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AttributeTree.cs"
+                    Link = "..\src\AttributeTree.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AttributeTreeCollection.cs"
+                    Link = "..\src\AttributeTreeCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Auditable.cs"
+                    Link = "..\src\Auditable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AuditMessageArgs.cs"
+                    Link = "..\src\AuditMessageArgs.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AuditMessageHandler.cs"
+                    Link = "..\src\AuditMessageHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AuditSeverityArgs.cs"
+                    Link = "..\src\AuditSeverityArgs.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AuditSeverityHandler.cs"
+                    Link = "..\src\AuditSeverityHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ConfigStorage.cs"
+                    Link = "..\src\ConfigStorage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ConsoleLogger.cs"
+                    Link = "..\src\ConsoleLogger.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Entropy.cs"
+                    Link = "..\src\Entropy.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "IAuditable.cs"
+                    Link = "..\src\IAuditable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "IEntropy.cs"
+                    Link = "..\src\IEntropy.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "InvalidPathException.cs"
+                    Link = "..\src\InvalidPathException.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ITickable.cs"
+                    Link = "..\src\ITickable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MersenneEntropy.cs"
+                    Link = "..\src\MersenneEntropy.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MersenneTwister.cs"
+                    Link = "..\src\MersenneTwister.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MfConvert.cs"
+                    Link = "..\src\MfConvert.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MimeFilenameIdentifier.cs"
+                    Link = "..\src\MimeFilenameIdentifier.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "NodeRef.cs"
+                    Link = "..\src\NodeRef.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "NotAbsolutePathException.cs"
+                    Link = "..\src\NotAbsolutePathException.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SecondGuage.cs"
+                    Link = "..\src\SecondGuage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Severity.cs"
+                    Link = "..\src\Severity.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TickManager.cs"
+                    Link = "..\src\TickManager.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "TypeChooser.cs"
+                    Link = "..\src\TypeChooser.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "UtilityException.cs"
+                    Link = "..\src\UtilityException.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ValueTree.cs"
+                    Link = "..\src\ValueTree.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Version.cs"
+                    Link = "..\src\Version.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "WeightedSelector.cs"
+                    Link = "..\src\WeightedSelector.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "asset\AssemblyAsset.cs"
+                    Link = "..\src\asset\AssemblyAsset.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "asset\AssemblyAssetProvider.cs"
+                    Link = "..\src\asset\AssemblyAssetProvider.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "asset\AssetException.cs"
+                    Link = "..\src\asset\AssetException.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "asset\IAsset.cs"
+                    Link = "..\src\asset\IAsset.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "asset\IAssetProvider.cs"
+                    Link = "..\src\asset\IAssetProvider.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "asset\ListAssetProvider.cs"
+                    Link = "..\src\asset\ListAssetProvider.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\AdditionDice.cs"
+                    Link = "..\src\dice\AdditionDice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\ConstantDice.cs"
+                    Link = "..\src\dice\ConstantDice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\DiceException.cs"
+                    Link = "..\src\dice\DiceException.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\DiceFactory.cs"
+                    Link = "..\src\dice\DiceFactory.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\IDice.cs"
+                    Link = "..\src\dice\IDice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\Parser.cs"
+                    Link = "..\src\dice\Parser.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\RandomDice.cs"
+                    Link = "..\src\dice\RandomDice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\Scanner.cs"
+                    Link = "..\src\dice\Scanner.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "dice\SubtractionDice.cs"
+                    Link = "..\src\dice\SubtractionDice.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "log\ILogSink.cs"
+                    Link = "..\src\log\ILogSink.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "log\Log.cs"
+                    Link = "..\src\log\Log.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "log\Logable.cs"
+                    Link = "..\src\log\Logable.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "log\Logger.cs"
+                    Link = "..\src\log\Logger.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ModelSupport\default.txaPackage"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\default.txvpck"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\default.txaPackage"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\default.txvpck"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\default.txaPackage"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\default.txvpck"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\Asset\default.txaPackage"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\Asset\default.txvpck"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\Dice\default.txaPackage"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\Dice\default.txvpck"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\Tool\default.txaPackage"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "ModelSupport\MfGames\Utility\Tool\default.txvpck"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "tool\ArgumentScanner.cs"
+                    Link = "..\src\tool\ArgumentScanner.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\CommandLineArguments.cs"
+                    Link = "..\src\tool\CommandLineArguments.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\IArgumentAttribute.cs"
+                    Link = "..\src\tool\IArgumentAttribute.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\ITool.cs"
+                    Link = "..\src\tool\ITool.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\LongArgumentAttribute.cs"
+                    Link = "..\src\tool\LongArgumentAttribute.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\LongArgumentScanner.cs"
+                    Link = "..\src\tool\LongArgumentScanner.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\PositionalAttribute.cs"
+                    Link = "..\src\tool\PositionalAttribute.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\ToolException.cs"
+                    Link = "..\src\tool\ToolException.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\ToolManager.cs"
+                    Link = "..\src\tool\ToolManager.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "tool\UsageFormatter.cs"
+                    Link = "..\src\tool\UsageFormatter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

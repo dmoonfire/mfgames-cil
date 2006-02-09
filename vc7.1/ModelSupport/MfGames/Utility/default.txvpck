@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet>
+  <view uin="1adqeudzr_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="design:view:::dedyqel166tqdm_v">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3546,310,74,173" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Dice.Errors" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Dice.Parser" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Dice.Scanner" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Dice.Buffer" />
+      <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Dice.Token" />
+    </reference>
+    <reference referencedUin="design:view:::6gd3nkbnn_v">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3640,310,74,96" />
+    </reference>
+    <reference referencedUin="design:view:::wfdv0bpvj_v">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3734,310,74,96" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Log">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="317,99,120,144" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Log.context" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Log.Log(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Log.Log(System.Type)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Log.Log(System.String)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.Log.LogContext" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.Log:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="377,243" />
+        <property name="targetAnchor" value="683,480" />
+        <property name="bendpoints" value="377,255" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IArgumentAttribute">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1501,66,118,79" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.IArgumentAttribute.Name" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ILogSink">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2244,200,73,79" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ILogSink.Log(MfGames.Utility.Severity,System.String,System.String,System.Exception)" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.RandomDice">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2543,214,104,144" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.RandomDice.RandomDice(System.Int32,System.Int32)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.RandomDice.sides" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.RandomDice.count" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.RandomDice.Roll" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.RandomDice.ToString()" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.RandomDice:MfGames.Utility.IDice">
+        <property name="sourceAnchor" value="2647,285" />
+        <property name="targetAnchor" value="2727,285" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="289,1113,154,174" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.Debug()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.GetAsset(MfGames.Utility.NodeRef,System.Boolean)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.AssemblyAssetProvider(System.Reflection.Assembly)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.StripLeadingSlash" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.Assembly" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.stripLeadingSlash" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider.assembly" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider:MfGames.Utility.IAssetProvider">
+        <property name="sourceAnchor" value="347,1113" />
+        <property name="targetAnchor" value="347,696" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.AssemblyAssetProvider:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="436,1113" />
+        <property name="targetAnchor" value="663,832" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MfConvert">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3828,310,150,127" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MfConvert.ToMd5String(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MfConvert.ToMd5HexString(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MfConvert.ToHexString(System.Byte[])" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MfConvert.HEX_DIGITS" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="704,1817,141,162" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.NewSeverity" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.OldSeverity" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.AuditSeverityArgs(MfGames.Utility.Severity,MfGames.Utility.Severity)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.newSeverity" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.oldSeverity" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.newSeverity">
+        <property name="sourceAnchor" value="845,1871" />
+        <property name="targetAnchor" value="965,1871" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AuditSeverityArgs.oldSeverity">
+        <property name="sourceAnchor" value="845,1924" />
+        <property name="targetAnchor" value="965,1924" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IAsset">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="463,601,161,111" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.IAsset.OpenText()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.IAsset.Size" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.IAsset.OpenStream()" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.NodeRef">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1923,412,216,489" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.NodeRef()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.RootContext" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.NodeRef.ParentPath" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.NodeRef.ParentRef" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.ToFileSystemPath()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.CreateChild(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.this[System.String]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.ToString()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.NodeRef.Name" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.Includes(MfGames.Utility.NodeRef)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.GetHashCode()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.Equals(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.GetSubRef(MfGames.Utility.NodeRef)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.NodeRef.Count" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.NodeRef.Path" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.this[System.Int32]" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.parts" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.pref" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.ParsePath(System.String,MfGames.Utility.NodeRef)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.FIND_INVALID_UP" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.FIND_REF_UP" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.FIND_HERE" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.FIND_TRAILING_SLASHES" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.FIND_LEADING_SLASHES" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.NodeRef.FIND_DOUBLE_SLASH" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.NodeRef(System.String,MfGames.Utility.NodeRef)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NodeRef.NodeRef(System.String)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.NodeRef:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="1923,656" />
+        <property name="targetAnchor" value="764,656" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.NodeRef.RootContext">
+        <property name="sourceAnchor" value="2139,893" />
+        <property name="targetAnchor" value="2131,901" />
+        <property name="bendpoints" value="2172,893,2172,934,2131,934" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1474,1050,338,300" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.this[System.String]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.this[MfGames.Utility.NodeRef,System.Boolean]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.this[MfGames.Utility.NodeRef]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.Remove(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.Add(System.String,System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.AttributeTreeCollection(MfGames.Utility.AttributeTree)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.AttributeTreeCollection()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.baseTree" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.AttributeTreeCollection(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.Values" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.this[System.String,System.Boolean]" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AttributeTreeCollection.baseTree">
+        <property name="sourceAnchor" value="1812,1150" />
+        <property name="targetAnchor" value="1932,1150" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.SecondGuage">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2960,10,110,234" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.SecondGuage.IsFull" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.SecondGuage.Average" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.SecondGuage.OnTick(MfGames.Utility.TickArgs)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.SecondGuage.Activate()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.SecondGuage.IsTickable" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.SecondGuage.loops" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.SecondGuage.lastSecond" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.SecondGuage.SecondGuage(System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.SecondGuage.SecondGuage()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.SecondGuage.buckets" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.SecondGuage.span" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.SecondGuage:MfGames.Utility.ITickable">
+        <property name="sourceAnchor" value="3070,127" />
+        <property name="targetAnchor" value="3150,127" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="646,1524,127,162" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs.Severity" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs.Message" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs.AuditMessageArgs(System.String,MfGames.Utility.Severity)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs.severity" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs.message" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AuditMessageArgs.severity">
+        <property name="sourceAnchor" value="709,1686" />
+        <property name="targetAnchor" value="980,1819" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Logger">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2397,10,126,459" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Alert(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Alert(System.String,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Alert(System.String,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.Logger.Singleton" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Logger.logger" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Trace(System.Type,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Trace(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Trace(System.String,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Trace(System.String,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Info(System.Type,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Info(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Info(System.String,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Info(System.String,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Fatal(System.Type,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Fatal(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Fatal(System.String,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Fatal(System.String,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Error(System.Type,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Error(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Error(System.String,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Error(System.String,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Debug(System.Type,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Debug(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Debug(System.String,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Debug(System.String,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logger.Alert(System.Type,System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.Logger.logger">
+        <property name="sourceAnchor" value="2397,239" />
+        <property name="targetAnchor" value="2317,239" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="560,2049,222,234" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.listRegex" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.equalRegex" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.prefixRegex" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.LongArgumentScanner(System.String,System.String,System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.LongArgumentScanner(System.String,System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.LongArgumentScanner(System.String)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.DoubleDash" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.IsMatch(System.String)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.AttributeType" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.Arguments" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.names" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner.DoubleDash">
+        <property name="sourceAnchor" value="782,2275" />
+        <property name="targetAnchor" value="774,2283" />
+        <property name="bendpoints" value="815,2275,815,2316,774,2316" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.LongArgumentScanner:MfGames.Utility.ArgumentScanner">
+        <property name="sourceAnchor" value="658,2049" />
+        <property name="targetAnchor" value="818,1256" />
+        <property name="bendpoints" value="626,1605,626,1527" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.DiceFactory">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3998,310,87,95" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.DiceFactory.Parse(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.DiceFactory.DiceFactory()" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AdditionDice">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2836,10,104,144" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AdditionDice.ToString()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AdditionDice.AdditionDice(MfGames.Utility.IDice,MfGames.Utility.IDice)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AdditionDice.d2" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AdditionDice.d1" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AdditionDice.Roll" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AdditionDice.d2">
+        <property name="sourceAnchor" value="2862,154" />
+        <property name="targetAnchor" value="2792,246" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AdditionDice.d1">
+        <property name="sourceAnchor" value="2888,154" />
+        <property name="targetAnchor" value="2799,246" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.AdditionDice:MfGames.Utility.IDice">
+        <property name="sourceAnchor" value="2914,154" />
+        <property name="targetAnchor" value="2800,252" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MersenneEntropy">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3120,228,154,127" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneEntropy.Next(System.Int32,System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneEntropy.Next()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneEntropy.MersenneEntropy()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneEntropy.twister" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.MersenneEntropy.twister">
+        <property name="sourceAnchor" value="3274,291" />
+        <property name="targetAnchor" value="3354,291" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.MersenneEntropy:MfGames.Utility.IEntropy">
+        <property name="sourceAnchor" value="3196,355" />
+        <property name="targetAnchor" value="3196,652" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditSeverityHandler">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3640,470,159,38" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.UsageFormatter">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="947,86,162,170" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.WriteLine(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.FormatMessage(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.Format(System.Object,System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.HasParameters(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.GetPositionalNames(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.GetPositional(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UsageFormatter.FormatParameter(MfGames.Utility.PositionalAttribute)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.UsageFormatter:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="1028,256" />
+        <property name="targetAnchor" value="764,582" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ValueTree">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1948,1542,167,127" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ValueTree.String" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ValueTree.Int32" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ValueTree.CreateClone()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ValueTree.ValueTree()" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.ValueTree:MfGames.Utility.AttributeTree">
+        <property name="sourceAnchor" value="2031,1542" />
+        <property name="targetAnchor" value="2031,1386" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Severity">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="965,1819,60,158" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.Fatal" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.Error" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.Alert" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.Info" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.Debug" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.Trace" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Severity.None" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TypeChooser">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3819,470,118,174" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TypeChooser.lists" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TypeChooser.Select(System.Type)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TypeChooser.FindAllTypes(System.Type,System.Object)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.TypeChooser.Count" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TypeChooser.Add(System.String,System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TypeChooser.AddRange(MfGames.Utility.TypeChooser)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TypeChooser.TypeChooser()" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ITickable">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3150,79,106,96" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ITickable.OnTick(MfGames.Utility.TickArgs)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ITickable.IsTickable" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Logable">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="644,480,120,352" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Trace(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Trace(System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Trace(System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Info(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Info(System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Info(System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Fatal(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Fatal(System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Fatal(System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Error(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Error(System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Error(System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Debug(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Debug(System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Debug(System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Alert(System.Type,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Alert(System.Exception,System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Logable.Alert(System.String,System.Object[])" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.Logable.LogContext" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ArgumentScanner">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="746,1144,145,112" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ArgumentScanner.IsMatch(System.String)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ArgumentScanner.AttributeType" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ArgumentScanner.Arguments" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.ArgumentScanner:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="818,1144" />
+        <property name="targetAnchor" value="709,832" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ConsoleLogger">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2232,529,98,80" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ConsoleLogger.Log(MfGames.Utility.Severity,System.String,System.String,System.Exception)" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.ConsoleLogger:MfGames.Utility.ILogSink">
+        <property name="sourceAnchor" value="2280,529" />
+        <property name="targetAnchor" value="2280,279" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ConfigStorage">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="671,69,189,204" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ConfigStorage.GetDirectory(System.String)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ConfigStorage.StorageDirectory" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ConfigStorage.InitStorage()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ConfigStorage.StorageKey" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.ConfigStorage.storageKey" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.ConfigStorage.ValidateStorageKey" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ConfigStorage.Singleton" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.ConfigStorage.singleton" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ConfigStorage.ConfigStorage(System.String)" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.ConfigStorage.singleton">
+        <property name="sourceAnchor" value="860,265" />
+        <property name="targetAnchor" value="852,273" />
+        <property name="bendpoints" value="893,265,893,306,852,306" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.ConfigStorage:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="709,273" />
+        <property name="targetAnchor" value="709,480" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AttributeTree">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1932,1014,199,372" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AttributeTree.Path" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AttributeTree.ChildrenArray" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AttributeTree.Children" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AttributeTree.Attributes" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AttributeTree.path" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AttributeTree.children" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AttributeTree.attributes" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.OnCreatedAsChild(MfGames.Utility.NodeRef,MfGames.Utility.AttributeTree)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.Merge(MfGames.Utility.AttributeTree)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.Clone()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.CreateClone()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.Create(MfGames.Utility.NodeRef)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.Create(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.this[System.String,System.Boolean]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.this[System.String]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.this[MfGames.Utility.NodeRef,System.Boolean]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.this[MfGames.Utility.NodeRef]" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AttributeTree.AttributeTree()" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AttributeTree.path">
+        <property name="sourceAnchor" value="2014,1014" />
+        <property name="targetAnchor" value="2014,901" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AttributeTree.children">
+        <property name="sourceAnchor" value="1932,1250" />
+        <property name="targetAnchor" value="1812,1250" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ITool">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3957,470,119,111" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ITool.ToolName" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ITool.Description" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ITool.Process(System.String[])" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.PositionalAttribute">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3957,630,123,237" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.Name" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.IsOptional" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.Index" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.Description" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.name" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.optional" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.description" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.index" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.PositionalAttribute(System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.PositionalAttribute.PositionalAttribute()" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IDice">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2727,246,73,79" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.IDice.Roll" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ToolException">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3668,10,101,95" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolException.ToolException(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolException.ToolException(System.String)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.ToolException:MfGames.Utility.UtilityException">
+        <property name="sourceAnchor" value="3718,105" />
+        <property name="targetAnchor" value="3781,165" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1699,10,154,192" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.Name" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.HasParameter" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.parameterOptional" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.hasParameter" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.name" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.LongArgumentAttribute(System.String)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute.ParameterOptional" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.LongArgumentAttribute:MfGames.Utility.IArgumentAttribute">
+        <property name="sourceAnchor" value="1699,105" />
+        <property name="targetAnchor" value="1619,105" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.InvalidPathException">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3917,10,139,95" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.InvalidPathException.InvalidPathException(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.InvalidPathException.InvalidPathException(System.String)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.InvalidPathException:MfGames.Utility.UtilityException">
+        <property name="sourceAnchor" value="3986,105" />
+        <property name="targetAnchor" value="3840,188" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Auditable">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1150,1466,277,279" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.SetAuditMessage(MfGames.Utility.Severity,System.String,System.Boolean)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.SetAuditMessage(MfGames.Utility.Severity,System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.RecalculateAuditSeverity()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.FireAuditSeverityChanged(System.Object,MfGames.Utility.Severity,MfGames.Utility.Severity)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.FireAuditMessageChanged(System.Object,System.String,MfGames.Utility.Severity)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.ClearAuditMessages()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Auditable.ClearAuditMessage(System.String)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.Auditable.AuditSeverity" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.Auditable.AuditMessages" />
+      <reference referencedUin="csharp:event:src:MfGames.Utility:MfGames.Utility.Auditable.AuditSeverityChanged" />
+      <reference referencedUin="csharp:event:src:MfGames.Utility:MfGames.Utility.Auditable.AuditMessageChanged" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Auditable.auditSeverity" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Auditable.auditMessages" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.Auditable:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="1288,1466" />
+        <property name="targetAnchor" value="736,832" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.Auditable.auditSeverity">
+        <property name="sourceAnchor" value="1288,1745" />
+        <property name="targetAnchor" value="1025,1881" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.Auditable:MfGames.Utility.IAuditable">
+        <property name="sourceAnchor" value="1150,1605" />
+        <property name="targetAnchor" value="1070,1605" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ListAssetProvider">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="82,593,148,127" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ListAssetProvider.AddAssetProvider(MfGames.Utility.IAssetProvider)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.ListAssetProvider.providers" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ListAssetProvider.GetAsset(MfGames.Utility.NodeRef,System.Boolean)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ListAssetProvider.ListAssetProvider()" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.ListAssetProvider:MfGames.Utility.IAssetProvider">
+        <property name="sourceAnchor" value="230,656" />
+        <property name="targetAnchor" value="310,656" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IAuditable">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="793,1537,277,137" />
+      <reference referencedUin="csharp:event:src:MfGames.Utility:MfGames.Utility.IAuditable.AuditSeverityChanged" />
+      <reference referencedUin="csharp:event:src:MfGames.Utility:MfGames.Utility.IAuditable.AuditMessageChanged" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.IAuditable.AuditSeverity" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.IAuditable.AuditMessages" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.IAuditable.AuditSeverity">
+        <property name="sourceAnchor" value="995,1674" />
+        <property name="targetAnchor" value="995,1819" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.DiceException">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3546,10,102,95" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.DiceException.DiceException(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.DiceException.DiceException(System.String)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.DiceException:MfGames.Utility.UtilityException">
+        <property name="sourceAnchor" value="3597,105" />
+        <property name="targetAnchor" value="3756,165" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ToolManager">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1296,85,185,172" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolManager.Usage(System.Object,System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolManager.RegisterTools()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolManager.RegisterTool(MfGames.Utility.ITool)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolManager.ProcessCommand(MfGames.Utility.CommandLineArguments)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.ToolManager.tools" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolManager.SetArgumentParameters(MfGames.Utility.CommandLineArguments)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ToolManager.Process(System.String[])" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.ToolManager:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="1388,257" />
+        <property name="targetAnchor" value="764,625" />
+        <property name="bendpoints" value="1388,309" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AuditMessageHandler">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2232,910,164,38" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.ConstantDice">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2712,17,104,129" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.ConstantDice.value" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ConstantDice.ConstantDice(System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.ConstantDice.ToString()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.ConstantDice.Roll" />
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.ConstantDice:MfGames.Utility.IDice">
+        <property name="sourceAnchor" value="2764,146" />
+        <property name="targetAnchor" value="2764,246" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.SubtractionDice">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2582,10,110,144" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.SubtractionDice.Roll" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.SubtractionDice.ToString()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.SubtractionDice.SubtractionDice(MfGames.Utility.IDice,MfGames.Utility.IDice)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.SubtractionDice.d2" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.SubtractionDice.d1" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.SubtractionDice.d2">
+        <property name="sourceAnchor" value="2636,154" />
+        <property name="targetAnchor" value="2746,246" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.SubtractionDice.d1">
+        <property name="sourceAnchor" value="2664,154" />
+        <property name="targetAnchor" value="2755,246" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.SubtractionDice:MfGames.Utility.IDice">
+        <property name="sourceAnchor" value="2609,154" />
+        <property name="targetAnchor" value="2737,246" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.UtilityException">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3731,165,109,113" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UtilityException.UtilityException(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.UtilityException.UtilityException(System.String)" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IEntropy">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3160,652,73,94" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.IEntropy.Next(System.Int32,System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.IEntropy.Next()" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AssetException">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3789,10,108,95" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssetException.AssetException(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssetException.AssetException(System.String)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.AssetException:MfGames.Utility.UtilityException">
+        <property name="sourceAnchor" value="3806,105" />
+        <property name="targetAnchor" value="3806,165" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TickManager">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="1129,16,147,309" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.tickSpan" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickManager.Stop()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickManager.Start()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickManager.RunTicker()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickManager.Run()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.lastTick" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.processing" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.processSkipped" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.skippedTicks" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.stopThread" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickManager.serverThread" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.TickManager.TickSpan" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.TickManager.TicksPerSecond" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickManager.Add(MfGames.Utility.ITickable)" />
+      <reference referencedUin="csharp:event:src:MfGames.Utility:MfGames.Utility.TickManager.TickEvent" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.TickManager:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="1202,325" />
+        <property name="targetAnchor" value="764,615" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TickHandler">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2416,910,107,38" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.TickArgs">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2543,910,151,127" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickArgs.RatePerSecond(System.Double)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.TickArgs.RatePerSecond(System.Int32)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickArgs.LastTick" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.TickArgs.Skipped" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MimeFilenameIdentifier">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="2714,910,149,127" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MimeFilenameIdentifier.GetMimeType(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MimeFilenameIdentifier.MimeFilenameIdentifier()static" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MimeFilenameIdentifier.types" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MimeFilenameIdentifier.LOG_SCOPE" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Version">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="172,10,125,322" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.ToString()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.GetHashCode()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.Equals(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.CompareOp(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.operator &gt;=(MfGames.Utility.Version,MfGames.Utility.Version)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.operator &gt;(MfGames.Utility.Version,MfGames.Utility.Version)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.operator &lt;=(MfGames.Utility.Version,MfGames.Utility.Version)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.operator &lt;(MfGames.Utility.Version,MfGames.Utility.Version)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.operator !=(MfGames.Utility.Version,MfGames.Utility.Version)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.operator ==(MfGames.Utility.Version,MfGames.Utility.Version)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Version.strings" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Version.numerics" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Version.version" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.Version(System.String)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Version.Version()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Version.regexPart" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Version.regexSpace" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.Version:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="234,332" />
+        <property name="targetAnchor" value="670,480" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.IAssetProvider">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="310,617,112,79" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.IAssetProvider.GetAsset(MfGames.Utility.NodeRef,System.Boolean)" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.NotAbsolutePathException">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3920,174,170,95" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NotAbsolutePathException.NotAbsolutePathException(System.String,System.Exception)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.NotAbsolutePathException.NotAbsolutePathException(System.String)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.NotAbsolutePathException:MfGames.Utility.UtilityException">
+        <property name="sourceAnchor" value="3920,221" />
+        <property name="targetAnchor" value="3840,221" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.WeightedSelector">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="10,84,142,174" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.WeightedSelector.Select(System.Int32)" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.WeightedSelector.Total" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.WeightedSelector.total" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.WeightedSelector.weights" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.WeightedSelector.RandomObject" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.WeightedSelector.this[System.Object]" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.WeightedSelector:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="81,258" />
+        <property name="targetAnchor" value="657,480" />
+        <property name="bendpoints" value="81,321" />
+        <property name="bounds_setted_by_user" value="True" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.AssemblyAsset">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="523,1105,203,189" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.OpenText()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.OpenStream()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.Size" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.Provider" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.Assembly" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.path" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.provider" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.AssemblyAsset(MfGames.Utility.AssemblyAssetProvider,MfGames.Utility.NodeRef)" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.AssemblyAsset.provider">
+        <property name="sourceAnchor" value="523,1200" />
+        <property name="targetAnchor" value="443,1200" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_impl:src:MfGames.Utility:MfGames.Utility.AssemblyAsset:MfGames.Utility.IAsset">
+        <property name="sourceAnchor" value="573,1105" />
+        <property name="targetAnchor" value="573,712" />
+        <property name="bendpoints" value="" />
+      </reference>
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.AssemblyAsset:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="682,1105" />
+        <property name="targetAnchor" value="682,832" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.Entropy">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3313,643,111,112" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Entropy.Next(System.Int32,System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.Entropy.Next()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.Entropy.entropy" />
+      <reference referencedUin="csharp:l_ast:src:MfGames.Utility:MfGames.Utility.Entropy.entropy">
+        <property name="sourceAnchor" value="3313,699" />
+        <property name="targetAnchor" value="3233,699" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.MersenneTwister">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="3354,10,172,564" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.genrand_real3()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.genrand_real2()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.genrand_real1()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.genrand_int31()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.genrand_int32()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.init_by_array(System.UInt32[],System.UInt32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.init_genrand(System.UInt32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Initialize(System.Int32[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Initialize(System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Initialize()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Next53BitRes()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.NextDoublePositive()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.NextDouble(System.Boolean)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.NextDouble()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.NextFloatPositive()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.NextFloat(System.Boolean)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.NextFloat()" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Next(System.Int32,System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Next(System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.Next()" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.MersenneTwister.MaxRandomInt" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.MersenneTwister(System.Int32[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.MersenneTwister(System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.MersenneTwister()" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.mti" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.mt" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.mag01" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.LOWER_MASK" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.UPPER_MASK" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.MATRIX_A" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.M" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.MersenneTwister.N" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.MersenneTwister.genrand_res53()" />
+    </reference>
+    <reference referencedUin="csharp:e_class:src:MfGames.Utility:MfGames.Utility.CommandLineArguments">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="457,46,194,249" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.Assign(System.Object,System.String,System.Int32)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.CheckPositionalCount(System.Object,System.Int32)" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.scanners" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.Scanners" />
+      <reference referencedUin="csharp:e_property:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.RemainingArguments" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.CommandLineArguments(System.String[])" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.MapType(System.Type,System.String[])" />
+      <reference referencedUin="csharp:e_field:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.unparsed" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.Process(System.Object)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.Process(System.Object,System.Boolean)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.Assign(System.Object,MfGames.Utility.ArgumentScanner)" />
+      <reference referencedUin="csharp:e_method:src:MfGames.Utility:MfGames.Utility.CommandLineArguments.Assign(System.Object,System.Reflection.MemberInfo,System.String[],System.Boolean)" />
+      <reference referencedUin="csharp:l_gnt:src:MfGames.Utility:MfGames.Utility.CommandLineArguments:MfGames.Utility.Logable">
+        <property name="sourceAnchor" value="554,295" />
+        <property name="targetAnchor" value="696,480" />
+        <property name="bendpoints" value="" />
+      </reference>
+    </reference>
+  </view>
+</nodeSet>

@@ -1,0 +1,78 @@
+/*
+ * Other Stuff
+ */
+
+body, p {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/*
+ * Headings
+ */
+
+h2.title {
+  border-bottom: 1px solid rgb(61,92,122);
+}
+
+p, ul {
+  margin-left: 0.25in;
+}
+
+div.toc p, p.copyright {
+  margin-left: 0;
+}
+
+/*
+ * Screenshots
+ */
+
+pre.screen {
+  border: 1px solid rgb(61,92,122);
+  background: #eee;
+  padding: 0.25em;
+  margin-right: 0.5in;
+  margin-left: 0.5in;
+}
+
+code.prompt {
+  font-weight: bold;
+}
+
+/*
+ * Program Listings
+ */
+
+pre.programlisting {
+  border: 1px solid rgb(122,122,61);
+  background: #eee;
+  padding: 0.25em;
+  margin-right: 0.5in;
+  margin-left: 0.5in;  
+}
+
+/*
+ * Notes
+ */
+
+div.note {
+  font-size: 90%;
+  margin-right: 0.5in;
+  margin-left: 0.5in;  
+  border: 1px solid #006633;
+  color: #006600;
+  background-color: #CCFFCC;
+}
+
+div.note h3 {
+  margin: 0 0.25em 0 0.25em;
+  border-bottom: 1px solid #006633;
+}
+
+div.note p {
+  padding: 0.25em;
+  margin: 0;
+}
