@@ -1,13 +1,14 @@
-Source: libmfgames-utility-1-cil
+Source: libmfgames-utility1.3-cil
 Section: libs
 Priority: optional
 Maintainer: Dylan R. E. Moonfire <debian@mfgames.com>
-Build-Depends-Indep: debhelper (>= 4.0.0), cli-common (>= 0.2.0), dpatch, mono-mcs (>= 1.0) | c-sharp-compiler, mono-gac, libmono-dev, nunit
+Build-Depends-Indep: debhelper (>= 4.0.0), cli-common (>= 0.4.0), dpatch, mono-mcs (>= 1.0) | c-sharp-compiler, mono-gac, libmono-dev, nunit
 Standards-Version: 3.6.2.1
 
-Package: libmfgames-utility-1-cil
+Package: libmfgames-utility1.3-cil
 Architecture: all
 Depends: ${cli:Depends}
+Replaces: libmfgames-utility-1-cil, libmfgames-lognet-0-cil, libmfgames-lognet-1-cil
 Description: utility classes and functions for C# and VB.NET
  MfGames.Utility is a collection of useful tools, collections, and
  other classes that have proved their usefulness throughout the other

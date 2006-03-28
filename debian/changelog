@@ -1,3 +1,9 @@
+libmfgames-utility1.3-cil (1.3.0) usntable; urgency=low
+
+  * New upstream release.
+
+ -- Dylan R. E. Moonfire <debian@mfgames.com>  Tue, 28 Mar 2006 15:34:05 -0600
+	
 libmfgames-utility-1-cil (1.2.0) unstable; urgency=low
 
   * New upstream release.

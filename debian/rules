@@ -36,7 +36,8 @@ install: build
 binary-indep: build install
 	dh_testdir
 	dh_testroot
-	dh_install --sourcedir=debian/tmp
+	dh_install
+	dh_installcligac
 	dh_installchangelogs ChangeLog
 	dh_installdocs
 	dh_installexamples
