@@ -1,3 +1,12 @@
+mfgames-utility (1.3.0)
+
+  * Dylan R. E. Moonfire <debian@mfgames.com>
+    + Added Matrix4D, Vector2D, Vector3D.
+    + Added a conditional addition of log4net which creates
+      MfGames.Utility.Log4Net but uses the MfGames.Utility namespace.
+    + Updated the .pc file to a consistent naming convention from the
+      Debian 0.4.0 policy.
+	
 mfgames-utility (1.2.0)
 
   * Dylan R. E. Moonfire <debian@mfgames.com>

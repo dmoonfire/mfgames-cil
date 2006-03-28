@@ -2,7 +2,7 @@ Source: libmfgames-utility1.3-cil
 Section: libs
 Priority: optional
 Maintainer: Dylan R. E. Moonfire <debian@mfgames.com>
-Build-Depends-Indep: debhelper (>= 4.0.0), cli-common (>= 0.4.0), dpatch, mono-mcs (>= 1.0) | c-sharp-compiler, mono-gac, libmono-dev, nunit
+Build-Depends-Indep: debhelper (>= 4.0.0), cli-common (>= 0.4.0), dpatch, mono-mcs (>= 1.0) | c-sharp-compiler, nunit
 Standards-Version: 3.6.2.1
 
 Package: libmfgames-utility1.3-cil

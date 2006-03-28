@@ -24,12 +24,12 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 // Basic Assembly Attributes
-[assembly:AssemblyTitleAttribute("MfGames.Utility Library")]
-[assembly:AssemblyDescriptionAttribute("Moonfire Games' Utility Library")]
+[assembly:AssemblyTitleAttribute("MfGames.Utility log4net Library")]
+[assembly:AssemblyDescriptionAttribute("Moonfire Games' Utility log4net Library")]
 [assembly:AssemblyCopyrightAttribute("Copyright (c) 2004-2005, "
 	+ "Moonfire Games")]
 
 // The policy for assembly version numbers is to only increment the
 // first number, regardless of the current version. This first version
 // number should be increased with breaking (ABI or API) changes.
-[assembly:AssemblyVersionAttribute("1.0.0.0")]
+[assembly:AssemblyVersionAttribute("@ASSEMBLY_VERSION@")]
