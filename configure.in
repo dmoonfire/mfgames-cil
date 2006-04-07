@@ -3,7 +3,7 @@ AC_PREREQ(2.53)
 AM_INIT_AUTOMAKE(mfgames-utility, 1.3.0)
 AM_MAINTAINER_MODE
 
-ASSEMBLY_VERSION=1.3.0.0
+ASSEMBLY_VERSION=1.0.0.0
 
 MONO_REQUIRED_VERSION=1.0
 PKG_CHECK_MODULES(mono_specific,
@@ -71,8 +71,8 @@ AC_OUTPUT([
 Makefile
 src/AssemblyInfo.cs
 src/log4net/AssemblyInfo.cs
-etc/mfgames-utility-1.3.pc
-etc/mfgames-utility-log4net-1.3.pc
+etc/mfgames-utility-1.0.pc
+etc/mfgames-utility-log4net-1.0.pc
 ])
 
 echo ""

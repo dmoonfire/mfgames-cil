@@ -162,7 +162,7 @@ $(BUILD)/style.css: docs/style.css
 	cp docs/style.css $(BUILD)/style.css
 
 # pkgconfig
-pkgconfig_in_files = etc/mfgames-utility-1.3.pc.in etc/mfgames-utility-log4net-1.3.pc.in
+pkgconfig_in_files = etc/mfgames-utility-1.0.pc.in etc/mfgames-utility-log4net-1.0.pc.in
 pkgconfigdir= $(prefix)/lib/pkgconfig
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
@@ -185,7 +185,7 @@ EXTRA_DIST += $(test_SOURCES)
 EXTRA_DIST += docs/docbook.xml docs/style.css
 EXTRA_DIST += vc7.1 vc7.1-nunit
 
-DISTCLEANFILES = etc/mfgames-utility-1.3.pc etc/mfgames-utility-log4net-1.3.pc
+DISTCLEANFILES = etc/mfgames-utility-1.0.pc etc/mfgames-utility-log4net-1.0.pc
 
 # Debian
 dist-debian:

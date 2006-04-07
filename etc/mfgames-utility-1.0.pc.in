@@ -5,5 +5,4 @@ libdir=@libdir@
 Name: MfGames.Utility
 Description: MfGames.Utility - utility classes and functions for C# and VB.NET
 Version: @PACKAGE_VERSION@
-Requires: mfgames-utility-1.3
-Libs: -r:${libdir}/cli/mfgames-utility-1.3/MfGames.Utility.dll -r:${libdir}/cli/mfgames-utility-1.3/MfGames.Utility.Log4Net.dll -pkg:log4net-1.2
+Libs: -r:${libdir}/cli/mfgames-utility-1.0/MfGames.Utility.dll
