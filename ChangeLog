@@ -6,6 +6,8 @@ mfgames-utility (1.3.0)
       MfGames.Utility.Log4Net but uses the MfGames.Utility namespace.
     + Updated the .pc file to a consistent naming convention from the
       Debian 0.4.0 policy.
+    + Fixed a bug with Audit serverity not firing a message.
+    + Added a nested IAuditable object for nesting them.
 	
 mfgames-utility (1.2.0)
 

@@ -15,6 +15,7 @@ src/AuditMessageHandler.cs \
 src/AuditSeverityArgs.cs \
 src/AuditSeverityHandler.cs \
 src/Auditable.cs \
+src/NestedAuditable.cs \
 src/ConfigStorage.cs \
 src/ConsoleLogger.cs \
 src/Entropy.cs \

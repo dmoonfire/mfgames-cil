@@ -77,7 +77,7 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public virtual Severity AuditSeverity
 		{
-			get { return RecalculateAuditSeverity(); }
+			get { return auditSeverity; }
 		}
 
 		/// <summary>
@@ -93,6 +93,7 @@ namespace MfGames.Utility
 			// Remove it and recalculate the levels
 			auditMessages.Remove(message);
 			FireAuditMessageChanged(this, message, Severity.None);
+			RecalculateAuditSeverity();
 		}
 
 		/// <summary>
@@ -100,9 +101,12 @@ namespace MfGames.Utility
 		/// </summary>
 		public void ClearAuditMessages()
 		{
-			// Copy and reset it
-			//Hashtable copy = auditMessages;
-			auditMessages = new Hashtable();
+			// Go through each one since we want to trigger the
+			// various events.
+			ArrayList list = new ArrayList(auditMessages.Keys);
+
+			foreach (string message in list)
+				ClearAuditMessage(message);
 		}
 
 		/// <summary>
@@ -187,6 +191,7 @@ namespace MfGames.Utility
 
 			// Recalculate the severity
 			FireAuditMessageChanged(this, message, severity);
+			RecalculateAuditSeverity();
 		}
 
 		/// <summary>

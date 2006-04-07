@@ -1,4 +1,4 @@
-build/MfGames.Utility.dll		/usr/lib/cli/mfgames-utility1.3/
-build/MfGames.Utility.Log4Net.dll	/usr/lib/cli/mfgames-utility1.3/
+build/MfGames.Utility.dll		/usr/lib/cli/mfgames-utility-1.3/
+build/MfGames.Utility.Log4Net.dll	/usr/lib/cli/mfgames-utility-1.3/
 etc/mfgames-utility-1.3.pc		/usr/share/pkgconfig/
 etc/mfgames-utility-log4net-1.3.pc	/usr/share/pkgconfig/
