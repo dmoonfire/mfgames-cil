@@ -19,6 +19,7 @@
  */
 #endregion
 
+#if REMOVED
 namespace MfGames.Utility
 {
 	using System;
