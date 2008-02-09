@@ -1,0 +1,79 @@
+AC_INIT([mfgames-utility], 3.0.0, [contact@mfgames.com])
+AC_PREREQ(2.53)
+AM_INIT_AUTOMAKE(mfgames-utility, 3.0.0)
+AM_MAINTAINER_MODE
+
+ASSEMBLY_VERSION=3.0.0.0
+
+MONO_REQUIRED_VERSION=1.0
+PKG_CHECK_MODULES(mono_specific,
+	mono >= $MONO_REQUIRED_VERSION,
+	has_mono=true, has_mono=false)
+
+AC_PATH_PROG(GACUTIL, gacutil, no)
+if test "x$GACUTIL" = "xno" ; then
+	AC_MSG_ERROR([No gacutil tool found. You need to install either the mono or .Net SDK.])
+fi
+
+if test "x$has_mono" = "xtrue"; then
+GACUTIL_FLAGS='-check_refs /gacdir $(DESTDIR)$(prefix)/lib'
+fi
+
+AC_PATH_PROG(MONO, mono)
+AC_PATH_PROG(GMCS, gmcs)
+AC_PATH_PROG(CSC, gmcs)
+
+if test "x$MONO" = "x" ; then
+  AC_MSG_ERROR([Can't find "mono" in your PATH])
+fi
+
+if test "x$GMCS" = "x" ; then
+  AC_MSG_ERROR([Can't find "gmcs" in your PATH])
+fi
+
+AC_SUBST(PATH)
+AC_SUBST(LD_LIBRARY_PATH)
+
+dnl Find pkg-config
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+if test "x$PKG_CONFIG" = "xno"; then
+        AC_MSG_ERROR([You need to install pkg-config])
+fi
+
+dnl NUnit
+MONO_NUNIT_REQUIRED_VERSION=1.1.8
+PKG_CHECK_MODULES(nunit, nunit >= $MONO_NUNIT_REQUIRED_VERSION)
+AC_PATH_PROG(NUNIT_CONSOLE, nunit-console)
+
+dnl log4net
+MONO_LOG4NET_VERSION=1.2.9
+PKG_CHECK_MODULES(log4net, log4net-1.2 >= $MONO_LOG4NET_VERSION,
+	[log4net_DEFINE="-D:LOG4NET"
+         log4net_HAS="true"],[echo "not found"])
+AM_CONDITIONAL(LOG4NET, test x$log4net_HAS = xtrue)
+
+dnl Coco/R
+AC_PATH_PROG(COCOCS, cococs)
+
+dnl Other Stuff
+AC_SUBST(LIB_SUFFIX)
+AC_SUBST(LIB_PREFIX)
+AC_SUBST(ASSEMBLY_VERSION)
+AC_SUBST(CSC_FLAGS)
+AC_SUBST(GACUTIL_FLAGS)
+
+AC_OUTPUT([
+Makefile
+MfGames.Utility/AssemblyInfo.cs
+etc/mfgames-utility-3.0.pc
+])
+
+echo ""
+echo "Configuration summary:"
+echo "  * Installation prefix = $prefix"
+echo "  *         C# compiler = $CSC"
+echo "  *       Mono-specific = $has_mono"
+echo "  *             gacutil = $GACUTIL_FLAGS"
+echo "  *              cococs = $COCOCS"
+echo "  *             log4net = $log4net_DEFINE"
+echo ""

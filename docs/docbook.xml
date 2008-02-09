@@ -1,0 +1,467 @@
+<!DOCTYPE book
+  PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+  "file:///usr/share/xml/docbook/schema/dtd/4.4/docbookx.dtd">
+<article>
+  <articleinfo>
+    <title>MfGames.Utility Library</title>
+    <authorgroup>
+      <author>
+	<firstname>Dylan</firstname>
+	<othername>R. E.</othername>
+	<surname>Moonfire</surname>
+      </author>
+    </authorgroup>
+    
+    <copyright>
+      <year>2005</year>
+      <holder>Dylan R. E. Moonfire</holder>
+    </copyright>
+  </articleinfo>
+
+  <sect1>
+    <title>Introduction</title>
+
+    <para>MfGames.Utility came from the almost constant need to
+    reimplement a common set of functionality, such as logging or
+    organizing data. To handle this, the library became a general
+    catch-all which is used as the foundation for almost all of the
+    other MfGames libraries for C# and other CIL languages.</para>
+
+    <para>With this design goal, this library actually contains a fair
+    amount of functionality that isn't organized into specific groups,
+    except for a few exceptions:</para>
+
+    <itemizedlist>
+      <listitem><para>A simplistic, but easily extended, logging
+      system with capabilities of tying into other logging system,
+      including the built-in trace features.</para></listitem>
+
+      <listitem><para>A pluggable random number system allowing for
+      different degrees of entropy, based on needs.</para></listitem>
+
+      <listitem><para>MfGames.Utility.Tool: A framework for generating
+      tools and command-line services for an
+      application.</para></listitem>
+
+      <listitem><para>MfGames.Utilty.Asset: An extendable framework
+      for abstracting access to read-only files, either from
+      assemblies or the filesystem. MfGames.Node expands this
+      functionality to include zip and tar files while also expanding
+      for read and write access.</para></listitem>
+    </itemizedlist>
+
+    <para>The primary design goal for MfGames.Utility is to create a
+    library that required no other library to function and only NUnit
+    for building. NUnit tests are used to automatically stress the
+    system, to ensure that a consistent level of quality and
+    functionality is maintained through all versions.</para>
+  </sect1>
+
+  <sect1>
+	<title>Logging</title>
+
+	<para>The Utility library contains a simplistic logging framework
+	that the rest of the MfGames packages uses. This logging
+	framework is intended to be an easily extended framework that lets
+	the individual application choose how the logging should be
+	implemented, instead of dictating a specific logging methodology,
+	like log4net or the built-in System.* libraries.</para>
+
+	<para>There are three components to the logging framework: the
+	singleton Logger object, a ILogSink, and the various
+	<code>Logable</code>s that the application may use.</para>
+
+	<sect2>
+	  <title>Log Components</title>
+
+	  <para>Each log message has four components. The first is the
+	  context of the message. This is a dot-separated context,
+	  allowing it to fit into log4net but also to scope the
+	  message. Typically, this context is the class of the object
+	  performing the logging.</para>
+
+	  <para>The second is the level of the message, to indicate how
+	  important the message may be. The logging system has the
+	  following levels of a message: Fatal, Error, Alert, Info, and
+	  Debug. These levels should be obvious where Alert is also used
+	  as warning messages.</para>
+
+	  <para>Thirdly, is the message itself. The four component is an
+	  optional exception.</para>
+	</sect2>
+
+	<sect2>
+	  <title>Logger</title>
+
+	  <para>Because logging is an almost universal concept, there are
+	  a few methods of creating a log message. This is a singleton
+	  function and all the methods are static, so they may be called
+	  with a simple:</para>
+
+	  <programlisting>/* using MfGames.Utility; */
+Logger.Info(typeof(object), "Log Message");</programlisting>
+
+      <para>There is a function for every level of message (Fatal,
+	  Error, Alert, Info, and Debug) and also a few methods for each
+	  one.</para>
+
+	  <programlisting>/* using MfGames.Utility; */
+public static void Alert(string context, string msg, params object [] parms);
+public static void Alert(string context, Exception e, string msg, params object [] parms);
+public static void Alert(Type type, string msg, params object [] parms);
+public static void Alert(Type type, Exception e, string msg, params object [] parms);</programlisting>
+
+      <para>The system uses <code>String.Format</code> for formatting
+	  messages which simplifies the construction of messages. The
+	  standard "<code>{0}</code>" notation works for this.</para>
+
+	  <programlisting>/* using MfGames.Utility; */
+Logger.Debug("Some.Context", "There was an error with {0}", "library");</programlisting>
+	</sect2>
+
+	<sect2>
+	  <title>ILogSink</title>
+
+	  <para>The ILogSink is where the log messages are placed. This
+	  interface describes the single method which must be implemented
+	  to handle all of the logging messages.</para>
+
+	  <programlisting>using MfGames.Utility;
+using System;
+
+public class ConsoleLogger : ILogSink
+{
+  public void Log(Severity level, string context, string msg, Exception e)
+  {
+    Console.Error.WriteLine(level + ": " + context + ": " + msg);
+     
+    if (e != null)
+    {
+  	  Console.Error.WriteLine(e.StackTrace);
+    }
+  }
+}</programlisting>
+
+	  <para>To set the log sink just requires setting a static
+	  property in Logger:</para>
+
+	  <programlisting>/* using MfGames.Utility; */
+Logger.Singleton = new ClassImplementingLogSink();</programlisting>
+
+      <para>Changes to the Singleton property automatically handle all
+	  new messages from that point.</para>
+	</sect2>
+
+	<sect2>
+	  <title>Logable and Log</title>
+
+	  <para>The <code>Logable</code> and <code>Log</code> classes
+	  are both convenience classes. <code>Logable</code> is intended
+	  to be extended from and grants class-level properties that do
+	  not require the context.</para>
+
+	  <programlisting>using MfGames.Utility;
+
+public class LogExample : Logable
+{
+  public void SomeFunction()
+  {
+    Debug("This is a {0} message.", "debug");
+  }
+}</programlisting>
+
+      <para>The <code>Log</code> object is for classes that extend
+	  another one, but the context is important.</para>
+
+	  <programlisting>using MfGames.Utility;
+
+public class ExampleClass
+{
+  public void SomeFunction()
+  {
+    Log log1 = new Log(this);           // Context is ExampleClass
+    Log log2 = new Log(typeof(object)); // Context is System.Object
+    Log log3 = new Log("Foo.Bar");      // Context is Foo.Bar
+
+    log1.Debug("Debug message");
+    log2.Alert("Alert message");
+    log3.Error("Error message");
+  }
+}</programlisting>
+
+      <para>The context of a log message produced by
+	  <code>Logable</code> may be changed by overwriting the
+	  LogContext property.</para>
+
+	  <programlisting>using MfGames.Utility;
+
+public class ExampleClass
+{
+  public override string LogContext
+  {
+    get { return "InternalContext"; }
+  }
+  
+  public void SomeFunction()
+  {
+    Debug("This is a message.");
+    // This produces: "InternalContext: This is a message."
+  }
+}</programlisting>
+	</sect2>
+  </sect1>
+
+  <sect1>
+	<title>Auditing</title>
+
+	<para>The auditing framework consists of only two classes, but the
+	functionality is useful for creating properly formatted error
+	messages, at the time they are incorrectly produced or when the
+	audit is requested. The core of this system is the
+	<code>IAuditable</code> and the <code>AuditableObject</code>
+	(which implements the <code>IAuditable</code> interface and
+	extends the <code>Logable</code>).</para>
+
+	<programlisting>namespace MfGames.Utility
+{
+  public interface IAuditable
+  {
+    System.Collections.Hashtable AuditMessages { get; }
+    Severity AuditSeverity { get; }
+  }
+}</programlisting>
+
+    <para>The AuditSeverity has the worse severity of the messages in
+	the AuditMessages. This lets you see how serious the audit is at
+	any time, with just a property access. The AuditMessage hash has
+	the message as the key and the severity as the value for that
+	key.</para>
+
+	<para>The <code>AuditableObject</code> provides two functions for
+	a class that extends it.</para>
+
+	<programlisting>
+public void ClearAuditMessage(string message)
+public void SetAuditMessage(string message, Severity severity)</programlisting>
+
+    <para>A class extending the log object can use this to set
+	properties inside the audit hash.</para>
+
+	<programlisting>using MfGames.Utility;
+
+public class ExampleClass
+{
+  public void SomeFunction()
+  {
+    // Starts off with a Severity.None
+
+    SetAuditMessage("Terrible things", Severity.Error);
+    // Now the AuditSeverity == Severity.Error
+
+    SetAuditMessage("Minor message", Severity.Alert);
+    // Still AuditSeverity == Severity.Error
+
+    ClearAuditMessage("Terrible things");
+    // AuditSeverity == Severity.Alert
+
+    SetAuditMessage("Minor message", Severity.Fatal)
+    // Now the AuditSeverity == Severity.Fatal
+
+    ClearAuditMessage("Minor message");
+    // Now AuditSeverity == Severity.None
+  }
+}</programlisting>
+  </sect1>
+
+  <sect1>
+    <title>Tool Services (MfGames.Utility.Tool)</title>
+
+    <para>The tool package came from the need to create fast
+    command-line tools. It has the ability to process arguments, using
+    attributes, and also the ability to call various tools from inside
+    the application.</para>
+
+    <sect2>
+      <title>Using Tools</title>
+
+      <para>The functionality of tool automatically contains the
+      ability to select between the various tools.</para>
+
+      <screen><prompt>$</prompt> mfgames-dbms
+A tool name is required.
+USAGE:
+
+The following tools have been registered:
+  debug-import - Debug scanning of input data.
+  export-ddl - Export the DDL.
+  template - Create a file using a template
+<prompt>$ </prompt></screen>
+
+      <para>This default usage describes the various tools that are
+      registered with this manager. To call the tool, you just give
+      the name of the tool as the second parameter.</para>
+
+      <screen><prompt>$</prompt> mfgames-dbms debug-import
+Missing positional attribute 0
+MfGames.Utility.Tool.ToolException: Missing positional attribute 0
+USAGE: schema
+
+Arguments:
+  schema - An XML schema file
+<prompt>$ </prompt></screen>
+
+      <para>The error message shows that a specific tool may require
+      additional arguments. Each tool can register their own
+      requirements and the positional (and other arguments) allow for
+      a single maintenance class to handle common functionality (such
+      as the schema in this case, all of the mfgames-dbms tools
+      require a schema, so it is centralized).</para>
+    </sect2>
+
+    <sect2>
+      <title>Tool Manager</title>
+
+      <para>At the core of the system is the ToolManager
+      which is used to perform the actual command-line parsing and
+      generation; it is also used to set up any logging or other
+      functionality needed.</para>
+      
+      <programlisting>using MfGames.Utility.Tool;
+  
+public class CoreTool : ToolManager
+{
+  public static void Main(string [] args)
+  {
+    // Create ourselve and start
+    CoreTool tool = new CoreTool();
+    tool.Process(args);
+  }
+
+  protected override void RegisterTools()
+  {
+    RegisterTool(new SomeTool());
+    RegisterTool(new AnotherTool());
+  }
+
+  protected override void SetArgumentParameters(CommandLineArguments args)
+  {
+    // Prepares the scanners
+    args.Scanners.Add(LongArgumentScanner.DoubleDash);
+  }
+}</programlisting>
+      
+      <para>There are three main components to the basic tool, which is
+      broken into the three methods:</para>
+      
+      <itemizedlist>
+	<listitem><para>Main: This is the entry for the tool. It creates
+	an object and calls Process which performs the actually
+	manipulations.</para></listitem>
+	
+	<listitem><para>RegisterTools: This is called by Process and
+	allows the system to register any tools, described below. Tools
+	that are not registered cannot be used by this
+	code.</para></listitem>
+	
+	<listitem><para>SetArgumentParameters: This is used to set the
+	style of command-line arguments. LogArgumentScanner.DoubleDash
+	creates the scanner used to parse GNU-style arguments, such as
+	"--flag=value".</para></listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>Individual Tools</title>
+
+      <para>A tool performs a single function in the system. It is
+      called by the ToolManager, based on the input from the
+      command-line. The tool itself is simple, with only a few
+      required classes.</para>
+
+      <programlisting>using MfGames.Utility.Tool;
+
+public class SomeTool : ITool
+{
+  public override void Process(string [] args)
+  {
+    // Do stuff
+  }
+
+  public override string Description
+  {
+    get { return "One-line description of some tool."; }
+  }
+
+  public override string ToolName
+  {
+    get { return "some-tool"; }
+  }
+}</programlisting>
+
+      <para>The tool is simple. The Process method is called when the
+      tool is selected and the arguments are processed. Any positional
+      or arguments will already be populated at the point that method
+      is called.</para>
+    </sect2>
+
+    <sect2>
+      <title>Arguments</title>
+
+      <para>To reduce the amount of processing needed, attributes are
+      used to define the more common arguments from the
+      command-line. The library can automatically process the
+      arguments, removing them from the string [] passed to Process in
+      the tool and automatically populate the properties and fields as
+      appropriate.</para>
+
+      <para>Argument attributes can be put on a class extending
+      ToolManager or inside the ITool. ToolManager arguments are
+      processed before the tool is selected while ITool ones are
+      processed after the tool is given on the command-line.</para>
+
+      <para>There are two types of arguments: positional and long. A
+      positional argument starts at zero and removes all non-long
+      arguments from the string array. The long allows GNU-style
+      arguments, such as --overwrite. These can optionally be removing
+      from the string array before processing.</para>
+
+      <programlisting>using MfGames.Utility.Tool;
+
+public class SomeTool : ITool
+{
+  [Positional(0, IsOptional = false, Name = "schema",
+ 		 Description = "An XML schema file")]
+  public string StringParameter
+  {
+    get; set;
+  }
+}</programlisting>
+
+      <para>If the positional argument is not optional (IsOptional =
+      false) and not supplied, then an exception is automatically
+      thrown.</para>
+
+      <note><para>Any number of positional arguments may be supplied,
+      but the library stops processing them when it can no longer find
+      one. This means that putting in a positional arguments for 0, 1,
+      and 3 will always skip 3 because 2 is missing.</para></note>
+
+      <para>A long argument is processed based on the argument style
+      (LongArgumentScanner.DoubleDash being one example). The
+      attribute is much simplier:</para>
+
+      <programlisting>using MfGames.Utility.Tool;
+
+public class SomeTool : ITool
+{
+  [LongArgument("overwrite")]
+  public bool OverwriteFiles
+  {
+    get; set;
+  }
+}</programlisting>
+
+      <para>All long arguments are optional.</para>
+    </sect2>
+  </sect1>
+</article>

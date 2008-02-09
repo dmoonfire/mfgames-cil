@@ -1,0 +1,82 @@
+/*
+ * Copyright (C) 2005, Moonfire Games
+ *
+ * This file is part of MfGames.Utility.
+ *
+ * The MfGames.Utility library is free software; you can redistribute
+ * it and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
+
+COMPILER Dice
+
+CHARACTERS
+  digit = "0123456789".
+  cr  = '\r'.
+  lf  = '\n'.
+  tab = '\t'.
+
+TOKENS
+  DICE   = "d" | "D".
+  NUMBER = digit {digit}.
+  PLUS   = "+".
+  MINUS  = "-".
+
+IGNORE cr + lf + tab
+
+PRODUCTIONS
+
+Dice
+= Addition <out dice>
+.
+
+Addition <out IDice dice>
+	(. IDice d1, d2 = null; .)
+= Subtraction <out d1> [PLUS Addition <out d2>]
+	(.
+		if (d2 == null)
+			dice = d1;
+		else
+			dice = new AdditionDice(d1, d2);
+	.)
+.
+
+Subtraction <out IDice dice>
+	(. IDice d1, d2 = null; .)
+= Expression <out d1> [MINUS Subtraction <out d2>]
+	(.
+		if (d2 == null)
+			dice = d1;
+		else
+			dice = new SubtractionDice(d1, d2);
+	.)
+.
+
+Expression <out IDice dice>
+	(. int number = 0; int sides = 0; .)
+= Integer <out number> [DICE Integer <out sides>]
+	(.
+		if (sides == 0)
+			dice = new ConstantDice(number);
+		else
+			dice = new RandomDice(number, sides);
+	.)
+.
+
+Integer <out int value>
+= NUMBER
+	(. value = Int32.Parse(token.val); .)
+.
+
+END Dice.
