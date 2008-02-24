@@ -127,10 +127,14 @@ pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 # Installation
 install-data-local:
 	@GACUTIL@ /i $(mfgames_utility_ASSEMBLY) /f @GACUTIL_FLAGS@
+	mkdir -p @libdir@/cli/mfgames-utility-3.0
+	install $(mfgames_utility_ASSEMBLY) @libdir@/cli/mfgames-utility-3.0/
 
 # Uninstallation
 uninstall-local:
 	@GACUTIL@ /u $(mfgames_utility_ASSEMBLY_NAME) @GACUTIL_FLAGS@
+	-rm @libdir@/cli/mfgames-utility-3.0/MfGames.Utility.dll
+	-rmdir @libdir@/cli/mfgames-utility-3.0
 
 # Definition of the various files that need to be cleaned up properly.
 CLEANFILES = $(BUILD)/MfGames.Utility.xml TestResult.xml

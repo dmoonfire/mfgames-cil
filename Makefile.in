@@ -599,10 +599,14 @@ MfGames.Utility/Dice/Parser.cs: MfGames.Utility/Dice/Scanner.frame
 # Installation
 install-data-local:
 	@GACUTIL@ /i $(mfgames_utility_ASSEMBLY) /f @GACUTIL_FLAGS@
+	mkdir -p @libdir@/cli/mfgames-utility-3.0
+	install $(mfgames_utility_ASSEMBLY) @libdir@/cli/mfgames-utility-3.0/
 
 # Uninstallation
 uninstall-local:
 	@GACUTIL@ /u $(mfgames_utility_ASSEMBLY_NAME) @GACUTIL_FLAGS@
+	-rm @libdir@/cli/mfgames-utility-3.0/MfGames.Utility.dll
+	-rmdir @libdir@/cli/mfgames-utility-3.0
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
