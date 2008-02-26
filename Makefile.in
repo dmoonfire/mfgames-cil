@@ -164,7 +164,7 @@ BUILD = $(top_builddir)/build
 mfgames_utility_ASSEMBLY_NAME = MfGames.Utility
 mfgames_utility_DLL = $(mfgames_utility_ASSEMBLY_NAME).dll
 mfgames_utility_ASSEMBLY = $(BUILD)/$(mfgames_utility_DLL)
-mfgames_utility_SOURCES = \
+mfgames_utility_FILES = \
 MfGames.Utility/AttributeTreeCollection.cs \
 MfGames.Utility/AttributeTree.cs \
 MfGames.Utility/Audit/Auditable.cs \
@@ -195,7 +195,11 @@ MfGames.Utility/Math/EulerRotation.cs \
 MfGames.Utility/Math/Matrix4D.cs \
 MfGames.Utility/Math/Quaternion.cs \
 MfGames.Utility/Math/Vector2D.cs \
+MfGames.Utility/Math/Vector2F.cs \
+MfGames.Utility/Math/Vector2I.cs \
 MfGames.Utility/Math/Vector3D.cs \
+MfGames.Utility/Math/Vector3F.cs \
+MfGames.Utility/Math/Vector3I.cs \
 MfGames.Utility/MfConvert.cs \
 MfGames.Utility/MimeFilenameIdentifier.cs \
 MfGames.Utility/NodeRef.cs \
@@ -231,7 +235,7 @@ MfGames.Utility/Version.cs
 
 test_DLL = test.dll
 test_ASSEMBLY = $(BUILD)/$(test_DLL)
-test_SOURCES = \
+test_FILES = \
 MfGames.Utility/Test/AttributeTreeTest.cs \
 MfGames.Utility/Test/AuditTest.cs \
 MfGames.Utility/Test/NodeRefTest.cs \
@@ -252,8 +256,8 @@ CLEANFILES = $(BUILD)/MfGames.Utility.xml TestResult.xml
 EXTRA_DIST = $(pkgconfig_in_files) etc/MfGames.Utility.snk \
 	MfGames.Utility/Dice/Dice.atg \
 	MfGames.Utility/Dice/Parser.frame \
-	MfGames.Utility/Dice/Scanner.frame $(mfgames_utility_SOURCES) \
-	$(test_SOURCES)
+	MfGames.Utility/Dice/Scanner.frame $(mfgames_utility_FILES) \
+	$(test_FILES)
 DISTCLEANFILES = etc/mfgames-utility-3.0.pc
 all: all-am
 
@@ -566,21 +570,22 @@ clean-local:
 	$(RM) -f *~ */*~ */*/*~
 	$(RM) -rf autom4te.cache config.log
 
-$(mfgames_utility_ASSEMBLY): $(mfgames_utility_SOURCES)
+$(mfgames_utility_ASSEMBLY): $(mfgames_utility_FILES)
 	mkdir -p $(BUILD)
 	$(CSC) $(CSC_FLAGS) -target:library -out:$@ \
 		-keyfile:etc/MfGames.Utility.snk \
 		-doc:$(BUILD)/MfGames.Utility.xml \
 		/d:TRACE /d:DEBUG \
+		/r:System.Drawing \
 		@log4net_LIBS@ \
-		$(realpath $(mfgames_utility_SOURCES))
+		$(realpath $(mfgames_utility_FILES))
 	chmod a-x $@
 
-$(test_ASSEMBLY): $(test_SOURCES) $(mfgames_utility_ASSEMBLY)
+$(test_ASSEMBLY): $(test_FILES) $(mfgames_utility_ASSEMBLY)
 	$(CSC) $(CSC_FLAGS) -target:library -out:$@ \
 		@nunit_LIBS@ \
 		-r:$(mfgames_utility_ASSEMBLY) \
-		$(realpath $(test_SOURCES))
+		$(realpath $(test_FILES))
 
 #	Delete the file if the nunit fails
 	@NUNIT_CONSOLE@ /nologo $@ || rm $(test_ASSEMBLY)
@@ -595,6 +600,46 @@ MfGames.Utility/Dice/Parser.cs: MfGames.Utility/Dice/Dice.atg
 MfGames.Utility/Dice/Parser.cs: MfGames.Utility/Dice/Parser.frame
 MfGames.Utility/Dice/Parser.cs: MfGames.Utility/Dice/Scanner.frame
 	@COCOCS@ -namespace MfGames.Utility.Dice MfGames.Utility/Dice/Dice.atg
+
+#
+# Vectors
+#
+
+MfGames.Utility/Math/Vector2D.cs: MfGames.Utility/Math/Vector2.cs.in
+	cat MfGames.Utility/Math/Vector2.cs.in \
+		| sed 's/@SUFFIX@/D/g' \
+		| sed 's/@TYPE@/double/g' \
+		> MfGames.Utility/Math/Vector2D.cs
+
+MfGames.Utility/Math/Vector2F.cs: MfGames.Utility/Math/Vector2.cs.in
+	cat MfGames.Utility/Math/Vector2.cs.in \
+		| sed 's/@SUFFIX@/F/g' \
+		| sed 's/@TYPE@/float/g' \
+		> MfGames.Utility/Math/Vector2F.cs
+
+MfGames.Utility/Math/Vector2I.cs: MfGames.Utility/Math/Vector2.cs.in
+	cat MfGames.Utility/Math/Vector2.cs.in \
+		| sed 's/@SUFFIX@/I/g' \
+		| sed 's/@TYPE@/int/g' \
+		> MfGames.Utility/Math/Vector2I.cs
+
+MfGames.Utility/Math/Vector3D.cs: MfGames.Utility/Math/Vector3.cs.in
+	cat MfGames.Utility/Math/Vector3.cs.in \
+		| sed 's/@SUFFIX@/D/g' \
+		| sed 's/@TYPE@/double/g' \
+		> MfGames.Utility/Math/Vector3D.cs
+
+MfGames.Utility/Math/Vector3F.cs: MfGames.Utility/Math/Vector3.cs.in
+	cat MfGames.Utility/Math/Vector3.cs.in \
+		| sed 's/@SUFFIX@/F/g' \
+		| sed 's/@TYPE@/float/g' \
+		> MfGames.Utility/Math/Vector3F.cs
+
+MfGames.Utility/Math/Vector3I.cs: MfGames.Utility/Math/Vector3.cs.in
+	cat MfGames.Utility/Math/Vector3.cs.in \
+		| sed 's/@SUFFIX@/I/g' \
+		| sed 's/@TYPE@/int/g' \
+		> MfGames.Utility/Math/Vector3I.cs
 
 # Installation
 install-data-local:

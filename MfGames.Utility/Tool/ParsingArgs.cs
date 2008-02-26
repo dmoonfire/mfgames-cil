@@ -104,6 +104,7 @@ namespace MfGames.Utility
 		#region Parsing
 		/// <summary>
 		/// Returns the first element and grabs a new one.
+		/// </summary>
 		public string Advance()
 		{
 			// Save the old one

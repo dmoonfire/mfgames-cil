@@ -32,49 +32,49 @@ using System.Drawing;
 namespace MfGames.Utility
 {
 	/// <summary>
-	/// A simple two-dimensional double vector.
+	/// A simple two-dimensional int vector.
 	/// </summary>
-    public class Vector2D
+    public class Vector2I
 	{
 		#region Constructors
 		/// <summary>
 		/// Constructs a zero vector.
 		/// </summary>
-		public Vector2D()
+		public Vector2I()
 		{
 		}
 
 		/// <summary>
 		/// Constructs the vector from the given points.
 		/// </summary>
-        public Vector2D(double x, double y)
+        public Vector2I(int x, int y)
 		{
         	this.X = x;
         	this.Y = y;
         }
         
 		/// <summary>
-		/// Constructs the vector from the given Vector2D.
+		/// Constructs the vector from the given Vector2I.
 		/// </summary>
-        public Vector2D(Vector2D v)
+        public Vector2I(Vector2I v)
 		{
         	this.X = v.X;
         	this.Y = v.Y;
         }
         
 		/// <summary>
-		/// Constructs the vector from the given Vector3D.
+		/// Constructs the vector from the given Vector3I.
 		/// </summary>
-        public Vector2D(Vector3D v)
+        public Vector2I(Vector3I v)
 		{
         	this.X = v.X;
         	this.Y = v.Y;
         }
         
 		/// <summary>
-		/// Constructs the vector from the list of doubles.
+		/// Constructs the vector from the list of ints.
 		/// </summary>
-        public Vector2D(double [] v)
+        public Vector2I(int [] v)
 		{
         	if(v != null && v.Length == 2)
 			{
@@ -84,12 +84,12 @@ namespace MfGames.Utility
         }
 
 		/// <summary>
-		/// Constructs the vector from the list of doubles.
+		/// Constructs the vector from the list of ints.
 		/// </summary>
-        public Vector2D(PointF p)
+        public Vector2I(PointF p)
 		{
-			this.X = (double) p.X;
-			this.Y = (double) p.Y;
+			this.X = (int) p.X;
+			this.Y = (int) p.Y;
         }
 		#endregion
 
@@ -97,29 +97,29 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Performs the additive operator on two vectors.
 		/// </summary>
-        public static Vector2D operator +(Vector2D v1, Vector2D v2)
+        public static Vector2I operator +(Vector2I v1, Vector2I v2)
         {
-        	return new Vector2D(v1.X + v2.X, v1.Y + v2.Y);
+        	return new Vector2I(v1.X + v2.X, v1.Y + v2.Y);
         }
         
 		/// <summary>
-		/// Multiplies a double against a vector.
+		/// Multiplies a int against a vector.
 		/// </summary>
-        public static Vector2D operator *(Vector2D v1, double factor)
+        public static Vector2I operator *(Vector2I v1, int factor)
         {
-        	return new Vector2D(v1.X * factor, v1.Y * factor);
+        	return new Vector2I(v1.X * factor, v1.Y * factor);
         }
 
 		/// <summary>
 		/// Gets the dot product of two vectors.
 		/// </summary>
-        public static double Dot(Vector2D v1, Vector2D v2)
+        public static int Dot(Vector2I v1, Vector2I v2)
         {
         	return (v1.X * v2.X) + (v1.Y * v2.Y);
         }
 
 		/// <summary>
-		/// Converts to an array of doubles automatically.
+		/// Converts to an array of ints automatically.
 		/// </summary>
 		public double [] ToDoubleArray()
 		{
@@ -135,7 +135,7 @@ namespace MfGames.Utility
 		}
 
 		/// <summary>
-		/// Converts to an array of doubles automatically.
+		/// Converts to an array of ints automatically.
 		/// </summary>
 		public int [] ToIntArray()
 		{
@@ -149,16 +149,16 @@ namespace MfGames.Utility
 		/// We make these public since the overhead for the property
 		/// access will just increase the processing time.
 		/// </remarks>
-    	public double X, Y;
+    	public int X, Y;
 
 		/// <summary>
 		/// Returns the length of the vector.
 		/// </summary>
-		public double Length
+		public int Length
 		{
 			get
 			{
-				return (double) Math.Sqrt(X * X + Y * Y);
+				return (int) Math.Sqrt(X * X + Y * Y);
 			}
 		}
 		#endregion

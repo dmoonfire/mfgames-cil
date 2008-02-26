@@ -28,6 +28,7 @@ namespace MfGames.Utility
 	/// program set a timer, then reduce it by a given amount. The
 	/// countdown aspect is intended to be triggered by code, either
 	/// using the ITickable interface or programmically.
+	/// </summary>
 	public class SecondsCountdown
 	: ITickable
 	{

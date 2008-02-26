@@ -31,22 +31,22 @@ using System;
 namespace MfGames.Utility
 {
 	/// <summary>
-	/// A simple three-dimensional double vector.
+	/// A simple three-dimensional float vector.
 	/// </summary>
-    public class Vector3D
+    public class Vector3F
 	{
 		#region Constructors
 		/// <summary>
 		/// Constructs a zero vector.
 		/// </summary>
-		public Vector3D()
+		public Vector3F()
 		{
 		}
 
 		/// <summary>
 		/// Constructs the vector from another one.
 		/// </summary>
-		public Vector3D(Vector2D v)
+		public Vector3F(Vector2F v)
 		{
 			this.X = v.X;
 			this.Y = v.Y;
@@ -56,7 +56,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Constructs the vector from another one.
 		/// </summary>
-		public Vector3D(Vector3D v)
+		public Vector3F(Vector3F v)
 		{
 			this.X = v.X;
 			this.Y = v.Y;
@@ -66,7 +66,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Constructs the vector from the given points.
 		/// </summary>
-        public Vector3D(double x, double y, double z)
+        public Vector3F(float x, float y, float z)
 		{
         	this.X = x;
         	this.Y = y;
@@ -74,9 +74,9 @@ namespace MfGames.Utility
         }
         
 		/// <summary>
-		/// Constructs the vector from the list of doubles.
+		/// Constructs the vector from the list of floats.
 		/// </summary>
-        public Vector3D(double[] v)
+        public Vector3F(float[] v)
 		{
         	if(v != null && v.Length == 3)
 			{
@@ -91,9 +91,9 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Performs the additive operator on two vectors.
 		/// </summary>
-        public static Vector3D operator +(Vector3D v1, Vector3D v2)
+        public static Vector3F operator +(Vector3F v1, Vector3F v2)
         {
-        	return new Vector3D(v1.X + v2.X,
+        	return new Vector3F(v1.X + v2.X,
 				v1.Y + v2.Y,
 				v1.Z + v2.Z);
         }
@@ -101,9 +101,9 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Performs the subtractive operator on two vectors.
 		/// </summary>
-        public static Vector3D operator -(Vector3D v1, Vector3D v2)
+        public static Vector3F operator -(Vector3F v1, Vector3F v2)
         {
-        	return new Vector3D(v1.X - v2.X,
+        	return new Vector3F(v1.X - v2.X,
 				v1.Y - v2.Y,
 				v1.Z - v2.Z);
         }
@@ -111,17 +111,17 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Multiplies two vectors to each other.
 		/// </summary>
-		public static double operator *(Vector3D v1, Vector3D v2)
+		public static float operator *(Vector3F v1, Vector3F v2)
 		{
 			return v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z;
 		}
 
 		/// <summary>
-		/// Multiplies a double against a vector.
+		/// Multiplies a float against a vector.
 		/// </summary>
-        public static Vector3D operator *(Vector3D v1, double factor)
+        public static Vector3F operator *(Vector3F v1, float factor)
         {
-        	return new Vector3D(
+        	return new Vector3F(
 				v1.X * factor,
 				v1.Y * factor,
 				v1.Z * factor);
@@ -130,7 +130,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Gets the dot product of two vectors.
 		/// </summary>
-        public static double Dot(Vector3D v1, Vector3D v2)
+        public static float Dot(Vector3F v1, Vector3F v2)
         {
         	return (v1.X * v2.X) + (v1.Y * v2.Y) + (v1.Z * v2.Z);
         }
@@ -138,9 +138,9 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Gets the cross product of two vectors.
 		/// </summary>
-        public static Vector3D Cross(Vector3D v1, Vector3D v2)
+        public static Vector3F Cross(Vector3F v1, Vector3F v2)
         {
-        	return new Vector3D(
+        	return new Vector3F(
 				(v1.Y * v2.Z) - (v1.Z * v2.Y),
 				(v1.Z * v2.X) - (v1.X * v2.Z),
 				(v1.X * v2.Y) - (v1.Y * v2.X));
@@ -151,14 +151,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public void Normalize()
 		{
-			double l = (double) Math.Sqrt(X*X+Y*Y+Z*Z);
+			float l = (float) Math.Sqrt(X*X+Y*Y+Z*Z);
 			X /= l;
 			Y /= l;
 			Z /= l;
 		}
 
 		/// <summary>
-		/// Converts to an array of doubles automatically.
+		/// Converts to an array of floats automatically.
 		/// </summary>
 		public double [] ToDoubleArray()
 		{
@@ -174,7 +174,7 @@ namespace MfGames.Utility
 		}
 
 		/// <summary>
-		/// Converts to an array of doubles automatically.
+		/// Converts to an array of floats automatically.
 		/// </summary>
 		public int [] ToIntArray()
 		{
@@ -195,16 +195,16 @@ namespace MfGames.Utility
 		/// We make these public since the overhead for the property
 		/// access will just increase the processing time.
 		/// </remarks>
-    	public double X, Y, Z;
+    	public float X, Y, Z;
 
 		/// <summary>
 		/// Returns the length of the vector.
 		/// </summary>
-		public double Length
+		public float Length
 		{
 			get
 			{
-				return (double) Math.Sqrt(X * X + Y * Y + Z * Z);
+				return (float) Math.Sqrt(X * X + Y * Y + Z * Z);
 			}
 		}
 		#endregion
