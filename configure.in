@@ -65,7 +65,9 @@ AC_SUBST(GACUTIL_FLAGS)
 AC_OUTPUT([
 Makefile
 MfGames.Utility/AssemblyInfo.cs
+MfGames.Input/AssemblyInfo.cs
 etc/mfgames-utility-3.0.pc
+etc/mfgames-input-3.0.pc
 ])
 
 echo ""

@@ -1,0 +1,8 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+
+Name: MfGames.Input
+Description: MfGames.Input - generic input utility class for CIL languages
+Version: @PACKAGE_VERSION@
+Libs: -r:${libdir}/cli/mfgames-utility-3.0/MfGames.Input.dll -r:${libdir}/cli/mfgames-utility-3.0/MfGames.Utility.dll

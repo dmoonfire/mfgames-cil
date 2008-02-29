@@ -73,6 +73,16 @@ MfGames.Utility/UtilityException.cs \
 MfGames.Utility/ValueTree.cs \
 MfGames.Utility/Version.cs
 
+mfgames_input_ASSEMBLY_NAME = MfGames.Input
+mfgames_input_DLL = $(mfgames_input_ASSEMBLY_NAME).dll
+mfgames_input_ASSEMBLY = $(BUILD)/$(mfgames_input_DLL)
+mfgames_input_FILES =  \
+MfGames.Input/InputManager.cs \
+MfGames.Input/ChainInputManager.cs \
+MfGames.Input/InputTokens.cs \
+MfGames.Input/InputEventArgs.cs \
+MfGames.Input/TokenMappingDictionary.cs
+
 test_DLL = test.dll
 test_ASSEMBLY = $(BUILD)/$(test_DLL)
 test_FILES = \
@@ -86,7 +96,7 @@ MfGames.Utility/Test/UtilityTest.cs \
 MfGames.Utility/Test/VersionTest.cs 
 
 # Generic
-all: $(mfgames_utility_ASSEMBLY) $(test_ASSEMBLY)
+all: $(mfgames_input_ASSEMBLY) $(test_ASSEMBLY)
 
 clean-local:
 	$(RM) -rf $(BUILD)
@@ -102,6 +112,17 @@ $(mfgames_utility_ASSEMBLY): $(mfgames_utility_FILES)
 		/r:System.Drawing \
 		@log4net_LIBS@ \
 		$(realpath $(mfgames_utility_FILES))
+	chmod a-x $@
+
+$(mfgames_input_ASSEMBLY): $(mfgames_input_FILES) $(mfgames_utility_ASSEMBLY)
+	mkdir -p $(BUILD)
+	$(CSC) $(CSC_FLAGS) -target:library -out:$@ \
+		-keyfile:etc/MfGames.Utility.snk \
+		-doc:$(BUILD)/MfGames.Input.xml \
+		/d:TRACE /d:DEBUG \
+		/r:System.Windows.Forms \
+		/r:$(mfgames_utility_ASSEMBLY) \
+		$(realpath $(mfgames_input_FILES))
 	chmod a-x $@
 
 $(test_ASSEMBLY): $(test_FILES) $(mfgames_utility_ASSEMBLY)
@@ -165,20 +186,26 @@ MfGames.Utility/Math/Vector3I.cs: MfGames.Utility/Math/Vector3.cs.in
 		> MfGames.Utility/Math/Vector3I.cs
 
 # pkgconfig
-pkgconfig_in_files = etc/mfgames-utility-3.0.pc.in
+pkgconfig_in_files = etc/mfgames-utility-3.0.pc.in etc/mfgames-input-3.0.pc.in
 pkgconfigdir= $(prefix)/lib/pkgconfig
 pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=.pc)
 
 # Installation
 install-data-local:
 	@GACUTIL@ /i $(mfgames_utility_ASSEMBLY) /f @GACUTIL_FLAGS@
+	@GACUTIL@ /i $(mfgames_input_ASSEMBLY) /f @GACUTIL_FLAGS@
+
 	mkdir -p @libdir@/cli/mfgames-utility-3.0
 	install $(mfgames_utility_ASSEMBLY) @libdir@/cli/mfgames-utility-3.0/
+	install $(mfgames_input_ASSEMBLY) @libdir@/cli/mfgames-utility-3.0/
 
 # Uninstallation
 uninstall-local:
 	@GACUTIL@ /u $(mfgames_utility_ASSEMBLY_NAME) @GACUTIL_FLAGS@
-	-rm @libdir@/cli/mfgames-utility-3.0/MfGames.Utility.dll
+	@GACUTIL@ /u $(mfgames_input_ASSEMBLY_NAME) @GACUTIL_FLAGS@
+
+	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_input_DLL)
+	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_input_DLL)
 	-rmdir @libdir@/cli/mfgames-utility-3.0
 
 # Definition of the various files that need to be cleaned up properly.
@@ -186,7 +213,8 @@ CLEANFILES = $(BUILD)/MfGames.Utility.xml TestResult.xml
 
 EXTRA_DIST = $(pkgconfig_in_files) etc/MfGames.Utility.snk
 EXTRA_DIST += MfGames.Utility/Dice/Dice.atg MfGames.Utility/Dice/Parser.frame MfGames.Utility/Dice/Scanner.frame
-EXTRA_DIST += $(mfgames_utility_FILES)
+EXTRA_DIST += $(mfgames_utility_FILES) $(mfgames_input_FILES)
 EXTRA_DIST += $(test_FILES)
 
-DISTCLEANFILES = etc/mfgames-utility-3.0.pc
+DISTCLEANFILES = etc/mfgames-utility-3.0.pc etc/mfgames-input-3.0.pc
+DISTCLEANFILES += MfGames.Utility/AssemblyInfo.cs MfGames.Input/AssemblyInfo.cs
