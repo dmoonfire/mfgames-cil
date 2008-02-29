@@ -205,7 +205,7 @@ uninstall-local:
 	@GACUTIL@ /u $(mfgames_input_ASSEMBLY_NAME) @GACUTIL_FLAGS@
 
 	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_input_DLL)
-	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_input_DLL)
+	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_utility_DLL)
 	-rmdir @libdir@/cli/mfgames-utility-3.0
 
 # Definition of the various files that need to be cleaned up properly.
