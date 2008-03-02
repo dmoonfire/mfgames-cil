@@ -27,21 +27,17 @@ namespace MfGames.Utility
 	public interface ISettings
 	{
 		#region Accessors
-		/// <summary>
-		/// This is the primary method for getting and setting values
-		/// in the system. If a null is set, then the value is
-		/// removed.
-		/// </summary>
+		// This is the primary method for getting and setting values
+		// in the system. If a null is set, then the value is
+		// removed.
 		string this[string group, string variable]
 		{
 			get;
 			set;
 		}
 
-		/// <summary>
-		/// This method returns true if a specific group/variable
-		/// exists within the system.
-		/// </summary>
+		// This method returns true if a specific group/variable
+		// exists within the system.
 		bool Contains(string group, string variable);
 		#endregion
 	}

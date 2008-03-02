@@ -685,7 +685,7 @@ uninstall-local:
 	@GACUTIL@ /u $(mfgames_input_ASSEMBLY_NAME) @GACUTIL_FLAGS@
 
 	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_input_DLL)
-	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_input_DLL)
+	-rm @libdir@/cli/mfgames-utility-3.0/$(mfgames_utility_DLL)
 	-rmdir @libdir@/cli/mfgames-utility-3.0
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
