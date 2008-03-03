@@ -81,7 +81,8 @@ MfGames.Input/InputManager.cs \
 MfGames.Input/ChainInputManager.cs \
 MfGames.Input/InputTokens.cs \
 MfGames.Input/InputEventArgs.cs \
-MfGames.Input/TokenMappingDictionary.cs
+MfGames.Input/TokenMappingDictionary.cs \
+MfGames.Input/AssemblyInfo.cs
 
 test_DLL = test.dll
 test_ASSEMBLY = $(BUILD)/$(test_DLL)

@@ -8,12 +8,12 @@ namespace MfGames.Input
 	{
 		#region Control Keys
 		public const string Control      = "C";
-		public const string RightControl = "CR";
-		public const string LeftControl  = "CL";
+		public const string RightControl = "RC";
+		public const string LeftControl  = "LC";
 
 		public const string Shift        = "S";
-		public const string RightShift   = "SR";
-		public const string LeftShift    = "SL";
+		public const string RightShift   = "RS";
+		public const string LeftShift    = "LS";
 
 		public const string Alt     = "A";
 		public const string Meta    = "M";
@@ -32,6 +32,19 @@ namespace MfGames.Input
 		public const string F10 = "F10";
 		public const string F11 = "F11";
 		public const string F12 = "F12";
+		#endregion
+
+		#region Cursor Keys
+		public const string Left  = "LEFT";
+		public const string Right = "RIGHT";
+		public const string Up    = "UP";
+		public const string Down  = "DOWN";
+		#endregion
+
+		#region Additional Keys
+		public const string Escape      = "ESC";
+		public const string Enter       = "RET";
+		public const string NumPadEnter = "NP:RET";
 		#endregion
 
 		#region Common Latin Keys

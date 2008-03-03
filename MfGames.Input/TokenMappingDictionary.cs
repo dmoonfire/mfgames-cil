@@ -45,10 +45,10 @@ namespace MfGames.Input
 		/// <summary>
 		/// Adds the following mappings to the dictionary:
 		/// <ul>
-		/// <li>CR: C</li>
-		/// <li>CL: C</li>
-		/// <li>SR: S</li>
-		/// <li>SL: S</li>
+		/// <li>RC: C</li>
+		/// <li>LC: C</li>
+		/// <li>RS: S</li>
+		/// <li>LS: S</li>
 		/// </ul>
 		/// </summary>
 		public void AddStandardMappings()
