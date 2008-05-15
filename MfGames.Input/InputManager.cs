@@ -120,6 +120,15 @@ namespace MfGames.Input
 				foreach (string mappedToken in tokenMapping[token])
 					ActivateInput(mappedToken);
 			}
+
+			// See if we are automatically collapsing
+			if (AutoCollapseTokens &&
+				token.LastIndexOf(":") > 0)
+			{
+				// Get the new token
+				string newToken = token.Substring(0, token.LastIndexOf(":"));
+				ActivateInput(newToken);
+			}
 		}
 
 		/// <summary>
@@ -186,6 +195,15 @@ namespace MfGames.Input
 				foreach (string mappedToken in tokenMapping[token])
 					DeactivateInput(mappedToken);
 			}
+
+			// See if we are automatically collapsing
+			if (AutoCollapseTokens &&
+				token.LastIndexOf(":") > 0)
+			{
+				// Get the new token
+				string newToken = token.Substring(0, token.LastIndexOf(":"));
+				DeactivateInput(newToken);
+			}
 		}
 
 		/// <summary>
@@ -206,6 +224,16 @@ namespace MfGames.Input
 
 		#region Input Mapping
 		private TokenMappingDictionary tokenMapping;
+
+		/// <summary>
+		/// If this is set to true, then the standard tokens (such as
+		/// "CONTROL:RIGHT") will be collapsed down to their left-most
+		/// elements (such as "CONTROL:RIGHT" collapsing down to
+		/// "CONTROL"). If there are multiple colons, each one will
+		/// collapse down to the next level ("A:B:C" collapses to
+		/// "A:B" collapses to "A").
+		/// </summary>
+		public bool AutoCollapseTokens = false;
 
 		/// <summary>
 		/// Creates a token mapping object for this input. If this is

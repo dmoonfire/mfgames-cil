@@ -53,12 +53,6 @@ namespace MfGames.Input
 		/// </summary>
 		public void AddStandardMappings()
 		{
-			// Control keys
-			Add(InputTokens.RightControl, InputTokens.Control);
-			Add(InputTokens.LeftControl,  InputTokens.Control);
-
-			Add(InputTokens.RightShift, InputTokens.Shift);
-			Add(InputTokens.LeftShift,  InputTokens.Shift);
 		}
 		#endregion
 	}

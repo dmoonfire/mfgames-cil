@@ -7,16 +7,17 @@ namespace MfGames.Input
 	public static class InputTokens
 	{
 		#region Control Keys
-		public const string Control      = "C";
-		public const string RightControl = "RC";
-		public const string LeftControl  = "LC";
+		public const string Control      = "CONTROL";
+		public const string RightControl = "CONTROL:RIGHT";
+		public const string LeftControl  = "CONTROL:LEFT";
 
-		public const string Shift        = "S";
-		public const string RightShift   = "RS";
-		public const string LeftShift    = "LS";
+		public const string Shift        = "SHIFT";
+		public const string RightShift   = "SHIFT:RIGHT";
+		public const string LeftShift    = "SHIFT:LEFT";
 
-		public const string Alt     = "A";
-		public const string Meta    = "M";
+		public const string Alt      = "ALT";
+		public const string RightAlt = "ALT:RIGHT";
+		public const string LeftAlt  = "ALT:LEFT";
 		#endregion
 
 		#region Function Keys
@@ -43,8 +44,8 @@ namespace MfGames.Input
 
 		#region Additional Keys
 		public const string Escape      = "ESC";
-		public const string Enter       = "RET";
-		public const string NumPadEnter = "NP:RET";
+		public const string Enter       = "ENTER";
+		public const string NumPadEnter = "ENTER:NUMPAD";
 		#endregion
 
 		#region Common Latin Keys
