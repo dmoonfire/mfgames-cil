@@ -43,9 +43,27 @@ namespace MfGames.Input
 		#endregion
 
 		#region Additional Keys
-		public const string Escape      = "ESC";
-		public const string Enter       = "ENTER";
-		public const string NumPadEnter = "ENTER:NUMPAD";
+		public const string Escape  = "ESCAPE";
+		public const string Enter   = "ENTER";
+		public const string NumLock = "NUMLOCK";
+		#endregion
+
+		#region Number Pad
+		public const string NumPadEnter    = "ENTER:NUMPAD";
+		public const string NumPadAdd      = "+:NUMPAD";
+		public const string NumPadSubtract = "-:NUMPAD";
+		public const string NumPadMultiply = "*:NUMPAD";
+		public const string NumPadDivide   = "/:NUMPAD";
+		public const string NumPad0        = "0:NUMPAD";
+		public const string NumPad1        = "1:NUMPAD";
+		public const string NumPad2        = "2:NUMPAD";
+		public const string NumPad3        = "3:NUMPAD";
+		public const string NumPad4        = "4:NUMPAD";
+		public const string NumPad5        = "5:NUMPAD";
+		public const string NumPad6        = "6:NUMPAD";
+		public const string NumPad7        = "7:NUMPAD";
+		public const string NumPad8        = "8:NUMPAD";
+		public const string NumPad9        = "9:NUMPAD";
 		#endregion
 
 		#region Common Latin Keys
@@ -75,6 +93,17 @@ namespace MfGames.Input
 		public const string X = "x";
 		public const string Y = "y";
 		public const string Z = "z";
+
+		public const string D0 = "0";
+		public const string D1 = "1";
+		public const string D2 = "2";
+		public const string D3 = "3";
+		public const string D4 = "4";
+		public const string D5 = "5";
+		public const string D6 = "6";
+		public const string D7 = "7";
+		public const string D8 = "8";
+		public const string D9 = "9";
 		#endregion
 	}
 }
