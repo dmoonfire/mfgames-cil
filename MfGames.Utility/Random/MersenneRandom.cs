@@ -72,6 +72,31 @@ namespace MfGames.Utility
 		{
 			return twister.NextDouble();
 		}
+
+		public double NextDouble(double min)
+		{
+			return twister.NextDouble() * (1 - min) + min;
+		}
+
+		public double NextDouble(double min, double max)
+		{
+			return twister.NextDouble() * (max - min) + min;
+		}
+
+		public float NextSingle()
+		{
+			return (float) twister.NextDouble();
+		}
+
+		public float NextSingle(float min)
+		{
+			return NextSingle() * (1 - min) + min;
+		}
+
+		public float NextSingle(float min, float max)
+		{
+			return NextSingle() * (max - min) + min;
+		}
 		#endregion
 	}
 }
