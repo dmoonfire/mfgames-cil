@@ -32,11 +32,11 @@ namespace MfGames.Utility
 	{
 		private int span = 5;
 
-		private uint [] buckets = null;
+		private int [] buckets = null;
 
 		public SecondsGauge()
 		{
-			buckets = new uint [span];
+			buckets = new int [span];
 
 			for (int i = 0; i < span; i++)
 				buckets[i] = 0;
@@ -45,7 +45,7 @@ namespace MfGames.Utility
 		public SecondsGauge(int newSpan)
 		{
 			span = newSpan;
-			buckets = new uint [span];
+			buckets = new int [span];
 
 			for (int i = 0; i < span; i++)
 				buckets[i] = 0;
@@ -58,10 +58,15 @@ namespace MfGames.Utility
 
 		public bool IsTickable { get { return true; } }
 
+		public void Activate()
+		{
+			Activate(1);
+		}
+
 		/// <summary>
 		/// Activates the counter for the current second.
 		/// </summary>
-		public void Activate()
+		public void Activate(int amount)
 		{
 			lock (this) {
 				// Figure if we need a roll-over
@@ -84,7 +89,7 @@ namespace MfGames.Utility
 				}
 	
 				// Add to the bucket
-				buckets[0]++;
+				buckets[0] += amount;
 			}
 		}
 

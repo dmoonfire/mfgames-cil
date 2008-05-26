@@ -46,6 +46,7 @@ namespace MfGames.Input
 		public const string Escape  = "ESCAPE";
 		public const string Enter   = "ENTER";
 		public const string NumLock = "NUMLOCK";
+		public const string Space   = "SPACE";
 		#endregion
 
 		#region Number Pad
@@ -104,6 +105,11 @@ namespace MfGames.Input
 		public const string D7 = "7";
 		public const string D8 = "8";
 		public const string D9 = "9";
+		#endregion
+
+		#region More Marks
+		public const string OpenBracket = "[";
+		public const string CloseBracket = "]";
 		#endregion
 	}
 }
