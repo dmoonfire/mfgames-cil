@@ -84,6 +84,15 @@ MfGames.Input/InputEventArgs.cs \
 MfGames.Input/TokenMappingDictionary.cs \
 MfGames.Input/AssemblyInfo.cs
 
+tool_ASSEMBLY_NAME = mfgames-utility
+tool_EXE = $(tool_ASSEMBLY_NAME).exe
+tool_ASSEMBLY = $(BUILD)/$(tool_EXE)
+tool_FILES = \
+mfgames-utility/ToolCreateSettings.cs \
+mfgames-utility/UtilityTool.cs
+tool_RESOURCES = \
+mfgames-utility/ToolCreateSettings.xsl
+
 test_DLL = test.dll
 test_ASSEMBLY = $(BUILD)/$(test_DLL)
 test_FILES = \
@@ -97,14 +106,14 @@ MfGames.Utility/Test/UtilityTest.cs \
 MfGames.Utility/Test/VersionTest.cs 
 
 # Generic
-all: $(mfgames_input_ASSEMBLY) $(test_ASSEMBLY)
+all: $(mfgames_input_ASSEMBLY) $(tool_ASSEMBLY) $(test_ASSEMBLY)
 
 clean-local:
 	$(RM) -rf $(BUILD)
 	$(RM) -f *~ */*~ */*/*~
 	$(RM) -rf autom4te.cache config.log
 
-$(mfgames_utility_ASSEMBLY): $(mfgames_utility_FILES)
+$(mfgames_utility_ASSEMBLY): $(mfgames_utility_FILES) Makefile
 	mkdir -p $(BUILD)
 	$(CSC) $(CSC_FLAGS) -target:library -out:$@ \
 		-keyfile:etc/MfGames.Utility.snk \
@@ -125,6 +134,14 @@ $(mfgames_input_ASSEMBLY): $(mfgames_input_FILES) $(mfgames_utility_ASSEMBLY)
 		/r:$(mfgames_utility_ASSEMBLY) \
 		$(realpath $(mfgames_input_FILES))
 	chmod a-x $@
+
+$(tool_ASSEMBLY): $(tool_FILES) $(mfgames_utility_ASSEMBLY) $(tool_RESOURCES)
+	mkdir -p $(BUILD)
+	$(CSC) $(CSC_FLAGS) -target:exe -out:$@ \
+		/d:TRACE /d:DEBUG \
+		/r:$(mfgames_utility_ASSEMBLY) \
+		-resource:mfgames-utility/ToolCreateSettings.xsl,mfgames_utility.ToolCreateSettings.xsl \
+		$(realpath $(tool_FILES))
 
 $(test_ASSEMBLY): $(test_FILES) $(mfgames_utility_ASSEMBLY)
 	$(CSC) $(CSC_FLAGS) -target:library -out:$@ \
