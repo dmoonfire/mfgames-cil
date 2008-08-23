@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MfGames</RootNamespace>
+    <AssemblyName>MfGames</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Input\ChainInputManager.cs" />
+    <Compile Include="Input\InputEventArgs.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\InputTokens.cs" />
+    <Compile Include="Input\TokenMappingDictionary.cs" />
+    <Compile Include="Algorithms\PerlinNoiseGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Dice\AdditionDice.cs" />
+    <Compile Include="Settings\Design\DesignGroup.cs" />
+    <Compile Include="Settings\Design\DesignSetting.cs" />
+    <Compile Include="Settings\Design\DesignConfiguration.cs" />
+    <Compile Include="Settings\Design\FormatType.cs" />
+    <Compile Include="Settings\Design\UsageType.cs" />
+    <Compile Include="Settings\Design\XmlDesignGenerator.cs" />
+    <Compile Include="Settings\Design\XmlDesignReader.cs" />
+    <Compile Include="Settings\Design\XmlDesignWriter.cs" />
+    <Compile Include="Utility\AttributeTree.cs" />
+    <Compile Include="Utility\AttributeTreeCollection.cs" />
+    <Compile Include="Utility\AttributeTreeTest.cs" />
+    <Compile Include="Utility\Auditable.cs" />
+    <Compile Include="Utility\AuditMessageArgs.cs" />
+    <Compile Include="Utility\AuditMessageHandler.cs" />
+    <Compile Include="Utility\AuditSeverityArgs.cs" />
+    <Compile Include="Utility\AuditSeverityHandler.cs" />
+    <Compile Include="Utility\AuditTest.cs" />
+    <Compile Include="Utility\ConfigStorage.cs" />
+    <Compile Include="Logging\ConsoleLogger.cs" />
+    <Compile Include="Dice\ConstantDice.cs" />
+    <Compile Include="Logging\DiagnosticSink.cs" />
+    <Compile Include="Dice\DiceException.cs" />
+    <Compile Include="Dice\DiceFactory.cs" />
+    <Compile Include="Utility\Entropy.cs" />
+    <Compile Include="Utility\Enum.cs" />
+    <Compile Include="Utility\IAuditable.cs" />
+    <Compile Include="Dice\IDice.cs" />
+    <Compile Include="Logging\ILogSink.cs" />
+    <Compile Include="Utility\InvalidPathException.cs" />
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\ISettingsStore.cs" />
+    <Compile Include="Utility\ITickable.cs" />
+    <Compile Include="Utility\ITool.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\Logable.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Utility\MersenneRandom.cs" />
+    <Compile Include="Utility\MersenneTwister.cs" />
+    <Compile Include="Utility\MfConvert.cs" />
+    <Compile Include="Utility\MimeFilenameIdentifier.cs" />
+    <Compile Include="Utility\NestedAuditable.cs" />
+    <Compile Include="Utility\NodeRef.cs" />
+    <Compile Include="Utility\NodeRefTest.cs" />
+    <Compile Include="Utility\NotAbsolutePathException.cs" />
+    <Compile Include="Utility\OptionalAttribute.cs" />
+    <Compile Include="Utility\Parser.cs" />
+    <Compile Include="Utility\ParsingArgs.cs" />
+    <Compile Include="Utility\PositionalAttribute.cs" />
+    <Compile Include="Dice\RandomDice.cs" />
+    <Compile Include="Utility\Scanner.cs" />
+    <Compile Include="Utility\SecondsCountdown.cs" />
+    <Compile Include="Utility\SecondsGauge.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Severity.cs" />
+    <Compile Include="Dice\SubtractionDice.cs" />
+    <Compile Include="Dice\TestDice.cs" />
+    <Compile Include="Utility\TestTimeZones.cs" />
+    <Compile Include="Utility\TickArgs.cs" />
+    <Compile Include="Utility\TickManager.cs" />
+    <Compile Include="Utility\TimeZones.cs" />
+    <Compile Include="Utility\TimeZoneUS.cs" />
+    <Compile Include="Utility\TimeZoneUtc.cs" />
+    <Compile Include="Utility\ToolManager.cs" />
+    <Compile Include="Utility\ToolTest.cs" />
+    <Compile Include="Utility\TypeChooser.cs" />
+    <Compile Include="Utility\UsageFormatter.cs" />
+    <Compile Include="Utility\UtilityException.cs" />
+    <Compile Include="Utility\UtilityTest.cs" />
+    <Compile Include="Utility\ValueTree.cs" />
+    <Compile Include="Utility\Version.cs" />
+    <Compile Include="Utility\VersionTest.cs" />
+    <Compile Include="Utility\WeightedSelector.cs" />
+    <Compile Include="Settings\XmlSettingsStore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Settings\Design\XmlSettings.xsl" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
