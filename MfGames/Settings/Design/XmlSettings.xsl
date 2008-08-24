@@ -52,13 +52,13 @@ public class <xsl:value-of select="muc:class"/>
     <xsl:value-of select="muc:name"/>
     <xsl:text>
 </xsl:text>
-    <xsl:apply-templates select="muc:setting|muc:constant"/>
+    <xsl:apply-templates select="muc:setting|muc:constant|muc:transient"/>
     <xsl:text>    #endregion
 </xsl:text>
   </xsl:template>
 
   <!--
-      Individual Properties
+      Settings
   -->
 
   <xsl:template match="muc:setting">
@@ -72,42 +72,43 @@ public class <xsl:value-of select="muc:class"/>
         get
         {
             if (Contains("</xsl:text>
-     <xsl:value-of select="../muc:name"/>
-     <xsl:text>", "</xsl:text>
-     <xsl:value-of select="muc:name"/>
-     <xsl:text>"))
-            {
-                return </xsl:text>
-
-<xsl:call-template name="variable-to-variable">
-  <xsl:with-param name="value">
-    <xsl:text>this["</xsl:text>
     <xsl:value-of select="../muc:name"/>
     <xsl:text>", "</xsl:text>
     <xsl:value-of select="muc:name"/>
-    <xsl:text>"]</xsl:text>
-  </xsl:with-param>
-</xsl:call-template>
+    <xsl:text>"))
+            {
+                return </xsl:text>
 
-<xsl:text>;
+    <xsl:call-template name="variable-to-variable">
+      <xsl:with-param name="value">
+        <xsl:text>this["</xsl:text>
+        <xsl:value-of select="../muc:name"/>
+        <xsl:text>", "</xsl:text>
+        <xsl:value-of select="muc:name"/>
+        <xsl:text>"]</xsl:text>
+      </xsl:with-param>
+    </xsl:call-template>
+
+    <xsl:text>;
             }
             else
             {</xsl:text>
-<xsl:if test="muc:default">
-<xsl:text>
+    <xsl:if test="muc:default">
+      <xsl:text>
                 return </xsl:text>
-<xsl:call-template name="string-to-variable">
-  <xsl:with-param name="value">
-   <xsl:value-of select="muc:default"/>
-  </xsl:with-param>
-</xsl:call-template>
+      <xsl:call-template name="string-to-variable">
+        <xsl:with-param name="value">
+          <xsl:value-of select="muc:default"/>
+        </xsl:with-param>
+      </xsl:call-template>
 
-<xsl:text>;</xsl:text>
-</xsl:if>
-<xsl:if test="not(muc:default)">
-<xsl:text>
+      <xsl:text>;</xsl:text>
+    </xsl:if>
+    <xsl:if test="not(muc:default)">
+      <xsl:text>
                 return null;</xsl:text>
-</xsl:if><xsl:text>
+    </xsl:if>
+    <xsl:text>
             }
         }
 
@@ -125,6 +126,54 @@ public class <xsl:value-of select="muc:class"/>
 </xsl:text>
   </xsl:template>
 
+  <!--
+      Transients
+  -->
+
+  <xsl:template match="muc:transient">
+    <!-- Create a private variable -->
+    <xsl:text>private </xsl:text>
+    <xsl:value-of select="muc:type"/>
+    <xsl:text> _</xsl:text>
+    <xsl:value-of select="muc:name"/>
+
+    <xsl:if test="muc:default">
+      <xsl:text> = </xsl:text>
+      <xsl:value-of select="muc:default"/>
+    </xsl:if>
+
+    <xsl:text>;
+</xsl:text>
+
+    <!-- Create the public accessor -->
+    <xsl:text>
+    public </xsl:text>
+    <xsl:value-of select="muc:type"/>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="muc:name"/>
+    <xsl:text>
+    {
+        get
+        {
+            return _</xsl:text>
+    <xsl:value-of select="muc:name"/>
+    <xsl:text>;
+        }
+
+        set
+        {
+            _</xsl:text>
+    <xsl:value-of select="muc:name"/>
+    <xsl:text> = value;
+        }
+    }
+</xsl:text>
+  </xsl:template>
+
+  <!--
+      Constants
+  -->
+
   <xsl:template match="muc:constant">
     <xsl:text>
     public </xsl:text>
@@ -136,12 +185,7 @@ public class <xsl:value-of select="muc:class"/>
         get
         {
             return </xsl:text>
-<xsl:call-template name="string-to-variable">
-  <xsl:with-param name="value">
    <xsl:value-of select="muc:default"/>
-  </xsl:with-param>
-</xsl:call-template>
-
 <xsl:text>;
         }
     }

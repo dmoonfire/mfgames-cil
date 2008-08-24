@@ -48,13 +48,14 @@
 			this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.openSettingsDialog = new System.Windows.Forms.OpenFileDialog();
-			this.constant = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.configNamespace = new System.Windows.Forms.TextBox();
-			this.configClass = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.configClass = new System.Windows.Forms.TextBox();
+			this.configNamespace = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.usageCombo = new System.Windows.Forms.ComboBox();
 			this.menuStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -120,7 +121,7 @@
             "numeric",
             "System.IO.FileInfo",
             "System.IO.DirectoryInfo"});
-			this.type.Location = new System.Drawing.Point(92, 90);
+			this.type.Location = new System.Drawing.Point(92, 93);
 			this.type.Name = "type";
 			this.type.Size = new System.Drawing.Size(249, 21);
 			this.type.TabIndex = 3;
@@ -130,7 +131,7 @@
 			// 
 			this.enumeration.AutoSize = true;
 			this.enumeration.Enabled = false;
-			this.enumeration.Location = new System.Drawing.Point(92, 118);
+			this.enumeration.Location = new System.Drawing.Point(92, 120);
 			this.enumeration.Name = "enumeration";
 			this.enumeration.Size = new System.Drawing.Size(91, 17);
 			this.enumeration.TabIndex = 4;
@@ -141,7 +142,7 @@
 			// defaultValue
 			// 
 			this.defaultValue.Enabled = false;
-			this.defaultValue.Location = new System.Drawing.Point(92, 142);
+			this.defaultValue.Location = new System.Drawing.Point(92, 143);
 			this.defaultValue.Name = "defaultValue";
 			this.defaultValue.Size = new System.Drawing.Size(249, 20);
 			this.defaultValue.TabIndex = 5;
@@ -150,7 +151,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(52, 93);
+			this.label3.Location = new System.Drawing.Point(52, 96);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(34, 13);
 			this.label3.TabIndex = 8;
@@ -255,17 +256,6 @@
 			this.openSettingsDialog.Filter = "XML|*.xml|All files|*.*";
 			this.openSettingsDialog.Title = "Open Settings XML";
 			// 
-			// constant
-			// 
-			this.constant.AutoSize = true;
-			this.constant.Location = new System.Drawing.Point(92, 67);
-			this.constant.Name = "constant";
-			this.constant.Size = new System.Drawing.Size(74, 17);
-			this.constant.TabIndex = 2;
-			this.constant.Text = "Constant?";
-			this.constant.UseVisualStyleBackColor = true;
-			this.constant.CheckedChanged += new System.EventHandler(this.constant_CheckedChanged);
-			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.label6);
@@ -279,11 +269,46 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Configuration";
 			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(20, 50);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(66, 13);
+			this.label6.TabIndex = 3;
+			this.label6.Text = "Class Name:";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(19, 23);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(67, 13);
+			this.label5.TabIndex = 2;
+			this.label5.Text = "Namespace:";
+			// 
+			// configClass
+			// 
+			this.configClass.Location = new System.Drawing.Point(93, 46);
+			this.configClass.Name = "configClass";
+			this.configClass.Size = new System.Drawing.Size(248, 20);
+			this.configClass.TabIndex = 1;
+			this.configClass.TextChanged += new System.EventHandler(this.configClass_TextChanged);
+			// 
+			// configNamespace
+			// 
+			this.configNamespace.Location = new System.Drawing.Point(92, 20);
+			this.configNamespace.Name = "configNamespace";
+			this.configNamespace.Size = new System.Drawing.Size(249, 20);
+			this.configNamespace.TabIndex = 0;
+			this.configNamespace.TextChanged += new System.EventHandler(this.configNamespace_TextChanged);
+			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.usageCombo);
+			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.group);
 			this.groupBox2.Controls.Add(this.label1);
-			this.groupBox2.Controls.Add(this.constant);
 			this.groupBox2.Controls.Add(this.name);
 			this.groupBox2.Controls.Add(this.label2);
 			this.groupBox2.Controls.Add(this.label4);
@@ -298,39 +323,29 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Setting";
 			// 
-			// configNamespace
+			// label7
 			// 
-			this.configNamespace.Location = new System.Drawing.Point(92, 20);
-			this.configNamespace.Name = "configNamespace";
-			this.configNamespace.Size = new System.Drawing.Size(249, 20);
-			this.configNamespace.TabIndex = 0;
-			this.configNamespace.TextChanged += new System.EventHandler(this.configNamespace_TextChanged);
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(45, 69);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(41, 13);
+			this.label7.TabIndex = 10;
+			this.label7.Text = "Usage:";
 			// 
-			// configClass
+			// usageCombo
 			// 
-			this.configClass.Location = new System.Drawing.Point(93, 46);
-			this.configClass.Name = "configClass";
-			this.configClass.Size = new System.Drawing.Size(248, 20);
-			this.configClass.TabIndex = 1;
-			this.configClass.TextChanged += new System.EventHandler(this.configClass_TextChanged);
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(19, 23);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(67, 13);
-			this.label5.TabIndex = 2;
-			this.label5.Text = "Namespace:";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(20, 50);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(66, 13);
-			this.label6.TabIndex = 3;
-			this.label6.Text = "Class Name:";
+			this.usageCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.usageCombo.Enabled = false;
+			this.usageCombo.FormattingEnabled = true;
+			this.usageCombo.Items.AddRange(new object[] {
+            "Setting",
+            "Constant",
+            "Transient"});
+			this.usageCombo.Location = new System.Drawing.Point(92, 66);
+			this.usageCombo.Name = "usageCombo";
+			this.usageCombo.Size = new System.Drawing.Size(249, 21);
+			this.usageCombo.TabIndex = 2;
+			this.usageCombo.SelectedValueChanged += new System.EventHandler(this.usageCombo_SelectedValueChanged);
 			// 
 			// Form1
 			// 
@@ -378,13 +393,14 @@
 		private System.Windows.Forms.OpenFileDialog openSettingsDialog;
 		private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-		private System.Windows.Forms.CheckBox constant;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.TextBox configClass;
 		private System.Windows.Forms.TextBox configNamespace;
 		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.ComboBox usageCombo;
+		private System.Windows.Forms.Label label7;
 	}
 }
 

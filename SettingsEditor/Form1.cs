@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MfGames.Settings.Design;
 using System.IO;
+using MfGames.Utility;
 
 namespace SettingsEditor
 {
@@ -104,7 +105,7 @@ namespace SettingsEditor
 					type.Enabled = false;
 					defaultValue.Enabled = false;
 					enumeration.Enabled = false;
-					constant.Enabled = false;
+					usageCombo.Enabled = false;
 
 					// Clear out the fields
 					name.Text = "";
@@ -121,7 +122,7 @@ namespace SettingsEditor
 					type.Enabled = false;
 					defaultValue.Enabled = false;
 					enumeration.Enabled = false;
-					constant.Enabled = false;
+					usageCombo.Enabled = false;
 
 					// Clear out the fields
 					name.Text = _setting.Name;
@@ -129,7 +130,7 @@ namespace SettingsEditor
 					type.Text = _setting.TypeName;
 					defaultValue.Text = _setting.Default;
 					enumeration.Checked = _setting.Format == FormatType.Enumeration ? true : false;
-					constant.Checked = _setting.Usage == UsageType.Constant;
+					usageCombo.SelectedIndex = (int) _setting.Usage;
 
 					// Enable everything
 					name.Enabled = true;
@@ -137,7 +138,7 @@ namespace SettingsEditor
 					type.Enabled = true;
 					defaultValue.Enabled = true;
 					enumeration.Enabled = true;
-					constant.Enabled = true;
+					usageCombo.Enabled = true;
 				}
 			}
 		}
@@ -284,14 +285,6 @@ namespace SettingsEditor
 			Rebuild();
 		}
 
-		private void constant_CheckedChanged(object sender, EventArgs e)
-		{
-			if (!constant.Enabled)
-				return;
-
-			Setting.Usage = constant.Checked ? UsageType.Constant : UsageType.Setting;
-		}
-
 		private void enumeration_CheckedChanged(object sender, EventArgs e)
 		{
 			if (!enumeration.Enabled)
@@ -352,6 +345,14 @@ namespace SettingsEditor
 				return;
 
 			Configuration.Namespace = configNamespace.Text.Trim();
+		}
+
+		private void usageCombo_SelectedValueChanged(object sender, EventArgs e)
+		{
+			if (!usageCombo.Enabled)
+				return;
+
+			Setting.Usage = Enum<UsageType>.Parse(usageCombo.SelectedItem.ToString());
 		}
 	}
 }

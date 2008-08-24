@@ -170,14 +170,15 @@ namespace MfGames.Settings
 			try
 			{
 				// Open up the stream
-				using (FileStream fs =
-					file.Open(FileMode.Create, FileAccess.Write))
+				using (FileStream fs = file.Open(FileMode.Create))
 				{
 					// Create an XML writer
 					XmlWriter xml = XmlWriter.Create(fs);
 					xml.WriteStartDocument();
 					Save(xml);
 					xml.WriteEndDocument();
+					xml.Close();
+					fs.Close();
 				}
 			}
 			catch (Exception e)

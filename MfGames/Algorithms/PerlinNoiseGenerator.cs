@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MfGames.Utility;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace MfGames.Algorithms
 {
@@ -160,6 +162,52 @@ namespace MfGames.Algorithms
 
 			// Interpolate the final numbers
 			return Interpolate(i1, i2, y - iy);
+		}
+		#endregion
+
+		#region XML I/O
+		/// <summary>
+		/// Reads in a perlin noise generator's settings from the given stream, using tagName
+		/// as the enclosing tag.
+		/// </summary>
+		/// <param name="xml"></param>
+		/// <param name="tagName"></param>
+		public void Read(XmlReader xml, string tagName)
+		{
+			// Make sure we have the right tag
+			if (xml.LocalName != tagName)
+				throw new Exception("Expected tag " + tagName + " but got " + xml.LocalName);
+
+			// Read in the properties
+			Rank1 = XmlConvert.ToInt32(xml["r1"]);
+			Rank2 = XmlConvert.ToInt32(xml["r2"]);
+			Rank3 = XmlConvert.ToInt32(xml["r3"]);
+			Frequency = XmlConvert.ToDouble(xml["f"]);
+			Persistence = XmlConvert.ToDouble(xml["p"]);
+			Octaves = XmlConvert.ToInt32(xml["o"]);
+			Amplitude = XmlConvert.ToDouble(xml["a"]);
+			Density = XmlConvert.ToDouble(xml["d"]);
+			Coverage = XmlConvert.ToDouble(xml["c"]);
+		}
+
+		/// <summary>
+		/// Writes out the settings of the perlin noise generator to the given XML stream.
+		/// </summary>
+		/// <param name="xml"></param>
+		/// <param name="tagName"></param>
+		public void Write(XmlWriter xml, string tagName)
+		{
+			xml.WriteStartElement(tagName);
+			xml.WriteAttributeString("r1", XmlConvert.ToString(Rank1));
+			xml.WriteAttributeString("r2", XmlConvert.ToString(Rank2));
+			xml.WriteAttributeString("r3", XmlConvert.ToString(Rank3));
+			xml.WriteAttributeString("f", XmlConvert.ToString(Frequency));
+			xml.WriteAttributeString("p", XmlConvert.ToString(Persistence));
+			xml.WriteAttributeString("o", XmlConvert.ToString(Octaves));
+			xml.WriteAttributeString("a", XmlConvert.ToString(Amplitude));
+			xml.WriteAttributeString("d", XmlConvert.ToString(Density));
+			xml.WriteAttributeString("c", XmlConvert.ToString(Coverage));
+			xml.WriteEndElement();
 		}
 		#endregion
 	}

@@ -110,7 +110,7 @@ namespace MfGames.Settings.Design
 						// Read in the name of the group
 						group.Name = xml.ReadString();
 					}
-					else if (xml.LocalName == "setting" || xml.LocalName == "constant")
+					else if (xml.LocalName == "setting" || xml.LocalName == "constant" || xml.LocalName == "transient")
 					{
 						// Create the setting object
 						DesignSetting setting = new DesignSetting();
@@ -118,6 +118,8 @@ namespace MfGames.Settings.Design
 						// Set up the usage type for non-settings
 						if (xml.LocalName == "constant")
 							setting.Usage = UsageType.Constant;
+						if (xml.LocalName == "transient")
+							setting.Usage = UsageType.Transient;
 
 						// Read in the setting
 						Read(xml, setting);
@@ -144,7 +146,7 @@ namespace MfGames.Settings.Design
 			{
 				// Check for the end
 				if (xml.NodeType == XmlNodeType.EndElement &&
-					xml.LocalName == "setting")
+					(xml.LocalName == "setting" || xml.LocalName == "constant" || xml.LocalName == "transient"))
 				{
 					// We are done parsing it
 					break;
