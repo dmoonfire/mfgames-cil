@@ -13,7 +13,7 @@ namespace MfGames.Input
 	/// mappings.
 	/// </summary>
 	public class TokenMappingDictionary
-	: Dictionary<string,List<string>>
+	: Dictionary<string, List<string>>
 	{
 		#region Collection Operations
 		/// <summary>

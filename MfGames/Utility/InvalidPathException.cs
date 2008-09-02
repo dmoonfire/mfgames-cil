@@ -22,7 +22,7 @@
 namespace MfGames.Utility
 {
 	using System;
-  
+
 	/// <summary>
 	/// Indicates that the given path does not conform to the format
 	/// required by the system. This should be an indicator of invalid

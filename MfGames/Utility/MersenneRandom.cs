@@ -47,7 +47,7 @@ namespace MfGames.Utility
 			twister = new MersenneTwister(seed);
 		}
 		#endregion
-		
+
 		#region Properties
 		private MersenneTwister twister;
 		#endregion

@@ -22,11 +22,9 @@
 namespace MfGames.Utility
 {
 	using System;
-	using System.Collections;
-	using System.IO;
 	using System.Text.RegularExpressions;
 	using MfGames.Logging;
-  
+
 	/// <summary>
 	/// A node ref is a generic reference string that bears some
 	/// resemblance to the Unix file system path. It is used for a path
@@ -52,19 +50,19 @@ namespace MfGames.Utility
 	[Serializable]
 	public class NodeRef : Logable
 	{
-#region Constants
+		#region Constants
 		// Contains the common root context
 		public static readonly NodeRef RootContext = new NodeRef();
-#endregion
+		#endregion
 
-#region Constructors
+		#region Constructors
 		/// <summary>
 		/// Private constructor that makes a root context.
 		/// </summary>
 		public NodeRef()
 		{
 			pref = "/";
-			parts = new string [] {};
+			parts = new string[] { };
 		}
 
 		/// <summary>
@@ -77,15 +75,15 @@ namespace MfGames.Utility
 			// Create the path components
 			ParsePath(path, null);
 		}
-    
+
 		public NodeRef(string path, NodeRef context)
 		{
 			// Create the path components
 			ParsePath(path, context);
 		}
-#endregion
+		#endregion
 
-#region Path Construction
+		#region Path Construction
 		/// Frequently used regex to simplify dupliate "//" characters
 		private static readonly Regex findDoubleSlashRegex = new Regex("//+");
 
@@ -159,7 +157,7 @@ namespace MfGames.Utility
 			path = findRefUpRegex.Replace(path, "/");
 			path = findInvalidUpRegex.Replace(path, "/");
 			//Debug("Processing: {0} => {1}", orig, path);
-      
+
 			// Finally, remove the leading and trailing slash that we put in.
 			//Debug("Processing 1: {0} => {1}", orig, path);
 			path = findTrailingSlashesRegex.Replace(path, "");
@@ -190,7 +188,7 @@ namespace MfGames.Utility
 			if (path.Equals(""))
 			{
 				// This is an empty path, which means it was a "/" reference
-				parts = new string [] {};
+				parts = new string[] { };
 				pref = "/";
 			}
 			else
@@ -200,9 +198,9 @@ namespace MfGames.Utility
 				pref = "/" + path;
 			}
 		}
-#endregion
+		#endregion
 
-#region Path Operations
+		#region Path Operations
 		// Constaints the string version of the entire path
 		private string pref = null;
 
@@ -210,7 +208,7 @@ namespace MfGames.Utility
 		private string regexable = null;
 
 		// Contains the various parts of the path, for comparison
-		private string [] parts = null;
+		private string[] parts = null;
 
 		/// <summary>
 		/// Returns the nth element of the path.
@@ -250,7 +248,7 @@ namespace MfGames.Utility
 			// where the leading / is removed.
 			string path =
 				Regex.Replace(nodeRef.Path, "^" + regexable, "");
-      
+
 			return new NodeRef(path, RootContext);
 		}
 
@@ -316,23 +314,24 @@ namespace MfGames.Utility
 		/// </summary>
 		public string Name
 		{
-			get {
+			get
+			{
 				if (parts.Length == 0)
 					return ".";
 				else
 					return parts[parts.Length - 1];
 			}
 
-			set {}
+			set { }
 		}
 
 		/// <summary>
 		/// Returns the path when requested as a string.
 		/// </summary>
 		public override string ToString() { return pref; }
-#endregion
+		#endregion
 
-#region Child Path Operations
+		#region Child Path Operations
 		/// <summary>
 		/// A simple accessor that allows retrieval of a child path
 		/// from this one. This, in effect, calls CreateChild(). The
@@ -379,9 +378,9 @@ namespace MfGames.Utility
 			// Return it
 			return nref;
 		}
-#endregion
+		#endregion
 
-#region Parent Path Operations
+		#region Parent Path Operations
 		/// <summary>
 		/// Returns the node reference for a parent. If this is already
 		/// the root, it will automatically return null on this object.
@@ -420,6 +419,6 @@ namespace MfGames.Utility
 				return parent.Path;
 			}
 		}
-#endregion
+		#endregion
 	}
 }

@@ -110,7 +110,7 @@ namespace MfGames.Utility
 		{
 			// Save the old one
 			string old = first;
-			
+
 			// Sanity checking
 			if (arguments.Count > 0)
 			{
@@ -253,7 +253,7 @@ namespace MfGames.Utility
 				else if (pi != null)
 					pi.GetSetMethod()
 						.Invoke(container,
-							new object [] { MapType(type, value) });
+							new object[] { MapType(type, value) });
 			}
 			else
 			{
@@ -262,7 +262,7 @@ namespace MfGames.Utility
 					fi.SetValue(container, !isNo);
 				else if (pi != null)
 					pi.GetSetMethod()
-						.Invoke(container, new object [] { !isNo });
+						.Invoke(container, new object[] { !isNo });
 			}
 
 			// We processed it
@@ -278,7 +278,7 @@ namespace MfGames.Utility
 		{
 			// Get the list of all possible attributes
 			Type cType = container.GetType();
-			MemberInfo [] mis =
+			MemberInfo[] mis =
 				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
 					BindingFlags.Public | BindingFlags.NonPublic
 					| BindingFlags.Instance | BindingFlags.Static,
@@ -314,9 +314,9 @@ namespace MfGames.Utility
 							Type ptype = pi.PropertyType;
 
 							pi.GetSetMethod().Invoke(container,
-								new object [] { MapType(ptype, first) });
+								new object[] { MapType(ptype, first) });
 						}
-						
+
 						// Advance the parser and continue
 						lastPosition = position;
 						position++;
@@ -353,7 +353,7 @@ namespace MfGames.Utility
 		{
 			// Get the list of all possible attributes
 			Type cType = container.GetType();
-			MemberInfo [] mis =
+			MemberInfo[] mis =
 				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
 					BindingFlags.Public | BindingFlags.NonPublic
 					| BindingFlags.Instance | BindingFlags.Static,

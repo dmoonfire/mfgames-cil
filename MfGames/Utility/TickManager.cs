@@ -66,22 +66,23 @@ namespace MfGames.Utility
 					{
 						Error("Cannot sleep (" + tickSpan + "): " + e);
 					}
-	  
+
 					// Lock to see if we are processing
-					lock (this) {
+					lock (this)
+					{
 						// If we are processing, just increment it
 						if (processing)
 						{
 							skippedTicks++;
 							continue;
 						}
-	    
+
 						// Process the counter
 						processSkipped = skippedTicks;
 						skippedTicks = 0;
 						processing = true;
 					}
-	  
+
 					// Perform the actual threaded tick
 					RunTicker();
 				}
@@ -108,7 +109,7 @@ namespace MfGames.Utility
 					long now = DateTime.Now.Ticks;
 					args.LastTick = now - lastTick;
 					lastTick = now;
-	  
+
 					// Trigger the ticker
 					try
 					{
@@ -119,7 +120,7 @@ namespace MfGames.Utility
 						Error("Cannot run ticker tick: " + e);
 					}
 				}
-	
+
 				// Clear the flag. This is in a locked block because the testing
 				// of it is also in the same lock.
 				lock (this)

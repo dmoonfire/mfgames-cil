@@ -19,7 +19,6 @@
  */
 #endregion
 
-using System;
 using System.Collections;
 
 namespace MfGames.Utility
@@ -109,10 +108,10 @@ namespace MfGames.Utility
 			if (remove)
 			{
 				string pmsg = "";
-				
+
 				if (prefixes.Contains(auditable))
 					pmsg = prefixes[auditable].ToString();
-				
+
 				foreach (string msg in auditable.AuditMessages.Keys)
 					ClearAuditMessage(pmsg + msg);
 			}

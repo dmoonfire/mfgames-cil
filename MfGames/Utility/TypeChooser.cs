@@ -35,16 +35,16 @@ namespace MfGames.Utility
 	/// </summary>
 	public class TypeChooser
 	{
-#region Constructors
+		#region Constructors
 		/// <summary>
 		/// Creates an empty type chooser object.
 		/// </summary>
 		public TypeChooser()
 		{
 		}
-#endregion
+		#endregion
 
-#region Adding
+		#region Adding
 		// Contains a hash of lists
 		private Hashtable lists = new Hashtable();
 
@@ -67,7 +67,7 @@ namespace MfGames.Utility
 
 			// Get the lists based on the key
 			ArrayList list = (ArrayList) lists[typeName];
-      
+
 			if (list == null)
 			{
 				list = new ArrayList();
@@ -96,9 +96,9 @@ namespace MfGames.Utility
 				}
 			}
 		}
-#endregion
+		#endregion
 
-#region Selecting
+		#region Selecting
 		/// <summary>
 		/// Returns the type of types in the chooser.
 		/// </summary>
@@ -141,7 +141,7 @@ namespace MfGames.Utility
 			list.AddRange(Select(type.BaseType));
 
 			// Add the interfaces, if any
-			Type [] interfaces
+			Type[] interfaces
 				= type.FindInterfaces(new TypeFilter(FindAllTypes), null);
 
 			foreach (Type iType in interfaces)
@@ -150,6 +150,6 @@ namespace MfGames.Utility
 			// Return the list
 			return list;
 		}
-#endregion
+		#endregion
 	}
 }

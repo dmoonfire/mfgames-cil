@@ -157,7 +157,7 @@ namespace MfGames.Utility
 			// Cause problems if we get a null
 			if (appName == null)
 				throw new Exception("Cannot create a null application");
-      
+
 			// Check for invalid key
 			if (!ValidateStorageKey.IsMatch(appName))
 				throw new Exception("Application names may only have letters, "

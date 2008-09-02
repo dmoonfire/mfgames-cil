@@ -36,7 +36,7 @@ namespace MfGames.Logging
 		{
 			// Write out the message to standard error
 			Console.Error.WriteLine("{0,5}: {1}: {2}", level, context, msg);
-      
+
 			// Add the stack trace if we have an exception
 			if (e != null)
 			{

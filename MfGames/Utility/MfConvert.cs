@@ -31,7 +31,7 @@ namespace MfGames.Utility
 	/// </summary>
 	public abstract class MfConvert
 	{
-#region String Functions
+		#region String Functions
 		static char[] HEX_DIGITS = {
 			'0', '1', '2', '3', '4', '5', '6', '7',
 			'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -40,7 +40,7 @@ namespace MfGames.Utility
 		/// Generates a hex string from a give set of bytes. This code
 		/// came from the Microsoft site.
 		/// </summary>
-		public static string ToHexString(byte [] input)
+		public static string ToHexString(byte[] input)
 		{
 			// Allocate the space
 			char[] chars = new char[input.Length * 2];
@@ -66,11 +66,11 @@ namespace MfGames.Utility
 			// compatibility with MySQL and Linux's md5 stuff (learned the hard
 			// way).
 			UTF8Encoding ue = new UTF8Encoding();
-			byte [] input2 = ue.GetBytes(input);
-      
+			byte[] input2 = ue.GetBytes(input);
+
 			// First encrypt it
 			MD5 md5 = new MD5CryptoServiceProvider();
-			byte [] hash = md5.ComputeHash(input2);
+			byte[] hash = md5.ComputeHash(input2);
 			return ToHexString(hash);
 		}
 
@@ -82,13 +82,13 @@ namespace MfGames.Utility
 		{
 			// Convert into bytes
 			UTF8Encoding ue = new UTF8Encoding();
-			byte [] input2 = ue.GetBytes(input);
-      
+			byte[] input2 = ue.GetBytes(input);
+
 			// First encrypt it
 			MD5 md5 = new MD5CryptoServiceProvider();
-			byte [] hash = md5.ComputeHash(input2);
+			byte[] hash = md5.ComputeHash(input2);
 			return Convert.ToBase64String(hash);
 		}
-#endregion
+		#endregion
 	}
 }

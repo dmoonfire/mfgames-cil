@@ -20,8 +20,6 @@
 #endregion
 
 using System;
-using System.IO;
-using System.Reflection;
 
 namespace MfGames.Logging
 {
@@ -31,7 +29,7 @@ namespace MfGames.Logging
 	/// constructors.
 	/// </summary>
 	[Serializable]
-    public class Log : Logable
+	public class Log : Logable
 	{
 		#region Constructors
 		public Log(string context)

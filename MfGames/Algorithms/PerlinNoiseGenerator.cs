@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MfGames.Utility;
 using System.Xml;
-using System.Xml.Linq;
+using MfGames.Utility;
 
 namespace MfGames.Algorithms
 {
@@ -52,7 +48,7 @@ namespace MfGames.Algorithms
 		public double Frequency { get; set; }
 
 		public int Octaves { get; set; }
-		
+
 		public double Persistence { get; set; }
 
 		public int Rank1 { get; set; }
@@ -197,7 +193,9 @@ namespace MfGames.Algorithms
 		/// <param name="tagName"></param>
 		public void Write(XmlWriter xml, string tagName)
 		{
-			xml.WriteStartElement(tagName);
+			if (tagName != null)
+				xml.WriteStartElement(tagName);
+
 			xml.WriteAttributeString("r1", XmlConvert.ToString(Rank1));
 			xml.WriteAttributeString("r2", XmlConvert.ToString(Rank2));
 			xml.WriteAttributeString("r3", XmlConvert.ToString(Rank3));
@@ -207,7 +205,9 @@ namespace MfGames.Algorithms
 			xml.WriteAttributeString("a", XmlConvert.ToString(Amplitude));
 			xml.WriteAttributeString("d", XmlConvert.ToString(Density));
 			xml.WriteAttributeString("c", XmlConvert.ToString(Coverage));
-			xml.WriteEndElement();
+
+			if (tagName != null)
+				xml.WriteEndElement();
 		}
 		#endregion
 	}

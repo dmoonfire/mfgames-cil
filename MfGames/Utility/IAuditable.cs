@@ -21,7 +21,6 @@
 
 namespace MfGames.Utility
 {
-	using System;
 	using System.Collections;
 
 	/// <summary>

@@ -22,7 +22,7 @@
 namespace MfGames.Utility
 {
 	using System;
-  
+
 	/// <summary>
 	/// Top-level for all utility exceptions. This indicates a general
 	/// problem with the Utility library or one of the methods inside it.

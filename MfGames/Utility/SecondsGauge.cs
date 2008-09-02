@@ -32,11 +32,11 @@ namespace MfGames.Utility
 	{
 		private int span = 5;
 
-		private int [] buckets = null;
+		private int[] buckets = null;
 
 		public SecondsGauge()
 		{
-			buckets = new int [span];
+			buckets = new int[span];
 
 			for (int i = 0; i < span; i++)
 				buckets[i] = 0;
@@ -45,7 +45,7 @@ namespace MfGames.Utility
 		public SecondsGauge(int newSpan)
 		{
 			span = newSpan;
-			buckets = new int [span];
+			buckets = new int[span];
 
 			for (int i = 0; i < span; i++)
 				buckets[i] = 0;
@@ -68,7 +68,8 @@ namespace MfGames.Utility
 		/// </summary>
 		public void Activate(int amount)
 		{
-			lock (this) {
+			lock (this)
+			{
 				// Figure if we need a roll-over
 				long now = DateTime.Now.Second;
 
@@ -87,7 +88,7 @@ namespace MfGames.Utility
 					// Reset the last one
 					buckets[0] = 0;
 				}
-	
+
 				// Add to the bucket
 				buckets[0] += amount;
 			}

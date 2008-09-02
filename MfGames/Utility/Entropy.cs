@@ -33,19 +33,19 @@ namespace MfGames.Utility
 	{
 		#region Singleton
 		private static Random random;
-		
+
 		public static Random Random
 		{
 			get
 			{
 				// Create a new random if it hasn't been set
 				if (random == null)
-					random  = new MersenneRandom();
-				
+					random = new MersenneRandom();
+
 				// Return the results
 				return random;
 			}
-			
+
 			set
 			{
 				random = value;

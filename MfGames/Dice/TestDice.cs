@@ -26,41 +26,48 @@ namespace MfGames.Utility
 	/// <summary>
 	/// Tests out the various dice parsing and generation routines.
 	/// </summary>
-	[TestFixture] public class TestDice
+	[TestFixture]
+	public class TestDice
 	{
-		[Test] public void TestConstant()
+		[Test]
+		public void TestConstant()
 		{
 			IDice dice = DiceFactory.Parse("2");
 			Assert.AreEqual("2", dice.ToString());
 			Assert.AreEqual(typeof(ConstantDice), dice.GetType());
 		}
 
-		[Test] public void TestSimpleDice()
+		[Test]
+		public void TestSimpleDice()
 		{
 			IDice dice = DiceFactory.Parse("1d4");
 			Assert.AreEqual("1d4", dice.ToString());
 			Assert.AreEqual(typeof(RandomDice), dice.GetType());
 		}
 
-		[Test] public void TestMultipleRandom()
+		[Test]
+		public void TestMultipleRandom()
 		{
 			IDice dice = DiceFactory.Parse("4d4");
 			Assert.AreEqual("4d4", dice.ToString());
 		}
 
-		[Test] public void TestSimpleAddition()
+		[Test]
+		public void TestSimpleAddition()
 		{
 			IDice dice = DiceFactory.Parse("1d4+2");
 			Assert.AreEqual("1d4+2", dice.ToString());
 		}
 
-		[Test] public void TestSimpleSubtraction()
+		[Test]
+		public void TestSimpleSubtraction()
 		{
 			IDice dice = DiceFactory.Parse("1d4-2");
 			Assert.AreEqual("1d4-2", dice.ToString());
 		}
 
-		[Test] public void TestMultipleAddition()
+		[Test]
+		public void TestMultipleAddition()
 		{
 			IDice dice = DiceFactory.Parse("1d4+1d6");
 			Assert.AreEqual("1d4+1d6", dice.ToString());

@@ -109,7 +109,7 @@ namespace MfGames.Utility
 			get { return original; }
 			set { original = value; }
 		}
-		
+
 		/// <summary>
 		/// Resets the counter to the ResetSeconds value.
 		/// </summary>
@@ -128,7 +128,7 @@ namespace MfGames.Utility
 		/// ticks. Setting this to false will pause the countdown.
 		/// </summary>
 		public bool IsTickable
-		{ 
+		{
 			get { return isTickable; }
 			set { isTickable = value; }
 		}

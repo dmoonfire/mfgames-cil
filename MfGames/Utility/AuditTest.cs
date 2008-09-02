@@ -26,27 +26,30 @@ namespace MfGames.Utility
 	[TestFixture]
 	public class AuditTest
 	{
-#region Simple Setting
-		[Test] public void TestNone()
+		#region Simple Setting
+		[Test]
+		public void TestNone()
 		{
 			AuditInnerTest ait = new AuditInnerTest();
 			Assert.AreEqual(Severity.None, ait.AuditSeverity);
 		}
 
-		[Test] public void TestAlert()
+		[Test]
+		public void TestAlert()
 		{
 			AuditInnerTest ait = new AuditInnerTest();
 			ait.SetAuditMessage(Severity.Alert, "test");
 			Assert.AreEqual(Severity.Alert, ait.AuditSeverity);
 		}
 
-		[Test] public void TestError()
+		[Test]
+		public void TestError()
 		{
 			AuditInnerTest ait = new AuditInnerTest();
 			ait.SetAuditMessage(Severity.Error, "test");
 			Assert.AreEqual(Severity.Error, ait.AuditSeverity);
 		}
-#endregion
+		#endregion
 	}
 
 	public class AuditInnerTest : Auditable

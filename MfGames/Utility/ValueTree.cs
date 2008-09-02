@@ -45,7 +45,7 @@ namespace MfGames.Utility
 			return new ValueTree();
 		}
 
-#region Properties
+		#region Properties
 		/// <summary>
 		/// Contains the integer value or throws an exception.
 		/// </summary>
@@ -71,6 +71,6 @@ namespace MfGames.Utility
 				Attributes["value"] = value;
 			}
 		}
-#endregion
+		#endregion
 	}
 }

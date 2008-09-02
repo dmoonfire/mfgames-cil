@@ -21,8 +21,7 @@
 
 namespace MfGames.Utility
 {
-	using System;
-	
+
 	public class ConstantDice
 	: IDice
 	{

@@ -35,7 +35,7 @@ namespace MfGames.Utility
 	/// </summary>
 	public class AttributeTree : Logable, ICloneable
 	{
-#region Constructors
+		#region Constructors
 		/// <summary>
 		/// Creates an empty AttributeTree object.
 		/// </summary>
@@ -47,9 +47,9 @@ namespace MfGames.Utility
 			// Create our children
 			children = new AttributeTreeCollection(this);
 		}
-#endregion
+		#endregion
 
-#region Children
+		#region Children
 		/// <summary>
 		/// Returns the attribute tree node for the given path. If it does
 		/// not exist, a null is returned.
@@ -120,9 +120,9 @@ namespace MfGames.Utility
 			AttributeTree at = this[nref, true];
 			return at;
 		}
-#endregion
+		#endregion
 
-#region Merging
+		#region Merging
 		/// <summary>
 		/// Methods for changing what object is used for child elements.
 		/// </summary>
@@ -207,9 +207,9 @@ namespace MfGames.Utility
 		{
 			Path = new NodeRef(parent.Path.ToString() + nref.ToString());
 		}
-#endregion
+		#endregion
 
-#region Properties
+		#region Properties
 		// Contains the attributes
 		private Hashtable attributes = new Hashtable();
 
@@ -266,6 +266,6 @@ namespace MfGames.Utility
 			get { return path; }
 			set { path = value; }
 		}
-#endregion
+		#endregion
 	}
 }

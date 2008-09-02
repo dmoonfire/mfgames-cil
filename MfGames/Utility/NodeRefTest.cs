@@ -22,19 +22,20 @@
 namespace MfGames.Utility
 {
 	using NUnit.Framework;
-	using System.IO;
 
 	/// <summary>
 	/// Testing fixture to test all of the various methods or possible
 	/// errors involved with a node reference.
 	/// </summary>
-	[TestFixture] public class NodeRefTest
+	[TestFixture]
+	public class NodeRefTest
 	{
-#region Basic Construction Tests
+		#region Basic Construction Tests
 		/// <summary>
 		/// Just tests the basic construction of a path.
 		/// </summary>
-		[Test] public void Simple()
+		[Test]
+		public void Simple()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
 			Assert.AreEqual("/dir1/sub1", up.Path);
@@ -44,7 +45,8 @@ namespace MfGames.Utility
 		/// Test lack of absolute path.
 		/// </summary>
 		[ExpectedException(typeof(NotAbsolutePathException))]
-		[Test] public void NoAbsolute()
+		[Test]
+		public void NoAbsolute()
 		{
 			new NodeRef("foo");
 		}
@@ -52,7 +54,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "." path.
 		/// </summary>
-		[Test] public void LeadingDot()
+		[Test]
+		public void LeadingDot()
 		{
 			NodeRef context = new NodeRef("/");
 			NodeRef nr = new NodeRef(".", context);
@@ -62,7 +65,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "./" path construct.
 		/// </summary>
-		[Test] public void LeadingDotSlash()
+		[Test]
+		public void LeadingDotSlash()
 		{
 			NodeRef context = new NodeRef("/");
 			NodeRef nr = new NodeRef("./", context);
@@ -72,7 +76,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "/a/.." path construct.
 		/// </summary>
-		[Test] public void DoubleDotTop()
+		[Test]
+		public void DoubleDotTop()
 		{
 			NodeRef nr = new NodeRef("/a/..");
 			Assert.AreEqual("/", nr.Path);
@@ -81,7 +86,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "/a/b/../c" path construct.
 		/// </summary>
-		[Test] public void DoubleDot()
+		[Test]
+		public void DoubleDot()
 		{
 			NodeRef nr = new NodeRef("/a/b/../c");
 			Assert.AreEqual("/a/c", nr.Path);
@@ -90,7 +96,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "/../.." path construct.
 		/// </summary>
-		[Test] public void InvalidDoubleDot2()
+		[Test]
+		public void InvalidDoubleDot2()
 		{
 			NodeRef nr = new NodeRef("/../..");
 			Assert.AreEqual("/", nr.Path);
@@ -99,7 +106,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the basic case of Includes.
 		/// <summary>
-		[Test] public void Includes1()
+		[Test]
+		public void Includes1()
 		{
 			NodeRef nr = new NodeRef("/this/is");
 			NodeRef sr = new NodeRef("/this/is/a/path");
@@ -109,7 +117,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the case of not including.
 		/// </summary>
-		[Test] public void Includes2()
+		[Test]
+		public void Includes2()
 		{
 			NodeRef nr = new NodeRef("/this/is");
 			NodeRef sr = new NodeRef("/not/in/is/a/path");
@@ -119,7 +128,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the identical cases
 		/// <summary>
-		[Test] public void Includes3()
+		[Test]
+		public void Includes3()
 		{
 			NodeRef nr = new NodeRef("/this/is");
 			NodeRef sr = new NodeRef("/this/is");
@@ -129,7 +139,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the same parents
 		/// <summary>
-		[Test] public void Includes4()
+		[Test]
+		public void Includes4()
 		{
 			NodeRef nr = new NodeRef("/this/is");
 			NodeRef sr = new NodeRef("/this");
@@ -139,7 +150,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for a sub path isolation.
 		/// </summary>
-		[Test] public void SubRef1()
+		[Test]
+		public void SubRef1()
 		{
 			NodeRef nr = new NodeRef("/this/is");
 			NodeRef sr = new NodeRef("/this/is/a/path");
@@ -149,27 +161,30 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for a equal sub path isolation.
 		/// </summary>
-		[Test] public void SubRef2()
+		[Test]
+		public void SubRef2()
 		{
 			NodeRef nr = new NodeRef("/this/is");
 			NodeRef sr = new NodeRef("/this/is");
 			Assert.AreEqual("/", nr.GetSubRef(sr).Path);
-		}      
+		}
 
 		/// <summary>
 		/// Tests for reverse items.
 		/// </summary>
-		[Test] public void SubRef3()
+		[Test]
+		public void SubRef3()
 		{
 			NodeRef nr = new NodeRef("/this/is/a/path");
 			NodeRef sr = new NodeRef("/this/is");
 			Assert.AreEqual("/this/is", nr.GetSubRef(sr).Path);
-		}      
+		}
 
 		/// <summary>
 		/// Tests for completely different sub reference.
 		/// </summary>
-		[Test] public void SubRef4()
+		[Test]
+		public void SubRef4()
 		{
 			NodeRef nr = new NodeRef("/this/is/a/path");
 			NodeRef sr = new NodeRef("/not/a/path");
@@ -179,7 +194,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the number of components
 		/// </summary>
-		[Test] public void Count1()
+		[Test]
+		public void Count1()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.AreEqual(3, nr.Count);
@@ -188,7 +204,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the number of simple components
 		/// </summary>
-		[Test] public void Count2()
+		[Test]
+		public void Count2()
 		{
 			NodeRef nr = new NodeRef("/a");
 			Assert.AreEqual(1, nr.Count);
@@ -197,7 +214,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the number of the root context
 		/// </summary>
-		[Test] public void Count3()
+		[Test]
+		public void Count3()
 		{
 			NodeRef nr = new NodeRef("/");
 			Assert.AreEqual(0, nr.Count);
@@ -206,7 +224,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the name of the components
 		/// </summary>
-		[Test] public void Name()
+		[Test]
+		public void Name()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.AreEqual("c", nr.Name);
@@ -215,7 +234,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests an unescaped path.
 		/// </summary>
-		[Test] public void TestEscapedNone()
+		[Test]
+		public void TestEscapedNone()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.AreEqual("/a/b/c", nr.ToString(),
@@ -225,7 +245,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests an escaped *
 		/// </summary>
-		[Test] public void TestEscapedStar()
+		[Test]
+		public void TestEscapedStar()
 		{
 			NodeRef nr = new NodeRef("/*/*/*");
 			Assert.AreEqual("/*/*/*", nr.ToString(),
@@ -237,7 +258,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test] public void TestSingleStarMatch()
+		[Test]
+		public void TestSingleStarMatch()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.IsTrue(nr.IsMatch("/a/*/c"));
@@ -246,7 +268,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test] public void TestSingleStarMatch2()
+		[Test]
+		public void TestSingleStarMatch2()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.IsTrue(nr.IsMatch("/*/*/c"));
@@ -255,7 +278,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test] public void TestSingleStarMatch3()
+		[Test]
+		public void TestSingleStarMatch3()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.IsFalse(nr.IsMatch("/*/*/*/c"));
@@ -264,18 +288,20 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test] public void TestDoubleStarMatch()
+		[Test]
+		public void TestDoubleStarMatch()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.IsTrue(nr.IsMatch("/**/c"));
 		}
-#endregion
+		#endregion
 
-#region Child Tests
+		#region Child Tests
 		/// <summary>
 		/// Tests the basic create child functionality.
 		/// </summary>
-		[Test] public void TestNodeCreateChild()
+		[Test]
+		public void TestNodeCreateChild()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
 			NodeRef c1 = up.CreateChild("sub2");
@@ -285,19 +311,21 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the index accessor to the created children.
 		/// </summary>
-		[Test] public void ChildIndex()
+		[Test]
+		public void ChildIndex()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
 			NodeRef c1 = up["sub2/sub3"];
 			Assert.AreEqual("/dir1/sub1/sub2/sub3", c1.Path);
 		}
-#endregion
+		#endregion
 
-#region Parent Tests
+		#region Parent Tests
 		/// <summary>
 		/// Tests that a basic parent request returns the proper value.
 		/// </summary>
-		[Test] public void ParentRef()
+		[Test]
+		public void ParentRef()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
 			NodeRef up1 = up.ParentRef;
@@ -307,25 +335,28 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests that the request for the direct path is valid.
 		/// </summary>
-		[Test] public void ParentPath()
+		[Test]
+		public void ParentPath()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
 			string up1 = up.ParentPath;
 			Assert.AreEqual("/dir1", up1);
 		}
-#endregion
+		#endregion
 
 		/// <summary>
 		/// Tests various broken parsing tests.
 		/// </summary>
-		[Test] public void ParsePluses()
+		[Test]
+		public void ParsePluses()
 		{
 			NodeRef nr = new NodeRef("/Test/Test +1/Test +2");
 			Assert.AreEqual("/Test/Test +1/Test +2", nr.ToString());
 			Assert.AreEqual("Test +2", nr.Name);
 		}
 
-		[Test] public void SubPluses()
+		[Test]
+		public void SubPluses()
 		{
 			NodeRef nr = new NodeRef("/Test +1/A");
 			NodeRef nr2 = new NodeRef("/Test +1");

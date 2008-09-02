@@ -121,7 +121,7 @@ namespace MfGames.Settings
 
 			// Parse through it
 			string group = null;
-			
+
 			while (xml.Read())
 			{
 				// Check for setting objects
@@ -130,7 +130,7 @@ namespace MfGames.Settings
 					// Load the group tag
 					if (xml.LocalName == "group")
 						group = xml["name"];
-					
+
 					// Load the settings
 					if (xml.LocalName == "setting")
 					{
@@ -139,7 +139,7 @@ namespace MfGames.Settings
 						Logger.Debug(GetType(),
 							"Setting: {0}.{1} = {2}",
 							group, name, value);
-						
+
 						this[group, name] = value;
 					}
 				}
@@ -194,14 +194,14 @@ namespace MfGames.Settings
 		{
 			// Start with the tag
 			xml.WriteStartElement("settings");
-			
+
 			// Go through the group
 			foreach (string group in groups.Keys)
 			{
 				// Write out the group
 				xml.WriteStartElement("group");
 				xml.WriteAttributeString("name", group);
-				
+
 				// Go through the keys
 				foreach (string var in groups[group].Keys)
 				{
@@ -212,19 +212,19 @@ namespace MfGames.Settings
 						groups[group][var]);
 					xml.WriteEndElement();
 				}
-				
+
 				// Finish up
 				xml.WriteEndElement();
 			}
-			
+
 			// Finish the settings
 			xml.WriteEndElement();
 		}
 		#endregion
 
 		#region Accessing
-		private Dictionary<string,Dictionary<string,string>> groups =
-			new Dictionary<string,Dictionary<string,string>>();
+		private Dictionary<string, Dictionary<string, string>> groups =
+			new Dictionary<string, Dictionary<string, string>>();
 
 		/// <summary>
 		/// This is the primary method for getting and setting values
@@ -240,8 +240,8 @@ namespace MfGames.Settings
 					return null;
 
 				// Get the group
-				Dictionary<string,string> d = groups[group];
-				
+				Dictionary<string, string> d = groups[group];
+
 				if (!d.ContainsKey(variable))
 					return null;
 
@@ -261,7 +261,7 @@ namespace MfGames.Settings
 						return;
 
 					// Get the group
-					Dictionary<string,string> d = groups[group];
+					Dictionary<string, string> d = groups[group];
 					d.Remove(variable);
 
 					// If 'd' is empty, then remove it from the group
@@ -272,10 +272,10 @@ namespace MfGames.Settings
 				{
 					// Make sure we have a group
 					if (!groups.ContainsKey(group))
-						groups[group] = new Dictionary<string,string>();
+						groups[group] = new Dictionary<string, string>();
 
 					// Set the value
-					Dictionary<string,string> d = groups[group];
+					Dictionary<string, string> d = groups[group];
 					d[variable] = value;
 				}
 			}

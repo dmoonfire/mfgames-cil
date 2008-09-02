@@ -23,15 +23,18 @@ using NUnit.Framework;
 
 namespace MfGames.Utility
 {
-	[TestFixture] public class UtilityTest
+	[TestFixture]
+	public class UtilityTest
 	{
-		[Test] public void TestWeightedSelectorEmpty()
+		[Test]
+		public void TestWeightedSelectorEmpty()
 		{
 			WeightedSelector ws = new WeightedSelector();
 			Assert.AreEqual(ws.Total, 0);
 		}
 
-		[Test] public void TestWeightedSelectorAdd2()
+		[Test]
+		public void TestWeightedSelectorAdd2()
 		{
 			WeightedSelector ws = new WeightedSelector();
 			ws["bob"] = 5;
@@ -39,7 +42,8 @@ namespace MfGames.Utility
 			Assert.AreEqual(ws.Total, 10);
 		}
 
-		[Test] public void TestWeightedSelectorReplace()
+		[Test]
+		public void TestWeightedSelectorReplace()
 		{
 			WeightedSelector ws = new WeightedSelector();
 			ws["bob"] = 5;
@@ -48,7 +52,8 @@ namespace MfGames.Utility
 			Assert.AreEqual(ws.Total, 7);
 		}
 
-		[Test] public void TestMd5HexString()
+		[Test]
+		public void TestMd5HexString()
 		{
 			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
 				MfConvert.ToMd5HexString("jim"));

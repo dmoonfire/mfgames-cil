@@ -1,4 +1,3 @@
-using MfGames.Utility;
 using System;
 using System.Collections.Generic;
 using MfGames.Logging;
@@ -39,8 +38,8 @@ namespace MfGames.Input
 	public class InputManager
 	{
 		#region Enabling/Disabling
-		private Dictionary<string,int> activatedCounter =
-			new Dictionary<string,int>();
+		private Dictionary<string, int> activatedCounter =
+			new Dictionary<string, int>();
 
 		/// <summary>
 		/// This event is used when an input is
@@ -103,7 +102,7 @@ namespace MfGames.Input
 				foreach (Delegate d in InputActivated.GetInvocationList())
 				{
 					// Invoke this one
-                    d.DynamicInvoke(this, args);
+					d.DynamicInvoke(this, args);
 
 					// See if we are done processing
 					if (!args.ContinueProcessing)
@@ -250,7 +249,7 @@ namespace MfGames.Input
 
 		#region Logging
 		private Log log;
-		
+
 		/// <summary>
 		/// Contains the lazy-loaded logging context for this
 		/// object. This ties into the generic logging system from

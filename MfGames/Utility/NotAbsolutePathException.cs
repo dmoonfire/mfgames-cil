@@ -22,7 +22,7 @@
 namespace MfGames.Utility
 {
 	using System;
-  
+
 	/// <summary>
 	/// Indicates that the given path does not have an absolute path nor
 	/// can it be converted into an absolute path.

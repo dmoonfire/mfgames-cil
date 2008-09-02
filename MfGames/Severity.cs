@@ -26,7 +26,8 @@ namespace MfGames
 	/// are also used to display the actual level in various messages
 	/// as needed.
 	/// </summary>
-	public enum Severity {
+	public enum Severity
+	{
 		// This is used by the audit system
 		None,
 

@@ -27,22 +27,26 @@ namespace MfGames.Utility
 	/// <summary>
 	/// Test the time zones.
 	/// </summary>
-	[TestFixture] public class TestTimeZones
+	[TestFixture]
+	public class TestTimeZones
 	{
-		[Test] public void TestSlashUSCentral()
+		[Test]
+		public void TestSlashUSCentral()
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");
 			Assert.AreEqual("-06:00:00",
 				tz.GetUtcOffset(new DateTime(2005, 1, 1)).ToString());
 		}
 
-		[Test] public void TestSlashUSCentralCST()
+		[Test]
+		public void TestSlashUSCentralCST()
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");
 			Assert.AreEqual("CST", tz.StandardName);
 		}
 
-		[Test] public void TestSlashUSCentralCDT()
+		[Test]
+		public void TestSlashUSCentralCDT()
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");
 			Assert.AreEqual("CDT", tz.DaylightName);

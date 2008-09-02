@@ -30,7 +30,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Executes the service with the given parameters.
 		/// </summary>
-		void Process(string [] args);
+		void Process(string[] args);
 
 		#region Properties
 		/// <summary>

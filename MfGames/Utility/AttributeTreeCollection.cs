@@ -19,7 +19,8 @@
  */
 #endregion
 
-namespace MfGames.Utility {
+namespace MfGames.Utility
+{
 	using System;
 	using System.Collections;
 	using System.Collections.Specialized;
@@ -27,12 +28,12 @@ namespace MfGames.Utility {
 
 	[Serializable]
 	public class AttributeTreeCollection
-    : NameObjectCollectionBase, ISerializable
+	: NameObjectCollectionBase, ISerializable
 	{
 		// Contains the base tree used for creation
 		private AttributeTree baseTree = null;
 
-#region Constructors
+		#region Constructors
 		public AttributeTreeCollection()
 		{
 		}
@@ -41,12 +42,15 @@ namespace MfGames.Utility {
 		{
 			this.baseTree = baseTree;
 		}
-#endregion
+		#endregion
 
-#region Accessors
-		public void Add(string name, object value) { base.BaseAdd(name, 
-				value); }
-		public void Remove(string name){base.BaseRemove(name);}
+		#region Accessors
+		public void Add(string name, object value)
+		{
+			base.BaseAdd(name,
+				value);
+		}
+		public void Remove(string name) { base.BaseRemove(name); }
 
 		/// <summary>
 		/// Returns the attribute tree node for the given path. If it does
@@ -130,7 +134,7 @@ namespace MfGames.Utility {
 		/// Returns a list of all child items, as an array of
 		/// AttributeTree elements.
 		/// </summary>
-		public AttributeTree [] Values
+		public AttributeTree[] Values
 		{
 			get
 			{
@@ -143,16 +147,16 @@ namespace MfGames.Utility {
 				}
 
 				// Return it as a cast
-				return (AttributeTree []) list.ToArray(typeof(AttributeTree));
+				return (AttributeTree[]) list.ToArray(typeof(AttributeTree));
 			}
 		}
-#endregion
+		#endregion
 
-#region Serialization
+		#region Serialization
 		/// <summary>
 		/// Constructs the collection using serialization information.
 		/// </summary>
-		public AttributeTreeCollection(SerializationInfo info, 
+		public AttributeTreeCollection(SerializationInfo info,
 			StreamingContext context)
 		{
 			// Go through the items and add them
@@ -163,7 +167,7 @@ namespace MfGames.Utility {
 				base.BaseAdd(infoItems.Name, infoItems.Value);
 			}
 		}
-    
+
 		/// <summary>
 		/// Loads in the attribute data from the given serialization
 		/// context.
@@ -171,7 +175,7 @@ namespace MfGames.Utility {
 		public override void GetObjectData(SerializationInfo info,
 			StreamingContext context)
 		{
-			foreach(string name in base.BaseGetAllKeys())
+			foreach (string name in base.BaseGetAllKeys())
 			{
 				try
 				{
@@ -180,6 +184,6 @@ namespace MfGames.Utility {
 				catch { }
 			}
 		}
-#endregion
+		#endregion
 	}
 }

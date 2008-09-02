@@ -21,9 +21,9 @@
 
 namespace MfGames.Utility
 {
-	using MfGames.Utility.Dice;
 	using System.IO;
 	using System.Text;
+	using MfGames.Utility.Dice;
 
 	/// <summary>
 	/// Factory for generating dice values from a given string. This
@@ -35,7 +35,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Since this is a static singleton, hide the constructor.
 		/// </summary>
-		private DiceFactory() {}
+		private DiceFactory() { }
 
 		/// <summary>
 		/// Parses the given format and returns the IDice object that
@@ -45,7 +45,7 @@ namespace MfGames.Utility
 		public static IDice Parse(string format)
 		{
 			// Create the scanner and parser
-			byte [] bytes = Encoding.UTF8.GetBytes(format);
+			byte[] bytes = Encoding.UTF8.GetBytes(format);
 			MemoryStream stream = new MemoryStream(bytes);
 			Scanner scanner = new Scanner(stream);
 			scanner.Format = format;

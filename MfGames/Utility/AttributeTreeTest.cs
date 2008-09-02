@@ -22,63 +22,72 @@
 namespace MfGames.Utility
 {
 	using NUnit.Framework;
-  
-	[TestFixture] public class AttributeTreeTest
+
+	[TestFixture]
+	public class AttributeTreeTest
 	{
-#region Missing
-		[Test] public void CheckNull()
+		#region Missing
+		[Test]
+		public void CheckNull()
 		{
 			// Create an empty one
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing"] == null);
 		}
 
-		[Test] public void CheckNull2()
+		[Test]
+		public void CheckNull2()
 		{
 			// Create an empty one
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing", false] == null);
 		}
 
-		[Test] public void CheckNullSub()
+		[Test]
+		public void CheckNullSub()
 		{
 			// Create an empty one
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing/inner/node"] == null);
 		}
-#endregion
+		#endregion
 
-#region Creation
-		[Test] public void CheckCreate1()
+		#region Creation
+		[Test]
+		public void CheckCreate1()
 		{
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing/inner/node", true] != null);
-		}      
+		}
 
-		[Test] public void CheckCreate2()
+		[Test]
+		public void CheckCreate2()
 		{
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing", true] != null);
-		}      
+		}
 
-		[Test] public void CheckCreate3()
+		[Test]
+		public void CheckCreate3()
 		{
 			AttributeTree at = new AttributeTree();
 			AttributeTree at2 = at.Children["/missing/inner/node", true];
 			Assert.IsTrue(at2 != null);
 			Assert.IsTrue(at.Children["/missing/inner", false] != null);
-		}      
+		}
 
-		[Test] public void CheckCreate4()
+		[Test]
+		public void CheckCreate4()
 		{
 			AttributeTree at = new AttributeTree();
 			AttributeTree at2 = at.Children["/found/inner", true];
 			at2.Create("/node");
 			Assert.IsTrue(at.Children["/found/inner/node", false] != null);
-		}      
-#endregion
+		}
+		#endregion
 
-		[Test] public void AddingPluses()
+		[Test]
+		public void AddingPluses()
 		{
 			AttributeTree at = new AttributeTree();
 			AttributeTree at2 = at["/Test/Test +1", true];

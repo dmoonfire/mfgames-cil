@@ -50,7 +50,7 @@ namespace MfGames.Logging
 
 		#region Alert
 		public static void Alert(string context, string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Alert(context, null, msg, parms);
 		}
@@ -58,7 +58,7 @@ namespace MfGames.Logging
 		public static void Alert(string context,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			logger.Log(Severity.Alert, context,
 				String.Format(msg, parms), e);
@@ -66,7 +66,7 @@ namespace MfGames.Logging
 
 		public static void Alert(Type type,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Alert(type.ToString(), null, msg, parms);
 		}
@@ -74,7 +74,7 @@ namespace MfGames.Logging
 		public static void Alert(Type type,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Alert(type.ToString(), e, msg, parms);
 		}
@@ -82,7 +82,7 @@ namespace MfGames.Logging
 
 		#region Debug
 		public static void Debug(string context, string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Debug(context, null, msg, parms);
 		}
@@ -90,7 +90,7 @@ namespace MfGames.Logging
 		public static void Debug(string context,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			logger.Log(Severity.Debug, context,
 				String.Format(msg, parms), e);
@@ -98,7 +98,7 @@ namespace MfGames.Logging
 
 		public static void Debug(Type type,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Debug(type.ToString(), null, msg, parms);
 		}
@@ -106,7 +106,7 @@ namespace MfGames.Logging
 		public static void Debug(Type type,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Debug(type.ToString(), e, msg, parms);
 		}
@@ -114,7 +114,7 @@ namespace MfGames.Logging
 
 		#region Error
 		public static void Error(string context, string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Error(context, null, msg, parms);
 		}
@@ -122,7 +122,7 @@ namespace MfGames.Logging
 		public static void Error(string context,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			logger.Log(Severity.Error, context,
 				String.Format(msg, parms), e);
@@ -130,7 +130,7 @@ namespace MfGames.Logging
 
 		public static void Error(Type type,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Error(type.ToString(), null, msg, parms);
 		}
@@ -138,7 +138,7 @@ namespace MfGames.Logging
 		public static void Error(Type type,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Error(type.ToString(), e, msg, parms);
 		}
@@ -146,7 +146,7 @@ namespace MfGames.Logging
 
 		#region Fatal
 		public static void Fatal(string context, string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Fatal(context, null, msg, parms);
 		}
@@ -154,7 +154,7 @@ namespace MfGames.Logging
 		public static void Fatal(string context,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			logger.Log(Severity.Fatal, context,
 				String.Format(msg, parms), e);
@@ -162,7 +162,7 @@ namespace MfGames.Logging
 
 		public static void Fatal(Type type,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Fatal(type.ToString(), null, msg, parms);
 		}
@@ -170,7 +170,7 @@ namespace MfGames.Logging
 		public static void Fatal(Type type,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Fatal(type.ToString(), e, msg, parms);
 		}
@@ -178,7 +178,7 @@ namespace MfGames.Logging
 
 		#region Info
 		public static void Info(string context, string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Info(context, null, msg, parms);
 		}
@@ -186,7 +186,7 @@ namespace MfGames.Logging
 		public static void Info(string context,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			logger.Log(Severity.Info, context,
 				String.Format(msg, parms), e);
@@ -194,7 +194,7 @@ namespace MfGames.Logging
 
 		public static void Info(Type type,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Info(type.ToString(), null, msg, parms);
 		}
@@ -202,7 +202,7 @@ namespace MfGames.Logging
 		public static void Info(Type type,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Info(type.ToString(), e, msg, parms);
 		}
@@ -211,7 +211,7 @@ namespace MfGames.Logging
 		#region Trace
 		public static void Trace(string context,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Trace(context, null, msg, parms);
 		}
@@ -219,14 +219,14 @@ namespace MfGames.Logging
 		public static void Trace(string context,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			logger.Log(Severity.Trace, context, msg, e);
 		}
 
 		public static void Trace(Type type,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Trace(type.ToString(), null, msg, parms);
 		}
@@ -234,7 +234,7 @@ namespace MfGames.Logging
 		public static void Trace(Type type,
 			Exception e,
 			string msg,
-			params object [] parms)
+			params object[] parms)
 		{
 			Trace(type.ToString(), e, msg, parms);
 		}

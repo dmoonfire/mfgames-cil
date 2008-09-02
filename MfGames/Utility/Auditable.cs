@@ -23,7 +23,6 @@ namespace MfGames.Utility
 {
 	using System;
 	using System.Collections;
-	using System.IO;
 	using System.Xml.Serialization;
 	using MfGames.Logging;
 
@@ -135,7 +134,7 @@ namespace MfGames.Utility
 					new AuditSeverityArgs(oldSeverity, newSeverity);
 				AuditSeverityChanged(sender, args);
 			}
-									 
+
 		}
 
 		/// <summary>

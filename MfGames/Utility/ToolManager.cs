@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using MfGames.Logging;
-  
+
 namespace MfGames.Utility
 {
 	/// <summary>
@@ -39,7 +39,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Sets up logging and prepares to use the sysetm.
 		/// </summary>
-		public bool Process(string [] argsArray)
+		public bool Process(string[] argsArray)
 		{
 			// Convert the entire string list into a linked list. We
 			// we process the elements, we'll remove them from the
@@ -125,13 +125,13 @@ namespace MfGames.Utility
 				CheckPositional(-1, container);
 				return;
 			}
-				
+
 			// Create the arguments which handles most of the work
 			ParsingArgs pa = new ParsingArgs(args, container);
-			
+
 			// Build up a list of unprocessed elements
 			List<string> unprocessed = new List<string>();
-			
+
 			// Go through the elements and start to process it one at
 			// a time
 			while (pa.First != null)
@@ -145,11 +145,11 @@ namespace MfGames.Utility
 					unprocessed.Add(pa.Advance());
 				}
 			}
-			
+
 			// Set the unprocessed elements as the new one
 			args.Clear();
 			args.AddRange(unprocessed);
-			
+
 			// Perform the sanity checking for positional properties
 			CheckPositional(pa.LastPosition, container);
 		}
@@ -165,7 +165,7 @@ namespace MfGames.Utility
 			// Go through all the variables and look for positional
 			bool isMissing = false;
 			Type cType = container.GetType();
-			MemberInfo [] mis =
+			MemberInfo[] mis =
 				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
 					BindingFlags.Public | BindingFlags.NonPublic
 					| BindingFlags.Instance | BindingFlags.Static,
@@ -213,8 +213,8 @@ namespace MfGames.Utility
 		#endregion
 
 		#region Tools
-		private Dictionary<string,ITool> tools =
-			new Dictionary<string,ITool>();
+		private Dictionary<string, ITool> tools =
+			new Dictionary<string, ITool>();
 
 		/// <summary>
 		/// Registers a single tool and its keys.
