@@ -57,7 +57,7 @@ namespace UnitTests
 		public void ThirdDecimalValue()
 		{
 			Fraction fraction = new Fraction(1, 3);
-			Assert.AreEqual(0.33333, Math.Round(fraction.Value, 5));
+			Assert.AreEqual(0.33333, System.Math.Round(fraction.Value, 5));
 		}
 
 		[TestMethod]

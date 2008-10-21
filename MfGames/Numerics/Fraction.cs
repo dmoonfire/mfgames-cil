@@ -91,7 +91,7 @@
 		/// </summary>
 		public Fraction Simplify()
 		{
-			int gcf = Mathematics.GreatestCommonFactor(numerator, denominator);
+			int gcf = Math.GreatestCommonFactor(numerator, denominator);
 
 			return new Fraction(numerator / gcf, denominator / gcf);
 		}

@@ -51,7 +51,7 @@
     <Compile Include="Input\InputTokens.cs" />
     <Compile Include="Input\TokenMappingDictionary.cs" />
     <Compile Include="Numerics\Fraction.cs" />
-    <Compile Include="Numerics\Mathematics.cs" />
+    <Compile Include="Numerics\Math.cs" />
     <Compile Include="Numerics\PerlinNoise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dice\AdditionDice.cs" />
