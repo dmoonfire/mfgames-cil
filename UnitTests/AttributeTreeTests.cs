@@ -19,15 +19,16 @@
  */
 #endregion
 
-namespace MfGames.Utility
-{
-	using NUnit.Framework;
+using MfGames.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-	[TestFixture]
+namespace UnitTests
+{
+	[TestClass]
 	public class AttributeTreeTest
 	{
 		#region Missing
-		[Test]
+		[TestMethod]
 		public void CheckNull()
 		{
 			// Create an empty one
@@ -35,7 +36,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(at.Children["/missing"] == null);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CheckNull2()
 		{
 			// Create an empty one
@@ -43,7 +44,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(at.Children["/missing", false] == null);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CheckNullSub()
 		{
 			// Create an empty one
@@ -53,21 +54,21 @@ namespace MfGames.Utility
 		#endregion
 
 		#region Creation
-		[Test]
+		[TestMethod]
 		public void CheckCreate1()
 		{
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing/inner/node", true] != null);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CheckCreate2()
 		{
 			AttributeTree at = new AttributeTree();
 			Assert.IsTrue(at.Children["/missing", true] != null);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CheckCreate3()
 		{
 			AttributeTree at = new AttributeTree();
@@ -76,7 +77,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(at.Children["/missing/inner", false] != null);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CheckCreate4()
 		{
 			AttributeTree at = new AttributeTree();
@@ -86,7 +87,7 @@ namespace MfGames.Utility
 		}
 		#endregion
 
-		[Test]
+		[TestMethod]
 		public void AddingPluses()
 		{
 			AttributeTree at = new AttributeTree();

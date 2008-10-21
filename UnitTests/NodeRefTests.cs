@@ -19,22 +19,23 @@
  */
 #endregion
 
-namespace MfGames.Utility
-{
-	using NUnit.Framework;
+using MfGames.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+namespace UnitTests
+{
 	/// <summary>
 	/// Testing fixture to test all of the various methods or possible
 	/// errors involved with a node reference.
 	/// </summary>
-	[TestFixture]
-	public class NodeRefTest
+	[TestClass]
+	public class NodeRefTests
 	{
 		#region Basic Construction Tests
 		/// <summary>
 		/// Just tests the basic construction of a path.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void Simple()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -45,7 +46,7 @@ namespace MfGames.Utility
 		/// Test lack of absolute path.
 		/// </summary>
 		[ExpectedException(typeof(NotAbsolutePathException))]
-		[Test]
+		[TestMethod]
 		public void NoAbsolute()
 		{
 			new NodeRef("foo");
@@ -54,7 +55,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "." path.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void LeadingDot()
 		{
 			NodeRef context = new NodeRef("/");
@@ -65,7 +66,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "./" path construct.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void LeadingDotSlash()
 		{
 			NodeRef context = new NodeRef("/");
@@ -76,7 +77,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "/a/.." path construct.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void DoubleDotTop()
 		{
 			NodeRef nr = new NodeRef("/a/..");
@@ -86,7 +87,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "/a/b/../c" path construct.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void DoubleDot()
 		{
 			NodeRef nr = new NodeRef("/a/b/../c");
@@ -96,7 +97,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the leading "/../.." path construct.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void InvalidDoubleDot2()
 		{
 			NodeRef nr = new NodeRef("/../..");
@@ -106,7 +107,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the basic case of Includes.
 		/// <summary>
-		[Test]
+		[TestMethod]
 		public void Includes1()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -117,7 +118,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the case of not including.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void Includes2()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -128,7 +129,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the identical cases
 		/// <summary>
-		[Test]
+		[TestMethod]
 		public void Includes3()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -139,7 +140,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for the same parents
 		/// <summary>
-		[Test]
+		[TestMethod]
 		public void Includes4()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -150,7 +151,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for a sub path isolation.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void SubRef1()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -161,7 +162,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for a equal sub path isolation.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void SubRef2()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -172,7 +173,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for reverse items.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void SubRef3()
 		{
 			NodeRef nr = new NodeRef("/this/is/a/path");
@@ -183,7 +184,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests for completely different sub reference.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void SubRef4()
 		{
 			NodeRef nr = new NodeRef("/this/is/a/path");
@@ -194,7 +195,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the number of components
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void Count1()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -204,7 +205,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the number of simple components
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void Count2()
 		{
 			NodeRef nr = new NodeRef("/a");
@@ -214,7 +215,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the number of the root context
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void Count3()
 		{
 			NodeRef nr = new NodeRef("/");
@@ -224,7 +225,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the name of the components
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void Name()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -234,31 +235,31 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests an unescaped path.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestEscapedNone()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.AreEqual("/a/b/c", nr.ToString(),
-				"String comparison");
+							"String comparison");
 		}
 
 		/// <summary>
 		/// Tests an escaped *
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestEscapedStar()
 		{
 			NodeRef nr = new NodeRef("/*/*/*");
 			Assert.AreEqual("/*/*/*", nr.ToString(),
-				"String comparison");
+							"String comparison");
 			Assert.IsTrue(nr.Includes(new NodeRef("/*/*/*/abb")),
-				"nr.Includes");
+						  "nr.Includes");
 		}
 
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestSingleStarMatch()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -268,7 +269,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestSingleStarMatch2()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -278,7 +279,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestSingleStarMatch3()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -288,7 +289,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestDoubleStarMatch()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -300,7 +301,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the basic create child functionality.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void TestNodeCreateChild()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -311,7 +312,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests the index accessor to the created children.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void ChildIndex()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -324,7 +325,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests that a basic parent request returns the proper value.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void ParentRef()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -335,7 +336,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests that the request for the direct path is valid.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void ParentPath()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -347,7 +348,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Tests various broken parsing tests.
 		/// </summary>
-		[Test]
+		[TestMethod]
 		public void ParsePluses()
 		{
 			NodeRef nr = new NodeRef("/Test/Test +1/Test +2");
@@ -355,7 +356,7 @@ namespace MfGames.Utility
 			Assert.AreEqual("Test +2", nr.Name);
 		}
 
-		[Test]
+		[TestMethod]
 		public void SubPluses()
 		{
 			NodeRef nr = new NodeRef("/Test +1/A");

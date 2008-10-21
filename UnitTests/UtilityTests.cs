@@ -19,21 +19,22 @@
  */
 #endregion
 
-using NUnit.Framework;
+using MfGames.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MfGames.Utility
+namespace UnitTests
 {
-	[TestFixture]
-	public class UtilityTest
+	[TestClass]
+	public class UtilityTests
 	{
-		[Test]
+		[TestMethod]
 		public void TestWeightedSelectorEmpty()
 		{
 			WeightedSelector ws = new WeightedSelector();
 			Assert.AreEqual(ws.Total, 0);
 		}
 
-		[Test]
+		[TestMethod]
 		public void TestWeightedSelectorAdd2()
 		{
 			WeightedSelector ws = new WeightedSelector();
@@ -42,7 +43,7 @@ namespace MfGames.Utility
 			Assert.AreEqual(ws.Total, 10);
 		}
 
-		[Test]
+		[TestMethod]
 		public void TestWeightedSelectorReplace()
 		{
 			WeightedSelector ws = new WeightedSelector();
@@ -52,13 +53,13 @@ namespace MfGames.Utility
 			Assert.AreEqual(ws.Total, 7);
 		}
 
-		[Test]
+		[TestMethod]
 		public void TestMd5HexString()
 		{
 			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
-				MfConvert.ToMd5HexString("jim"));
+							Convert.ToMd5HexString("jim"));
 			Assert.AreEqual("8621ffdbc5698829397d97767ac13db3",
-				MfConvert.ToMd5HexString("dragon"));
+							Convert.ToMd5HexString("dragon"));
 		}
 	}
 }

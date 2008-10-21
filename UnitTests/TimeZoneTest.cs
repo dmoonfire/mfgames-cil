@@ -19,40 +19,38 @@
  */
 #endregion
 
-namespace MfGames.Utility
+using System;
+using MfGames.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace UnitTests
 {
-	using NUnit.Framework;
-
-	[TestFixture]
-	public class AuditTest
+	/// <summary>
+	/// Test the time zones.
+	/// </summary>
+	[TestClass]
+	public class TestTimeZones
 	{
-		#region Simple Setting
-		[Test]
-		public void TestNone()
+		[TestMethod]
+		public void TestSlashUSCentral()
 		{
-			AuditInnerTest ait = new AuditInnerTest();
-			Assert.AreEqual(Severity.None, ait.AuditSeverity);
+			TimeZone tz = TimeZones.ToTimeZone("US/Central");
+			Assert.AreEqual("-06:00:00",
+							tz.GetUtcOffset(new DateTime(2005, 1, 1)).ToString());
 		}
 
-		[Test]
-		public void TestAlert()
+		[TestMethod]
+		public void TestSlashUSCentralCST()
 		{
-			AuditInnerTest ait = new AuditInnerTest();
-			ait.SetAuditMessage(Severity.Alert, "test");
-			Assert.AreEqual(Severity.Alert, ait.AuditSeverity);
+			TimeZone tz = TimeZones.ToTimeZone("US/Central");
+			Assert.AreEqual("CST", tz.StandardName);
 		}
 
-		[Test]
-		public void TestError()
+		[TestMethod]
+		public void TestSlashUSCentralCDT()
 		{
-			AuditInnerTest ait = new AuditInnerTest();
-			ait.SetAuditMessage(Severity.Error, "test");
-			Assert.AreEqual(Severity.Error, ait.AuditSeverity);
+			TimeZone tz = TimeZones.ToTimeZone("US/Central");
+			Assert.AreEqual("CDT", tz.DaylightName);
 		}
-		#endregion
-	}
-
-	public class AuditInnerTest : Auditable
-	{
 	}
 }

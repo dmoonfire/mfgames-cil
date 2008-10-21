@@ -20,22 +20,21 @@
 #endregion
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using NUnit.Framework;
+using MfGames.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MfGames.Utility
+namespace UnitTests
 {
-
 	/// <summary>
 	/// Performs the various tests on the MfGames.Utility.Tool
 	/// namespace. This uses a few private classes to handle the
 	/// actual filling of command arguments.
 	/// </summary>
-	[TestFixture]
+	[TestClass]
 	public class ToolTest
 	{
 		#region Long Parameters
-		[Test]
+		[TestMethod]
 		public void TestC1F1()
 		{
 			// Set up the command line
@@ -56,7 +55,7 @@ namespace MfGames.Utility
 		#endregion
 
 		#region Positional Parameters
-		[Test]
+		[TestMethod]
 		public void TestSinglePositional()
 		{
 			// Set up the command line
@@ -120,7 +119,7 @@ namespace MfGames.Utility
 
 		private string pos1 = null;
 
-		[Description("The first positional attribute")]
+		[System.ComponentModel.Description("The first positional attribute")]
 		[Positional(0)]
 		public string Positional1
 		{

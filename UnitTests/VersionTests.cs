@@ -19,16 +19,17 @@
  */
 #endregion
 
-namespace MfGames.Utility
-{
-	using NUnit.Framework;
+using MfGames.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-	[TestFixture]
+namespace UnitTests
+{
+	[TestClass]
 	public class VersionTest
 	{
 		#region Parsing
 		[ExpectedException(typeof(UtilityException))]
-		[Test]
+		[TestMethod]
 		public void ParseNull()
 		{
 			Version v = new Version(null);
@@ -36,7 +37,7 @@ namespace MfGames.Utility
 		}
 
 		[ExpectedException(typeof(UtilityException))]
-		[Test]
+		[TestMethod]
 		public void ParseBlank()
 		{
 			Version v = new Version("");
@@ -44,7 +45,7 @@ namespace MfGames.Utility
 		}
 
 		[ExpectedException(typeof(UtilityException))]
-		[Test]
+		[TestMethod]
 		public void ParseSpace()
 		{
 			Version v = new Version(" ");
@@ -52,49 +53,49 @@ namespace MfGames.Utility
 		}
 
 		[ExpectedException(typeof(UtilityException))]
-		[Test]
+		[TestMethod]
 		public void ParseInnerSpace()
 		{
 			Version v = new Version("1 2.3");
 			Assert.IsTrue(v == null, "Never get here");
 		}
 
-		[Test]
+		[TestMethod]
 		public void ParseSingleNumber()
 		{
 			Version v = new Version("1");
 			Assert.AreEqual("1", v.ToString());
 		}
 
-		[Test]
+		[TestMethod]
 		public void ParseTwoNumbers()
 		{
 			Version v = new Version("1.2");
 			Assert.AreEqual("1.2", v.ToString());
 		}
 
-		[Test]
+		[TestMethod]
 		public void ParseThreeNumbers()
 		{
 			Version v = new Version("1.2.3");
 			Assert.AreEqual("1.2.3", v.ToString());
 		}
 
-		[Test]
+		[TestMethod]
 		public void ParseDebianVersion()
 		{
 			Version v = new Version("1.2.3-4");
 			Assert.AreEqual("1.2.3-4", v.ToString());
 		}
 
-		[Test]
+		[TestMethod]
 		public void ParseDebianVersion2()
 		{
 			Version v = new Version("1.2-3.4d");
 			Assert.AreEqual("1.2-3.4d", v.ToString());
 		}
 
-		[Test]
+		[TestMethod]
 		public void ParseTextVersion()
 		{
 			Version v = new Version("1.2b3");
@@ -104,7 +105,7 @@ namespace MfGames.Utility
 
 		#region Version Equals
 		/*
-		  [Test] public void Compare()
+		  [TestMethod] public void Compare()
 		  {
 		  Version v1 = new Version("");
 		  Version v2 = new Version("");
@@ -112,7 +113,7 @@ namespace MfGames.Utility
 		  }
 		*/
 
-		[Test]
+		[TestMethod]
 		public void CompareSingle()
 		{
 			Version v1 = new Version("1");
@@ -120,7 +121,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareSingleLess()
 		{
 			Version v1 = new Version("1");
@@ -128,7 +129,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareSingleGreater()
 		{
 			Version v1 = new Version("2");
@@ -136,7 +137,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareSingleText()
 		{
 			Version v1 = new Version("1");
@@ -144,7 +145,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareSingleTextEqual()
 		{
 			Version v1 = new Version("1a");
@@ -152,7 +153,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareSingleTextLess()
 		{
 			Version v1 = new Version("1a");
@@ -160,7 +161,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareSingleTextGreater()
 		{
 			Version v1 = new Version("2a");
@@ -168,7 +169,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDouble()
 		{
 			Version v1 = new Version("1.1");
@@ -176,7 +177,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDoubleLess()
 		{
 			Version v1 = new Version("1.1");
@@ -184,7 +185,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDoubleGreater()
 		{
 			Version v1 = new Version("1.2");
@@ -192,7 +193,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDoubleText()
 		{
 			Version v1 = new Version("1.1");
@@ -200,7 +201,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDoubleTextEqual()
 		{
 			Version v1 = new Version("1.1a");
@@ -208,7 +209,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDoubleTextLess()
 		{
 			Version v1 = new Version("1.1a");
@@ -216,7 +217,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareDoubleTextGreater()
 		{
 			Version v1 = new Version("1.2a");
@@ -226,7 +227,7 @@ namespace MfGames.Utility
 		#endregion
 
 		#region Version Comparison
-		[Test]
+		[TestMethod]
 		public void LessSingle()
 		{
 			Version v1 = new Version("1");
@@ -234,7 +235,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleLess()
 		{
 			Version v1 = new Version("1");
@@ -242,7 +243,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleGreater()
 		{
 			Version v1 = new Version("2");
@@ -250,7 +251,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleText()
 		{
 			Version v1 = new Version("1");
@@ -258,7 +259,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleTextEqual()
 		{
 			Version v1 = new Version("1a");
@@ -266,7 +267,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleTextLess()
 		{
 			Version v1 = new Version("1a");
@@ -274,7 +275,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleTextGreater()
 		{
 			Version v1 = new Version("2a");
@@ -282,7 +283,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleDouble()
 		{
 			Version v1 = new Version("1");
@@ -290,7 +291,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 < v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LessSingleDoubleGreater()
 		{
 			Version v1 = new Version("2.0");
@@ -300,7 +301,7 @@ namespace MfGames.Utility
 		#endregion
 
 		#region Greater Than Testing
-		[Test]
+		[TestMethod]
 		public void GreaterSingle()
 		{
 			Version v1 = new Version("1");
@@ -308,7 +309,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleLess()
 		{
 			Version v1 = new Version("1");
@@ -316,7 +317,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleGreater()
 		{
 			Version v1 = new Version("2");
@@ -324,7 +325,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleText()
 		{
 			Version v1 = new Version("1");
@@ -332,7 +333,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleTextEqual()
 		{
 			Version v1 = new Version("1a");
@@ -340,7 +341,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleTextLess()
 		{
 			Version v1 = new Version("1a");
@@ -348,7 +349,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleTextGreater()
 		{
 			Version v1 = new Version("2a");
@@ -356,7 +357,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleDouble()
 		{
 			Version v1 = new Version("2.0");
@@ -364,7 +365,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void GreaterSingleDoubleLess()
 		{
 			Version v1 = new Version("1");
@@ -372,7 +373,7 @@ namespace MfGames.Utility
 			Assert.IsFalse(v1 > v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void ZeroVersesLotsLessThan()
 		{
 			Version v1 = new Version("0.0");
@@ -380,7 +381,7 @@ namespace MfGames.Utility
 			Assert.IsTrue(v1 <= v2);
 		}
 
-		[Test]
+		[TestMethod]
 		public void HighVersesLowLessThan()
 		{
 			Version v1 = new Version("20081.0");
@@ -390,21 +391,21 @@ namespace MfGames.Utility
 		#endregion
 
 		#region CompareOp
-		[Test]
+		[TestMethod]
 		public void CompareOpEqual()
 		{
 			Version v1 = new Version("1.2.3");
 			Assert.IsTrue(v1.CompareOp("= 1.2.3"), "With space");
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareOpEqual2()
 		{
 			Version v1 = new Version("1.2.3");
 			Assert.IsTrue(v1.CompareOp("=1.2.3"), "Without space");
 		}
 
-		[Test]
+		[TestMethod]
 		public void CompareOpEqual3()
 		{
 			Version v1 = new Version("1.2.3");

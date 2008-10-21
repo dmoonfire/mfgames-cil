@@ -19,20 +19,19 @@
  */
 #endregion
 
+using System.Security.Cryptography;
+using System.Text;
+
 namespace MfGames.Utility
 {
-	using System;
-	using System.Security.Cryptography;
-	using System.Text;
-
 	/// <summary>
 	/// Contains various useful string conversion and hash methods. All
 	/// of the methods in this class are static.
 	/// </summary>
-	public abstract class MfConvert
+	public abstract class Convert
 	{
 		#region String Functions
-		static char[] HEX_DIGITS = {
+		static readonly char[] HexDigits = {
 			'0', '1', '2', '3', '4', '5', '6', '7',
 			'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
@@ -49,8 +48,8 @@ namespace MfGames.Utility
 			for (int i = 0; i < input.Length; i++)
 			{
 				int b = input[i];
-				chars[i * 2] = HEX_DIGITS[b >> 4];
-				chars[i * 2 + 1] = HEX_DIGITS[b & 0xF];
+				chars[i * 2] = HexDigits[b >> 4];
+				chars[i * 2 + 1] = HexDigits[b & 0xF];
 			}
 
 			// Convert to a string and return
@@ -87,7 +86,7 @@ namespace MfGames.Utility
 			// First encrypt it
 			MD5 md5 = new MD5CryptoServiceProvider();
 			byte[] hash = md5.ComputeHash(input2);
-			return Convert.ToBase64String(hash);
+			return System.Convert.ToBase64String(hash);
 		}
 		#endregion
 	}

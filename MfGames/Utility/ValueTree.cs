@@ -21,7 +21,6 @@
 
 namespace MfGames.Utility
 {
-	using System;
 
 	/// <summary>
 	/// Extends an AttributeTree and wraps a basic value around it,
@@ -51,7 +50,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public int Int32
 		{
-			get { return Convert.ToInt32(String); }
+			get { return System.Convert.ToInt32(String); }
 			set { String = value.ToString(); }
 		}
 
