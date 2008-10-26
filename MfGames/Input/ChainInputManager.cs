@@ -21,7 +21,16 @@ namespace MfGames.Input
 		/// </summary>
 		public ChainInputManager()
 		{
+			// Set up the current tree.
 			currentTree = rootTree;
+
+			// Add the default non-reset tokens.
+			nonResetTokens.Add(InputTokens.RightControl);
+			nonResetTokens.Add(InputTokens.LeftControl);
+			nonResetTokens.Add(InputTokens.Control);
+			nonResetTokens.Add(InputTokens.RightShift);
+			nonResetTokens.Add(InputTokens.LeftShift);
+			nonResetTokens.Add(InputTokens.Shift);
 		}
 		#endregion Constructors
 
@@ -61,12 +70,15 @@ namespace MfGames.Input
 
 			// See if we have a reset input token, which causes the root tree to
 			// activate. We use this by checking for non-reset tokens.
-			foreach (string input in currentInputs)
+			if (currentTree != rootTree)
 			{
-				if (!nonResetTokens.Contains(input))
+				foreach (string input in currentInputs)
 				{
-					// This is a reset token.
-					currentTree = rootTree;
+					if (!nonResetTokens.Contains(input))
+					{
+						// This is a reset token.
+						currentTree = rootTree;
+					}
 				}
 			}
 		}

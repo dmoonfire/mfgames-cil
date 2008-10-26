@@ -288,7 +288,7 @@ namespace MfGames.Input
 		/// collapse down to the next level ("A:B:C" collapses to
 		/// "A:B" collapses to "A").
 		/// </summary>
-		public bool AutoCollapseTokens = false;
+		public bool AutoCollapseTokens = true;
 
 		/// <summary>
 		/// Creates a token mapping object for this input. If this is
