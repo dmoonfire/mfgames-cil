@@ -102,7 +102,7 @@ namespace MfGames.Numerics
 		/// </summary>
 		public static Func<T, T, T> Add
 		{
-			 get { return add; }
+			get { return add; }
 		}
 
 		/// <summary>

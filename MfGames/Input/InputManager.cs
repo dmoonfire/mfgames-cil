@@ -207,6 +207,17 @@ namespace MfGames.Input
 		}
 
 		/// <summary>
+		/// Triggers the input token. This is the same as calling ActivateInput
+		/// and DeactivateInput right after each other.
+		/// </summary>
+		/// <param name="input">The input.</param>
+		public void TriggerInput(string input)
+		{
+			ActivateInput(input);
+			DeactivateInput(input);
+		}
+
+		/// <summary>
 		/// This returns true if the given token has been activated in
 		/// this manager.
 		/// </summary>

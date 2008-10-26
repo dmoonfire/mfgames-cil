@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace MfGames.Numerics
 {
@@ -11,7 +8,6 @@ namespace MfGames.Numerics
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public sealed class Point2<T>
-		where T: new()
 	{
 		#region Constructors
 		/// <summary>

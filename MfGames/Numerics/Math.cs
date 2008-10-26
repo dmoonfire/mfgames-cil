@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace MfGames.Numerics
 {
 	/// <summary>
