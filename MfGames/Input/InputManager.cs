@@ -13,7 +13,7 @@ namespace MfGames.Input
 	/// analog, such as "x". Other tokens are used for special keys,
 	/// such as the function keys ("F1", always in upper case), return
 	/// ("RET"), or mouse buttons ("MB1"). Special tokens are assigned
-	/// to the control key ("C"), shift ("S"), and alt key ("A").
+	/// to the control key ("CONTROL"), shift ("SHIFT"), and alt key ("A").
 	///
 	/// There is a provision to allow a key duplication to fire
 	/// multiple events. For example, this lets you assign both right
@@ -38,7 +38,7 @@ namespace MfGames.Input
 	public class InputManager
 	{
 		#region Enabling/Disabling
-		private Dictionary<string, int> activatedCounter =
+		private readonly Dictionary<string, int> activatedCounter =
 			new Dictionary<string, int>();
 
 		/// <summary>
@@ -58,10 +58,30 @@ namespace MfGames.Input
 		public event EventHandler<InputEventArgs> InputDeactivated;
 
 		/// <summary>
+		/// Gets a hash of all currently activated inputs.
+		/// </summary>
+		/// <value>The activated inputs.</value>
+		public HashSet<string> ActivatedInputs
+		{
+			get
+			{
+				HashSet<string> current = new HashSet<string>();
+
+				foreach (string key in activatedCounter.Keys)
+					current.Add(key);
+
+				return current;
+			}
+		}
+
+		/// <summary>
 		/// If this is set to true, then multiple requests for the
 		/// same input will repeatedly trigger the various events.
 		/// </summary>
-		public bool DuplicateEvents = false;
+		public bool DuplicateEvents {
+			get;
+			set; 
+		}
 
 		/// <summary>
 		/// Triggers the processing for activating an input. This is
@@ -92,23 +112,8 @@ namespace MfGames.Input
 				activatedCounter.Add(token, 1);
 			}
 
-			// Fire the various events for activation
-			if (fireEvent && InputActivated != null)
-			{
-				// Create the arguments
-				InputEventArgs args = new InputEventArgs(this, token);
-
-				// Loop through the delegates
-				foreach (Delegate d in InputActivated.GetInvocationList())
-				{
-					// Invoke this one
-					d.DynamicInvoke(this, args);
-
-					// See if we are done processing
-					if (!args.ContinueProcessing)
-						break;
-				}
-			}
+			// Process the input.
+			ProcessActivateInput(token, fireEvent);
 
 			// See if we have a token mapping. We do this after all
 			// the events to have a clearly defined order of
@@ -167,23 +172,8 @@ namespace MfGames.Input
 				}
 			}
 
-			// Fire the various events for activation
-			if (fireEvent && InputDeactivated != null)
-			{
-				// Create the arguments
-				InputEventArgs args = new InputEventArgs(this, token);
-
-				// Loop through the delegates
-				foreach (Delegate d in InputDeactivated.GetInvocationList())
-				{
-					// Invoke this one
-					d.DynamicInvoke(this, args);
-
-					// See if we are done processing
-					if (!args.ContinueProcessing)
-						break;
-				}
-			}
+			// Process the input.
+			ProcessDeactivateInput(token, fireEvent);
 
 			// See if we have a token mapping. We do this after all
 			// the events to have a clearly defined order of
@@ -230,6 +220,60 @@ namespace MfGames.Input
 
 			// See if we have it
 			return activatedCounter.ContainsKey(token);
+		}
+		#endregion
+
+		#region Input Processing
+		/// <summary>
+		/// Processes the activate input event.
+		/// </summary>
+		/// <param name="token">The token.</param>
+		/// <param name="fireEvent">if set to <c>true</c> [fire event].</param>
+		protected virtual void ProcessActivateInput(string token, bool fireEvent)
+		{
+			// Fire the various events for activation
+			if (fireEvent && InputActivated != null)
+			{
+				// Create the arguments
+				InputEventArgs args = new InputEventArgs(this, token);
+
+				// Loop through the delegates
+				foreach (Delegate d in InputActivated.GetInvocationList())
+				{
+					// Invoke this one
+					d.DynamicInvoke(this, args);
+
+					// See if we are done processing
+					if (!args.ContinueProcessing)
+						break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Processes the deactivate input event.
+		/// </summary>
+		/// <param name="token">The token.</param>
+		/// <param name="fireEvent">if set to <c>true</c> [fire event].</param>
+		protected void ProcessDeactivateInput(string token, bool fireEvent)
+		{
+			// Fire the various events for activation
+			if (fireEvent && InputDeactivated != null)
+			{
+				// Create the arguments
+				InputEventArgs args = new InputEventArgs(this, token);
+
+				// Loop through the delegates
+				foreach (Delegate d in InputDeactivated.GetInvocationList())
+				{
+					// Invoke this one
+					d.DynamicInvoke(this, args);
+
+					// See if we are done processing
+					if (!args.ContinueProcessing)
+						break;
+				}
+			}
 		}
 		#endregion
 

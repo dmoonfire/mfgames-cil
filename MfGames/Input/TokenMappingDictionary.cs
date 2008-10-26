@@ -40,20 +40,5 @@ namespace MfGames.Input
 				list.Add(toToken);
 		}
 		#endregion
-
-		#region Standard Mapping
-		/// <summary>
-		/// Adds the following mappings to the dictionary:
-		/// <ul>
-		/// <li>RC: C</li>
-		/// <li>LC: C</li>
-		/// <li>RS: S</li>
-		/// <li>LS: S</li>
-		/// </ul>
-		/// </summary>
-		public void AddStandardMappings()
-		{
-		}
-		#endregion
 	}
 }

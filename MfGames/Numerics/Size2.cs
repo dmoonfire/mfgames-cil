@@ -56,6 +56,19 @@ namespace MfGames.Numerics
 
 		#region Conversions
 		/// <summary>
+		/// Converts the size to a different type.
+		/// </summary>
+		/// <typeparam name="T2">The second type to convert to.</typeparam>
+		/// <returns></returns>
+		public Size2<T2> ToSize2<T2>()
+		{
+			return
+				new Size2<T2>(
+					(T2) Convert.ChangeType(width, typeof(T2)),
+					(T2) Convert.ChangeType(height, typeof(T2)));
+		}
+
+		/// <summary>
 		/// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
 		/// </summary>
 		/// <returns>
