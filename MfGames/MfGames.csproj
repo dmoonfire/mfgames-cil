@@ -71,6 +71,7 @@
     <Compile Include="Settings\Design\XmlDesignGenerator.cs" />
     <Compile Include="Settings\Design\XmlDesignReader.cs" />
     <Compile Include="Settings\Design\XmlDesignWriter.cs" />
+    <Compile Include="Time\UpdateEventArgs.cs" />
     <Compile Include="Utility\AttributeTree.cs" />
     <Compile Include="Utility\AttributeTreeCollection.cs" />
     <Compile Include="Utility\Auditable.cs" />
