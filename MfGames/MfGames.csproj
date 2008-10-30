@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Color.cs" />
     <Compile Include="Input\Chain.cs" />
     <Compile Include="Input\ChainInputEventArgs.cs" />
     <Compile Include="Input\ChainInputManager.cs" />
