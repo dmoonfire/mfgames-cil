@@ -57,7 +57,11 @@
     <Compile Include="Input\TokenMappingDictionary.cs" />
     <Compile Include="Numerics\Calculator.cs" />
     <Compile Include="Numerics\ExtensionsInt32.cs" />
+    <Compile Include="Numerics\FractalBrownianMotion.cs" />
     <Compile Include="Numerics\Fraction.cs" />
+    <Compile Include="Numerics\INoise2.cs" />
+    <Compile Include="Numerics\IRange1.cs" />
+    <Compile Include="Numerics\LinearRange1.cs" />
     <Compile Include="Numerics\Math.cs" />
     <Compile Include="Numerics\PerlinNoise.cs" />
     <Compile Include="Numerics\Point2.cs" />

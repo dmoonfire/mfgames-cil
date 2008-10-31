@@ -18,6 +18,18 @@ namespace MfGames.Drawing
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Color&lt;T&gt;"/> class.
 		/// </summary>
+		/// <param name="color">The color.</param>
+		public Color(Color<T> color)
+		{
+			a = color.a;
+			r = color.r;
+			g = color.g;
+			b = color.b;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Color&lt;T&gt;"/> class.
+		/// </summary>
 		/// <param name="a">A.</param>
 		/// <param name="r">The r.</param>
 		/// <param name="g">The g.</param>
