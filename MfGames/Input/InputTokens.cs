@@ -47,6 +47,8 @@ namespace MfGames.Input
 		public const string Enter = "ENTER";
 		public const string NumLock = "NUMLOCK";
 		public const string Space = "SPACE";
+		public const string Period = ".";
+		public const string Comma = ",";
 		#endregion
 
 		#region Number Pad
