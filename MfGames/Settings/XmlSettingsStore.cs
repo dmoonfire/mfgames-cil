@@ -96,7 +96,7 @@ namespace MfGames.Settings
 			{
 				// Open up the stream
 				using (FileStream fs =
-					file.Open(FileMode.Open, FileAccess.Read))
+					file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
 					// Create an XML reader
 					XmlReader xml = XmlReader.Create(fs);

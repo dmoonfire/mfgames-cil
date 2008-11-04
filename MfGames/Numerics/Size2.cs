@@ -7,7 +7,7 @@ namespace MfGames.Numerics
 	/// Generics-based 2D size and dimensions.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public sealed class Size2<T>
+	public class Size2<T>
 	{
 		#region Constructors
 		/// <summary>
