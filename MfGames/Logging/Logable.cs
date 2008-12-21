@@ -34,7 +34,10 @@ namespace MfGames.Logging
 	{
 		public virtual string LogContext
 		{
-			get { return GetType().FullName; }
+			get
+			{
+				return GetType().FullName;
+			}
 		}
 
 		public void Alert(string msg, params object[] parms)

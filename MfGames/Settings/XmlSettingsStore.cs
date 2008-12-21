@@ -33,7 +33,7 @@ namespace MfGames.Settings
 	/// the location for the XML.
 	/// </summary>
 	public class XmlSettingsStore
-	: ISettingsStore
+		: ISettingsStore
 	{
 		#region Constructors
 		/// <summary>
@@ -53,7 +53,7 @@ namespace MfGames.Settings
 			// Valid the variable and save it
 			if (file == null)
 				throw new Exception(
-					"Cannot back a XML settings object with a null file");
+				        "Cannot back a XML settings object with a null file");
 
 			this.file = file;
 			log = new Log(file.Name);
@@ -96,12 +96,12 @@ namespace MfGames.Settings
 			{
 				// Open up the stream
 				using (FileStream fs =
-					file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
-				{
-					// Create an XML reader
-					XmlReader xml = XmlReader.Create(fs);
-					Load(xml);
-				}
+				               file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
+				      {
+					      // Create an XML reader
+					      XmlReader xml = XmlReader.Create(fs);
+					      Load(xml);
+				      }
 			}
 			catch (Exception e)
 			{
@@ -137,8 +137,8 @@ namespace MfGames.Settings
 						string name = xml["name"];
 						string value = xml["value"];
 						Logger.Debug(GetType(),
-							"Setting: {0}.{1} = {2}",
-							group, name, value);
+						             "Setting: {0}.{1} = {2}",
+						             group, name, value);
 
 						this[group, name] = value;
 					}
@@ -171,15 +171,15 @@ namespace MfGames.Settings
 			{
 				// Open up the stream
 				using (FileStream fs = file.Open(FileMode.Create))
-				{
-					// Create an XML writer
-					XmlWriter xml = XmlWriter.Create(fs);
-					xml.WriteStartDocument();
-					Save(xml);
-					xml.WriteEndDocument();
-					xml.Close();
-					fs.Close();
-				}
+				      {
+					      // Create an XML writer
+					      XmlWriter xml = XmlWriter.Create(fs);
+					      xml.WriteStartDocument();
+					      Save(xml);
+					      xml.WriteEndDocument();
+					      xml.Close();
+					      fs.Close();
+				      }
 			}
 			catch (Exception e)
 			{
@@ -209,7 +209,7 @@ namespace MfGames.Settings
 					xml.WriteStartElement("setting");
 					xml.WriteAttributeString("name", var);
 					xml.WriteAttributeString("value",
-						groups[group][var]);
+					                         groups[group][var]);
 					xml.WriteEndElement();
 				}
 
@@ -224,7 +224,7 @@ namespace MfGames.Settings
 
 		#region Accessing
 		private Dictionary<string, Dictionary<string, string>> groups =
-			new Dictionary<string, Dictionary<string, string>>();
+		        new Dictionary<string, Dictionary<string, string>>();
 
 		/// <summary>
 		/// This is the primary method for getting and setting values
@@ -247,7 +247,6 @@ namespace MfGames.Settings
 
 				// Return the results
 				return d[variable];
-
 			}
 
 			set
@@ -288,7 +287,7 @@ namespace MfGames.Settings
 		public bool Contains(string group, string variable)
 		{
 			return groups.ContainsKey(group) &&
-				groups[group].ContainsKey(variable);
+			       groups[group].ContainsKey(variable);
 		}
 		#endregion
 	}

@@ -166,10 +166,10 @@ namespace MfGames.Utility
 			bool isMissing = false;
 			Type cType = container.GetType();
 			MemberInfo[] mis =
-				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
-					BindingFlags.Public | BindingFlags.NonPublic
-					| BindingFlags.Instance | BindingFlags.Static,
-					null, null);
+			        cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
+			                          BindingFlags.Public | BindingFlags.NonPublic
+			                          | BindingFlags.Instance | BindingFlags.Static,
+			                          null, null);
 
 			foreach (MemberInfo mi in mis)
 			{
@@ -189,7 +189,7 @@ namespace MfGames.Utility
 						// This is a non-optional positional and it
 						// wasn't set
 						Log.Error("Required parameter #{0} was not set",
-							ppa.Index);
+						          ppa.Index);
 						isMissing = true;
 					}
 				}
@@ -198,7 +198,7 @@ namespace MfGames.Utility
 			// See if we have problems
 			if (isMissing)
 				throw new Exception("Required command-line "
-					+ "arguments are missing");
+				                    + "arguments are missing");
 		}
 		#endregion
 
@@ -214,7 +214,7 @@ namespace MfGames.Utility
 
 		#region Tools
 		private Dictionary<string, ITool> tools =
-			new Dictionary<string, ITool>();
+		        new Dictionary<string, ITool>();
 
 		/// <summary>
 		/// Registers a single tool and its keys.

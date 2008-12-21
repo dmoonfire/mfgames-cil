@@ -30,9 +30,9 @@ namespace MfGames.Utility
 	/// and those command-line arguments are removed.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field,
-			AllowMultiple = true, Inherited = true)]
+	                AllowMultiple = true, Inherited = true)]
 	public class OptionalAttribute
-	: Attribute
+		: Attribute
 	{
 		public OptionalAttribute(string argumentName)
 		{
@@ -45,7 +45,12 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Contains the registered name of this attribute.
 		/// </summary>
-		public string Name { get { return name; } }
+		public string Name {
+			get
+			{
+				return name;
+			}
+		}
 		#endregion
 	}
 }

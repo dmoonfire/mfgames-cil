@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Xml;
 using MfGames.Utility;
 
@@ -6,7 +6,7 @@ namespace MfGames.Numerics
 {
 	/// <summary>
 	/// Implements a basic controllable Perlin noise generator.
-	/// 
+	///
 	/// Stolen from http://www.sepcot.com/blog/2006/08/PDN-PerlinNoise2d
 	/// </summary>
 	public class PerlinNoise
@@ -35,9 +35,18 @@ namespace MfGames.Numerics
 		#endregion
 
 		#region Properties
-		public int Rank1 { get; set; }
-		public int Rank2 { get; set; }
-		public int Rank3 { get; set; }
+		public int Rank1 {
+			get;
+			set;
+		}
+		public int Rank2 {
+			get;
+			set;
+		}
+		public int Rank3 {
+			get;
+			set;
+		}
 		#endregion
 
 		#region Noise Generation

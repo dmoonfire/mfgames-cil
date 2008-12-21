@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -110,17 +110,35 @@ namespace MfGames.Numerics
 		#endregion
 
 		#region Properties
-		public double Amplitude { get; set; }
+		public double Amplitude {
+			get;
+			set;
+		}
 
-		public double Coverage { get; set; }
+		public double Coverage {
+			get;
+			set;
+		}
 
-		public double Density { get; set; }
+		public double Density {
+			get;
+			set;
+		}
 
-		public double Frequency { get; set; }
+		public double Frequency {
+			get;
+			set;
+		}
 
-		public int Octaves { get; set; }
+		public int Octaves {
+			get;
+			set;
+		}
 
-		public double Persistence { get; set; }
+		public double Persistence {
+			get;
+			set;
+		}
 		#endregion
 
 		#region XML I/O

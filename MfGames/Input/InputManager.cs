@@ -39,7 +39,7 @@ namespace MfGames.Input
 	{
 		#region Enabling/Disabling
 		private readonly Dictionary<string, int> activatedCounter =
-			new Dictionary<string, int>();
+		        new Dictionary<string, int>();
 
 		/// <summary>
 		/// This event is used when an input is
@@ -80,7 +80,7 @@ namespace MfGames.Input
 		/// </summary>
 		public bool DuplicateEvents {
 			get;
-			set; 
+			set;
 		}
 
 		/// <summary>
@@ -93,7 +93,7 @@ namespace MfGames.Input
 			// Sanity checking on input token
 			if (String.IsNullOrEmpty(token))
 				throw new NullReferenceException(
-					"token cannot be null or empty");
+				        "token cannot be null or empty");
 
 			// Add the index for activation counter
 			bool fireEvent = true;
@@ -119,7 +119,7 @@ namespace MfGames.Input
 			// the events to have a clearly defined order of
 			// activations.
 			if (tokenMapping != null &&
-				tokenMapping.ContainsKey(token))
+			    tokenMapping.ContainsKey(token))
 			{
 				// Activate this for all the mapped tokens
 				foreach (string mappedToken in tokenMapping[token])
@@ -128,7 +128,7 @@ namespace MfGames.Input
 
 			// See if we are automatically collapsing
 			if (AutoCollapseTokens &&
-				token.LastIndexOf(":") > 0)
+			    token.LastIndexOf(":") > 0)
 			{
 				// Get the new token
 				string newToken = token.Substring(0, token.LastIndexOf(":"));
@@ -146,7 +146,7 @@ namespace MfGames.Input
 			// Sanity checking on input token
 			if (String.IsNullOrEmpty(token))
 				throw new NullReferenceException(
-					"token cannot be null or empty");
+				        "token cannot be null or empty");
 
 			// Add the index for activation counter
 			bool fireEvent = false;
@@ -179,7 +179,7 @@ namespace MfGames.Input
 			// the events to have a clearly defined order of
 			// activations.
 			if (tokenMapping != null &&
-				tokenMapping.ContainsKey(token))
+			    tokenMapping.ContainsKey(token))
 			{
 				// Activate this for all the mapped tokens
 				foreach (string mappedToken in tokenMapping[token])
@@ -188,7 +188,7 @@ namespace MfGames.Input
 
 			// See if we are automatically collapsing
 			if (AutoCollapseTokens &&
-				token.LastIndexOf(":") > 0)
+			    token.LastIndexOf(":") > 0)
 			{
 				// Get the new token
 				string newToken = token.Substring(0, token.LastIndexOf(":"));
@@ -216,7 +216,7 @@ namespace MfGames.Input
 			// Sanity checking on input token
 			if (String.IsNullOrEmpty(token))
 				throw new NullReferenceException(
-					"token cannot be null or empty");
+				        "token cannot be null or empty");
 
 			// See if we have it
 			return activatedCounter.ContainsKey(token);
@@ -297,8 +297,14 @@ namespace MfGames.Input
 		/// </summary>
 		public TokenMappingDictionary TokenMapping
 		{
-			get { return tokenMapping; }
-			set { tokenMapping = value; }
+			get
+			{
+				return tokenMapping;
+			}
+			set
+			{
+				tokenMapping = value;
+			}
 		}
 		#endregion
 

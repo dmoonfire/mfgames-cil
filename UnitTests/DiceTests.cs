@@ -24,9 +24,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Tests out the various dice parsing and generation routines.
-	/// </summary>
+/// <summary>
+/// Tests out the various dice parsing and generation routines.
+/// </summary>
 	[TestClass]
 	public class TestDice
 	{

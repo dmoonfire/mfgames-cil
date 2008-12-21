@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows.Forms;
 using MfGames.Settings.Design;
@@ -28,7 +28,10 @@ namespace SettingsEditor
 		/// </summary>
 		public DesignConfiguration Configuration
 		{
-			get { return _configuration; }
+			get
+			{
+				return _configuration;
+			}
 			set
 			{
 				// Set the value
@@ -84,7 +87,10 @@ namespace SettingsEditor
 		/// </summary>
 		public DesignSetting Setting
 		{
-			get { return _setting; }
+			get
+			{
+				return _setting;
+			}
 			set
 			{
 				// Set the value
@@ -236,7 +242,9 @@ namespace SettingsEditor
 
 			// We have a new group, so move this setting
 			if (!Configuration.Contains(name))
-				Configuration.Groups.Add(new DesignGroup() { Name = name });
+				Configuration.Groups.Add(new DesignGroup() {
+				                                 Name = name
+							 });
 
 			// Get the design groups
 			DesignGroup newGroup = Configuration[name];
@@ -266,12 +274,16 @@ namespace SettingsEditor
 		{
 			// Get (or create) the group
 			if (!Configuration.Contains("New Group"))
-				Configuration.Groups.Add(new DesignGroup() { Name = "New Group" });
+				Configuration.Groups.Add(new DesignGroup() {
+				                                 Name = "New Group"
+							 });
 
 			DesignGroup group = Configuration["New Group"];
 
 			// Set up the default settings
-			DesignSetting setting = new DesignSetting() { Name = "New Setting", Group = "New Group" };
+			DesignSetting setting = new DesignSetting() {
+				Name = "New Setting", Group = "New Group"
+			};
 			group.Settings.Add(setting);
 			Setting = setting;
 

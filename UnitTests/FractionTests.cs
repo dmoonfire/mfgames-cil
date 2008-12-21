@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using MfGames.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Summary description for FractionUnitTest
-	/// </summary>
+/// <summary>
+/// Summary description for FractionUnitTest
+/// </summary>
 	[TestClass]
 	public class FractionTests
 	{
@@ -42,7 +42,7 @@ namespace UnitTests
 		// [ClassCleanup()]
 		// public static void MyClassCleanup() { }
 		//
-		// Use TestInitialize to run code before running each test 
+		// Use TestInitialize to run code before running each test
 		// [TestInitialize()]
 		// public void MyTestInitialize() { }
 		//

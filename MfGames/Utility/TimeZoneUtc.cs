@@ -30,7 +30,7 @@ namespace MfGames.Utility
 	/// that follow the basic UTC format (no daylight saving time).
 	/// </summary>
 	public class TimeZoneUtc
-	: TimeZone
+		: TimeZone
 	{
 		private int offset = 0;
 		private string name;
@@ -47,12 +47,22 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Returns the name of the daylight name.
 		/// </summary>
-		public override string DaylightName { get { return name; } }
+		public override string DaylightName {
+			get
+			{
+				return name;
+			}
+		}
 
 		/// <summary>
 		/// Returns the name of the standard time.
 		/// </summary>
-		public override string StandardName { get { return name; } }
+		public override string StandardName {
+			get
+			{
+				return name;
+			}
+		}
 
 		/// <summary>
 		/// Returns the daylight changes for UTC (never).
@@ -60,9 +70,9 @@ namespace MfGames.Utility
 		public override DaylightTime GetDaylightChanges(int year)
 		{
 			return new DaylightTime(
-				new DateTime(1),
-				new DateTime(2),
-				new TimeSpan(0, 0, 0));
+			               new DateTime(1),
+			               new DateTime(2),
+			               new TimeSpan(0, 0, 0));
 		}
 
 		/// <summary>

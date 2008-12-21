@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +21,10 @@ namespace MfGames.Time
 		/// <value>The elapsed seconds.</value>
 		public double ElapsedSeconds
 		{
-			get { return elapsedTicks / 10000000.0; }
+			get
+			{
+				return elapsedTicks / 10000000.0;
+			}
 		}
 
 		/// <summary>
@@ -30,8 +33,14 @@ namespace MfGames.Time
 		/// <value>The elapsed ticks.</value>
 		public long ElapsedTicks
 		{
-			get { return elapsedTicks; }
-			set { elapsedTicks = value; }
+			get
+			{
+				return elapsedTicks;
+			}
+			set
+			{
+				elapsedTicks = value;
+			}
 		}
 
 		/// <summary>
@@ -40,8 +49,14 @@ namespace MfGames.Time
 		/// <value>The skipped.</value>
 		public int Skipped
 		{
-			get { return skipped; }
-			set { skipped = value; }
+			get
+			{
+				return skipped;
+			}
+			set
+			{
+				skipped = value;
+			}
 		}
 		#endregion
 	}

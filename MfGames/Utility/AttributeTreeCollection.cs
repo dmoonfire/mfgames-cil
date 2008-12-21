@@ -28,7 +28,7 @@ namespace MfGames.Utility
 
 	[Serializable]
 	public class AttributeTreeCollection
-	: NameObjectCollectionBase, ISerializable
+		: NameObjectCollectionBase, ISerializable
 	{
 		// Contains the base tree used for creation
 		private AttributeTree baseTree = null;
@@ -48,9 +48,12 @@ namespace MfGames.Utility
 		public void Add(string name, object value)
 		{
 			base.BaseAdd(name,
-				value);
+			             value);
 		}
-		public void Remove(string name) { base.BaseRemove(name); }
+		public void Remove(string name)
+		{
+			base.BaseRemove(name);
+		}
 
 		/// <summary>
 		/// Returns the attribute tree node for the given path. If it does
@@ -58,8 +61,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[NodeRef nref]
 		{
-			get { return this[nref, false]; }
-			set { BaseSet(nref.ToString(), value); }
+			get
+			{
+				return this[nref, false];
+			}
+			set
+			{
+				BaseSet(nref.ToString(), value);
+			}
 		}
 
 		/// <summary>
@@ -118,7 +127,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name]
 		{
-			get { return this[new NodeRef(name), false]; }
+			get
+			{
+				return this[new NodeRef(name), false];
+			}
 		}
 
 		/// <summary>
@@ -127,7 +139,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name, bool create]
 		{
-			get { return this[new NodeRef(name), create]; }
+			get
+			{
+				return this[new NodeRef(name), create];
+			}
 		}
 
 		/// <summary>
@@ -147,7 +162,7 @@ namespace MfGames.Utility
 				}
 
 				// Return it as a cast
-				return (AttributeTree[]) list.ToArray(typeof(AttributeTree));
+				return (AttributeTree[])list.ToArray(typeof(AttributeTree));
 			}
 		}
 		#endregion
@@ -157,7 +172,7 @@ namespace MfGames.Utility
 		/// Constructs the collection using serialization information.
 		/// </summary>
 		public AttributeTreeCollection(SerializationInfo info,
-			StreamingContext context)
+		                               StreamingContext context)
 		{
 			// Go through the items and add them
 			SerializationInfoEnumerator infoItems = info.GetEnumerator();
@@ -173,7 +188,7 @@ namespace MfGames.Utility
 		/// context.
 		/// </summary>
 		public override void GetObjectData(SerializationInfo info,
-			StreamingContext context)
+		                                   StreamingContext context)
 		{
 			foreach (string name in base.BaseGetAllKeys())
 			{

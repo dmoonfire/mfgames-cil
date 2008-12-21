@@ -28,7 +28,7 @@ namespace MfGames.Utility
 	/// base System.Random class.
 	/// </summary>
 	public class MersenneRandom
-	: Random
+		: Random
 	{
 		#region Constructors
 		/// <summary>

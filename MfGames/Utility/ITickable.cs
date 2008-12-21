@@ -23,7 +23,9 @@ namespace MfGames.Utility
 {
 	public interface ITickable
 	{
-		bool IsTickable { get; }
+		bool IsTickable {
+			get;
+		}
 		void OnTick(object sender, TickArgs args);
 	}
 }

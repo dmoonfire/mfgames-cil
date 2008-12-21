@@ -38,10 +38,10 @@ namespace MfGames.Utility
 		/// proper trace
 		/// </summary>
 		public void Log(
-			Severity level,
-			string context,
-			string msg,
-			Exception e)
+		        Severity level,
+		        string context,
+		        string msg,
+		        Exception e)
 		{
 			// Figure out the switch for this context
 			// Figure get the logger object for the context
@@ -52,21 +52,36 @@ namespace MfGames.Utility
 			switch (level)
 			{
 			case Severity.Fatal:
-				if (log.IsFatalEnabled) log.Fatal(msg, e);
+
+				if (log.IsFatalEnabled)
+					log.Fatal(msg, e);
+
 				break;
 			case Severity.Error:
-				if (log.IsErrorEnabled) log.Error(msg, e);
+
+				if (log.IsErrorEnabled)
+					log.Error(msg, e);
+
 				break;
 			case Severity.Alert:
-				if (log.IsWarnEnabled) log.Warn(msg, e);
+
+				if (log.IsWarnEnabled)
+					log.Warn(msg, e);
+
 				break;
 			case Severity.Info:
-				if (log.IsInfoEnabled) log.Info(msg, e);
+
+				if (log.IsInfoEnabled)
+					log.Info(msg, e);
+
 				break;
 			case Severity.Debug:
 			case Severity.Trace:
 			default:
-				if (log.IsDebugEnabled) log.Debug(msg, e);
+
+				if (log.IsDebugEnabled)
+					log.Debug(msg, e);
+
 				break;
 			}
 		}

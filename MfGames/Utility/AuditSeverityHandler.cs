@@ -21,10 +21,9 @@
 
 namespace MfGames.Utility
 {
-
 	/// <summary>
 	/// This is the handler for delegates for the audit severity changes.
 	/// </summary>
 	public delegate void AuditSeverityHandler(object sender,
-		AuditSeverityArgs args);
+	                                          AuditSeverityArgs args);
 }

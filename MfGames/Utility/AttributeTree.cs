@@ -56,7 +56,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[NodeRef nref]
 		{
-			get { return this[nref, false]; }
+			get
+			{
+				return this[nref, false];
+			}
 		}
 
 		/// <summary>
@@ -89,7 +92,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name]
 		{
-			get { return this[new NodeRef(name), false]; }
+			get
+			{
+				return this[new NodeRef(name), false];
+			}
 		}
 
 		/// <summary>
@@ -98,7 +104,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name, bool create]
 		{
-			get { return this[new NodeRef(name), create]; }
+			get
+			{
+				return this[new NodeRef(name), create];
+			}
 		}
 
 		/// <summary>
@@ -181,7 +190,7 @@ namespace MfGames.Utility
 				if (at == null)
 				{
 					throw new UtilityException("Cannot retrieve object from "
-						+ name);
+					                           + name);
 				}
 
 				// Check to see if this is already here
@@ -203,7 +212,7 @@ namespace MfGames.Utility
 		/// Called when a new child is created (but not cloned).
 		/// </summary>
 		public virtual void OnCreatedAsChild(NodeRef nref,
-			AttributeTree parent)
+		                                     AttributeTree parent)
 		{
 			Path = new NodeRef(parent.Path.ToString() + nref.ToString());
 		}
@@ -225,7 +234,10 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public IDictionary Attributes
 		{
-			get { return attributes; }
+			get
+			{
+				return attributes;
+			}
 		}
 
 		/// <summary>
@@ -234,7 +246,10 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public AttributeTreeCollection Children
 		{
-			get { return children; }
+			get
+			{
+				return children;
+			}
 		}
 
 		/// <summary>
@@ -263,8 +278,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public NodeRef Path
 		{
-			get { return path; }
-			set { path = value; }
+			get
+			{
+				return path;
+			}
+			set
+			{
+				path = value;
+			}
 		}
 		#endregion
 	}

@@ -28,7 +28,7 @@ namespace MfGames.Utility
 	/// Implements the US-specific time zones.
 	/// </summary>
 	public class TimeZoneUS
-	: TimeZone
+		: TimeZone
 	{
 		private int stOffset;
 		private int dtOffset;
@@ -39,8 +39,8 @@ namespace MfGames.Utility
 		/// Creates the basic US zone with the three-letter names.
 		/// </summary>
 		public TimeZoneUS(
-			string standardName, int standardOffset,
-			string daylightName, int daylightOffset)
+		        string standardName, int standardOffset,
+		        string daylightName, int daylightOffset)
 		{
 			this.stOffset = standardOffset;
 			this.dtOffset = daylightOffset;
@@ -51,12 +51,22 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Returns the name of the daylight name.
 		/// </summary>
-		public override string DaylightName { get { return dtName; } }
+		public override string DaylightName {
+			get
+			{
+				return dtName;
+			}
+		}
 
 		/// <summary>
 		/// Returns the name of the standard time.
 		/// </summary>
-		public override string StandardName { get { return stName; } }
+		public override string StandardName {
+			get
+			{
+				return stName;
+			}
+		}
 
 		/// <summary>
 		/// Returns the daylight changes for UTC (never).
@@ -89,7 +99,7 @@ namespace MfGames.Utility
 
 			// Create it
 			return new DaylightTime(start, end,
-				new TimeSpan(stOffset - dtOffset, 0, 0));
+			                        new TimeSpan(stOffset - dtOffset, 0, 0));
 		}
 
 		/// <summary>

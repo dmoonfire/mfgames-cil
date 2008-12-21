@@ -21,10 +21,9 @@
 
 namespace MfGames.Utility
 {
-
 	/// <summary>
 	/// This is the handler for delegates for the audit message changes.
 	/// </summary>
 	public delegate void AuditMessageHandler(object sender,
-		AuditMessageArgs args);
+	                                         AuditMessageArgs args);
 }

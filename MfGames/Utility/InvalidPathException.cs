@@ -31,12 +31,12 @@ namespace MfGames.Utility
 	public class InvalidPathException : UtilityException
 	{
 		public InvalidPathException(string msg)
-			: base(msg)
+			: base (msg)
 		{
 		}
 
 		public InvalidPathException(string msg, Exception e)
-			: base(msg, e)
+			: base (msg, e)
 		{
 		}
 	}

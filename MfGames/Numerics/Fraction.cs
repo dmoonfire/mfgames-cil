@@ -1,4 +1,4 @@
-﻿namespace MfGames.Numerics
+namespace MfGames.Numerics
 {
 	/// <summary>
 	/// Represents a fractional number, keeping the individual components.
@@ -34,8 +34,14 @@
 		/// <value>The denominator.</value>
 		public int Denominator
 		{
-			get { return denominator; }
-			set { denominator = value; }
+			get
+			{
+				return denominator;
+			}
+			set
+			{
+				denominator = value;
+			}
 		}
 
 		/// <summary>
@@ -44,7 +50,10 @@
 		/// <value>The mixed denominator.</value>
 		public int MixedDenominator
 		{
-			get { return denominator; }
+			get
+			{
+				return denominator;
+			}
 		}
 
 		/// <summary>
@@ -53,7 +62,10 @@
 		/// <value>The mixed numerator.</value>
 		public int MixedNumerator
 		{
-			get { return numerator % denominator; }
+			get
+			{
+				return numerator % denominator;
+			}
 		}
 
 		/// <summary>
@@ -62,7 +74,10 @@
 		/// <value>The mixed whole.</value>
 		public int MixedWhole
 		{
-			get { return numerator / denominator; }
+			get
+			{
+				return numerator / denominator;
+			}
 		}
 
 		/// <summary>
@@ -71,8 +86,14 @@
 		/// <value>The numerator.</value>
 		public int Numerator
 		{
-			get { return numerator; }
-			set { numerator = value; }
+			get
+			{
+				return numerator;
+			}
+			set
+			{
+				numerator = value;
+			}
 		}
 
 		/// <summary>
@@ -81,7 +102,10 @@
 		/// <value>The value.</value>
 		public double Value
 		{
-			get { return ((double) numerator) / ((double) denominator); }
+			get
+			{
+				return ((double) numerator) / ((double) denominator);
+			}
 		}
 		#endregion
 

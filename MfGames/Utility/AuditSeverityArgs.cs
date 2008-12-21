@@ -37,7 +37,17 @@ namespace MfGames.Utility
 			this.newSeverity = newSeverity;
 		}
 
-		public Severity OldSeverity { get { return oldSeverity; } }
-		public Severity NewSeverity { get { return newSeverity; } }
+		public Severity OldSeverity {
+			get
+			{
+				return oldSeverity;
+			}
+		}
+		public Severity NewSeverity {
+			get
+			{
+				return newSeverity;
+			}
+		}
 	}
 }

@@ -30,12 +30,12 @@ namespace MfGames.Utility
 	public class DiceException : UtilityException
 	{
 		public DiceException(string msg)
-			: base(msg)
+			: base (msg)
 		{
 		}
 
 		public DiceException(string msg, Exception e)
-			: base(msg, e)
+			: base (msg, e)
 		{
 		}
 	}

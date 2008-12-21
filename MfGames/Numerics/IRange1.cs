@@ -1,4 +1,4 @@
-﻿namespace MfGames.Numerics
+namespace MfGames.Numerics
 {
 	/// <summary>
 	/// Defines a 1D numeric range.
@@ -11,13 +11,17 @@
 		/// Gets the maximum value for this numeric range.
 		/// </summary>
 		/// <value>The maximum.</value>
-		T Maximum { get; }
+		T Maximum {
+			get;
+		}
 
 		/// <summary>
 		/// Gets the minimum value for this range.
 		/// </summary>
 		/// <value>The minimum.</value>
-		T Minimum { get; }
+		T Minimum {
+			get;
+		}
 		#endregion Bounds
 
 		#region Selection

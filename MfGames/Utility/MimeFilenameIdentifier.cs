@@ -53,7 +53,7 @@ namespace MfGames.Utility
 			if (type != null)
 			{
 				Logger.Debug(LOG_SCOPE, "Trying {0} from {1}: {2}",
-					ext, filename, type);
+				             ext, filename, type);
 				return type;
 			}
 

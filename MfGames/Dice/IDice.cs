@@ -23,6 +23,8 @@ namespace MfGames.Utility
 {
 	public interface IDice
 	{
-		int Roll { get; }
+		int Roll {
+			get;
+		}
 	}
 }

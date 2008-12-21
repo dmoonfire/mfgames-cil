@@ -33,7 +33,7 @@ namespace MfGames.Utility
 	/// </summary>
 	public class UsageFormatter : Logable
 	{
-#region Attributes
+		#region Attributes
 		/// <summary>
 		/// Returns a single formatted parameter name.
 		/// </summary>
@@ -53,18 +53,18 @@ namespace MfGames.Utility
 			// Find all the potential members
 			Type cType = container.GetType();
 			MemberInfo [] mis =
-				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
-					BindingFlags.Public | BindingFlags.NonPublic
-					| BindingFlags.Instance | BindingFlags.Static,
-					null, null);
+			        cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
+			                          BindingFlags.Public | BindingFlags.NonPublic
+			                          | BindingFlags.Instance | BindingFlags.Static,
+			                          null, null);
 			Hashtable names = new Hashtable();
 
 			foreach (MemberInfo mi in mis)
 			{
 				// Check for attributes
 				object[] attributes =
-					mi.GetCustomAttributes(typeof(PositionalAttribute), true);
-	
+				        mi.GetCustomAttributes(typeof(PositionalAttribute), true);
+
 				foreach (PositionalAttribute pa in attributes)
 					names[pa.Index] = pa;
 			}
@@ -113,16 +113,16 @@ namespace MfGames.Utility
 			// Find all the potential members
 			Type cType = container.GetType();
 			MemberInfo [] mis =
-				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
-					BindingFlags.Public | BindingFlags.NonPublic
-					| BindingFlags.Instance | BindingFlags.Static,
-					null, null);
+			        cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
+			                          BindingFlags.Public | BindingFlags.NonPublic
+			                          | BindingFlags.Instance | BindingFlags.Static,
+			                          null, null);
 
 			foreach (MemberInfo mi in mis)
 			{
 				// Check for attributes
 				object[] attributes =
-					mi.GetCustomAttributes(typeof(IArgumentAttribute), true);
+				        mi.GetCustomAttributes(typeof(IArgumentAttribute), true);
 
 				if (attributes.Length > 0)
 					return true;
@@ -131,14 +131,14 @@ namespace MfGames.Utility
 			// We didn't find any
 			return false;
 		}
-#endregion
+		#endregion
 
-#region Formatting
+		#region Formatting
 		/// <summary>
 		/// Formats the usage based on the object.
 		/// </summary>
 		public virtual void Format(object container, string message,
-			Exception exception)
+		                           Exception exception)
 		{
 			// Format the message
 			FormatMessage(message, exception);
@@ -148,12 +148,12 @@ namespace MfGames.Utility
 			buffer.Append("USAGE:");
 
 			/*
-			  if (Prefix != "")
-			  {
-			  buffer.Append(" ");
-			  buffer.Append(Prefix);
-			  }
-			*/
+			   if (Prefix != "")
+			   {
+			   buffer.Append(" ");
+			   buffer.Append(Prefix);
+			   }
+			 */
 
 			// Check for options
 			if (HasParameters(container))
@@ -208,7 +208,7 @@ namespace MfGames.Utility
 		{
 			Console.WriteLine(message);
 		}
-#endregion
+		#endregion
 	}
 }
 #endif

@@ -56,7 +56,12 @@ namespace MfGames.Utility
 
 		private long loops = 0;
 
-		public bool IsTickable { get { return true; } }
+		public bool IsTickable {
+			get
+			{
+				return true;
+			}
+		}
 
 		public void Activate()
 		{
@@ -117,7 +122,12 @@ namespace MfGames.Utility
 			}
 		}
 
-		public bool IsFull { get { return loops >= span; } }
+		public bool IsFull {
+			get
+			{
+				return loops >= span;
+			}
+		}
 		#endregion
 	}
 }

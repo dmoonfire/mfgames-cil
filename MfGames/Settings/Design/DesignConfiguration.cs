@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace MfGames.Settings.Design
@@ -12,12 +12,18 @@ namespace MfGames.Settings.Design
 		/// <summary>
 		/// Contains the name of this configuration class.
 		/// </summary>
-		public string ClassName { get; set; }
+		public string ClassName {
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// Contains the namespace to generate for a file.
 		/// </summary>
-		public string Namespace { get; set; }
+		public string Namespace {
+			get;
+			set;
+		}
 		#endregion
 
 		#region Groups
@@ -45,7 +51,10 @@ namespace MfGames.Settings.Design
 		/// </summary>
 		public List<DesignGroup> Groups
 		{
-			get { return groups; }
+			get
+			{
+				return groups;
+			}
 		}
 
 		/// <summary>

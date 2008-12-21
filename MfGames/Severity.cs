@@ -21,11 +21,11 @@
 
 namespace MfGames
 {
-	/// <summary>
-	/// Defines the standard levels used by the logging system. These
-	/// are also used to display the actual level in various messages
-	/// as needed.
-	/// </summary>
+/// <summary>
+/// Defines the standard levels used by the logging system. These
+/// are also used to display the actual level in various messages
+/// as needed.
+/// </summary>
 	public enum Severity
 	{
 		// This is used by the audit system

@@ -29,7 +29,7 @@ namespace MfGames.Utility
 	/// argument attribute (based on the regexes).
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field,
-			AllowMultiple = false, Inherited = true)]
+	                AllowMultiple = false, Inherited = true)]
 	public class PositionalAttribute : Attribute
 	{
 		/// <summary>
@@ -59,8 +59,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public string Description
 		{
-			get { return description; }
-			set { description = value; }
+			get
+			{
+				return description;
+			}
+			set
+			{
+				description = value;
+			}
 		}
 
 		/// <summary>
@@ -70,8 +76,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public int Index
 		{
-			get { return index; }
-			set { index = value; }
+			get
+			{
+				return index;
+			}
+			set
+			{
+				index = value;
+			}
 		}
 
 		/// <summary>
@@ -79,8 +91,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public bool IsOptional
 		{
-			get { return optional; }
-			set { optional = value; }
+			get
+			{
+				return optional;
+			}
+			set
+			{
+				optional = value;
+			}
 		}
 
 		/// <summary>
@@ -97,7 +115,10 @@ namespace MfGames.Utility
 					return name;
 			}
 
-			set { name = value; }
+			set
+			{
+				name = value;
+			}
 		}
 		#endregion
 	}

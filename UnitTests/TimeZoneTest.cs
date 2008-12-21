@@ -25,9 +25,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Test the time zones.
-	/// </summary>
+/// <summary>
+/// Test the time zones.
+/// </summary>
 	[TestClass]
 	public class TestTimeZones
 	{
@@ -36,7 +36,7 @@ namespace UnitTests
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");
 			Assert.AreEqual("-06:00:00",
-							tz.GetUtcOffset(new DateTime(2005, 1, 1)).ToString());
+			                tz.GetUtcOffset(new DateTime(2005, 1, 1)).ToString());
 		}
 
 		[TestMethod]

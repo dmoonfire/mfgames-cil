@@ -24,10 +24,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Testing fixture to test all of the various methods or possible
-	/// errors involved with a node reference.
-	/// </summary>
+/// <summary>
+/// Testing fixture to test all of the various methods or possible
+/// errors involved with a node reference.
+/// </summary>
 	[TestClass]
 	public class NodeRefTests
 	{
@@ -240,7 +240,7 @@ namespace UnitTests
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
 			Assert.AreEqual("/a/b/c", nr.ToString(),
-							"String comparison");
+			                "String comparison");
 		}
 
 		/// <summary>
@@ -251,9 +251,9 @@ namespace UnitTests
 		{
 			NodeRef nr = new NodeRef("/*/*/*");
 			Assert.AreEqual("/*/*/*", nr.ToString(),
-							"String comparison");
+			                "String comparison");
 			Assert.IsTrue(nr.Includes(new NodeRef("/*/*/*/abb")),
-						  "nr.Includes");
+			              "nr.Includes");
 		}
 
 		/// <summary>

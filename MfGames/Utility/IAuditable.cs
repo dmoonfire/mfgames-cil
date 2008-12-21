@@ -38,14 +38,18 @@ namespace MfGames.Utility
 		/// Returns a hashtable that contains messages as the key
 		/// and the severity as the value for the key value.
 		/// </summary>
-		Hashtable AuditMessages { get; }
+		Hashtable AuditMessages {
+			get;
+		}
 
 		/// <summary>
 		/// Returns the highest audit severity of all current audit
 		/// messages. If there are no audit messages, then this returns
 		/// Severity.None.
 		/// </summary>
-		Severity AuditSeverity { get; }
+		Severity AuditSeverity {
+			get;
+		}
 
 		/// <summary>
 		/// This event is triggered when a message is changed in the

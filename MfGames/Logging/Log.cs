@@ -56,7 +56,10 @@ namespace MfGames.Logging
 		/// </summary>
 		public override string LogContext
 		{
-			get { return context; }
+			get
+			{
+				return context;
+			}
 			//set { context = value ?? ""; }
 		}
 		#endregion

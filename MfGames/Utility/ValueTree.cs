@@ -21,7 +21,6 @@
 
 namespace MfGames.Utility
 {
-
 	/// <summary>
 	/// Extends an AttributeTree and wraps a basic value around it,
 	/// including some translation features for converting to and from
@@ -50,8 +49,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public int Int32
 		{
-			get { return System.Convert.ToInt32(String); }
-			set { String = value.ToString(); }
+			get
+			{
+				return System.Convert.ToInt32(String);
+			}
+			set
+			{
+				String = value.ToString();
+			}
 		}
 
 		/// <summary>

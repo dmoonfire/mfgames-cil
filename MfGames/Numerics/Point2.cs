@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 
 namespace MfGames.Numerics
@@ -39,8 +39,14 @@ namespace MfGames.Numerics
 		/// <value>The X.</value>
 		public T X
 		{
-			get { return x; }
-			set { x = value; }
+			get
+			{
+				return x;
+			}
+			set
+			{
+				x = value;
+			}
 		}
 
 		/// <summary>
@@ -49,8 +55,14 @@ namespace MfGames.Numerics
 		/// <value>The Y.</value>
 		public T Y
 		{
-			get { return y; }
-			set { y = value; }
+			get
+			{
+				return y;
+			}
+			set
+			{
+				y = value;
+			}
 		}
 		#endregion
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace MfGames.Settings.Design
@@ -15,7 +15,10 @@ namespace MfGames.Settings.Design
 		/// <summary>
 		/// Gets or sets the name for this group.
 		/// </summary>
-		public string Name { get; set; }
+		public string Name {
+			get;
+			set;
+		}
 		#endregion
 
 		#region Settings
@@ -41,7 +44,10 @@ namespace MfGames.Settings.Design
 		/// </summary>
 		public List<DesignSetting> Settings
 		{
-			get { return settings; }
+			get
+			{
+				return settings;
+			}
 		}
 		#endregion
 

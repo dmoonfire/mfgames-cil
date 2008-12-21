@@ -86,7 +86,7 @@ namespace MfGames.Utility
 				// Check for match and sanity checking
 				if (!regexPart.IsMatch(parts[i]))
 					throw new UtilityException("Cannot parse part '" + parts[i]
-						+ "' of '" + version + "'");
+					                           + "' of '" + version + "'");
 
 				// Pull out the parts
 				Match match = regexPart.Match(parts[i]);
@@ -101,7 +101,7 @@ namespace MfGames.Utility
 				catch
 				{
 					throw new UtilityException("Cannot numerically parse '"
-						+ parts[i] + "'");
+					                           + parts[i] + "'");
 				}
 			}
 		}
@@ -269,13 +269,18 @@ namespace MfGames.Utility
 
 			switch (op)
 			{
-				case "<": return this < v;
-				case "<=": return this <= v;
-				case "=": return this == v;
-				case ">": return this > v;
-				case ">=": return this >= v;
-				default:
-					throw new UtilityException("Cannot identify operation: " + op);
+			case "<":
+				return this < v;
+			case "<=":
+				return this <= v;
+			case "=":
+				return this == v;
+			case ">":
+				return this > v;
+			case ">=":
+				return this >= v;
+			default:
+				throw new UtilityException("Cannot identify operation: " + op);
 			}
 		}
 		#endregion

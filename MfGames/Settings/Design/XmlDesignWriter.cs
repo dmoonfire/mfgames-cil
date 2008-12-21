@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 using System.Xml;
 
@@ -18,20 +18,20 @@ namespace MfGames.Settings.Design
 		public void Write(FileInfo file, DesignConfiguration configuration)
 		{
 			using (FileStream stream = file.Open(FileMode.Create))
-			{
-				// Set up the settings
-				XmlWriterSettings settings = new XmlWriterSettings();
-				settings.Indent = true;
-				settings.CloseOutput = true;
-				settings.Encoding = Encoding.Unicode;
+			      {
+				      // Set up the settings
+				      XmlWriterSettings settings = new XmlWriterSettings();
+				      settings.Indent = true;
+				      settings.CloseOutput = true;
+				      settings.Encoding = Encoding.Unicode;
 
-				// Open up the stream
-				XmlWriter xml = XmlWriter.Create(stream, settings);
-				xml.WriteStartDocument();
-				Write(xml, configuration);
-				xml.WriteEndDocument();
-				xml.Close();
-			}
+				      // Open up the stream
+				      XmlWriter xml = XmlWriter.Create(stream, settings);
+				      xml.WriteStartDocument();
+				      Write(xml, configuration);
+				      xml.WriteEndDocument();
+				      xml.Close();
+			      }
 		}
 
 		/// <summary>

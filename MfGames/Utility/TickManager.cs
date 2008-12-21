@@ -187,13 +187,22 @@ namespace MfGames.Utility
 
 		public int TicksPerSecond
 		{
-			get { return 1000 / tickSpan; }
-			set { tickSpan = 1000 / value; }
+			get
+			{
+				return 1000 / tickSpan;
+			}
+			set
+			{
+				tickSpan = 1000 / value;
+			}
 		}
 
 		public int TickSpan
 		{
-			get { return tickSpan; }
+			get
+			{
+				return tickSpan;
+			}
 			set
 			{
 				if (value < 1)

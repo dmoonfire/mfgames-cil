@@ -105,13 +105,13 @@ namespace UnitTests
 
 		#region Version Equals
 		/*
-		  [TestMethod] public void Compare()
-		  {
-		  Version v1 = new Version("");
-		  Version v2 = new Version("");
-		  Assert.IsTrue(v1 == v2);
-		  }
-		*/
+		   [TestMethod] public void Compare()
+		   {
+		   Version v1 = new Version("");
+		   Version v2 = new Version("");
+		   Assert.IsTrue(v1 == v2);
+		   }
+		 */
 
 		[TestMethod]
 		public void CompareSingle()

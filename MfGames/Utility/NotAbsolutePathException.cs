@@ -30,12 +30,12 @@ namespace MfGames.Utility
 	public class NotAbsolutePathException : UtilityException
 	{
 		public NotAbsolutePathException(string msg)
-			: base(msg)
+			: base (msg)
 		{
 		}
 
 		public NotAbsolutePathException(string msg, Exception e)
-			: base(msg, e)
+			: base (msg, e)
 		{
 		}
 	}

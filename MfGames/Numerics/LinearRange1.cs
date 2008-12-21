@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -40,13 +40,19 @@ namespace MfGames.Numerics
 		/// Gets the maximum value for this numeric range.
 		/// </summary>
 		/// <value>The maximum.</value>
-		public T Maximum { get; set;  }
+		public T Maximum {
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// Gets the minimum value for this range.
 		/// </summary>
 		/// <value>The minimum.</value>
-		public T Minimum { get; set; }
+		public T Minimum {
+			get;
+			set;
+		}
 		#endregion Bounds
 
 		#region Selection

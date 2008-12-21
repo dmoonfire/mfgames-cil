@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Xml;
 using System.Xml.XPath;
@@ -32,26 +32,26 @@ namespace MfGames.Settings.Design
 			XslCompiledTransform trans = new XslCompiledTransform();
 
 			using (Stream s = GetType().Assembly.GetManifestResourceStream(
-					"MfGames.Settings.Design.XmlSettings.xsl"))
-			{
-				TextReader tr = new StreamReader(s);
-				XmlReader xr = new XmlTextReader(tr);
+			               "MfGames.Settings.Design.XmlSettings.xsl"))
+			      {
+				      TextReader tr = new StreamReader(s);
+				      XmlReader xr = new XmlTextReader(tr);
 
-				trans.Load(xr);
-			}
+				      trans.Load(xr);
+			      }
 
-			// Build up the XSLT arguments
-			XsltArgumentList xargs = new XsltArgumentList();
+			      // Build up the XSLT arguments
+			      XsltArgumentList xargs = new XsltArgumentList();
 
 			// Load in the input XML
 			XPathDocument input = new XPathDocument(inputXml.FullName);
 
 			// Set up the output to properly open and close
 			using (FileStream fs = csFile.Open(FileMode.Create))
-			{
-				// Write out the document
-				trans.Transform(input, xargs, fs);
-			}
+			      {
+				      // Write out the document
+				      trans.Transform(input, xargs, fs);
+			      }
 		}
 		#endregion
 	}

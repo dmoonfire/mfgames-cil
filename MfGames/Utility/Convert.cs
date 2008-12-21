@@ -33,7 +33,8 @@ namespace MfGames.Utility
 		#region String Functions
 		static readonly char[] HexDigits = {
 			'0', '1', '2', '3', '4', '5', '6', '7',
-			'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+			'8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+		};
 
 		/// <summary>
 		/// Generates a hex string from a give set of bytes. This code

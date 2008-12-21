@@ -104,7 +104,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public int Count
 		{
-			get { return lists.Count; }
+			get
+			{
+				return lists.Count;
+			}
 		}
 
 		/// <summary>
@@ -142,7 +145,7 @@ namespace MfGames.Utility
 
 			// Add the interfaces, if any
 			Type[] interfaces
-				= type.FindInterfaces(new TypeFilter(FindAllTypes), null);
+			= type.FindInterfaces(new TypeFilter(FindAllTypes), null);
 
 			foreach (Type iType in interfaces)
 				list.AddRange(Select(iType));

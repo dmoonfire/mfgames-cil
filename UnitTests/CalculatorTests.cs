@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Summary description for CalculatorTests
-	/// </summary>
+/// <summary>
+/// Summary description for CalculatorTests
+/// </summary>
 	[TestClass]
 	public class CalculatorTests
 	{
@@ -50,7 +50,7 @@ namespace UnitTests
 		// [ClassCleanup()]
 		// public static void MyClassCleanup() { }
 		//
-		// Use TestInitialize to run code before running each test 
+		// Use TestInitialize to run code before running each test
 		// [TestInitialize()]
 		// public void MyTestInitialize() { }
 		//

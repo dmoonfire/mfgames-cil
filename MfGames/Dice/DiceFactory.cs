@@ -35,7 +35,9 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Since this is a static singleton, hide the constructor.
 		/// </summary>
-		private DiceFactory() { }
+		private DiceFactory()
+		{
+		}
 
 		/// <summary>
 		/// Parses the given format and returns the IDice object that

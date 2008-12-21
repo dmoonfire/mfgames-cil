@@ -66,7 +66,10 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public virtual Hashtable AuditMessages
 		{
-			get { return auditMessages; }
+			get
+			{
+				return auditMessages;
+			}
 		}
 
 		/// <summary>
@@ -77,7 +80,10 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public virtual Severity AuditSeverity
 		{
-			get { return auditSeverity; }
+			get
+			{
+				return auditSeverity;
+			}
 		}
 
 		/// <summary>
@@ -87,7 +93,7 @@ namespace MfGames.Utility
 		{
 			// Ignore blanks
 			if (message == null || message.Trim() == "" ||
-				auditMessages[message] == null)
+			    auditMessages[message] == null)
 				return;
 
 			// Remove it and recalculate the levels
@@ -113,28 +119,27 @@ namespace MfGames.Utility
 		/// Fires the audit message change message.
 		/// </summary>
 		protected void FireAuditMessageChanged(object sender,
-			string key,
-			Severity severity)
+		                                       string key,
+		                                       Severity severity)
 		{
 			if (AuditMessageChanged != null)
 				AuditMessageChanged(sender,
-					new AuditMessageArgs(key, severity));
+				                    new AuditMessageArgs(key, severity));
 		}
 
 		/// <summary>
 		/// Fires the audit severity changed message.
 		/// </summary>
 		protected void FireAuditSeverityChanged(object sender,
-			Severity oldSeverity,
-			Severity newSeverity)
+		                                        Severity oldSeverity,
+		                                        Severity newSeverity)
 		{
 			if (AuditSeverityChanged != null)
 			{
 				AuditSeverityArgs args =
-					new AuditSeverityArgs(oldSeverity, newSeverity);
+				        new AuditSeverityArgs(oldSeverity, newSeverity);
 				AuditSeverityChanged(sender, args);
 			}
-
 		}
 
 		/// <summary>
@@ -182,7 +187,7 @@ namespace MfGames.Utility
 			{
 				// Don't bother if it hasn't changed
 				if (auditMessages[message] != null &&
-					(Severity) auditMessages[message] == severity)
+				    (Severity) auditMessages[message] == severity)
 					return;
 
 				// Set the level
@@ -199,7 +204,7 @@ namespace MfGames.Utility
 		/// condition.
 		/// </summary>
 		public void SetAuditMessage(Severity severity, string message,
-			bool condition)
+		                            bool condition)
 		{
 			if (condition == true)
 				SetAuditMessage(severity, message);

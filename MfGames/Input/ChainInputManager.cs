@@ -13,7 +13,7 @@ namespace MfGames.Input
 	/// keyboard command.
 	/// </summary>
 	public class ChainInputManager
-	: InputManager
+		: InputManager
 	{
 		#region Constructors
 		/// <summary>
@@ -140,7 +140,10 @@ namespace MfGames.Input
 		/// <value>The non reset tokens.</value>
 		public HashSet<string> NonResetTokens
 		{
-			get { return nonResetTokens; }
+			get
+			{
+				return nonResetTokens;
+			}
 		}
 		#endregion Reset Processing
 
@@ -191,7 +194,7 @@ namespace MfGames.Input
 			/// </summary>
 			/// <param name="link">The link.</param>
 			/// <returns>
-			/// 	<c>true</c> if [contains] [the specified chain link]; otherwise, <c>false</c>.
+			///     <c>true</c> if [contains] [the specified chain link]; otherwise, <c>false</c>.
 			/// </returns>
 			public bool Contains(ChainLink link)
 			{
@@ -213,7 +216,7 @@ namespace MfGames.Input
 			/// </summary>
 			/// <param name="inputs">The inputs.</param>
 			/// <returns>
-			/// 	<c>true</c> if this instance can activate the specified inputs; otherwise, <c>false</c>.
+			///     <c>true</c> if this instance can activate the specified inputs; otherwise, <c>false</c>.
 			/// </returns>
 			public bool CanActivate(ICollection<string> inputs)
 			{
@@ -233,7 +236,7 @@ namespace MfGames.Input
 
 			#region Callbacks
 			private readonly List<EventHandler<ChainInputEventArgs>> callbacks =
-				new List<EventHandler<ChainInputEventArgs>>();
+			        new List<EventHandler<ChainInputEventArgs>>();
 
 			/// <summary>
 			/// Gets the list of callbacks for this tree.
@@ -241,7 +244,10 @@ namespace MfGames.Input
 			/// <value>The callbacks.</value>
 			public List<EventHandler<ChainInputEventArgs>> Callbacks
 			{
-				get { return callbacks; }
+				get
+				{
+					return callbacks;
+				}
 			}
 
 			/// <summary>

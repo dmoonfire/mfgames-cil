@@ -38,7 +38,7 @@ using System.Xml.Xsl;
 /// in the system.
 /// </summary>
 public class ToolCreateSettings
-: ITool
+	: ITool
 {
 	/// <summary>
 	/// Executes the service with the given parameters.
@@ -56,28 +56,28 @@ public class ToolCreateSettings
 		if (inputXsl == null)
 		{
 			using (Stream s = GetType().Assembly.GetManifestResourceStream(
-					"mfgames_utility.ToolCreateSettings.xsl"))
-			{
-				TextReader tr = new StreamReader(s);
-				XmlReader xr = new XmlTextReader(tr);
-				
-				trans.Load(xr);
-			}
+			               "mfgames_utility.ToolCreateSettings.xsl"))
+			      {
+				      TextReader tr = new StreamReader(s);
+				      XmlReader xr = new XmlTextReader(tr);
+
+				      trans.Load(xr);
+			      }
 		}
 		else
 		{
 			using (FileStream fs = inputXsl.OpenRead())
-			{
-				TextReader tr = new StreamReader(fs);
-				XmlReader xr = new XmlTextReader(tr);
-				
-				trans.Load(xr);
-			}
+			      {
+				      TextReader tr = new StreamReader(fs);
+				      XmlReader xr = new XmlTextReader(tr);
+
+				      trans.Load(xr);
+			      }
 		}
 
 		// Build up the XSLT arguments
 		XsltArgumentList xargs = new XsltArgumentList();
-		
+
 		xargs.AddParam("namespace", "", Namespace);
 		xargs.AddParam("class", "", Class);
 		xargs.AddParam("access", "", Access);
@@ -86,12 +86,12 @@ public class ToolCreateSettings
 		XPathDocument input = new XPathDocument(inputXml.FullName);
 
 		// Set up the output to properly open and close
-		using (FileStream fs = 
-			outputClass.Open(FileMode.Create, FileAccess.Write))
-		{
-			// Write out the document
-			trans.Transform(input, xargs, fs);
-		}
+		using (FileStream fs =
+		               outputClass.Open(FileMode.Create, FileAccess.Write))
+		      {
+			      // Write out the document
+			      trans.Transform(input, xargs, fs);
+		      }
 	}
 
 	#region Tool Properties
@@ -105,8 +105,14 @@ public class ToolCreateSettings
 	/// </summary>
 	public string Access
 	{
-		get { return access; }
-		set { access = value ?? "public"; }
+		get
+		{
+			return access;
+		}
+		set
+		{
+			access = value ? ? "public";
+		}
 	}
 
 	/// <summary>
@@ -114,8 +120,14 @@ public class ToolCreateSettings
 	/// </summary>
 	public string Class
 	{
-		get { return useClassname; }
-		set { useClassname = value ?? "GeneratedSettings"; }
+		get
+		{
+			return useClassname;
+		}
+		set
+		{
+			useClassname = value ? ? "GeneratedSettings";
+		}
 	}
 
 	/// <summary>
@@ -125,7 +137,10 @@ public class ToolCreateSettings
 	[Positional(0)]
 	public FileInfo InputXml
 	{
-		get { return inputXml; }
+		get
+		{
+			return inputXml;
+		}
 		set
 		{
 			if (value == null)
@@ -135,7 +150,7 @@ public class ToolCreateSettings
 
 			if (!inputXml.Exists)
 				throw new Exception("Input XML " + inputXml
-					+ " does not exist");
+				                    + " does not exist");
 		}
 	}
 
@@ -146,7 +161,10 @@ public class ToolCreateSettings
 	[Positional(1)]
 	public FileInfo OutputClass
 	{
-		get { return outputClass; }
+		get
+		{
+			return outputClass;
+		}
 		set
 		{
 			if (value == null)
@@ -161,8 +179,14 @@ public class ToolCreateSettings
 	/// </summary>
 	public string Namespace
 	{
-		get { return useNamespace; }
-		set { useNamespace = value ?? ""; }
+		get
+		{
+			return useNamespace;
+		}
+		set
+		{
+			useNamespace = value ? ? "";
+		}
 	}
 
 	/// <summary>
@@ -170,7 +194,10 @@ public class ToolCreateSettings
 	/// </summary>
 	public FileInfo Xsl
 	{
-		get { return inputXsl; }
+		get
+		{
+			return inputXsl;
+		}
 		set
 		{
 			if (value != null && !value.Exists)
@@ -188,7 +215,10 @@ public class ToolCreateSettings
 	/// </summary>
 	public string Description
 	{
-		get { return "Generates a C# class from a given settings XML."; }
+		get
+		{
+			return "Generates a C# class from a given settings XML.";
+		}
 	}
 
 	/// <summary>
@@ -196,6 +226,11 @@ public class ToolCreateSettings
 	/// are the second argument of the system, which is a string name,
 	/// typically dash-delimeted for words.
 	/// </summary>
-	public string ToolName { get { return "create-settings"; } }
+	public string ToolName {
+		get
+		{
+			return "create-settings";
+		}
+	}
 	#endregion
 }

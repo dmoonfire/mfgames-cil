@@ -39,8 +39,8 @@ namespace MfGames.Utility
 		/// Contains the regex for identifying an argument.
 		/// </summary>
 		private static readonly Regex ArgumentRegex =
-			new Regex("^([A-Za-z0-9_-]+)([:=](.*))?$",
-				RegexOptions.Compiled);
+		        new Regex("^([A-Za-z0-9_-]+)([:=](.*))?$",
+		                  RegexOptions.Compiled);
 		#endregion
 
 		#region Constructors
@@ -81,7 +81,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public List<string> Arguments
 		{
-			get { return arguments; }
+			get
+			{
+				return arguments;
+			}
 		}
 
 		/// <summary>
@@ -89,7 +92,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public string First
 		{
-			get { return first; }
+			get
+			{
+				return first;
+			}
 		}
 
 		/// <summary>
@@ -98,7 +104,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public int LastPosition
 		{
-			get { return lastPosition; }
+			get
+			{
+				return lastPosition;
+			}
 		}
 		#endregion
 
@@ -138,7 +147,7 @@ namespace MfGames.Utility
 			// Check out the first one
 			if (first == "--")
 			{
-				// -- means to stop processing all parameters 
+				// -- means to stop processing all parameters
 				// this point. So "tool -- -a" would give "-a" as the
 				// first positional attribute.
 				ignoreDash = true;
@@ -252,8 +261,8 @@ namespace MfGames.Utility
 					fi.SetValue(container, MapType(type, value));
 				else if (pi != null)
 					pi.GetSetMethod()
-						.Invoke(container,
-							new object[] { MapType(type, value) });
+					.Invoke(container,
+					        new object[] { MapType(type, value) });
 			}
 			else
 			{
@@ -262,7 +271,7 @@ namespace MfGames.Utility
 					fi.SetValue(container, !isNo);
 				else if (pi != null)
 					pi.GetSetMethod()
-						.Invoke(container, new object[] { !isNo });
+					.Invoke(container, new object[] { !isNo });
 			}
 
 			// We processed it
@@ -279,10 +288,10 @@ namespace MfGames.Utility
 			// Get the list of all possible attributes
 			Type cType = container.GetType();
 			MemberInfo[] mis =
-				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
-					BindingFlags.Public | BindingFlags.NonPublic
-					| BindingFlags.Instance | BindingFlags.Static,
-					null, null);
+			        cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
+			                          BindingFlags.Public | BindingFlags.NonPublic
+			                          | BindingFlags.Instance | BindingFlags.Static,
+			                          null, null);
 
 			foreach (MemberInfo mi in mis)
 			{
@@ -314,7 +323,7 @@ namespace MfGames.Utility
 							Type ptype = pi.PropertyType;
 
 							pi.GetSetMethod().Invoke(container,
-								new object[] { MapType(ptype, first) });
+							                         new object[] { MapType(ptype, first) });
 						}
 
 						// Advance the parser and continue
@@ -354,10 +363,10 @@ namespace MfGames.Utility
 			// Get the list of all possible attributes
 			Type cType = container.GetType();
 			MemberInfo[] mis =
-				cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
-					BindingFlags.Public | BindingFlags.NonPublic
-					| BindingFlags.Instance | BindingFlags.Static,
-					null, null);
+			        cType.FindMembers(MemberTypes.Field | MemberTypes.Property,
+			                          BindingFlags.Public | BindingFlags.NonPublic
+			                          | BindingFlags.Instance | BindingFlags.Static,
+			                          null, null);
 
 			foreach (MemberInfo mi in mis)
 			{

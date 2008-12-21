@@ -25,11 +25,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Performs the various tests on the MfGames.Utility.Tool
-	/// namespace. This uses a few private classes to handle the
-	/// actual filling of command arguments.
-	/// </summary>
+/// <summary>
+/// Performs the various tests on the MfGames.Utility.Tool
+/// namespace. This uses a few private classes to handle the
+/// actual filling of command arguments.
+/// </summary>
 	[TestClass]
 	public class ToolTest
 	{
@@ -73,9 +73,9 @@ namespace UnitTests
 		#endregion
 	}
 
-	/// <summary>
-	/// The first of two classes used for scanning parameters.
-	/// </summary>
+/// <summary>
+/// The first of two classes used for scanning parameters.
+/// </summary>
 	public class Container1
 	{
 		[Optional("c1f1")]
@@ -84,7 +84,12 @@ namespace UnitTests
 		[Optional("c1f2")]
 		private string f2 = null;
 
-		public string F2 { get { return f2; } }
+		public string F2 {
+			get
+			{
+				return f2;
+			}
+		}
 
 		private string p2 = null;
 		private string p1 = null;
@@ -92,26 +97,41 @@ namespace UnitTests
 		[Optional("c1p1")]
 		public string P1
 		{
-			get { return p1; }
-			set { p1 = value; }
+			get
+			{
+				return p1;
+			}
+			set
+			{
+				p1 = value;
+			}
 		}
 
 		[Optional("prop1")]
 		public string P2
 		{
-			get { return p2; }
-			set { p2 = value; }
+			get
+			{
+				return p2;
+			}
+			set
+			{
+				p2 = value;
+			}
 		}
 
 		public string P3
 		{
-			get { return "bob"; }
+			get
+			{
+				return "bob";
+			}
 		}
 	}
 
-	/// <summary>
-	/// The first of two classes used for scanning parameters.
-	/// </summary>
+/// <summary>
+/// The first of two classes used for scanning parameters.
+/// </summary>
 	public class Container2
 	{
 		[Optional("c2f1")]
@@ -123,8 +143,14 @@ namespace UnitTests
 		[Positional(0)]
 		public string Positional1
 		{
-			get { return pos1; }
-			set { pos1 = value; }
+			get
+			{
+				return pos1;
+			}
+			set
+			{
+				pos1 = value;
+			}
 		}
 	}
 }

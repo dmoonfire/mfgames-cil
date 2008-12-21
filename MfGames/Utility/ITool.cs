@@ -37,14 +37,18 @@ namespace MfGames.Utility
 		/// Returns a service description. Typically this is a single phrase
 		/// or sentance, with a period at the end.
 		/// </summary>
-		string Description { get; }
+		string Description {
+			get;
+		}
 
 		/// <summary>
 		/// Returns a list of service names that this service handles. These
 		/// are the second argument of the system, which is a string name,
 		/// typically dash-delimeted for words.
 		/// </summary>
-		string ToolName { get; }
+		string ToolName {
+			get;
+		}
 		#endregion
 	}
 }

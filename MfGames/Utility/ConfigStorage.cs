@@ -33,7 +33,7 @@ namespace MfGames.Utility
 	/// MfGames in the "Application Data" folder on Windows.
 	/// </summary>
 	public class ConfigStorage
-	: Logable
+		: Logable
 	{
 		#region Constructor
 		/// <summary>
@@ -59,15 +59,21 @@ namespace MfGames.Utility
 		/// </summary>
 		public static ConfigStorage Singleton
 		{
-			get { return singleton; }
-			set { singleton = value; }
+			get
+			{
+				return singleton;
+			}
+			set
+			{
+				singleton = value;
+			}
 		}
 		#endregion
 
 		#region Storage Key
 		// Contains the regex used to verify the storage key
 		private static readonly Regex ValidateStorageKey
-			= new Regex("^[\\w\\d ]+$");
+		= new Regex("^[\\w\\d ]+$");
 
 		// Contains the key which defines where/what type of config
 		// storage to create. This is used as the directory name of the
@@ -100,7 +106,7 @@ namespace MfGames.Utility
 				// Check for invalid key
 				if (!ValidateStorageKey.IsMatch(value))
 					throw new Exception("StorageKey may only have letters, "
-						+ "numbers, and spaces.");
+					                    + "numbers, and spaces.");
 
 				// Set it, while trimming. Leading and trailing spaces are
 				// bad in general and make life harder. So we do it silently.
@@ -137,11 +143,11 @@ namespace MfGames.Utility
 			get
 			{
 				return new DirectoryInfo(Environment
-					.GetFolderPath(Environment
-						.SpecialFolder
-						.ApplicationData)
-					+ Path.DirectorySeparatorChar
-					+ StorageKey);
+				                         .GetFolderPath(Environment
+				                                        .SpecialFolder
+				                                        .ApplicationData)
+				                         + Path.DirectorySeparatorChar
+				                         + StorageKey);
 			}
 		}
 
@@ -161,12 +167,12 @@ namespace MfGames.Utility
 			// Check for invalid key
 			if (!ValidateStorageKey.IsMatch(appName))
 				throw new Exception("Application names may only have letters, "
-					+ "numbers, and spaces.");
+				                    + "numbers, and spaces.");
 
 			// Get the path
 			string path = StorageDirectory.FullName
-				+ Path.DirectorySeparatorChar
-				+ appName;
+			              + Path.DirectorySeparatorChar
+			              + appName;
 			DirectoryInfo dir = new DirectoryInfo(path);
 
 			// Create it if it doesn't exist

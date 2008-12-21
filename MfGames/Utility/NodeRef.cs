@@ -89,22 +89,22 @@ namespace MfGames.Utility
 
 		// Regex to remove leading slashes
 		private static readonly Regex findLeadingSlashesRegex =
-			new Regex("^/+");
+		        new Regex("^/+");
 
 		// Regex to remove trailing characters
 		private static readonly Regex findTrailingSlashesRegex =
-			new Regex("/+$");
+		        new Regex("/+$");
 
 		// Regex to find "/./" references
 		private static readonly Regex findHereRegex = new Regex("/\\./");
 
 		// Regex to find the "/<something>/../"
 		private static readonly Regex findRefUpRegex =
-			new Regex("/[^/]+/\\.\\./");
+		        new Regex("/[^/]+/\\.\\./");
 
 		// Regex to find the "/../"
 		private static readonly Regex findInvalidUpRegex =
-			new Regex("/\\.\\./");
+		        new Regex("/\\.\\./");
 
 		/// <summary>
 		/// This parses the given path and builds up the public
@@ -116,7 +116,7 @@ namespace MfGames.Utility
 			// Perform some sanity checking on the path
 			if (path == null)
 				throw new InvalidPathException("Cannot create a node "
-					+ "ref from a null");
+				                               + "ref from a null");
 
 			// Check for absolute path
 			if (!path.StartsWith("/"))
@@ -125,9 +125,9 @@ namespace MfGames.Utility
 				if (context == null)
 				{
 					throw new NotAbsolutePathException("Cannot create "
-						+ "absolute path from '"
-						+ path
-						+ "'");
+					                                   + "absolute path from '"
+					                                   + path
+					                                   + "'");
 				}
 
 				// Construct the new path from this context
@@ -168,14 +168,14 @@ namespace MfGames.Utility
 			// allowed in the string. We do this by just replacing all
 			// the important ones with escaped versions.
 			regexable = "/" + path
-				.Replace("+", "\\+")
-				.Replace("(", "\\(")
-				.Replace(")", "\\)")
-				.Replace("[", "\\[")
-				.Replace("]", "\\]")
-				.Replace(".", "\\.")
-				.Replace("*", "\\*")
-				.Replace("?", "\\?");
+			            .Replace("+", "\\+")
+			            .Replace("(", "\\(")
+			            .Replace(")", "\\)")
+			            .Replace("[", "\\[")
+			            .Replace("]", "\\]")
+			            .Replace(".", "\\.")
+			            .Replace("*", "\\*")
+			            .Replace("?", "\\?");
 			//Debug("Processing 3: {0}", path);
 
 			// We now have a normalized path, without a leading or a
@@ -215,7 +215,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public string this[int index]
 		{
-			get { return parts[index]; }
+			get
+			{
+				return parts[index];
+			}
 		}
 
 		/// <summary>
@@ -223,14 +226,25 @@ namespace MfGames.Utility
 		/// </summary>
 		public string Path
 		{
-			get { return pref; }
-			set { pref = value; }
+			get
+			{
+				return pref;
+			}
+			set
+			{
+				pref = value;
+			}
 		}
 
 		/// <summary>
 		/// Returns the number of components in the path.
 		/// </summary>
-		public int Count { get { return parts.Length; } }
+		public int Count {
+			get
+			{
+				return parts.Length;
+			}
+		}
 
 		/// <summary>
 		/// Returns a NodeRef which has this node's path removed from the
@@ -247,7 +261,7 @@ namespace MfGames.Utility
 			// so strict about paths. We use the root context in the case
 			// where the leading / is removed.
 			string path =
-				Regex.Replace(nodeRef.Path, "^" + regexable, "");
+			        Regex.Replace(nodeRef.Path, "^" + regexable, "");
 
 			return new NodeRef(path, RootContext);
 		}
@@ -290,14 +304,14 @@ namespace MfGames.Utility
 		{
 			// First sanatize the regular expressions
 			string regex = pattern
-				.Replace("\\", "\\\\")
-				.Replace("+", "\\+")
-				.Replace("(", "\\(")
-				.Replace(")", "\\)")
-				.Replace("[", "\\[")
-				.Replace("]", "\\]")
-				.Replace(".", "\\.")
-				.Replace("?", "\\?");
+			               .Replace("\\", "\\\\")
+			               .Replace("+", "\\+")
+			               .Replace("(", "\\(")
+			               .Replace(")", "\\)")
+			               .Replace("[", "\\[")
+			               .Replace("]", "\\]")
+			               .Replace(".", "\\.")
+			               .Replace("?", "\\?");
 
 			// The "**" includes anything, including a path separator
 			// while the "*" only includes everything but a path
@@ -328,7 +342,10 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Returns the path when requested as a string.
 		/// </summary>
-		public override string ToString() { return pref; }
+		public override string ToString()
+		{
+			return pref;
+		}
 		#endregion
 
 		#region Child Path Operations
@@ -341,7 +358,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public NodeRef this[string childPath]
 		{
-			get { return CreateChild(childPath); }
+			get
+			{
+				return CreateChild(childPath);
+			}
 		}
 
 		/// <summary>
@@ -369,8 +389,8 @@ namespace MfGames.Utility
 			if (System.IO.Path.DirectorySeparatorChar != '/')
 			{
 				nref = Regex.Replace(nref, "/",
-					Regex.Escape(System.IO.Path.DirectorySeparatorChar
-						.ToString()));
+				                     Regex.Escape(System.IO.Path.DirectorySeparatorChar
+				                                  .ToString()));
 			}
 
 			//Debug("Trying {0} to {1}", pref, nref);

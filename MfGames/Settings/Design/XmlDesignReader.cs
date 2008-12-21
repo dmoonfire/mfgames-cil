@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Xml;
 using MfGames.Utility;
@@ -25,13 +25,13 @@ namespace MfGames.Settings.Design
 
 			// Open it up
 			using (FileStream stream = file.OpenRead())
-			{
-				// Wrap it in a reader
-				XmlReader xml = XmlReader.Create(stream);
-				DesignConfiguration settings = Read(xml);
-				xml.Close();
-				return settings;
-			}
+			      {
+				      // Wrap it in a reader
+				      XmlReader xml = XmlReader.Create(stream);
+				      DesignConfiguration settings = Read(xml);
+				      xml.Close();
+				      return settings;
+			      }
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace MfGames.Settings.Design
 			{
 				// Check for the end
 				if (xml.NodeType == XmlNodeType.EndElement &&
-					xml.LocalName == "configuration")
+				    xml.LocalName == "configuration")
 				{
 					// We are done parsing it
 					break;
@@ -93,7 +93,7 @@ namespace MfGames.Settings.Design
 			{
 				// Check for the end
 				if (xml.NodeType == XmlNodeType.EndElement &&
-					xml.LocalName == "group")
+				    xml.LocalName == "group")
 				{
 					// We are done parsing it
 					break;
@@ -115,6 +115,7 @@ namespace MfGames.Settings.Design
 						// Set up the usage type for non-settings
 						if (xml.LocalName == "constant")
 							setting.Usage = UsageType.Constant;
+
 						if (xml.LocalName == "transient")
 							setting.Usage = UsageType.Transient;
 
@@ -143,7 +144,7 @@ namespace MfGames.Settings.Design
 			{
 				// Check for the end
 				if (xml.NodeType == XmlNodeType.EndElement &&
-					(xml.LocalName == "setting" || xml.LocalName == "constant" || xml.LocalName == "transient"))
+				    (xml.LocalName == "setting" || xml.LocalName == "constant" || xml.LocalName == "transient"))
 				{
 					// We are done parsing it
 					break;

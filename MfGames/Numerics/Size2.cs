@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 
 namespace MfGames.Numerics
@@ -39,8 +39,14 @@ namespace MfGames.Numerics
 		/// <value>The width.</value>
 		public T Width
 		{
-			get { return width; }
-			set { width = value; }
+			get
+			{
+				return width;
+			}
+			set
+			{
+				width = value;
+			}
 		}
 
 		/// <summary>
@@ -49,8 +55,14 @@ namespace MfGames.Numerics
 		/// <value>The height.</value>
 		public T Height
 		{
-			get { return height; }
-			set { height = value; }
+			get
+			{
+				return height;
+			}
+			set
+			{
+				height = value;
+			}
 		}
 		#endregion
 
@@ -63,9 +75,9 @@ namespace MfGames.Numerics
 		public Size2<T2> ToSize2<T2>()
 		{
 			return
-				new Size2<T2>(
-					(T2) Convert.ChangeType(width, typeof(T2)),
-					(T2) Convert.ChangeType(height, typeof(T2)));
+			        new Size2<T2>(
+			                (T2) Convert.ChangeType(width, typeof(T2)),
+			                (T2) Convert.ChangeType(height, typeof(T2)));
 		}
 
 		/// <summary>

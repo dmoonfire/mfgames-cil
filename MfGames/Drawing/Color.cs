@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,26 +48,50 @@ namespace MfGames.Drawing
 
 		public T A
 		{
-			get { return a; }
-			set { a = value; }
+			get
+			{
+				return a;
+			}
+			set
+			{
+				a = value;
+			}
 		}
 
 		public T B
 		{
-			get { return b; }
-			set { b = value; }
+			get
+			{
+				return b;
+			}
+			set
+			{
+				b = value;
+			}
 		}
 
 		public T G
 		{
-			get { return g; }
-			set { g = value; }
+			get
+			{
+				return g;
+			}
+			set
+			{
+				g = value;
+			}
 		}
 
 		public T R
 		{
-			get { return r; }
-			set { r = value; }
+			get
+			{
+				return r;
+			}
+			set
+			{
+				r = value;
+			}
 		}
 		#endregion Color Channels
 
@@ -82,6 +106,7 @@ namespace MfGames.Drawing
 			{
 				if (typeof(T) == typeof(byte))
 					return Convert.ToDouble(A) / 255.0;
+
 				return Convert.ToDouble(A);
 			}
 

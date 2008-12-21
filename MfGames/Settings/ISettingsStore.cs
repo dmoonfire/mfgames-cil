@@ -28,7 +28,7 @@ namespace MfGames.Settings
 	/// configuration.
 	/// </summary>
 	public interface ISettingsStore
-	: ISettings
+		: ISettings
 	{
 	}
 }

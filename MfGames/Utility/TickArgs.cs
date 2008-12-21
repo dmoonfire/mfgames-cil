@@ -27,7 +27,7 @@ namespace MfGames.Utility
 	/// Implements the arguments for a ticked event.
 	/// </summary>
 	public class TickArgs
-	: EventArgs
+		: EventArgs
 	{
 		public int Skipped = 0;
 		public long LastTick = 0;

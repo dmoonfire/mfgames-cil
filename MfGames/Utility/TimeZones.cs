@@ -31,7 +31,7 @@ namespace MfGames.Utility
 	/// worth of data, using a hash table for the lookup.
 	/// </summary>
 	public class TimeZones
-	: Logable
+		: Logable
 	{
 		#region Lookup and Parsing
 		private static Hashtable zones = new Hashtable();
@@ -55,7 +55,7 @@ namespace MfGames.Utility
 
 		#region Static Zones
 		public static readonly TimeZone Utc =
-			new TimeZoneUtc("UTC", 0);
+		        new TimeZoneUtc("UTC", 0);
 		#endregion
 
 		#region Static Table Building
@@ -73,8 +73,8 @@ namespace MfGames.Utility
 
 			// Noise
 			Logger.Info(typeof(TimeZones),
-				"Loaded time zones table with {0} entries",
-				zones.Count);
+			            "Loaded time zones table with {0} entries",
+			            zones.Count);
 		}
 
 		/// <summary>

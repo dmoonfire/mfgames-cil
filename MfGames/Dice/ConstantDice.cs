@@ -21,9 +21,8 @@
 
 namespace MfGames.Utility
 {
-
 	public class ConstantDice
-	: IDice
+		: IDice
 	{
 		private int value = 0;
 
@@ -40,6 +39,11 @@ namespace MfGames.Utility
 		/// <summary>
 		/// This simply returns the value of the constant.
 		/// </summary>
-		public int Roll { get { return value; } }
+		public int Roll {
+			get
+			{
+				return value;
+			}
+		}
 	}
 }

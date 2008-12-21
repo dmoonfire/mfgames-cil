@@ -37,7 +37,17 @@ namespace MfGames.Utility
 			this.severity = severity;
 		}
 
-		public string Message { get { return message; } }
-		public Severity Severity { get { return severity; } }
+		public string Message {
+			get
+			{
+				return message;
+			}
+		}
+		public Severity Severity {
+			get
+			{
+				return severity;
+			}
+		}
 	}
 }

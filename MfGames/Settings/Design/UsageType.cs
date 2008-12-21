@@ -1,4 +1,4 @@
-﻿
+
 namespace MfGames.Settings.Design
 {
 	public enum UsageType

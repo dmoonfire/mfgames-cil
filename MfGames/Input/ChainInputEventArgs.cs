@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,7 +49,10 @@ namespace MfGames.Input
 		/// </summary>
 		public ChainInputManager Manager
 		{
-			get { return manager; }
+			get
+			{
+				return manager;
+			}
 		}
 
 		/// <summary>
@@ -57,7 +60,10 @@ namespace MfGames.Input
 		/// </summary>
 		public Chain Chain
 		{
-			get { return chain; }
+			get
+			{
+				return chain;
+			}
 		}
 		#endregion
 	}

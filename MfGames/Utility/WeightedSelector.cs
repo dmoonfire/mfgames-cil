@@ -88,7 +88,12 @@ namespace MfGames.Utility
 		// Contains the total weights
 		private long total = 0;
 
-		public long Total { get { return total; } }
+		public long Total {
+			get
+			{
+				return total;
+			}
+		}
 
 		/// <summary>
 		/// Selects a specific object from the weighted chart, based on

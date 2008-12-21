@@ -57,9 +57,9 @@ namespace UnitTests
 		public void TestMd5HexString()
 		{
 			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
-							Convert.ToMd5HexString("jim"));
+			                Convert.ToMd5HexString("jim"));
 			Assert.AreEqual("8621ffdbc5698829397d97767ac13db3",
-							Convert.ToMd5HexString("dragon"));
+			                Convert.ToMd5HexString("dragon"));
 		}
 	}
 }

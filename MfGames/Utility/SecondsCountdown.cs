@@ -30,7 +30,7 @@ namespace MfGames.Utility
 	/// using the ITickable interface or programmically.
 	/// </summary>
 	public class SecondsCountdown
-	: ITickable
+		: ITickable
 	{
 		#region Constructors
 		/// <summary>
@@ -73,7 +73,10 @@ namespace MfGames.Utility
 		/// </summary>
 		public double CurrentSeconds
 		{
-			get { return current; }
+			get
+			{
+				return current;
+			}
 			set
 			{
 				// Set the value
@@ -97,8 +100,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public bool IsTriggered
 		{
-			get { return triggered; }
-			set { triggered = value; }
+			get
+			{
+				return triggered;
+			}
+			set
+			{
+				triggered = value;
+			}
 		}
 
 		/// <summary>
@@ -106,8 +115,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public double ResetSeconds
 		{
-			get { return original; }
-			set { original = value; }
+			get
+			{
+				return original;
+			}
+			set
+			{
+				original = value;
+			}
 		}
 
 		/// <summary>
@@ -129,8 +144,14 @@ namespace MfGames.Utility
 		/// </summary>
 		public bool IsTickable
 		{
-			get { return isTickable; }
-			set { isTickable = value; }
+			get
+			{
+				return isTickable;
+			}
+			set
+			{
+				isTickable = value;
+			}
 		}
 
 		/// <summary>

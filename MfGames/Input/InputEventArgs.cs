@@ -7,7 +7,7 @@ namespace MfGames.Input
 	/// InputManager, token, and a flag for continued processing.
 	/// </summary>
 	public class InputEventArgs
-	: EventArgs
+		: EventArgs
 	{
 		#region Constructors
 		public InputEventArgs(InputManager manager, string token)
@@ -41,7 +41,10 @@ namespace MfGames.Input
 		/// </summary>
 		public InputManager Manager
 		{
-			get { return manager; }
+			get
+			{
+				return manager;
+			}
 		}
 
 		/// <summary>
@@ -49,7 +52,10 @@ namespace MfGames.Input
 		/// </summary>
 		public string Token
 		{
-			get { return token; }
+			get
+			{
+				return token;
+			}
 		}
 		#endregion
 	}

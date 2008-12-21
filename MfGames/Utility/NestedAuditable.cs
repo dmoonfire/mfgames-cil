@@ -29,7 +29,7 @@ namespace MfGames.Utility
 	/// recursive handling of messags, including passing up and down.
 	/// </summary>
 	public class NestedAuditable
-	: Auditable
+		: Auditable
 	{
 		// An public list of auditable objects and their prefexes.
 		private Hashtable prefixes = new Hashtable();
@@ -73,7 +73,7 @@ namespace MfGames.Utility
 		/// Triggered when an inner auditable changes.
 		/// </summary>
 		private void OnAuditMessageChanged
-			(object sender, AuditMessageArgs args)
+		                                                                                                                                                                                                                                                                                                                            (object sender, AuditMessageArgs args)
 		{
 			// Check for a prefix
 			IAuditable auditable = sender as IAuditable;

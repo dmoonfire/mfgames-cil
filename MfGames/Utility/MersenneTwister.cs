@@ -10,50 +10,50 @@
  * USA
  * http://www.centerspace.net/
  *
- /
+   /
 
- /* 
- A C-program for MT19937, with initialization improved 2002/1/26.
- Coded by Takuji Nishimura and Makoto Matsumoto.
+   /*
+   A C-program for MT19937, with initialization improved 2002/1/26.
+   Coded by Takuji Nishimura and Makoto Matsumoto.
 
- Before using, initialize the state by using init_genrand(seed)  
- or init_by_array(init_key, key_length).
+   Before using, initialize the state by using init_genrand(seed)
+   or init_by_array(init_key, key_length).
 
- Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
- All rights reserved.                          
+   Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
+   All rights reserved.
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions
- are met:
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
 
- 1. Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
+   1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
 
- 2. Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
+   2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
 
- 3. The names of its contributors may not be used to endorse or promote 
- products derived from this software without specific prior written 
- permission.
+   3. The names of its contributors may not be used to endorse or promote
+   products derived from this software without specific prior written
+   permission.
 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
- Any feedback is very welcome.
- http://www.math.keio.ac.jp/matumoto/emt.html
- email: matumoto@math.keio.ac.jp
-*/
+   Any feedback is very welcome.
+   http://www.math.keio.ac.jp/matumoto/emt.html
+   email: matumoto@math.keio.ac.jp
+ */
 
 using System;
 
@@ -63,7 +63,7 @@ namespace MfGames.Utility
 	/// Class MersenneTwister generates random numbers from a uniform distribution using
 	/// the Mersenne Twister algorithm.
 	/// </summary>
-	/// <remarks>Caution: MT is for MonteCarlo, and is NOT SECURE for CRYPTOGRAPHY 
+	/// <remarks>Caution: MT is for MonteCarlo, and is NOT SECURE for CRYPTOGRAPHY
 	/// as it is.</remarks>
 	public class MersenneTwister
 	{
@@ -72,7 +72,7 @@ namespace MfGames.Utility
 		// Period parameters.
 		private const int N = 624;
 		private const int M = 397;
-		private const uint MATRIX_A = 0x9908b0dfU;   // constant vector a
+		private const uint MATRIX_A = 0x9908b0dfU; // constant vector a
 		private const uint UPPER_MASK = 0x80000000U; // most significant w-r bits
 		private const uint LOWER_MASK = 0x7fffffffU; // least significant r bits
 		//private const int MAX_RAND_INT = 0x7fffffff;
@@ -82,7 +82,9 @@ namespace MfGames.Utility
 		#region Instance Variables ----------------------------------------------
 
 		// mag01[x] = x * MATRIX_A  for x=0,1
-		private uint[] mag01 = { 0x0U, MATRIX_A };
+		private uint[] mag01 = {
+			0x0U, MATRIX_A
+		};
 
 		// the array for the state vector
 		private uint[] mt = new uint[N];
@@ -104,7 +106,7 @@ namespace MfGames.Utility
 		}
 
 		/// <summary>
-		/// Creates a random number generator initialized with the given seed. 
+		/// Creates a random number generator initialized with the given seed.
 		/// </summary>
 		/// <param name="seed">The seed.</param>
 		public MersenneTwister(int seed)
@@ -148,7 +150,7 @@ namespace MfGames.Utility
 
 		/// <summary>
 		/// Returns a random integer greater than or equal to zero and
-		/// less than or equal to <c>MaxRandomInt</c>. 
+		/// less than or equal to <c>MaxRandomInt</c>.
 		/// </summary>
 		/// <returns>The next random integer.</returns>
 		public int Next()
@@ -188,7 +190,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Returns a random number between 0.0 and 1.0.
 		/// </summary>
-		/// <returns>A single-precision floating point number greater than or equal to 0.0, 
+		/// <returns>A single-precision floating point number greater than or equal to 0.0,
 		/// and less than 1.0.</returns>
 		public float NextFloat()
 		{
@@ -201,7 +203,7 @@ namespace MfGames.Utility
 		/// given boolean parameter.
 		/// </summary>
 		/// <param name="includeOne">
-		/// If <c>true</c>, the random number returned will be 
+		/// If <c>true</c>, the random number returned will be
 		/// less than or equal to one; otherwise, the random number returned will
 		/// be strictly less than one.
 		/// </param>
@@ -218,6 +220,7 @@ namespace MfGames.Utility
 			{
 				return (float) genrand_real1();
 			}
+
 			return (float) genrand_real2();
 		}
 
@@ -233,7 +236,7 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Returns a random number between 0.0 and 1.0.
 		/// </summary>
-		/// <returns>A double-precision floating point number greater than or equal to 0.0, 
+		/// <returns>A double-precision floating point number greater than or equal to 0.0,
 		/// and less than 1.0.</returns>
 		public double NextDouble()
 		{
@@ -246,7 +249,7 @@ namespace MfGames.Utility
 		/// given boolean parameter.
 		/// </summary>
 		/// <param name="includeOne">
-		/// If <c>true</c>, the random number returned will be 
+		/// If <c>true</c>, the random number returned will be
 		/// less than or equal to one; otherwise, the random number returned will
 		/// be strictly less than one.
 		/// </param>
@@ -263,6 +266,7 @@ namespace MfGames.Utility
 			{
 				return genrand_real1();
 			}
+
 			return genrand_real2();
 		}
 
@@ -326,39 +330,53 @@ namespace MfGames.Utility
 			for (mti = 1; mti < N; mti++)
 			{
 				mt[mti] =
-					(uint) (1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
-				// See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. 
-				// In the previous versions, MSBs of the seed affect   
-				// only MSBs of the array mt[].                        
-				// 2002/01/09 modified by Makoto Matsumoto             
+				        (uint) (1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
+				// See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier.
+				// In the previous versions, MSBs of the seed affect
+				// only MSBs of the array mt[].
+				// 2002/01/09 modified by Makoto Matsumoto
 				mt[mti] &= 0xffffffffU;
 				// for >32 bit machines
 			}
 		}
 
 		// initialize by an array with array-length
-		// init_key is the array for initializing keys 
+		// init_key is the array for initializing keys
 		// key_length is its length
 		private void init_by_array(uint[] init_key, uint key_length)
 		{
 			int i, j, k;
 			init_genrand(19650218U);
-			i = 1; j = 0;
+			i = 1;
+			j = 0;
 			k = (int) (N > key_length ? N : key_length);
 			for (; k > 0; k--)
 			{
 				mt[i] = (uint) ((uint) (mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1664525U)) + init_key[j] + j); /* non linear */
 				mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
-				i++; j++;
-				if (i >= N) { mt[0] = mt[N - 1]; i = 1; }
-				if (j >= key_length) j = 0;
+				i++;
+				j++;
+
+				if (i >= N)
+				{
+					mt[0] = mt[N - 1];
+					i = 1;
+				}
+
+				if (j >= key_length)
+					j = 0;
 			}
 			for (k = N - 1; k > 0; k--)
 			{
 				mt[i] = (uint) ((uint) (mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1566083941U)) - i); /* non linear */
 				mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
 				i++;
-				if (i >= N) { mt[0] = mt[N - 1]; i = 1; }
+
+				if (i >= N)
+				{
+					mt[0] = mt[N - 1];
+					i = 1;
+				}
 			}
 
 			mt[0] = 0x80000000U; // MSB is 1; assuring non-zero initial array
@@ -368,11 +386,13 @@ namespace MfGames.Utility
 		uint genrand_int32()
 		{
 			uint y;
+
 			if (mti >= N)
-			{ /* generate N words at one time */
+			{
+				/* generate N words at one time */
 				int kk;
 
-				if (mti == N + 1)   /* if init_genrand() has not been called, */
+				if (mti == N + 1) /* if init_genrand() has not been called, */
 					init_genrand(5489U); /* a default initial seed is used */
 
 				for (kk = 0; kk < N - M; kk++)

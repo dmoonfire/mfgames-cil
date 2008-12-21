@@ -26,7 +26,7 @@ using MfGames.Utility;
 /// the various processing that use the MfGames.Utility library.
 /// </summary>
 public class UtilityTool
-: ToolManager
+	: ToolManager
 {
 	#region Program Entry
 	/// <summary>

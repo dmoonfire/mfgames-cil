@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 
 namespace MfGames.Numerics
@@ -6,8 +6,8 @@ namespace MfGames.Numerics
 	/// <summary>
 	/// Generics calculator that uses LINQ and compiled functions to do the actual
 	/// math.
-	/// 
-	/// Ideas come from http://rogeralsing.com/2008/02/27/linq-expressions-calculating-with-generics/ 
+	///
+	/// Ideas come from http://rogeralsing.com/2008/02/27/linq-expressions-calculating-with-generics/
 	/// as written by Roger Alsing.
 	/// </summary>
 	public static class Calculator
@@ -84,7 +84,7 @@ namespace MfGames.Numerics
 			// Create the expression itself and compile it.
 			Expression body = operation(value1, value2);
 			LambdaExpression lambda = Expression.Lambda(typeof(Func<T, T, T>), body, value1, value2);
-			Func<T, T, T> compiled = (Func<T, T, T>) lambda.Compile();
+			Func<T, T, T> compiled = (Func<T, T, T>)lambda.Compile();
 
 			// Return the results.
 			return compiled;
@@ -102,7 +102,10 @@ namespace MfGames.Numerics
 		/// </summary>
 		public static Func<T, T, T> Add
 		{
-			get { return add; }
+			get
+			{
+				return add;
+			}
 		}
 
 		/// <summary>
@@ -110,7 +113,10 @@ namespace MfGames.Numerics
 		/// </summary>
 		public static Func<T, T, T> Divide
 		{
-			get { return divide; }
+			get
+			{
+				return divide;
+			}
 		}
 
 		/// <summary>
@@ -118,7 +124,10 @@ namespace MfGames.Numerics
 		/// </summary>
 		public static Func<T, T, T> Multiply
 		{
-			get { return multiply; }
+			get
+			{
+				return multiply;
+			}
 		}
 
 		/// <summary>
@@ -126,7 +135,10 @@ namespace MfGames.Numerics
 		/// </summary>
 		public static Func<T, T, T> Subtract
 		{
-			get { return subtract; }
+			get
+			{
+				return subtract;
+			}
 		}
 		#endregion Math Operators
 	}

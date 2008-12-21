@@ -1,4 +1,4 @@
-﻿
+
 namespace MfGames.Numerics
 {
 	/// <summary>

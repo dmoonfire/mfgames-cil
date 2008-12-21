@@ -36,7 +36,7 @@ namespace MfGames.Settings
 	/// another Settings object or eventually a ISettingsStore class.
 	/// </summary>
 	public class Settings
-	: ISettings
+		: ISettings
 	{
 		#region Constructors
 		public Settings(ISettings baseSettings)
@@ -44,7 +44,7 @@ namespace MfGames.Settings
 			// Valid the variable and save it
 			if (baseSettings == null)
 				throw new Exception(
-					"Cannot back a settings object with a null object");
+				        "Cannot back a settings object with a null object");
 
 			this.baseSettings = baseSettings;
 		}
@@ -62,8 +62,14 @@ namespace MfGames.Settings
 		/// </summary>
 		public string this[string group, string variable]
 		{
-			get { return baseSettings[group, variable]; }
-			set { baseSettings[group, variable] = value; }
+			get
+			{
+				return baseSettings[group, variable];
+			}
+			set
+			{
+				baseSettings[group, variable] = value;
+			}
 		}
 
 		/// <summary>

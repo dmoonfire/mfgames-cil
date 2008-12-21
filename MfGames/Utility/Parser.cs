@@ -24,9 +24,6 @@ using MfGames.Logging;
 
 namespace MfGames.Utility.Dice
 {
-
-
-
 	public class Parser
 	{
 		const int _EOF = 0;
@@ -46,7 +43,7 @@ namespace MfGames.Utility.Dice
 		private IDice dice = null;
 
 		public Token token; // last recognized token
-		public Token la;    // lookahead token
+		public Token la; // lookahead token
 		int errDist = minErrDist;
 
 
@@ -60,7 +57,9 @@ namespace MfGames.Utility.Dice
 
 		void SynErr(int n)
 		{
-			if (errDist >= minErrDist) errors.SynErr(la.line, la.col, n);
+			if (errDist >= minErrDist)
+				errors.SynErr(la.line, la.col, n);
+
 			errDist = 0;
 		}
 
@@ -68,10 +67,16 @@ namespace MfGames.Utility.Dice
 		{
 			if (errDist >= minErrDist)
 				errors.Error(token.line, token.col, msg);
+
 			errDist = 0;
 		}
 
-		public Errors Errors { get { return errors; } }
+		public Errors Errors {
+			get
+			{
+				return errors;
+			}
+		}
 
 		void Get()
 		{
@@ -79,7 +84,12 @@ namespace MfGames.Utility.Dice
 			{
 				token = la;
 				la = scanner.Scan();
-				if (la.kind <= maxT) { ++errDist; break; }
+
+				if (la.kind <= maxT)
+				{
+					++errDist;
+					break;
+				}
 
 				la = token;
 			}
@@ -87,7 +97,12 @@ namespace MfGames.Utility.Dice
 
 		protected void Expect(int n)
 		{
-			if (la.kind == n) Get(); else { SynErr(n); }
+			if (la.kind == n)
+				Get();
+			else
+			{
+				SynErr(n);
+			}
 		}
 
 		protected bool StartOf(int s)
@@ -104,48 +119,52 @@ namespace MfGames.Utility.Dice
 		{
 			IDice d1, d2 = null;
 			Subtraction(out d1);
+
 			if (la.kind == 3)
 			{
 				Get();
 				Addition(out d2);
 			}
+
 			if (d2 == null)
 				dice = d1;
 			else
 				dice = new AdditionDice(d1, d2);
-
 		}
 
 		void Subtraction(out IDice dice)
 		{
 			IDice d1, d2 = null;
 			Expression(out d1);
+
 			if (la.kind == 4)
 			{
 				Get();
 				Subtraction(out d2);
 			}
+
 			if (d2 == null)
 				dice = d1;
 			else
 				dice = new SubtractionDice(d1, d2);
-
 		}
 
 		void Expression(out IDice dice)
 		{
-			int number = 0; int sides = 0;
+			int number = 0;
+			int sides = 0;
 			Integer(out number);
+
 			if (la.kind == 1)
 			{
 				Get();
 				Integer(out sides);
 			}
+
 			if (sides == 0)
 				dice = new ConstantDice(number);
 			else
 				dice = new RandomDice(number, sides);
-
 		}
 
 		void Integer(out int value)
@@ -168,15 +187,14 @@ namespace MfGames.Utility.Dice
 		}
 
 		bool[,] set = {
-		{T,x,x,x, x,x,x}
-
-	};
+			{T,x,x,x, x,x,x}
+		};
 	} // end Parser
 
 
 	public class Errors : Logable
 	{
-		public int Count = 0;                                    // number of errors detected
+		public int Count = 0;                    // number of errors detected
 		public string Format = null;
 		public string errMsgFormat = "{3} ({0},{1}): {2}"; // 0=line, 1=column, 2=text
 
@@ -185,14 +203,28 @@ namespace MfGames.Utility.Dice
 			string s;
 			switch (n)
 			{
-				case 0: s = "EOF expected"; break;
-				case 1: s = "DICE expected"; break;
-				case 2: s = "NUMBER expected"; break;
-				case 3: s = "PLUS expected"; break;
-				case 4: s = "MINUS expected"; break;
-				case 5: s = "??? expected"; break;
+			case 0:
+				s = "EOF expected";
+				break;
+			case 1:
+				s = "DICE expected";
+				break;
+			case 2:
+				s = "NUMBER expected";
+				break;
+			case 3:
+				s = "PLUS expected";
+				break;
+			case 4:
+				s = "MINUS expected";
+				break;
+			case 5:
+				s = "??? expected";
+				break;
 
-				default: s = "error " + n; break;
+			default:
+				s = "error " + n;
+				break;
 			}
 			Alert(errMsgFormat, line, col, s, Format);
 			Count++;
@@ -213,10 +245,9 @@ namespace MfGames.Utility.Dice
 		public void Exception(string s)
 		{
 			/*
-				Console.WriteLine(s); 
-				System.Environment.Exit(1);
-			*/
+			        Console.WriteLine(s);
+			        System.Environment.Exit(1);
+			 */
 		}
 	} // Errors
-
 }
