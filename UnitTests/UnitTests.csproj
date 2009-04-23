@@ -31,7 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -50,9 +53,6 @@
     <Compile Include="ToolTests.cs" />
     <Compile Include="UtilityTests.cs" />
     <Compile Include="VersionTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AuthoringTests.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MfGames\MfGames.csproj">
