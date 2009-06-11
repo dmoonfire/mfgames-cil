@@ -20,46 +20,47 @@
 #endregion
 
 using MfGames.Utility;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using NUnit.Framework;
 
 namespace UnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class UtilityTests
 	{
-		[TestMethod]
-		public void TestWeightedSelectorEmpty()
+		[Test]
+		public void TestMd5HexString()
 		{
-			WeightedSelector ws = new WeightedSelector();
-			Assert.AreEqual(ws.Total, 0);
+			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
+			                ExtendedConvert.ToMd5HexString("jim"));
+			Assert.AreEqual("8621ffdbc5698829397d97767ac13db3",
+			                ExtendedConvert.ToMd5HexString("dragon"));
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestWeightedSelectorAdd2()
 		{
-			WeightedSelector ws = new WeightedSelector();
+			var ws = new WeightedSelector();
 			ws["bob"] = 5;
 			ws["gary"] = 5;
 			Assert.AreEqual(ws.Total, 10);
 		}
 
-		[TestMethod]
+		[Test]
+		public void TestWeightedSelectorEmpty()
+		{
+			var ws = new WeightedSelector();
+			Assert.AreEqual(ws.Total, 0);
+		}
+
+		[Test]
 		public void TestWeightedSelectorReplace()
 		{
-			WeightedSelector ws = new WeightedSelector();
+			var ws = new WeightedSelector();
 			ws["bob"] = 5;
 			ws["gary"] = 5;
 			ws["bob"] = 2;
 			Assert.AreEqual(ws.Total, 7);
-		}
-
-		[TestMethod]
-		public void TestMd5HexString()
-		{
-			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
-			                Convert.ToMd5HexString("jim"));
-			Assert.AreEqual("8621ffdbc5698829397d97767ac13db3",
-			                Convert.ToMd5HexString("dragon"));
 		}
 	}
 }

@@ -21,17 +21,17 @@
 
 using System;
 using MfGames.Utility;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UnitTests
 {
 /// <summary>
 /// Test the time zones.
 /// </summary>
-	[TestClass]
+	[TestFixture]
 	public class TestTimeZones
 	{
-		[TestMethod]
+		[Test]
 		public void TestSlashUSCentral()
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");
@@ -39,14 +39,14 @@ namespace UnitTests
 			                tz.GetUtcOffset(new DateTime(2005, 1, 1)).ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSlashUSCentralCST()
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");
 			Assert.AreEqual("CST", tz.StandardName);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSlashUSCentralCDT()
 		{
 			TimeZone tz = TimeZones.ToTimeZone("US/Central");

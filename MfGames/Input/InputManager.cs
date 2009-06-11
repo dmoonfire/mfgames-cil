@@ -1,6 +1,35 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System;
 using System.Collections.Generic;
+
 using MfGames.Logging;
+
+#endregion
 
 namespace MfGames.Input
 {
@@ -38,8 +67,32 @@ namespace MfGames.Input
 	public class InputManager
 	{
 		#region Enabling/Disabling
+
 		private readonly Dictionary<string, int> activatedCounter =
-		        new Dictionary<string, int>();
+			new Dictionary<string, int>();
+
+		/// <summary>
+		/// Gets a hash of all currently activated inputs.
+		/// </summary>
+		/// <value>The activated inputs.</value>
+		public HashSet<string> ActivatedInputs
+		{
+			get
+			{
+				var current = new HashSet<string>();
+
+				foreach (string key in activatedCounter.Keys)
+					current.Add(key);
+
+				return current;
+			}
+		}
+
+		/// <summary>
+		/// If this is set to true, then multiple requests for the
+		/// same input will repeatedly trigger the various events.
+		/// </summary>
+		public bool DuplicateEvents { get; set; }
 
 		/// <summary>
 		/// This event is used when an input is
@@ -58,32 +111,6 @@ namespace MfGames.Input
 		public event EventHandler<InputEventArgs> InputDeactivated;
 
 		/// <summary>
-		/// Gets a hash of all currently activated inputs.
-		/// </summary>
-		/// <value>The activated inputs.</value>
-		public HashSet<string> ActivatedInputs
-		{
-			get
-			{
-				HashSet<string> current = new HashSet<string>();
-
-				foreach (string key in activatedCounter.Keys)
-					current.Add(key);
-
-				return current;
-			}
-		}
-
-		/// <summary>
-		/// If this is set to true, then multiple requests for the
-		/// same input will repeatedly trigger the various events.
-		/// </summary>
-		public bool DuplicateEvents {
-			get;
-			set;
-		}
-
-		/// <summary>
 		/// Triggers the processing for activating an input. This is
 		/// the equivalent of the various key, button, and joystick
 		/// down functions.
@@ -92,8 +119,7 @@ namespace MfGames.Input
 		{
 			// Sanity checking on input token
 			if (String.IsNullOrEmpty(token))
-				throw new NullReferenceException(
-				        "token cannot be null or empty");
+				throw new NullReferenceException("token cannot be null or empty");
 
 			// Add the index for activation counter
 			bool fireEvent = true;
@@ -118,8 +144,7 @@ namespace MfGames.Input
 			// See if we have a token mapping. We do this after all
 			// the events to have a clearly defined order of
 			// activations.
-			if (tokenMapping != null &&
-			    tokenMapping.ContainsKey(token))
+			if (tokenMapping != null && tokenMapping.ContainsKey(token))
 			{
 				// Activate this for all the mapped tokens
 				foreach (string mappedToken in tokenMapping[token])
@@ -127,8 +152,7 @@ namespace MfGames.Input
 			}
 
 			// See if we are automatically collapsing
-			if (AutoCollapseTokens &&
-			    token.LastIndexOf(":") > 0)
+			if (AutoCollapseTokens && token.LastIndexOf(":") > 0)
 			{
 				// Get the new token
 				string newToken = token.Substring(0, token.LastIndexOf(":"));
@@ -145,8 +169,7 @@ namespace MfGames.Input
 		{
 			// Sanity checking on input token
 			if (String.IsNullOrEmpty(token))
-				throw new NullReferenceException(
-				        "token cannot be null or empty");
+				throw new NullReferenceException("token cannot be null or empty");
 
 			// Add the index for activation counter
 			bool fireEvent = false;
@@ -178,8 +201,7 @@ namespace MfGames.Input
 			// See if we have a token mapping. We do this after all
 			// the events to have a clearly defined order of
 			// activations.
-			if (tokenMapping != null &&
-			    tokenMapping.ContainsKey(token))
+			if (tokenMapping != null && tokenMapping.ContainsKey(token))
 			{
 				// Activate this for all the mapped tokens
 				foreach (string mappedToken in tokenMapping[token])
@@ -187,8 +209,7 @@ namespace MfGames.Input
 			}
 
 			// See if we are automatically collapsing
-			if (AutoCollapseTokens &&
-			    token.LastIndexOf(":") > 0)
+			if (AutoCollapseTokens && token.LastIndexOf(":") > 0)
 			{
 				// Get the new token
 				string newToken = token.Substring(0, token.LastIndexOf(":"));
@@ -215,15 +236,16 @@ namespace MfGames.Input
 		{
 			// Sanity checking on input token
 			if (String.IsNullOrEmpty(token))
-				throw new NullReferenceException(
-				        "token cannot be null or empty");
+				throw new NullReferenceException("token cannot be null or empty");
 
 			// See if we have it
 			return activatedCounter.ContainsKey(token);
 		}
+
 		#endregion
 
 		#region Input Processing
+
 		/// <summary>
 		/// Processes the activate input event.
 		/// </summary>
@@ -235,7 +257,7 @@ namespace MfGames.Input
 			if (fireEvent && InputActivated != null)
 			{
 				// Create the arguments
-				InputEventArgs args = new InputEventArgs(this, token);
+				var args = new InputEventArgs(this, token);
 
 				// Loop through the delegates
 				foreach (Delegate d in InputActivated.GetInvocationList())
@@ -261,7 +283,7 @@ namespace MfGames.Input
 			if (fireEvent && InputDeactivated != null)
 			{
 				// Create the arguments
-				InputEventArgs args = new InputEventArgs(this, token);
+				var args = new InputEventArgs(this, token);
 
 				// Loop through the delegates
 				foreach (Delegate d in InputDeactivated.GetInvocationList())
@@ -275,10 +297,10 @@ namespace MfGames.Input
 				}
 			}
 		}
+
 		#endregion
 
 		#region Input Mapping
-		private TokenMappingDictionary tokenMapping;
 
 		/// <summary>
 		/// If this is set to true, then the standard tokens (such as
@@ -290,6 +312,8 @@ namespace MfGames.Input
 		/// </summary>
 		public bool AutoCollapseTokens = true;
 
+		private TokenMappingDictionary tokenMapping;
+
 		/// <summary>
 		/// Creates a token mapping object for this input. If this is
 		/// null, then input token mapping will be
@@ -297,18 +321,14 @@ namespace MfGames.Input
 		/// </summary>
 		public TokenMappingDictionary TokenMapping
 		{
-			get
-			{
-				return tokenMapping;
-			}
-			set
-			{
-				tokenMapping = value;
-			}
+			get { return tokenMapping; }
+			set { tokenMapping = value; }
 		}
+
 		#endregion
 
 		#region Logging
+
 		private Log log;
 
 		/// <summary>
@@ -326,6 +346,7 @@ namespace MfGames.Input
 				return log;
 			}
 		}
+
 		#endregion
 	}
 }

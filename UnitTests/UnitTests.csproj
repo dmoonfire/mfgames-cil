@@ -55,6 +55,10 @@
     <Compile Include="VersionTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MfGames.Tools\MfGames.Tools.csproj">
+      <Project>{555677B1-5C56-4E0C-AB0B-54BF955209D9}</Project>
+      <Name>MfGames.Tools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MfGames\MfGames.csproj">
       <Project>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</Project>
       <Name>MfGames</Name>

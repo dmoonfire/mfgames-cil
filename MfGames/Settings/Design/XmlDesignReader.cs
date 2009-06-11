@@ -1,7 +1,36 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System;
 using System.IO;
 using System.Xml;
+
 using MfGames.Utility;
+
+#endregion
 
 namespace MfGames.Settings.Design
 {
@@ -12,6 +41,7 @@ namespace MfGames.Settings.Design
 	public class XmlDesignReader
 	{
 		#region Reading
+
 		/// <summary>
 		/// Reads in the design settings from the given file.
 		/// </summary>
@@ -25,13 +55,13 @@ namespace MfGames.Settings.Design
 
 			// Open it up
 			using (FileStream stream = file.OpenRead())
-			      {
-				      // Wrap it in a reader
-				      XmlReader xml = XmlReader.Create(stream);
-				      DesignConfiguration settings = Read(xml);
-				      xml.Close();
-				      return settings;
-			      }
+			{
+				// Wrap it in a reader
+				XmlReader xml = XmlReader.Create(stream);
+				DesignConfiguration settings = Read(xml);
+				xml.Close();
+				return settings;
+			}
 		}
 
 		/// <summary>
@@ -42,7 +72,7 @@ namespace MfGames.Settings.Design
 		public DesignConfiguration Read(XmlReader xml)
 		{
 			// Create the settings
-			DesignConfiguration settings = new DesignConfiguration();
+			var settings = new DesignConfiguration();
 
 			// Read through the file
 			while (xml.Read())
@@ -55,7 +85,7 @@ namespace MfGames.Settings.Design
 					break;
 				}
 
-				// Check for group
+					// Check for group
 				else if (xml.NodeType == XmlNodeType.Element)
 				{
 					if (xml.LocalName == "class" && !xml.IsEmptyElement)
@@ -70,7 +100,7 @@ namespace MfGames.Settings.Design
 					else if (xml.LocalName == "group")
 					{
 						// Read in a group
-						DesignGroup group = new DesignGroup();
+						var group = new DesignGroup();
 						Read(xml, group);
 						settings.Groups.Add(group);
 					}
@@ -92,14 +122,13 @@ namespace MfGames.Settings.Design
 			while (xml.Read())
 			{
 				// Check for the end
-				if (xml.NodeType == XmlNodeType.EndElement &&
-				    xml.LocalName == "group")
+				if (xml.NodeType == XmlNodeType.EndElement && xml.LocalName == "group")
 				{
 					// We are done parsing it
 					break;
 				}
 
-				// Figure out what to do based on the open tag
+					// Figure out what to do based on the open tag
 				else if (xml.NodeType == XmlNodeType.Element)
 				{
 					if (xml.LocalName == "name" && !xml.IsEmptyElement)
@@ -107,10 +136,11 @@ namespace MfGames.Settings.Design
 						// Read in the name of the group
 						group.Name = xml.ReadString();
 					}
-					else if (xml.LocalName == "setting" || xml.LocalName == "constant" || xml.LocalName == "transient")
+					else if (xml.LocalName == "setting" || xml.LocalName == "constant" ||
+					         xml.LocalName == "transient")
 					{
 						// Create the setting object
-						DesignSetting setting = new DesignSetting();
+						var setting = new DesignSetting();
 
 						// Set up the usage type for non-settings
 						if (xml.LocalName == "constant")
@@ -144,13 +174,14 @@ namespace MfGames.Settings.Design
 			{
 				// Check for the end
 				if (xml.NodeType == XmlNodeType.EndElement &&
-				    (xml.LocalName == "setting" || xml.LocalName == "constant" || xml.LocalName == "transient"))
+				    (xml.LocalName == "setting" || xml.LocalName == "constant" ||
+				     xml.LocalName == "transient"))
 				{
 					// We are done parsing it
 					break;
 				}
 
-				// Figure out what to do based on the open tag
+					// Figure out what to do based on the open tag
 				else if (xml.NodeType == XmlNodeType.Element)
 				{
 					if (xml.LocalName == "name" && !xml.IsEmptyElement)
@@ -178,6 +209,7 @@ namespace MfGames.Settings.Design
 				}
 			}
 		}
+
 		#endregion
 	}
 }

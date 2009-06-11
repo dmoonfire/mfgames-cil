@@ -7,17 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsEditor", "SettingsE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA4377B2-4470-4388-B53F-598DB4F4CFDD}"
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		MfGames.vsmdi = MfGames.vsmdi
-		MfGames1.vsmdi = MfGames1.vsmdi
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Tools", "MfGames.Tools\MfGames.Tools.csproj", "{555677B1-5C56-4E0C-AB0B-54BF955209D9}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = MfGames1.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -35,6 +27,10 @@ Global
 		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{555677B1-5C56-4E0C-AB0B-54BF955209D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{555677B1-5C56-4E0C-AB0B-54BF955209D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{555677B1-5C56-4E0C-AB0B-54BF955209D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{555677B1-5C56-4E0C-AB0B-54BF955209D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

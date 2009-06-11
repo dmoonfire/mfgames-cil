@@ -20,17 +20,17 @@
 #endregion
 
 using MfGames.Utility;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UnitTests
 {
 /// <summary>
 /// Tests out the various dice parsing and generation routines.
 /// </summary>
-	[TestClass]
+	[TestFixture]
 	public class TestDice
 	{
-		[TestMethod]
+		[Test]
 		public void TestConstant()
 		{
 			IDice dice = DiceFactory.Parse("2");
@@ -38,7 +38,7 @@ namespace UnitTests
 			Assert.AreEqual(typeof(ConstantDice), dice.GetType());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSimpleDice()
 		{
 			IDice dice = DiceFactory.Parse("1d4");
@@ -46,28 +46,28 @@ namespace UnitTests
 			Assert.AreEqual(typeof(RandomDice), dice.GetType());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestMultipleRandom()
 		{
 			IDice dice = DiceFactory.Parse("4d4");
 			Assert.AreEqual("4d4", dice.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSimpleAddition()
 		{
 			IDice dice = DiceFactory.Parse("1d4+2");
 			Assert.AreEqual("1d4+2", dice.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestSimpleSubtraction()
 		{
 			IDice dice = DiceFactory.Parse("1d4-2");
 			Assert.AreEqual("1d4-2", dice.ToString());
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestMultipleAddition()
 		{
 			IDice dice = DiceFactory.Parse("1d4+1d6");

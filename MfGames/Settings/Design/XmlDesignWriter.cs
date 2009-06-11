@@ -1,6 +1,34 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System.IO;
 using System.Text;
 using System.Xml;
+
+#endregion
 
 namespace MfGames.Settings.Design
 {
@@ -10,6 +38,7 @@ namespace MfGames.Settings.Design
 	public class XmlDesignWriter
 	{
 		#region Writing
+
 		/// <summary>
 		/// Writes out to the given file.
 		/// </summary>
@@ -18,20 +47,20 @@ namespace MfGames.Settings.Design
 		public void Write(FileInfo file, DesignConfiguration configuration)
 		{
 			using (FileStream stream = file.Open(FileMode.Create))
-			      {
-				      // Set up the settings
-				      XmlWriterSettings settings = new XmlWriterSettings();
-				      settings.Indent = true;
-				      settings.CloseOutput = true;
-				      settings.Encoding = Encoding.Unicode;
+			{
+				// Set up the settings
+				var settings = new XmlWriterSettings();
+				settings.Indent = true;
+				settings.CloseOutput = true;
+				settings.Encoding = Encoding.Unicode;
 
-				      // Open up the stream
-				      XmlWriter xml = XmlWriter.Create(stream, settings);
-				      xml.WriteStartDocument();
-				      Write(xml, configuration);
-				      xml.WriteEndDocument();
-				      xml.Close();
-			      }
+				// Open up the stream
+				XmlWriter xml = XmlWriter.Create(stream, settings);
+				xml.WriteStartDocument();
+				Write(xml, configuration);
+				xml.WriteEndDocument();
+				xml.Close();
+			}
 		}
 
 		/// <summary>
@@ -42,7 +71,8 @@ namespace MfGames.Settings.Design
 		public void Write(XmlWriter xml, DesignConfiguration configuration)
 		{
 			// Write out the various tags
-			xml.WriteStartElement("configuration", "http://mfgames.com/2008/mfgames-utility-configuration");
+			xml.WriteStartElement("configuration",
+			                      "http://mfgames.com/2008/mfgames-utility-configuration");
 
 			xml.WriteStartElement("class");
 			xml.WriteString(configuration.ClassName);
@@ -90,6 +120,7 @@ namespace MfGames.Settings.Design
 			// Finish up
 			xml.WriteEndElement();
 		}
+
 		#endregion
 	}
 }

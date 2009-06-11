@@ -1,31 +1,39 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
+using System;
+using System.Collections;
+using System.Xml.Serialization;
+
+using MfGames.Logging;
+
 #endregion
 
 namespace MfGames.Utility
 {
-	using System;
-	using System.Collections;
-	using System.Xml.Serialization;
-	using MfGames.Logging;
-
 	/// <summary>
 	/// Represents an attribute tree which is a class that contains a
 	/// hashtable (attributes) and may contain zero or more named child
@@ -36,30 +44,30 @@ namespace MfGames.Utility
 	public class AttributeTree : Logable, ICloneable
 	{
 		#region Constructors
+
 		/// <summary>
 		/// Creates an empty AttributeTree object.
 		/// </summary>
 		public AttributeTree()
 		{
 			// Set our path
-			path = new NodeRef("/");
+			Path = new NodeRef("/");
 
 			// Create our children
 			children = new AttributeTreeCollection(this);
 		}
+
 		#endregion
 
 		#region Children
+
 		/// <summary>
 		/// Returns the attribute tree node for the given path. If it does
 		/// not exist, a null is returned.
 		/// </summary>
 		public AttributeTree this[NodeRef nref]
 		{
-			get
-			{
-				return this[nref, false];
-			}
+			get { return this[nref, false]; }
 		}
 
 		/// <summary>
@@ -92,10 +100,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name]
 		{
-			get
-			{
-				return this[new NodeRef(name), false];
-			}
+			get { return this[new NodeRef(name), false]; }
 		}
 
 		/// <summary>
@@ -104,10 +109,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name, bool create]
 		{
-			get
-			{
-				return this[new NodeRef(name), create];
-			}
+			get { return this[new NodeRef(name), create]; }
 		}
 
 		/// <summary>
@@ -129,16 +131,10 @@ namespace MfGames.Utility
 			AttributeTree at = this[nref, true];
 			return at;
 		}
+
 		#endregion
 
 		#region Merging
-		/// <summary>
-		/// Methods for changing what object is used for child elements.
-		/// </summary>
-		public virtual AttributeTree CreateClone()
-		{
-			return new AttributeTree();
-		}
 
 		/// <summary>
 		/// Provides a method for cloning (or duplicating) the attribute
@@ -159,12 +155,20 @@ namespace MfGames.Utility
 			foreach (string key in children.Keys)
 			{
 				// Clone this one
-				AttributeTree cat = (AttributeTree) children[key];
-				at.children.Add(key, (AttributeTree) cat.Clone());
+				AttributeTree cat = children[key];
+				at.children.Add(key, cat.Clone());
 			}
 
 			// Return it
 			return at;
+		}
+
+		/// <summary>
+		/// Methods for changing what object is used for child elements.
+		/// </summary>
+		public virtual AttributeTree CreateClone()
+		{
+			return new AttributeTree();
 		}
 
 		/// <summary>
@@ -185,24 +189,23 @@ namespace MfGames.Utility
 			foreach (string name in source.children.Keys)
 			{
 				// Get the attribute tree
-				AttributeTree at = (AttributeTree) source.children[name];
+				AttributeTree at = source.children[name];
 
 				if (at == null)
 				{
-					throw new UtilityException("Cannot retrieve object from "
-					                           + name);
+					throw new UtilityException("Cannot retrieve object from " + name);
 				}
 
 				// Check to see if this is already here
 				if (children[name] != null)
 				{
 					// We have to merge
-					AttributeTree dat = (AttributeTree) children[name];
+					AttributeTree dat = children[name];
 					dat.Merge(at);
 				}
 				else
 				{
-					AttributeTree cloned = (AttributeTree) at.Clone();
+					var cloned = (AttributeTree) at.Clone();
 					children.Add(name, cloned);
 				}
 			}
@@ -211,22 +214,22 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Called when a new child is created (but not cloned).
 		/// </summary>
-		public virtual void OnCreatedAsChild(NodeRef nref,
-		                                     AttributeTree parent)
+		public virtual void OnCreatedAsChild(NodeRef nref, AttributeTree parent)
 		{
-			Path = new NodeRef(parent.Path.ToString() + nref.ToString());
+			Path = new NodeRef(parent.Path + nref.ToString());
 		}
+
 		#endregion
 
 		#region Properties
+
 		// Contains the attributes
-		private Hashtable attributes = new Hashtable();
 
 		// Contains the named children
-		private AttributeTreeCollection children = null;
+		private readonly AttributeTreeCollection children;
+		private Hashtable attributes = new Hashtable();
 
 		// Contains the path
-		private NodeRef path = null;
 
 		/// <summary>
 		/// Allows access to the attributes of this node (or element).
@@ -234,10 +237,7 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public IDictionary Attributes
 		{
-			get
-			{
-				return attributes;
-			}
+			get { return attributes; }
 		}
 
 		/// <summary>
@@ -246,10 +246,7 @@ namespace MfGames.Utility
 		[XmlIgnore]
 		public AttributeTreeCollection Children
 		{
-			get
-			{
-				return children;
-			}
+			get { return children; }
 		}
 
 		/// <summary>
@@ -259,10 +256,7 @@ namespace MfGames.Utility
 		[XmlArrayItem("Child")]
 		public ArrayList ChildrenArray
 		{
-			get
-			{
-				return new ArrayList(Children.Values);
-			}
+			get { return new ArrayList(Children.Values); }
 
 			set
 			{
@@ -276,17 +270,8 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Contains the path of this node.
 		/// </summary>
-		public NodeRef Path
-		{
-			get
-			{
-				return path;
-			}
-			set
-			{
-				path = value;
-			}
-		}
+		public NodeRef Path { get; set; }
+
 		#endregion
 	}
 }

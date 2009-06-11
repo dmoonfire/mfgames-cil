@@ -1,5 +1,33 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System;
 using System.Drawing;
+
+#endregion
 
 namespace MfGames.Numerics
 {
@@ -10,6 +38,7 @@ namespace MfGames.Numerics
 	public class Size2<T>
 	{
 		#region Constructors
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Size2&lt;T&gt;"/> class.
 		/// </summary>
@@ -27,11 +56,13 @@ namespace MfGames.Numerics
 			this.width = width;
 			this.height = height;
 		}
+
 		#endregion
 
 		#region Dimensions
-		private T width;
+
 		private T height;
+		private T width;
 
 		/// <summary>
 		/// Gets or sets the width dimension.
@@ -39,14 +70,8 @@ namespace MfGames.Numerics
 		/// <value>The width.</value>
 		public T Width
 		{
-			get
-			{
-				return width;
-			}
-			set
-			{
-				width = value;
-			}
+			get { return width; }
+			set { width = value; }
 		}
 
 		/// <summary>
@@ -55,18 +80,14 @@ namespace MfGames.Numerics
 		/// <value>The height.</value>
 		public T Height
 		{
-			get
-			{
-				return height;
-			}
-			set
-			{
-				height = value;
-			}
+			get { return height; }
+			set { height = value; }
 		}
+
 		#endregion
 
 		#region Conversions
+
 		/// <summary>
 		/// Converts the size to a different type.
 		/// </summary>
@@ -74,10 +95,8 @@ namespace MfGames.Numerics
 		/// <returns></returns>
 		public Size2<T2> ToSize2<T2>()
 		{
-			return
-			        new Size2<T2>(
-			                (T2) Convert.ChangeType(width, typeof(T2)),
-			                (T2) Convert.ChangeType(height, typeof(T2)));
+			return new Size2<T2>((T2) Convert.ChangeType(width, typeof(T2)),
+			                     (T2) Convert.ChangeType(height, typeof(T2)));
 		}
 
 		/// <summary>
@@ -90,9 +109,11 @@ namespace MfGames.Numerics
 		{
 			return String.Format("({0},{1}", width, height);
 		}
+
 		#endregion Conversions
 
 		#region Operators
+
 		/// <summary>
 		/// Performs an implicit conversion from <see cref="MfGames.Numerics.Size2&lt;T&gt;"/> to <see cref="System.Drawing.Point"/>.
 		/// </summary>
@@ -110,8 +131,10 @@ namespace MfGames.Numerics
 		/// <returns>The result of the conversion.</returns>
 		public static implicit operator PointF(Size2<T> point)
 		{
-			return new PointF(Convert.ToSingle(point.width), Convert.ToSingle(point.height));
+			return new PointF(Convert.ToSingle(point.width),
+			                  Convert.ToSingle(point.height));
 		}
+
 		#endregion
 	}
 }

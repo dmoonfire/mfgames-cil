@@ -1,61 +1,32 @@
-/*
- * C# Version
- * Copyright 2003, CenterSpace Software, LLC
- *
- * This code is free software under the ARtistic license.
- *
- * CenterSpace Software
- * 2098 NW Myrtlewood Way
- * Corvallis, Oregon 97330
- * USA
- * http://www.centerspace.net/
- *
-   /
+#region Copyright and License
 
-   /*
-   A C-program for MT19937, with initialization improved 2002/1/26.
-   Coded by Takuji Nishimura and Makoto Matsumoto.
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
-   Before using, initialize the state by using init_genrand(seed)
-   or init_by_array(init_key, key_length).
+#endregion
 
-   Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
-   All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
-   1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-   3. The names of its contributors may not be used to endorse or promote
-   products derived from this software without specific prior written
-   permission.
-
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-   Any feedback is very welcome.
-   http://www.math.keio.ac.jp/matumoto/emt.html
-   email: matumoto@math.keio.ac.jp
- */
+#region Namespaces
 
 using System;
+
+#endregion
 
 namespace MfGames.Utility
 {
@@ -70,11 +41,11 @@ namespace MfGames.Utility
 		#region Constants -------------------------------------------------------
 
 		// Period parameters.
-		private const int N = 624;
+		private const uint LOWER_MASK = 0x7fffffffU; // least significant r bits
 		private const int M = 397;
 		private const uint MATRIX_A = 0x9908b0dfU; // constant vector a
+		private const int N = 624;
 		private const uint UPPER_MASK = 0x80000000U; // most significant w-r bits
-		private const uint LOWER_MASK = 0x7fffffffU; // least significant r bits
 		//private const int MAX_RAND_INT = 0x7fffffff;
 
 		#endregion Constants
@@ -82,12 +53,10 @@ namespace MfGames.Utility
 		#region Instance Variables ----------------------------------------------
 
 		// mag01[x] = x * MATRIX_A  for x=0,1
-		private uint[] mag01 = {
-			0x0U, MATRIX_A
-		};
+		private readonly uint[] mag01 = { 0x0U, MATRIX_A };
 
 		// the array for the state vector
-		private uint[] mt = new uint[N];
+		private readonly uint[] mt = new uint[N];
 
 		// mti==N+1 means mt[N] is not initialized
 		private int mti = N + 1;
@@ -120,7 +89,7 @@ namespace MfGames.Utility
 		/// <param name="init">The array for initializing keys.</param>
 		public MersenneTwister(int[] init)
 		{
-			uint[] initArray = new uint[init.Length];
+			var initArray = new uint[init.Length];
 			for (int i = 0; i < init.Length; ++i)
 				initArray[i] = (uint) init[i];
 
@@ -138,10 +107,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public static int MaxRandomInt
 		{
-			get
-			{
-				return 0x7fffffff;
-			}
+			get { return 0x7fffffff; }
 		}
 
 		#endregion Properties
@@ -184,7 +150,8 @@ namespace MfGames.Utility
 				minValue = tmp;
 			}
 
-			return (int) (Math.Floor((maxValue - minValue + 1) * genrand_real1() + minValue));
+			return
+				(int) (Math.Floor((maxValue - minValue + 1) * genrand_real1() + minValue));
 		}
 
 		/// <summary>
@@ -297,7 +264,6 @@ namespace MfGames.Utility
 			init_genrand((uint) DateTime.Now.Millisecond);
 		}
 
-
 		/// <summary>
 		/// Reinitializes the random number generator with the given seed.
 		/// </summary>
@@ -313,13 +279,12 @@ namespace MfGames.Utility
 		/// <param name="init">The array for initializing keys.</param>
 		public void Initialize(int[] init)
 		{
-			uint[] initArray = new uint[init.Length];
+			var initArray = new uint[init.Length];
 			for (int i = 0; i < init.Length; ++i)
 				initArray[i] = (uint) init[i];
 
 			init_by_array(initArray, (uint) initArray.Length);
 		}
-
 
 		#region Methods ported from C -------------------------------------------
 
@@ -329,8 +294,7 @@ namespace MfGames.Utility
 			mt[0] = s & 0xffffffffU;
 			for (mti = 1; mti < N; mti++)
 			{
-				mt[mti] =
-				        (uint) (1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
+				mt[mti] = (uint) (1812433253U * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
 				// See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier.
 				// In the previous versions, MSBs of the seed affect
 				// only MSBs of the array mt[].
@@ -352,7 +316,10 @@ namespace MfGames.Utility
 			k = (int) (N > key_length ? N : key_length);
 			for (; k > 0; k--)
 			{
-				mt[i] = (uint) ((uint) (mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1664525U)) + init_key[j] + j); /* non linear */
+				mt[i] =
+					(uint)
+					((mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1664525U)) + init_key[j] + j);
+					/* non linear */
 				mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
 				i++;
 				j++;
@@ -368,7 +335,9 @@ namespace MfGames.Utility
 			}
 			for (k = N - 1; k > 0; k--)
 			{
-				mt[i] = (uint) ((uint) (mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1566083941U)) - i); /* non linear */
+				mt[i] =
+					(uint) ((mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1566083941U)) - i);
+					/* non linear */
 				mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
 				i++;
 
@@ -383,7 +352,7 @@ namespace MfGames.Utility
 		}
 
 		// generates a random number on [0,0xffffffff]-interval
-		uint genrand_int32()
+		private uint genrand_int32()
 		{
 			uint y;
 
@@ -429,32 +398,33 @@ namespace MfGames.Utility
 		}
 
 		// generates a random number on [0,1]-real-interval
-		double genrand_real1()
+		private double genrand_real1()
 		{
 			return genrand_int32() * (1.0 / 4294967295.0);
 			// divided by 2^32-1
 		}
 
 		// generates a random number on [0,1)-real-interval
-		double genrand_real2()
+		private double genrand_real2()
 		{
 			return genrand_int32() * (1.0 / 4294967296.0);
 			// divided by 2^32
 		}
 
 		// generates a random number on (0,1)-real-interval
-		double genrand_real3()
+		private double genrand_real3()
 		{
-			return (((double) genrand_int32()) + 0.5) * (1.0 / 4294967296.0);
+			return ((genrand_int32()) + 0.5) * (1.0 / 4294967296.0);
 			// divided by 2^32
 		}
 
 		// generates a random number on [0,1) with 53-bit resolution
-		double genrand_res53()
+		private double genrand_res53()
 		{
 			uint a = genrand_int32() >> 5, b = genrand_int32() >> 6;
 			return (a * 67108864.0 + b) * (1.0 / 9007199254740992.0);
 		}
+
 		// These real versions are due to Isaku Wada, 2002/01/09 added
 
 		#endregion Methods ported from C

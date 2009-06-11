@@ -1,30 +1,38 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
+using System;
+using System.Text.RegularExpressions;
+
+using MfGames.Logging;
+
 #endregion
 
 namespace MfGames.Utility
 {
-	using System;
-	using System.Text.RegularExpressions;
-	using MfGames.Logging;
-
 	/// <summary>
 	/// A node ref is a generic reference string that bears some
 	/// resemblance to the Unix file system path. It is used for a path
@@ -51,11 +59,14 @@ namespace MfGames.Utility
 	public class NodeRef : Logable
 	{
 		#region Constants
+
 		// Contains the common root context
 		public static readonly NodeRef RootContext = new NodeRef();
+
 		#endregion
 
 		#region Constructors
+
 		/// <summary>
 		/// Private constructor that makes a root context.
 		/// </summary>
@@ -81,30 +92,26 @@ namespace MfGames.Utility
 			// Create the path components
 			ParsePath(path, context);
 		}
+
 		#endregion
 
 		#region Path Construction
+
 		/// Frequently used regex to simplify dupliate "//" characters
 		private static readonly Regex findDoubleSlashRegex = new Regex("//+");
 
 		// Regex to remove leading slashes
-		private static readonly Regex findLeadingSlashesRegex =
-		        new Regex("^/+");
-
-		// Regex to remove trailing characters
-		private static readonly Regex findTrailingSlashesRegex =
-		        new Regex("/+$");
 
 		// Regex to find "/./" references
 		private static readonly Regex findHereRegex = new Regex("/\\./");
 
 		// Regex to find the "/<something>/../"
-		private static readonly Regex findRefUpRegex =
-		        new Regex("/[^/]+/\\.\\./");
 
 		// Regex to find the "/../"
-		private static readonly Regex findInvalidUpRegex =
-		        new Regex("/\\.\\./");
+		private static readonly Regex findInvalidUpRegex = new Regex("/\\.\\./");
+		private static readonly Regex findLeadingSlashesRegex = new Regex("^/+");
+		private static readonly Regex findRefUpRegex = new Regex("/[^/]+/\\.\\./");
+		private static readonly Regex findTrailingSlashesRegex = new Regex("/+$");
 
 		/// <summary>
 		/// This parses the given path and builds up the public
@@ -115,8 +122,7 @@ namespace MfGames.Utility
 		{
 			// Perform some sanity checking on the path
 			if (path == null)
-				throw new InvalidPathException("Cannot create a node "
-				                               + "ref from a null");
+				throw new InvalidPathException("Cannot create a node " + "ref from a null");
 
 			// Check for absolute path
 			if (!path.StartsWith("/"))
@@ -124,10 +130,8 @@ namespace MfGames.Utility
 				// We don't have an absolute path, so check the context
 				if (context == null)
 				{
-					throw new NotAbsolutePathException("Cannot create "
-					                                   + "absolute path from '"
-					                                   + path
-					                                   + "'");
+					throw new NotAbsolutePathException("Cannot create " +
+					                                   "absolute path from '" + path + "'");
 				}
 
 				// Construct the new path from this context
@@ -167,15 +171,10 @@ namespace MfGames.Utility
 			// We need to do is make sure the regex characters are not
 			// allowed in the string. We do this by just replacing all
 			// the important ones with escaped versions.
-			regexable = "/" + path
-			            .Replace("+", "\\+")
-			            .Replace("(", "\\(")
-			            .Replace(")", "\\)")
-			            .Replace("[", "\\[")
-			            .Replace("]", "\\]")
-			            .Replace(".", "\\.")
-			            .Replace("*", "\\*")
-			            .Replace("?", "\\?");
+			regexable = "/" +
+			            path.Replace("+", "\\+").Replace("(", "\\(").Replace(")", "\\)").
+			            	Replace("[", "\\[").Replace("]", "\\]").Replace(".", "\\.").
+			            	Replace("*", "\\*").Replace("?", "\\?");
 			//Debug("Processing 3: {0}", path);
 
 			// We now have a normalized path, without a leading or a
@@ -198,27 +197,26 @@ namespace MfGames.Utility
 				pref = "/" + path;
 			}
 		}
+
 		#endregion
 
 		#region Path Operations
+
 		// Constaints the string version of the entire path
+		private string[] parts = null;
 		private string pref = null;
 
 		// Contains the string usable in regexes
 		private string regexable = null;
 
 		// Contains the various parts of the path, for comparison
-		private string[] parts = null;
 
 		/// <summary>
 		/// Returns the nth element of the path.
 		/// </summary>
 		public string this[int index]
 		{
-			get
-			{
-				return parts[index];
-			}
+			get { return parts[index]; }
 		}
 
 		/// <summary>
@@ -226,24 +224,32 @@ namespace MfGames.Utility
 		/// </summary>
 		public string Path
 		{
-			get
-			{
-				return pref;
-			}
-			set
-			{
-				pref = value;
-			}
+			get { return pref; }
+			set { pref = value; }
 		}
 
 		/// <summary>
 		/// Returns the number of components in the path.
 		/// </summary>
-		public int Count {
+		public int Count
+		{
+			get { return parts.Length; }
+		}
+
+		/// <summary>
+		/// Returns the bottom-most name of the node reference.
+		/// </summary>
+		public string Name
+		{
 			get
 			{
-				return parts.Length;
+				if (parts.Length == 0)
+					return ".";
+				else
+					return parts[parts.Length - 1];
 			}
+
+			set { }
 		}
 
 		/// <summary>
@@ -260,8 +266,7 @@ namespace MfGames.Utility
 			// Remove the first part. There is an easy method because we are
 			// so strict about paths. We use the root context in the case
 			// where the leading / is removed.
-			string path =
-			        Regex.Replace(nodeRef.Path, "^" + regexable, "");
+			string path = Regex.Replace(nodeRef.Path, "^" + regexable, "");
 
 			return new NodeRef(path, RootContext);
 		}
@@ -271,7 +276,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public override bool Equals(object obj)
 		{
-			NodeRef path = (NodeRef) obj;
+			var path = (NodeRef) obj;
 			return pref.Equals(path.pref);
 		}
 
@@ -303,15 +308,11 @@ namespace MfGames.Utility
 		public bool IsMatch(string pattern)
 		{
 			// First sanatize the regular expressions
-			string regex = pattern
-			               .Replace("\\", "\\\\")
-			               .Replace("+", "\\+")
-			               .Replace("(", "\\(")
-			               .Replace(")", "\\)")
-			               .Replace("[", "\\[")
-			               .Replace("]", "\\]")
-			               .Replace(".", "\\.")
-			               .Replace("?", "\\?");
+			string regex =
+				pattern.Replace("\\", "\\\\").Replace("+", "\\+").Replace("(", "\\(").
+					Replace(")", "\\)").Replace("[", "\\[").Replace("]", "\\]").Replace(".",
+					                                                                    "\\.").
+					Replace("?", "\\?");
 
 			// The "**" includes anything, including a path separator
 			// while the "*" only includes everything but a path
@@ -324,31 +325,17 @@ namespace MfGames.Utility
 		}
 
 		/// <summary>
-		/// Returns the bottom-most name of the node reference.
-		/// </summary>
-		public string Name
-		{
-			get
-			{
-				if (parts.Length == 0)
-					return ".";
-				else
-					return parts[parts.Length - 1];
-			}
-
-			set { }
-		}
-
-		/// <summary>
 		/// Returns the path when requested as a string.
 		/// </summary>
 		public override string ToString()
 		{
 			return pref;
 		}
+
 		#endregion
 
 		#region Child Path Operations
+
 		/// <summary>
 		/// A simple accessor that allows retrieval of a child path
 		/// from this one. This, in effect, calls CreateChild(). The
@@ -358,10 +345,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public NodeRef this[string childPath]
 		{
-			get
-			{
-				return CreateChild(childPath);
-			}
+			get { return CreateChild(childPath); }
 		}
 
 		/// <summary>
@@ -388,9 +372,10 @@ namespace MfGames.Utility
 			// We always use "/", so map it if we need "\"
 			if (System.IO.Path.DirectorySeparatorChar != '/')
 			{
-				nref = Regex.Replace(nref, "/",
-				                     Regex.Escape(System.IO.Path.DirectorySeparatorChar
-				                                  .ToString()));
+				nref = Regex.Replace(nref,
+				                     "/",
+				                     Regex.Escape(
+				                     	System.IO.Path.DirectorySeparatorChar.ToString()));
 			}
 
 			//Debug("Trying {0} to {1}", pref, nref);
@@ -398,9 +383,11 @@ namespace MfGames.Utility
 			// Return it
 			return nref;
 		}
+
 		#endregion
 
 		#region Parent Path Operations
+
 		/// <summary>
 		/// Returns the node reference for a parent. If this is already
 		/// the root, it will automatically return null on this object.
@@ -429,7 +416,7 @@ namespace MfGames.Utility
 			get
 			{
 				// Get the parent
-				NodeRef parent = this.ParentRef;
+				NodeRef parent = ParentRef;
 
 				// If we got a null, return a null to say "no more"
 				if (parent == null)
@@ -439,6 +426,7 @@ namespace MfGames.Utility
 				return parent.Path;
 			}
 		}
+
 		#endregion
 	}
 }

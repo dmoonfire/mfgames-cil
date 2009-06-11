@@ -21,22 +21,22 @@
 
 using MfGames;
 using MfGames.Utility;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class AuditTest
 	{
 		#region Simple Setting
-		[TestMethod]
+		[Test]
 		public void TestNone()
 		{
 			AuditInnerTest ait = new AuditInnerTest();
 			Assert.AreEqual(Severity.None, ait.AuditSeverity);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestAlert()
 		{
 			AuditInnerTest ait = new AuditInnerTest();
@@ -44,7 +44,7 @@ namespace UnitTests
 			Assert.AreEqual(Severity.Alert, ait.AuditSeverity);
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestError()
 		{
 			AuditInnerTest ait = new AuditInnerTest();

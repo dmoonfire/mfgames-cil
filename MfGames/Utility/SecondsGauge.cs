@@ -1,25 +1,32 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 #endregion
 
+#region Namespaces
+
 using System;
+
+#endregion
 
 namespace MfGames.Utility
 {
@@ -30,9 +37,8 @@ namespace MfGames.Utility
 	/// </summary>
 	public class SecondsGauge : ITickable
 	{
-		private int span = 5;
-
-		private int[] buckets = null;
+		private readonly int[] buckets;
+		private readonly int span = 5;
 
 		public SecondsGauge()
 		{
@@ -52,15 +58,22 @@ namespace MfGames.Utility
 		}
 
 		#region Counting
+
 		private long lastSecond = DateTime.Now.Second;
 
-		private long loops = 0;
+		private long loops;
 
-		public bool IsTickable {
-			get
-			{
-				return true;
-			}
+		public bool IsTickable
+		{
+			get { return true; }
+		}
+
+		/// <summary>
+		/// Enables the guage to be added directly to a tick manager.
+		/// </summary>
+		public void OnTick(object sender, TickArgs args)
+		{
+			Activate();
 		}
 
 		public void Activate()
@@ -99,16 +112,10 @@ namespace MfGames.Utility
 			}
 		}
 
-		/// <summary>
-		/// Enables the guage to be added directly to a tick manager.
-		/// </summary>
-		public void OnTick(object sender, TickArgs args)
-		{
-			Activate();
-		}
 		#endregion
 
 		#region Results
+
 		public double Average
 		{
 			get
@@ -122,12 +129,11 @@ namespace MfGames.Utility
 			}
 		}
 
-		public bool IsFull {
-			get
-			{
-				return loops >= span;
-			}
+		public bool IsFull
+		{
+			get { return loops >= span; }
 		}
+
 		#endregion
 	}
 }

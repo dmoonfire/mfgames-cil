@@ -20,7 +20,7 @@
 #endregion
 
 using MfGames.Utility;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UnitTests
 {
@@ -28,14 +28,14 @@ namespace UnitTests
 /// Testing fixture to test all of the various methods or possible
 /// errors involved with a node reference.
 /// </summary>
-	[TestClass]
+	[TestFixture]
 	public class NodeRefTests
 	{
 		#region Basic Construction Tests
 		/// <summary>
 		/// Just tests the basic construction of a path.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Simple()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -46,7 +46,7 @@ namespace UnitTests
 		/// Test lack of absolute path.
 		/// </summary>
 		[ExpectedException(typeof(NotAbsolutePathException))]
-		[TestMethod]
+		[Test]
 		public void NoAbsolute()
 		{
 			new NodeRef("foo");
@@ -55,7 +55,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the leading "." path.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void LeadingDot()
 		{
 			NodeRef context = new NodeRef("/");
@@ -66,7 +66,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the leading "./" path construct.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void LeadingDotSlash()
 		{
 			NodeRef context = new NodeRef("/");
@@ -77,7 +77,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the leading "/a/.." path construct.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void DoubleDotTop()
 		{
 			NodeRef nr = new NodeRef("/a/..");
@@ -87,7 +87,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the leading "/a/b/../c" path construct.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void DoubleDot()
 		{
 			NodeRef nr = new NodeRef("/a/b/../c");
@@ -97,7 +97,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the leading "/../.." path construct.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void InvalidDoubleDot2()
 		{
 			NodeRef nr = new NodeRef("/../..");
@@ -107,7 +107,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for the basic case of Includes.
 		/// <summary>
-		[TestMethod]
+		[Test]
 		public void Includes1()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -118,7 +118,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for the case of not including.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Includes2()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -129,7 +129,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for the identical cases
 		/// <summary>
-		[TestMethod]
+		[Test]
 		public void Includes3()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -140,7 +140,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for the same parents
 		/// <summary>
-		[TestMethod]
+		[Test]
 		public void Includes4()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -151,7 +151,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for a sub path isolation.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SubRef1()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -162,7 +162,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for a equal sub path isolation.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SubRef2()
 		{
 			NodeRef nr = new NodeRef("/this/is");
@@ -173,7 +173,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for reverse items.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SubRef3()
 		{
 			NodeRef nr = new NodeRef("/this/is/a/path");
@@ -184,7 +184,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests for completely different sub reference.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void SubRef4()
 		{
 			NodeRef nr = new NodeRef("/this/is/a/path");
@@ -195,7 +195,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the number of components
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Count1()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -205,7 +205,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the number of simple components
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Count2()
 		{
 			NodeRef nr = new NodeRef("/a");
@@ -215,7 +215,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the number of the root context
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Count3()
 		{
 			NodeRef nr = new NodeRef("/");
@@ -225,7 +225,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the name of the components
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void Name()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -235,7 +235,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests an unescaped path.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestEscapedNone()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -246,7 +246,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests an escaped *
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestEscapedStar()
 		{
 			NodeRef nr = new NodeRef("/*/*/*");
@@ -259,7 +259,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestSingleStarMatch()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -269,7 +269,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestSingleStarMatch2()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -279,7 +279,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestSingleStarMatch3()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -289,7 +289,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestDoubleStarMatch()
 		{
 			NodeRef nr = new NodeRef("/a/b/c");
@@ -301,7 +301,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the basic create child functionality.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void TestNodeCreateChild()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -312,7 +312,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests the index accessor to the created children.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ChildIndex()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -325,7 +325,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests that a basic parent request returns the proper value.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ParentRef()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -336,7 +336,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests that the request for the direct path is valid.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ParentPath()
 		{
 			NodeRef up = new NodeRef("/dir1/sub1");
@@ -348,7 +348,7 @@ namespace UnitTests
 		/// <summary>
 		/// Tests various broken parsing tests.
 		/// </summary>
-		[TestMethod]
+		[Test]
 		public void ParsePluses()
 		{
 			NodeRef nr = new NodeRef("/Test/Test +1/Test +2");
@@ -356,7 +356,7 @@ namespace UnitTests
 			Assert.AreEqual("Test +2", nr.Name);
 		}
 
-		[TestMethod]
+		[Test]
 		public void SubPluses()
 		{
 			NodeRef nr = new NodeRef("/Test +1/A");

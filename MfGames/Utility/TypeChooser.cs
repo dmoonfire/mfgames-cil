@@ -1,30 +1,36 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
+using System;
+using System.Collections;
+
 #endregion
 
 namespace MfGames.Utility
 {
-	using System;
-	using System.Collections;
-	using System.Reflection;
-
 	/// <summary>
 	/// Implements a basic type chooser which allows a system to add
 	/// zero or more objects as strings to a type name
@@ -36,17 +42,13 @@ namespace MfGames.Utility
 	public class TypeChooser
 	{
 		#region Constructors
-		/// <summary>
-		/// Creates an empty type chooser object.
-		/// </summary>
-		public TypeChooser()
-		{
-		}
+
 		#endregion
 
 		#region Adding
+
 		// Contains a hash of lists
-		private Hashtable lists = new Hashtable();
+		private readonly Hashtable lists = new Hashtable();
 
 		/// <summary>
 		/// Adds a list of objects to the hash table, keyed by the string
@@ -66,7 +68,7 @@ namespace MfGames.Utility
 				return;
 
 			// Get the lists based on the key
-			ArrayList list = (ArrayList) lists[typeName];
+			var list = (ArrayList) lists[typeName];
 
 			if (list == null)
 			{
@@ -88,7 +90,7 @@ namespace MfGames.Utility
 			foreach (string key in chooser.lists.Keys)
 			{
 				// Get the list
-				IList list = (IList) chooser.lists[key];
+				var list = (IList) chooser.lists[key];
 
 				foreach (object obj in list)
 				{
@@ -96,18 +98,17 @@ namespace MfGames.Utility
 				}
 			}
 		}
+
 		#endregion
 
 		#region Selecting
+
 		/// <summary>
 		/// Returns the type of types in the chooser.
 		/// </summary>
 		public int Count
 		{
-			get
-			{
-				return lists.Count;
-			}
+			get { return lists.Count; }
 		}
 
 		/// <summary>
@@ -128,14 +129,14 @@ namespace MfGames.Utility
 		public IList Select(Type type)
 		{
 			// Create a list
-			ArrayList list = new ArrayList();
+			var list = new ArrayList();
 
 			// Ignore nulls (since that happens at the top-most object)
 			if (type == null)
 				return list;
 
 			// Add this type's keys
-			IList l = (IList) lists[type.FullName];
+			var l = (IList) lists[type.FullName];
 
 			if (l != null)
 				list.AddRange(l);
@@ -144,8 +145,7 @@ namespace MfGames.Utility
 			list.AddRange(Select(type.BaseType));
 
 			// Add the interfaces, if any
-			Type[] interfaces
-			= type.FindInterfaces(new TypeFilter(FindAllTypes), null);
+			Type[] interfaces = type.FindInterfaces(FindAllTypes, null);
 
 			foreach (Type iType in interfaces)
 				list.AddRange(Select(iType));
@@ -153,6 +153,7 @@ namespace MfGames.Utility
 			// Return the list
 			return list;
 		}
+
 		#endregion
 	}
 }

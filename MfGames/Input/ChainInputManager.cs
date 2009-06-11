@@ -1,5 +1,33 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace MfGames.Input
 {
@@ -12,10 +40,10 @@ namespace MfGames.Input
 	/// "C-s" for the typical Save command or "C-S-s" for the Save As
 	/// keyboard command.
 	/// </summary>
-	public class ChainInputManager
-		: InputManager
+	public class ChainInputManager : InputManager
 	{
 		#region Constructors
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ChainInputManager"/> class.
 		/// </summary>
@@ -32,9 +60,11 @@ namespace MfGames.Input
 			nonResetTokens.Add(InputTokens.LeftShift);
 			nonResetTokens.Add(InputTokens.Shift);
 		}
+
 		#endregion Constructors
 
 		#region Processing
+
 		/// <summary>
 		/// Processes the activate input event.
 		/// </summary>
@@ -82,9 +112,11 @@ namespace MfGames.Input
 				}
 			}
 		}
+
 		#endregion Processing
 
 		#region Chains
+
 		private readonly ChainLinkTree rootTree = new ChainLinkTree();
 		private ChainLinkTree currentTree;
 
@@ -106,7 +138,11 @@ namespace MfGames.Input
 		/// <param name="chain">The chain.</param>
 		/// <param name="index">The index.</param>
 		/// <param name="callback">The callback.</param>
-		private static void Register(ChainLinkTree tree, Chain chain, int index, EventHandler<ChainInputEventArgs> callback)
+		private static void Register(
+			ChainLinkTree tree,
+			Chain chain,
+			int index,
+			EventHandler<ChainInputEventArgs> callback)
 		{
 			// Grab the appropriate chains.
 			ChainLink link = chain[index];
@@ -129,9 +165,11 @@ namespace MfGames.Input
 				Register(childTree, chain, index + 1, callback);
 			}
 		}
+
 		#endregion
 
 		#region Reset Processing
+
 		private readonly HashSet<string> nonResetTokens = new HashSet<string>();
 
 		/// <summary>
@@ -140,23 +178,22 @@ namespace MfGames.Input
 		/// <value>The non reset tokens.</value>
 		public HashSet<string> NonResetTokens
 		{
-			get
-			{
-				return nonResetTokens;
-			}
+			get { return nonResetTokens; }
 		}
+
 		#endregion Reset Processing
 
 		#region Inner Class - ChainLinkTree
+
 		/// <summary>
 		/// Encapsulates the code needed to handle chained inputs. Each tree
 		/// is a parent of child trees and may have a list of delegates
 		/// listening to each level.
 		/// </summary>
-		private class ChainLinkTree
-			: List<ChainLinkTree>
+		private class ChainLinkTree : List<ChainLinkTree>
 		{
 			#region Constructors
+
 			/// <summary>
 			/// Initializes a new instance of the <see cref="ChainLinkTree"/> class.
 			/// </summary>
@@ -174,9 +211,11 @@ namespace MfGames.Input
 				this.chain = chain;
 				this.chainLink = chainLink;
 			}
+
 			#endregion
 
 			#region List Operations
+
 			public ChainLinkTree this[ChainLink link]
 			{
 				get
@@ -204,11 +243,13 @@ namespace MfGames.Input
 
 				return false;
 			}
+
 			#endregion List Operations
 
 			#region Link Processing
-			private readonly ChainLink chainLink;
+
 			private readonly Chain chain;
+			private readonly ChainLink chainLink;
 
 			/// <summary>
 			/// Determines whether this chain can be activated with the set of given
@@ -232,11 +273,13 @@ namespace MfGames.Input
 				// We can be activated because everything matched.
 				return true;
 			}
+
 			#endregion
 
 			#region Callbacks
+
 			private readonly List<EventHandler<ChainInputEventArgs>> callbacks =
-			        new List<EventHandler<ChainInputEventArgs>>();
+				new List<EventHandler<ChainInputEventArgs>>();
 
 			/// <summary>
 			/// Gets the list of callbacks for this tree.
@@ -244,10 +287,7 @@ namespace MfGames.Input
 			/// <value>The callbacks.</value>
 			public List<EventHandler<ChainInputEventArgs>> Callbacks
 			{
-				get
-				{
-					return callbacks;
-				}
+				get { return callbacks; }
 			}
 
 			/// <summary>
@@ -256,7 +296,7 @@ namespace MfGames.Input
 			public void Activate(ChainInputManager manager)
 			{
 				// Call the events until one indicates we should stop processing.
-				ChainInputEventArgs args = new ChainInputEventArgs(manager, chain);
+				var args = new ChainInputEventArgs(manager, chain);
 
 				foreach (EventHandler<ChainInputEventArgs> callback in callbacks)
 				{
@@ -268,8 +308,10 @@ namespace MfGames.Input
 						return;
 				}
 			}
+
 			#endregion
 		}
+
 		#endregion
 	}
 }

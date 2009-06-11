@@ -1,8 +1,33 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
+
+#endregion
 
 namespace MfGames.Numerics
 {
@@ -12,6 +37,7 @@ namespace MfGames.Numerics
 	public class FractalBrownianMotion
 	{
 		#region Constructors
+
 		public FractalBrownianMotion()
 			: this(new PerlinNoise())
 		{
@@ -27,9 +53,11 @@ namespace MfGames.Numerics
 			Density = 1;
 			Coverage = 0;
 		}
+
 		#endregion
 
 		#region Noise
+
 		private INoise2 noise;
 
 		/// <summary>
@@ -66,9 +94,11 @@ namespace MfGames.Numerics
 			// Return the results
 			return total;
 		}
+
 		#endregion
 
 		#region Motion
+
 		/// <summary>
 		/// Uses cosine interplotion between two values with an angle.
 		/// </summary>
@@ -91,8 +121,8 @@ namespace MfGames.Numerics
 		private double Smooth(double x, double y)
 		{
 			// Cast to make things easier
-			int ix = (int) x;
-			int iy = (int) y;
+			var ix = (int) x;
+			var iy = (int) y;
 
 			// Get the four square points
 			double n1 = noise.GetNoise(ix, iy);
@@ -107,41 +137,27 @@ namespace MfGames.Numerics
 			// Interpolate the final numbers
 			return Interpolate(i1, i2, y - iy);
 		}
+
 		#endregion
 
 		#region Properties
-		public double Amplitude {
-			get;
-			set;
-		}
 
-		public double Coverage {
-			get;
-			set;
-		}
+		public double Amplitude { get; set; }
 
-		public double Density {
-			get;
-			set;
-		}
+		public double Coverage { get; set; }
 
-		public double Frequency {
-			get;
-			set;
-		}
+		public double Density { get; set; }
 
-		public int Octaves {
-			get;
-			set;
-		}
+		public double Frequency { get; set; }
 
-		public double Persistence {
-			get;
-			set;
-		}
+		public int Octaves { get; set; }
+
+		public double Persistence { get; set; }
+
 		#endregion
 
 		#region XML I/O
+
 		/// <summary>
 		/// Reads in a perlin noise generator's settings from the given stream, using tagName
 		/// as the enclosing tag.
@@ -184,6 +200,7 @@ namespace MfGames.Numerics
 
 			xml.WriteEndElement();
 		}
+
 		#endregion
 	}
 }

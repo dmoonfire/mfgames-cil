@@ -1,416 +1,405 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 #endregion
 
+#region Namespaces
+
 using MfGames.Utility;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using NUnit.Framework;
+
+#endregion
 
 namespace UnitTests
 {
-	[TestClass]
+	[TestFixture]
 	public class VersionTest
 	{
-		#region Parsing
-		[ExpectedException(typeof(UtilityException))]
-		[TestMethod]
-		public void ParseNull()
-		{
-			Version v = new Version(null);
-			Assert.IsTrue(v == null, "Never get here");
-		}
-
-		[ExpectedException(typeof(UtilityException))]
-		[TestMethod]
-		public void ParseBlank()
-		{
-			Version v = new Version("");
-			Assert.IsTrue(v == null, "Never get here");
-		}
-
-		[ExpectedException(typeof(UtilityException))]
-		[TestMethod]
-		public void ParseSpace()
-		{
-			Version v = new Version(" ");
-			Assert.IsTrue(v == null, "Never get here");
-		}
-
-		[ExpectedException(typeof(UtilityException))]
-		[TestMethod]
-		public void ParseInnerSpace()
-		{
-			Version v = new Version("1 2.3");
-			Assert.IsTrue(v == null, "Never get here");
-		}
-
-		[TestMethod]
-		public void ParseSingleNumber()
-		{
-			Version v = new Version("1");
-			Assert.AreEqual("1", v.ToString());
-		}
-
-		[TestMethod]
-		public void ParseTwoNumbers()
-		{
-			Version v = new Version("1.2");
-			Assert.AreEqual("1.2", v.ToString());
-		}
-
-		[TestMethod]
-		public void ParseThreeNumbers()
-		{
-			Version v = new Version("1.2.3");
-			Assert.AreEqual("1.2.3", v.ToString());
-		}
-
-		[TestMethod]
-		public void ParseDebianVersion()
-		{
-			Version v = new Version("1.2.3-4");
-			Assert.AreEqual("1.2.3-4", v.ToString());
-		}
-
-		[TestMethod]
-		public void ParseDebianVersion2()
-		{
-			Version v = new Version("1.2-3.4d");
-			Assert.AreEqual("1.2-3.4d", v.ToString());
-		}
-
-		[TestMethod]
-		public void ParseTextVersion()
-		{
-			Version v = new Version("1.2b3");
-			Assert.AreEqual("1.2b3", v.ToString());
-		}
-		#endregion
-
-		#region Version Equals
-		/*
-		   [TestMethod] public void Compare()
-		   {
-		   Version v1 = new Version("");
-		   Version v2 = new Version("");
-		   Assert.IsTrue(v1 == v2);
-		   }
-		 */
-
-		[TestMethod]
-		public void CompareSingle()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("1");
-			Assert.IsTrue(v1 == v2);
-		}
-
-		[TestMethod]
-		public void CompareSingleLess()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("2");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
-		public void CompareSingleGreater()
-		{
-			Version v1 = new Version("2");
-			Version v2 = new Version("1");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
-		public void CompareSingleText()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
-		public void CompareSingleTextEqual()
-		{
-			Version v1 = new Version("1a");
-			Version v2 = new Version("1a");
-			Assert.IsTrue(v1 == v2);
-		}
-
-		[TestMethod]
-		public void CompareSingleTextLess()
-		{
-			Version v1 = new Version("1a");
-			Version v2 = new Version("2a");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
-		public void CompareSingleTextGreater()
-		{
-			Version v1 = new Version("2a");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
+		[Test]
 		public void CompareDouble()
 		{
-			Version v1 = new Version("1.1");
-			Version v2 = new Version("1.1");
+			var v1 = new ExtendedVersion("1.1");
+			var v2 = new ExtendedVersion("1.1");
 			Assert.IsTrue(v1 == v2);
 		}
 
-		[TestMethod]
-		public void CompareDoubleLess()
-		{
-			Version v1 = new Version("1.1");
-			Version v2 = new Version("1.2");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
+		[Test]
 		public void CompareDoubleGreater()
 		{
-			Version v1 = new Version("1.2");
-			Version v2 = new Version("1.1");
+			var v1 = new ExtendedVersion("1.2");
+			var v2 = new ExtendedVersion("1.1");
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[TestMethod]
+		[Test]
+		public void CompareDoubleLess()
+		{
+			var v1 = new ExtendedVersion("1.1");
+			var v2 = new ExtendedVersion("1.2");
+			Assert.IsFalse(v1 == v2);
+		}
+
+		[Test]
 		public void CompareDoubleText()
 		{
-			Version v1 = new Version("1.1");
-			Version v2 = new Version("1.1a");
+			var v1 = new ExtendedVersion("1.1");
+			var v2 = new ExtendedVersion("1.1a");
 			Assert.IsFalse(v1 == v2);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CompareDoubleTextEqual()
 		{
-			Version v1 = new Version("1.1a");
-			Version v2 = new Version("1.1a");
+			var v1 = new ExtendedVersion("1.1a");
+			var v2 = new ExtendedVersion("1.1a");
 			Assert.IsTrue(v1 == v2);
 		}
 
-		[TestMethod]
-		public void CompareDoubleTextLess()
-		{
-			Version v1 = new Version("1.1a");
-			Version v2 = new Version("1.2a");
-			Assert.IsFalse(v1 == v2);
-		}
-
-		[TestMethod]
+		[Test]
 		public void CompareDoubleTextGreater()
 		{
-			Version v1 = new Version("1.2a");
-			Version v2 = new Version("1.1a");
+			var v1 = new ExtendedVersion("1.2a");
+			var v2 = new ExtendedVersion("1.1a");
 			Assert.IsFalse(v1 == v2);
 		}
-		#endregion
 
-		#region Version Comparison
-		[TestMethod]
-		public void LessSingle()
+		[Test]
+		public void CompareDoubleTextLess()
 		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("1");
-			Assert.IsFalse(v1 < v2);
+			var v1 = new ExtendedVersion("1.1a");
+			var v2 = new ExtendedVersion("1.2a");
+			Assert.IsFalse(v1 == v2);
 		}
 
-		[TestMethod]
-		public void LessSingleLess()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("2");
-			Assert.IsTrue(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleGreater()
-		{
-			Version v1 = new Version("2");
-			Version v2 = new Version("1");
-			Assert.IsFalse(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleText()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleTextEqual()
-		{
-			Version v1 = new Version("1a");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleTextLess()
-		{
-			Version v1 = new Version("1a");
-			Version v2 = new Version("2a");
-			Assert.IsTrue(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleTextGreater()
-		{
-			Version v1 = new Version("2a");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleDouble()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("2.0");
-			Assert.IsTrue(v1 < v2);
-		}
-
-		[TestMethod]
-		public void LessSingleDoubleGreater()
-		{
-			Version v1 = new Version("2.0");
-			Version v2 = new Version("1");
-			Assert.IsFalse(v1 < v2);
-		}
-		#endregion
-
-		#region Greater Than Testing
-		[TestMethod]
-		public void GreaterSingle()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("1");
-			Assert.IsFalse(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleLess()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("2");
-			Assert.IsFalse(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleGreater()
-		{
-			Version v1 = new Version("2");
-			Version v2 = new Version("1");
-			Assert.IsTrue(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleText()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleTextEqual()
-		{
-			Version v1 = new Version("1a");
-			Version v2 = new Version("1a");
-			Assert.IsFalse(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleTextLess()
-		{
-			Version v1 = new Version("1a");
-			Version v2 = new Version("2a");
-			Assert.IsFalse(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleTextGreater()
-		{
-			Version v1 = new Version("2a");
-			Version v2 = new Version("1a");
-			Assert.IsTrue(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleDouble()
-		{
-			Version v1 = new Version("2.0");
-			Version v2 = new Version("1");
-			Assert.IsTrue(v1 > v2);
-		}
-
-		[TestMethod]
-		public void GreaterSingleDoubleLess()
-		{
-			Version v1 = new Version("1");
-			Version v2 = new Version("2.0");
-			Assert.IsFalse(v1 > v2);
-		}
-
-		[TestMethod]
-		public void ZeroVersesLotsLessThan()
-		{
-			Version v1 = new Version("0.0");
-			Version v2 = new Version("20071.2.0.0");
-			Assert.IsTrue(v1 <= v2);
-		}
-
-		[TestMethod]
-		public void HighVersesLowLessThan()
-		{
-			Version v1 = new Version("20081.0");
-			Version v2 = new Version("20071.2.0.0");
-			Assert.IsFalse(v1 <= v2);
-		}
-		#endregion
-
-		#region CompareOp
-		[TestMethod]
+		[Test]
 		public void CompareOpEqual()
 		{
-			Version v1 = new Version("1.2.3");
+			var v1 = new ExtendedVersion("1.2.3");
 			Assert.IsTrue(v1.CompareOp("= 1.2.3"), "With space");
 		}
 
-		[TestMethod]
+		[Test]
 		public void CompareOpEqual2()
 		{
-			Version v1 = new Version("1.2.3");
+			var v1 = new ExtendedVersion("1.2.3");
 			Assert.IsTrue(v1.CompareOp("=1.2.3"), "Without space");
 		}
 
-		[TestMethod]
+		[Test]
 		public void CompareOpEqual3()
 		{
-			Version v1 = new Version("1.2.3");
+			var v1 = new ExtendedVersion("1.2.3");
 			Assert.IsTrue(v1.CompareOp("=   1.2.3"), "With too many spaces");
 		}
-		#endregion
+
+		[Test]
+		public void CompareSingle()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsTrue(v1 == v2);
+		}
+
+		[Test]
+		public void CompareSingleGreater()
+		{
+			var v1 = new ExtendedVersion("2");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsFalse(v1 == v2);
+		}
+
+		[Test]
+		public void CompareSingleLess()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("2");
+			Assert.IsFalse(v1 == v2);
+		}
+
+		[Test]
+		public void CompareSingleText()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 == v2);
+		}
+
+		[Test]
+		public void CompareSingleTextEqual()
+		{
+			var v1 = new ExtendedVersion("1a");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsTrue(v1 == v2);
+		}
+
+		[Test]
+		public void CompareSingleTextGreater()
+		{
+			var v1 = new ExtendedVersion("2a");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 == v2);
+		}
+
+		[Test]
+		public void CompareSingleTextLess()
+		{
+			var v1 = new ExtendedVersion("1a");
+			var v2 = new ExtendedVersion("2a");
+			Assert.IsFalse(v1 == v2);
+		}
+
+		[Test]
+		public void GreaterSingle()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsFalse(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleDouble()
+		{
+			var v1 = new ExtendedVersion("2.0");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsTrue(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleDoubleLess()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("2.0");
+			Assert.IsFalse(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleGreater()
+		{
+			var v1 = new ExtendedVersion("2");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsTrue(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleLess()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("2");
+			Assert.IsFalse(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleText()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleTextEqual()
+		{
+			var v1 = new ExtendedVersion("1a");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleTextGreater()
+		{
+			var v1 = new ExtendedVersion("2a");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsTrue(v1 > v2);
+		}
+
+		[Test]
+		public void GreaterSingleTextLess()
+		{
+			var v1 = new ExtendedVersion("1a");
+			var v2 = new ExtendedVersion("2a");
+			Assert.IsFalse(v1 > v2);
+		}
+
+		[Test]
+		public void HighVersesLowLessThan()
+		{
+			var v1 = new ExtendedVersion("20081.0");
+			var v2 = new ExtendedVersion("20071.2.0.0");
+			Assert.IsFalse(v1 <= v2);
+		}
+
+		[Test]
+		public void LessSingle()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsFalse(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleDouble()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("2.0");
+			Assert.IsTrue(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleDoubleGreater()
+		{
+			var v1 = new ExtendedVersion("2.0");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsFalse(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleGreater()
+		{
+			var v1 = new ExtendedVersion("2");
+			var v2 = new ExtendedVersion("1");
+			Assert.IsFalse(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleLess()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("2");
+			Assert.IsTrue(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleText()
+		{
+			var v1 = new ExtendedVersion("1");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleTextEqual()
+		{
+			var v1 = new ExtendedVersion("1a");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleTextGreater()
+		{
+			var v1 = new ExtendedVersion("2a");
+			var v2 = new ExtendedVersion("1a");
+			Assert.IsFalse(v1 < v2);
+		}
+
+		[Test]
+		public void LessSingleTextLess()
+		{
+			var v1 = new ExtendedVersion("1a");
+			var v2 = new ExtendedVersion("2a");
+			Assert.IsTrue(v1 < v2);
+		}
+
+		[ExpectedException(typeof(UtilityException))]
+		[Test]
+		public void ParseBlank()
+		{
+			var v = new ExtendedVersion("");
+			Assert.IsTrue(v == null, "Never get here");
+		}
+
+		[Test]
+		public void ParseDebianVersion()
+		{
+			var v = new ExtendedVersion("1.2.3-4");
+			Assert.AreEqual("1.2.3-4", v.ToString());
+		}
+
+		[Test]
+		public void ParseDebianVersion2()
+		{
+			var v = new ExtendedVersion("1.2-3.4d");
+			Assert.AreEqual("1.2-3.4d", v.ToString());
+		}
+
+		[ExpectedException(typeof(UtilityException))]
+		[Test]
+		public void ParseInnerSpace()
+		{
+			var v = new ExtendedVersion("1 2.3");
+			Assert.IsTrue(v == null, "Never get here");
+		}
+
+		[ExpectedException(typeof(UtilityException))]
+		[Test]
+		public void ParseNull()
+		{
+			var v = new ExtendedVersion(null);
+			Assert.IsTrue(v == null, "Never get here");
+		}
+
+		[Test]
+		public void ParseSingleNumber()
+		{
+			var v = new ExtendedVersion("1");
+			Assert.AreEqual("1", v.ToString());
+		}
+
+		[ExpectedException(typeof(UtilityException))]
+		[Test]
+		public void ParseSpace()
+		{
+			var v = new ExtendedVersion(" ");
+			Assert.IsTrue(v == null, "Never get here");
+		}
+
+		[Test]
+		public void ParseTextVersion()
+		{
+			var v = new ExtendedVersion("1.2b3");
+			Assert.AreEqual("1.2b3", v.ToString());
+		}
+
+		[Test]
+		public void ParseThreeNumbers()
+		{
+			var v = new ExtendedVersion("1.2.3");
+			Assert.AreEqual("1.2.3", v.ToString());
+		}
+
+		[Test]
+		public void ParseTwoNumbers()
+		{
+			var v = new ExtendedVersion("1.2");
+			Assert.AreEqual("1.2", v.ToString());
+		}
+
+		[Test]
+		public void ZeroVersesLotsLessThan()
+		{
+			var v1 = new ExtendedVersion("0.0");
+			var v2 = new ExtendedVersion("20071.2.0.0");
+			Assert.IsTrue(v1 <= v2);
+		}
 	}
 }

@@ -1,25 +1,32 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 #endregion
 
+#region Namespaces
+
 using System;
+
+#endregion
 
 namespace MfGames.Utility
 {
@@ -29,10 +36,10 @@ namespace MfGames.Utility
 	/// countdown aspect is intended to be triggered by code, either
 	/// using the ITickable interface or programmically.
 	/// </summary>
-	public class SecondsCountdown
-		: ITickable
+	public class SecondsCountdown : ITickable
 	{
 		#region Constructors
+
 		/// <summary>
 		/// Creates a countdown initialized to zero.
 		/// </summary>
@@ -56,16 +63,17 @@ namespace MfGames.Utility
 		public SecondsCountdown(double current, double reset)
 		{
 			this.current = current;
-			this.original = reset;
+			original = reset;
 		}
+
 		#endregion
 
 		#region Counting Properties
+
 		private double current = 0;
+		public EventHandler Finished;
 		private double original = 0;
 		private bool triggered = false;
-
-		public EventHandler Finished;
 
 		/// <summary>
 		/// Contains the current number of seconds, as a double, left
@@ -73,10 +81,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public double CurrentSeconds
 		{
-			get
-			{
-				return current;
-			}
+			get { return current; }
 			set
 			{
 				// Set the value
@@ -100,14 +105,8 @@ namespace MfGames.Utility
 		/// </summary>
 		public bool IsTriggered
 		{
-			get
-			{
-				return triggered;
-			}
-			set
-			{
-				triggered = value;
-			}
+			get { return triggered; }
+			set { triggered = value; }
 		}
 
 		/// <summary>
@@ -115,14 +114,8 @@ namespace MfGames.Utility
 		/// </summary>
 		public double ResetSeconds
 		{
-			get
-			{
-				return original;
-			}
-			set
-			{
-				original = value;
-			}
+			get { return original; }
+			set { original = value; }
 		}
 
 		/// <summary>
@@ -133,10 +126,12 @@ namespace MfGames.Utility
 			current = original;
 			triggered = false;
 		}
+
 		#endregion
 
-		#region ITickable Members
 		private bool isTickable = true;
+
+		#region ITickable Members
 
 		/// <summary>
 		/// If this is true, then then countdown listens to
@@ -144,14 +139,8 @@ namespace MfGames.Utility
 		/// </summary>
 		public bool IsTickable
 		{
-			get
-			{
-				return isTickable;
-			}
-			set
-			{
-				isTickable = value;
-			}
+			get { return isTickable; }
+			set { isTickable = value; }
 		}
 
 		/// <summary>
@@ -161,6 +150,7 @@ namespace MfGames.Utility
 		{
 			CurrentSeconds -= args.Seconds;
 		}
+
 		#endregion
 	}
 }

@@ -1,39 +1,46 @@
-#region Copyright
-/*
- * Copyright (C) 2005-2008, Moonfire Games
- *
- * This file is part of MfGames.Utility.
- *
- * The MfGames.Utility library is free software; you can redistribute
- * it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
+using System;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Runtime.Serialization;
+
 #endregion
 
 namespace MfGames.Utility
 {
-	using System;
-	using System.Collections;
-	using System.Collections.Specialized;
-	using System.Runtime.Serialization;
-
 	[Serializable]
-	public class AttributeTreeCollection
-		: NameObjectCollectionBase, ISerializable
+	public class AttributeTreeCollection : NameObjectCollectionBase, ISerializable
 	{
 		// Contains the base tree used for creation
 		private AttributeTree baseTree = null;
 
 		#region Constructors
+
 		public AttributeTreeCollection()
 		{
 		}
@@ -42,18 +49,10 @@ namespace MfGames.Utility
 		{
 			this.baseTree = baseTree;
 		}
+
 		#endregion
 
 		#region Accessors
-		public void Add(string name, object value)
-		{
-			base.BaseAdd(name,
-			             value);
-		}
-		public void Remove(string name)
-		{
-			base.BaseRemove(name);
-		}
 
 		/// <summary>
 		/// Returns the attribute tree node for the given path. If it does
@@ -61,14 +60,8 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[NodeRef nref]
 		{
-			get
-			{
-				return this[nref, false];
-			}
-			set
-			{
-				BaseSet(nref.ToString(), value);
-			}
+			get { return this[nref, false]; }
+			set { BaseSet(nref.ToString(), value); }
 		}
 
 		/// <summary>
@@ -95,10 +88,10 @@ namespace MfGames.Utility
 
 				// Grab the first element
 				string first = "/" + nref[0];
-				NodeRef firstRef = new NodeRef(first);
+				var firstRef = new NodeRef(first);
 
 				// Check for it
-				AttributeTree at = (AttributeTree) base.BaseGet(first);
+				var at = (AttributeTree) base.BaseGet(first);
 
 				if (at == null && !create)
 				{
@@ -127,10 +120,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name]
 		{
-			get
-			{
-				return this[new NodeRef(name), false];
-			}
+			get { return this[new NodeRef(name), false]; }
 		}
 
 		/// <summary>
@@ -139,10 +129,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public AttributeTree this[string name, bool create]
 		{
-			get
-			{
-				return this[new NodeRef(name), create];
-			}
+			get { return this[new NodeRef(name), create]; }
 		}
 
 		/// <summary>
@@ -154,7 +141,7 @@ namespace MfGames.Utility
 			get
 			{
 				// Build up a list of values
-				ArrayList list = new ArrayList();
+				var list = new ArrayList();
 
 				foreach (string key in Keys)
 				{
@@ -162,17 +149,29 @@ namespace MfGames.Utility
 				}
 
 				// Return it as a cast
-				return (AttributeTree[])list.ToArray(typeof(AttributeTree));
+				return (AttributeTree[]) list.ToArray(typeof(AttributeTree));
 			}
 		}
+
+		public void Add(string name, object value)
+		{
+			base.BaseAdd(name, value);
+		}
+
+		public void Remove(string name)
+		{
+			base.BaseRemove(name);
+		}
+
 		#endregion
 
 		#region Serialization
+
 		/// <summary>
 		/// Constructs the collection using serialization information.
 		/// </summary>
-		public AttributeTreeCollection(SerializationInfo info,
-		                               StreamingContext context)
+		public AttributeTreeCollection(
+			SerializationInfo info, StreamingContext context)
 		{
 			// Go through the items and add them
 			SerializationInfoEnumerator infoItems = info.GetEnumerator();
@@ -187,8 +186,8 @@ namespace MfGames.Utility
 		/// Loads in the attribute data from the given serialization
 		/// context.
 		/// </summary>
-		public override void GetObjectData(SerializationInfo info,
-		                                   StreamingContext context)
+		public override void GetObjectData(
+			SerializationInfo info, StreamingContext context)
 		{
 			foreach (string name in base.BaseGetAllKeys())
 			{
@@ -196,9 +195,12 @@ namespace MfGames.Utility
 				{
 					info.AddValue(name, base.BaseGet(name));
 				}
-				catch { }
+				catch
+				{
+				}
 			}
 		}
+
 		#endregion
 	}
 }

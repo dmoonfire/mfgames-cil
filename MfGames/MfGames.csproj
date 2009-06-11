@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Color.cs" />
     <Compile Include="Input\Chain.cs" />
     <Compile Include="Input\ChainInputEventArgs.cs" />
     <Compile Include="Input\ChainInputManager.cs" />
@@ -96,7 +95,6 @@
     <Compile Include="Utility\ConfigStorage.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Dice\ConstantDice.cs" />
-    <Compile Include="Logging\DiagnosticSink.cs" />
     <Compile Include="Dice\DiceException.cs" />
     <Compile Include="Dice\DiceFactory.cs" />
     <Compile Include="Utility\Entropy.cs" />
@@ -108,23 +106,19 @@
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\ISettingsStore.cs" />
     <Compile Include="Utility\ITickable.cs" />
-    <Compile Include="Utility\ITool.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logable.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Utility\MersenneRandom.cs" />
     <Compile Include="Utility\MersenneTwister.cs" />
-    <Compile Include="Utility\Convert.cs" />
+    <Compile Include="Utility\ExtendedConvert.cs" />
     <Compile Include="Utility\MimeFilenameIdentifier.cs" />
     <Compile Include="Utility\NestedAuditable.cs" />
     <Compile Include="Utility\NodeRef.cs" />
     <Compile Include="Utility\NotAbsolutePathException.cs" />
-    <Compile Include="Utility\OptionalAttribute.cs" />
-    <Compile Include="Utility\Parser.cs" />
-    <Compile Include="Utility\ParsingArgs.cs" />
-    <Compile Include="Utility\PositionalAttribute.cs" />
+    <Compile Include="Dice\Parser.cs" />
     <Compile Include="Dice\RandomDice.cs" />
-    <Compile Include="Utility\Scanner.cs" />
+    <Compile Include="Dice\Scanner.cs" />
     <Compile Include="Utility\SecondsCountdown.cs" />
     <Compile Include="Utility\SecondsGauge.cs" />
     <Compile Include="Settings\Settings.cs" />
@@ -135,12 +129,10 @@
     <Compile Include="Utility\TimeZones.cs" />
     <Compile Include="Utility\TimeZoneUS.cs" />
     <Compile Include="Utility\TimeZoneUtc.cs" />
-    <Compile Include="Utility\ToolManager.cs" />
     <Compile Include="Utility\TypeChooser.cs" />
-    <Compile Include="Utility\UsageFormatter.cs" />
     <Compile Include="Utility\UtilityException.cs" />
     <Compile Include="Utility\ValueTree.cs" />
-    <Compile Include="Utility\Version.cs" />
+    <Compile Include="Utility\ExtendedVersion.cs" />
     <Compile Include="Utility\WeightedSelector.cs" />
     <Compile Include="Settings\XmlSettingsStore.cs" />
   </ItemGroup>
