@@ -25,7 +25,7 @@
 #region Namespaces
 
 using MfGames;
-using MfGames.Utility;
+using MfGames.Logging;
 
 using NUnit.Framework;
 

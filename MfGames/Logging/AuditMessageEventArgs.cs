@@ -33,12 +33,12 @@ namespace MfGames.Logging
 	/// <summary>
 	/// Contains the parameters of a message changed argument.
 	/// </summary>
-	public class AuditMessageArgs : EventArgs
+	public class AuditMessageEventArgs : EventArgs
 	{
-		private string message;
-		private Severity severity;
+		private readonly string message;
+		private readonly Severity severity;
 
-		public AuditMessageArgs(string msg, Severity severity)
+		public AuditMessageEventArgs(string msg, Severity severity)
 		{
 			message = msg;
 			this.severity = severity;

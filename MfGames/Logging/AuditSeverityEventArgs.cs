@@ -22,11 +22,36 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+
+#endregion
+
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// This is the handler for delegates for the audit severity changes.
+	/// Contains the parameters of a severity changed argument.
 	/// </summary>
-	public delegate void AuditSeverityHandler(object sender, AuditSeverityArgs args
-		);
+	public class AuditSeverityEventArgs : EventArgs
+	{
+		private readonly Severity newSeverity;
+		private readonly Severity oldSeverity;
+
+		public AuditSeverityEventArgs(Severity oldSeverity, Severity newSeverity)
+		{
+			this.oldSeverity = oldSeverity;
+			this.newSeverity = newSeverity;
+		}
+
+		public Severity OldSeverity
+		{
+			get { return oldSeverity; }
+		}
+
+		public Severity NewSeverity
+		{
+			get { return newSeverity; }
+		}
+	}
 }

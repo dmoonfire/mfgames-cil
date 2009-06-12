@@ -189,7 +189,7 @@ namespace MfGames.Entropy
 		}
 	}
 
-	public class Errors : Logable
+	public class Errors
 	{
 		public int Count = 0; // number of errors detected
 		public string errMsgFormat = "{3} ({0},{1}): {2}"; // 0=line, 1=column, 2=text

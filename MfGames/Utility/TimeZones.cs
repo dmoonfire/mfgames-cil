@@ -38,7 +38,7 @@ namespace MfGames.Utility
 	/// objects for given names. This is implemented as a large table
 	/// worth of data, using a hash table for the lookup.
 	/// </summary>
-	public class TimeZones : Logable
+	public class TimeZones
 	{
 		#region Lookup and Parsing
 

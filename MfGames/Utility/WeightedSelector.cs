@@ -38,7 +38,7 @@ namespace MfGames.Utility
 	/// This class contains a list of keys and their weights. It allows
 	/// a random selection of elements, based on the weights.
 	/// </summary>
-	public class WeightedSelector : Logable
+	public class WeightedSelector
 	{
 		#region Operators
 

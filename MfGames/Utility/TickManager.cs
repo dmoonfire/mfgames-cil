@@ -38,7 +38,7 @@ namespace MfGames.Utility
 	/// certain time to sleep between the tick. On each tick, it sends a
 	/// TickEvent to all delegates.
 	/// </summary>
-	public class TickManager : Logable
+	public class TickManager
 	{
 		#region Thread Management
 

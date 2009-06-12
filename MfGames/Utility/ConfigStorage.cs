@@ -40,7 +40,7 @@ namespace MfGames.Utility
 	/// $HOME/.MfGames/ on Unix/Linux while creating a folder called
 	/// MfGames in the "Application Data" folder on Windows.
 	/// </summary>
-	public class ConfigStorage : Logable
+	public class ConfigStorage
 	{
 		#region Constructor
 

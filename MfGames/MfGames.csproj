@@ -87,7 +87,6 @@
     <Compile Include="Time\UpdateEventArgs.cs" />
     <Compile Include="Utility\AttributeTree.cs" />
     <Compile Include="Utility\AttributeTreeCollection.cs" />
-    <Compile Include="Logging\Auditable.cs" />
     <Compile Include="Logging\AuditMessageEventArgs.cs" />
     <Compile Include="Logging\AuditSeverityEventArgs.cs" />
     <Compile Include="Utility\ConfigStorage.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="Settings\ISettingsStore.cs" />
     <Compile Include="Utility\ITickable.cs" />
     <Compile Include="Logging\Log.cs" />
-    <Compile Include="Logging\Logable.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Entropy\MersenneRandom.cs" />
     <Compile Include="Entropy\MersenneTwister.cs" />

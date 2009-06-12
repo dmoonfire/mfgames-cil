@@ -56,7 +56,7 @@ namespace MfGames.Utility
 	/// automatically.
 	/// </summary>
 	[Serializable]
-	public class NodeRef : Logable
+	public class NodeRef
 	{
 		#region Constants
 

@@ -41,7 +41,7 @@ namespace MfGames.Utility
 	/// allows additional functionality to create the tree values
 	/// automatically.
 	/// </summary>
-	public class AttributeTree : Logable, ICloneable
+	public class AttributeTree : ICloneable
 	{
 		#region Constructors
 

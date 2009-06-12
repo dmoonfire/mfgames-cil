@@ -36,7 +36,7 @@ namespace MfGames.Logging
 	/// constructors.
 	/// </summary>
 	[Serializable]
-	public class Log : Logable
+	public class Log
 	{
 		#region Constructors
 
@@ -64,11 +64,101 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Contains the current log context for this log object.
 		/// </summary>
-		public override string LogContext
+		public string LogContext
 		{
-			get { return context; } //set { context = value ?? ""; }
+			get { return context; }
 		}
 
 		#endregion
+
+		public void Alert(string msg, params object[] parms)
+		{
+			Logger.Alert(LogContext, String.Format(msg, parms));
+		}
+
+		public void Alert(Exception e, string msg, params object[] parms)
+		{
+			Logger.Alert(LogContext, e, String.Format(msg, parms));
+		}
+
+		public static void Alert(Type type, string msg, params object[] parms)
+		{
+			Logger.Alert(type.ToString(), String.Format(msg, parms));
+		}
+
+		public void Debug(string msg, params object[] parms)
+		{
+			Logger.Debug(LogContext, msg, parms);
+		}
+
+		public void Debug(Exception e, string msg, params object[] parms)
+		{
+			Logger.Debug(LogContext, e, msg, parms);
+		}
+
+		public static void Debug(Type type, string msg, params object[] parms)
+		{
+			Logger.Debug(type.ToString(), msg, parms);
+		}
+
+		public void Error(string msg, params object[] parms)
+		{
+			Logger.Error(LogContext, msg, parms);
+		}
+
+		public void Error(Exception e, string msg, params object[] parms)
+		{
+			Logger.Error(LogContext, e, msg, parms);
+		}
+
+		public static void Error(Type type, string msg, params object[] parms)
+		{
+			Logger.Error(type.ToString(), msg, parms);
+		}
+
+		public void Fatal(string msg, params object[] parms)
+		{
+			Logger.Fatal(LogContext, String.Format(msg, parms));
+		}
+
+		public void Fatal(Exception e, string msg, params object[] parms)
+		{
+			Logger.Fatal(LogContext, e, msg, parms);
+		}
+
+		public static void Fatal(Type type, string msg, params object[] parms)
+		{
+			Logger.Fatal(type.ToString(), String.Format(msg, parms));
+		}
+
+		public void Info(string msg, params object[] parms)
+		{
+			Logger.Info(LogContext, msg, parms);
+		}
+
+		public void Info(Exception e, string msg, params object[] parms)
+		{
+			Logger.Info(LogContext, e, msg, parms);
+		}
+
+		public static void Info(Type type, string msg, params object[] parms)
+		{
+			Logger.Info(type.ToString(), String.Format(msg, parms));
+		}
+
+		public void Trace(string msg, params object[] parms)
+		{
+			Logger.Trace(LogContext, msg, parms);
+		}
+
+		public void Trace(Exception e, string msg, params object[] parms)
+		{
+			Logger.Trace(LogContext, e, msg, parms);
+		}
+
+		public static void Trace(Type type, string msg, params object[] parms)
+		{
+			Logger.Trace(type.ToString(), String.Format(msg, parms));
+		}
 	}
 }
