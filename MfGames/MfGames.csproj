@@ -55,13 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\Chain.cs" />
-    <Compile Include="Input\ChainInputEventArgs.cs" />
-    <Compile Include="Input\ChainInputManager.cs" />
-    <Compile Include="Input\ChainLink.cs" />
-    <Compile Include="Input\InputEventArgs.cs" />
-    <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Input\InputTokens.cs" />
     <Compile Include="Numerics\Calculator.cs" />
     <Compile Include="Numerics\ExtensionsInt32.cs" />
     <Compile Include="Numerics\FractalBrownianMotion.cs" />

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>6ce1d26b-176a-4d63-9d6d-de45cd603bee</ProjectGuid>
+    <ProjectGuid>{CDD3C528-1F46-4441-8C7C-0AB61D817826}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MfGames.Input</RootNamespace>
@@ -45,7 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Chain.cs" />
+    <Compile Include="ChainInputEventArgs.cs" />
+    <Compile Include="ChainInputManager.cs" />
+    <Compile Include="ChainLink.cs" />
+    <Compile Include="InputEventArgs.cs" />
+    <Compile Include="InputManager.cs" />
+    <Compile Include="InputTokens.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
