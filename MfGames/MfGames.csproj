@@ -88,10 +88,8 @@
     <Compile Include="Utility\AttributeTree.cs" />
     <Compile Include="Utility\AttributeTreeCollection.cs" />
     <Compile Include="Logging\Auditable.cs" />
-    <Compile Include="Logging\AuditMessageArgs.cs" />
-    <Compile Include="Logging\AuditMessageHandler.cs" />
-    <Compile Include="Logging\AuditSeverityArgs.cs" />
-    <Compile Include="Logging\AuditSeverityHandler.cs" />
+    <Compile Include="Logging\AuditMessageEventArgs.cs" />
+    <Compile Include="Logging\AuditSeverityEventArgs.cs" />
     <Compile Include="Utility\ConfigStorage.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Entropy\ConstantDice.cs" />

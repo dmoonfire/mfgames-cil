@@ -78,7 +78,7 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Triggered when an inner auditable changes.
 		/// </summary>
-		private void OnAuditMessageChanged(object sender, AuditMessageArgs args)
+		private void OnAuditMessageChanged(object sender, AuditMessageEventArgs args)
 		{
 			// Check for a prefix
 			var auditable = sender as IAuditable;

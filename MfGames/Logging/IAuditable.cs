@@ -24,6 +24,7 @@
 
 #region Namespaces
 
+using System;
 using System.Collections;
 
 #endregion
@@ -59,13 +60,13 @@ namespace MfGames.Logging
 		/// system. The given severity will be Severity.None if it is
 		/// removed.
 		/// </summary>
-		event AuditMessageHandler AuditMessageChanged;
+		event EventHandler<AuditMessageEventArgs> AuditMessageChanged;
 
 		/// <summary>
 		/// This event is triggered when the severity changes. This
 		/// will not be called if the message changes, but the
 		/// severity does not.
 		/// </summary>
-		event AuditSeverityHandler AuditSeverityChanged;
+		event EventHandler<AuditSeverityEventArgs> AuditSeverityChanged;
 	}
 }
