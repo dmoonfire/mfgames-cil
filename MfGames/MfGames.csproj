@@ -51,21 +51,22 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Numerics\Calculator.cs" />
+    <Compile Include="Logging\Audit.cs" />
+    <Compile Include="Logging\AuditMessage.cs" />
+    <Compile Include="Logging\AuditMessageSet.cs" />
+    <Compile Include="Logging\IAuditMessageCollection.cs" />
+    <Compile Include="Logging\IReportingAuditable.cs" />
     <Compile Include="Numerics\ExtensionsInt32.cs" />
     <Compile Include="Numerics\FractalBrownianMotion.cs" />
     <Compile Include="Numerics\Fraction.cs" />
     <Compile Include="Numerics\INoise2.cs" />
-    <Compile Include="Numerics\IRange1.cs" />
-    <Compile Include="Numerics\LinearRange1.cs" />
-    <Compile Include="Numerics\Math.cs" />
+    <Compile Include="Numerics\ExtendedMath.cs" />
     <Compile Include="Numerics\PerlinNoise.cs" />
-    <Compile Include="Numerics\Point2.cs" />
-    <Compile Include="Numerics\Size2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entropy\AdditionDice.cs" />
     <Compile Include="Settings\Design\DesignGroup.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Collections\AttributeTree.cs" />
     <Compile Include="Collections\AttributeTreeCollection.cs" />
     <Compile Include="Logging\AuditMessageEventArgs.cs" />
-    <Compile Include="Logging\AuditSeverityEventArgs.cs" />
+    <Compile Include="Logging\SeverityEventArgs.cs" />
     <Compile Include="Utility\ConfigStorage.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Entropy\ConstantDice.cs" />
@@ -100,8 +101,6 @@
     <Compile Include="Entropy\MersenneRandom.cs" />
     <Compile Include="Entropy\MersenneTwister.cs" />
     <Compile Include="Utility\ExtendedConvert.cs" />
-    <Compile Include="Utility\MimeFilenameIdentifier.cs" />
-    <Compile Include="Logging\NestedAuditable.cs" />
     <Compile Include="Collections\NodeRef.cs" />
     <Compile Include="Collections\NotAbsolutePathException.cs" />
     <Compile Include="Entropy\Parser.cs" />

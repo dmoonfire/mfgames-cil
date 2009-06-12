@@ -121,7 +121,7 @@ namespace MfGames.Numerics
 		/// </summary>
 		public Fraction Simplify()
 		{
-			int gcf = Math.GreatestCommonFactor(numerator, denominator);
+			int gcf = ExtendedMath.GreatestCommonFactor(numerator, denominator);
 
 			return new Fraction(numerator / gcf, denominator / gcf);
 		}

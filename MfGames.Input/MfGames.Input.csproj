@@ -54,6 +54,12 @@
     <Compile Include="InputTokens.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MfGames\MfGames.csproj">
+      <Project>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</Project>
+      <Name>MfGames</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

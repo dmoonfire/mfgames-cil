@@ -223,19 +223,19 @@ namespace MfGames.Entropy
 				s = "error " + n;
 				break;
 			}
-			Alert(errMsgFormat, line, col, s, Format);
+			log.Alert(errMsgFormat, line, col, s, Format);
 			Count++;
 		}
 
 		public void SemErr(int line, int col, int n)
 		{
-			Alert(errMsgFormat, line, col, ("error " + n), Format);
+			log.Alert(errMsgFormat, line, col, ("error " + n), Format);
 			Count++;
 		}
 
 		public void Error(int line, int col, string s)
 		{
-			Alert(errMsgFormat, line, col, s, Format);
+			log.Alert(errMsgFormat, line, col, s, Format);
 			Count++;
 		}
 
@@ -246,5 +246,7 @@ namespace MfGames.Entropy
 			        System.Environment.Exit(1);
 			 */
 		}
+
+		private readonly Log log = new Log(typeof(Parser));
 	}
 }

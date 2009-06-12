@@ -31,27 +31,49 @@ using System;
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// Contains the parameters of a message changed argument.
+	/// Contains the arguments for an audit message being sent.
 	/// </summary>
 	public class AuditMessageEventArgs : EventArgs
 	{
-		private readonly string message;
-		private readonly Severity severity;
+		#region Constructors
 
-		public AuditMessageEventArgs(string msg, Severity severity)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AuditMessageEventArgs"/> class.
+		/// </summary>
+		/// <param name="auditMessage">The audit message.</param>
+		public AuditMessageEventArgs(AuditMessage auditMessage)
 		{
-			message = msg;
-			this.severity = severity;
+			AuditMessage = auditMessage;
 		}
 
-		public string Message
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AuditMessageEventArgs"/> class.
+		/// </summary>
+		/// <param name="auditMessage">The audit message.</param>
+		/// <param name="oldSeverity">The old severity.</param>
+		public AuditMessageEventArgs(AuditMessage auditMessage, Severity oldSeverity)
 		{
-			get { return message; }
+			AuditMessage = auditMessage;
+			OldSeverity = oldSeverity;
 		}
 
-		public Severity Severity
-		{
-			get { return severity; }
-		}
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets the audit message.
+		/// </summary>
+		/// <value>The audit message.</value>
+		public AuditMessage AuditMessage { get; private set; }
+
+		/// <summary>
+		/// Gets or sets the old severity level before the message. If this is a new
+		/// message, it will be None.
+		/// </summary>
+		/// <value>The old severity.</value>
+		public Severity OldSeverity { get; private set; }
+
+		#endregion
 	}
 }

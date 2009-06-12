@@ -111,7 +111,7 @@ namespace MfGames.Utility
 				// Set it, while trimming. Leading and trailing spaces are
 				// bad in general and make life harder. So we do it silently.
 				storageKey = value.Trim();
-				Debug("StorageKey: {0}", storageKey);
+				log.Debug("StorageKey: {0}", storageKey);
 			}
 		}
 
@@ -146,7 +146,7 @@ namespace MfGames.Utility
 
 			if (!dir.Exists)
 			{
-				Info("Created storage area: {0}", dir.FullName);
+				log.Info("Created storage area: {0}", dir.FullName);
 				dir.Create();
 			}
 		}
@@ -177,13 +177,19 @@ namespace MfGames.Utility
 			// Create it if it doesn't exist
 			if (!dir.Exists)
 			{
-				Info("Creating application folder: {0}", path);
+				log.Info("Creating application folder: {0}", path);
 				dir.Create();
 			}
 
 			// Return it
 			return dir;
 		}
+
+		#endregion
+
+		#region Logging
+
+		private readonly Log log = new Log(typeof(ConfigStorage));
 
 		#endregion
 	}

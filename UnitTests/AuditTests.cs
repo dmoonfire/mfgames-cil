@@ -38,28 +38,24 @@ namespace UnitTests
 		[Test]
 		public void TestAlert()
 		{
-			var ait = new AuditInnerTest();
-			ait.SetAuditMessage(Severity.Alert, "test");
-			Assert.AreEqual(Severity.Alert, ait.AuditSeverity);
+			var ait = new Audit();
+			ait.Add(Severity.Alert, "test");
+			Assert.AreEqual(Severity.Alert, ait.Severity);
 		}
 
 		[Test]
 		public void TestError()
 		{
-			var ait = new AuditInnerTest();
-			ait.SetAuditMessage(Severity.Error, "test");
-			Assert.AreEqual(Severity.Error, ait.AuditSeverity);
+			var ait = new Audit();
+			ait.Add(Severity.Error, "test");
+			Assert.AreEqual(Severity.Error, ait.Severity);
 		}
 
 		[Test]
 		public void TestNone()
 		{
-			var ait = new AuditInnerTest();
-			Assert.AreEqual(Severity.None, ait.AuditSeverity);
+			var ait = new Audit();
+			Assert.AreEqual(Severity.None, ait.Severity);
 		}
-	}
-
-	public class AuditInnerTest : Auditable
-	{
 	}
 }

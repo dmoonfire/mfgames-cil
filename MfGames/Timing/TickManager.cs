@@ -69,7 +69,7 @@ namespace MfGames.Utility
 					}
 					catch (Exception e)
 					{
-						Error("Cannot sleep (" + tickSpan + "): " + e);
+						log.Error("Cannot sleep (" + tickSpan + "): " + e);
 					}
 
 					// Lock to see if we are processing
@@ -93,7 +93,7 @@ namespace MfGames.Utility
 				}
 				catch (Exception e)
 				{
-					Error("Exception in ticker thread: " + e);
+					log.Error("Exception in ticker thread: " + e);
 				}
 			}
 		}
@@ -122,7 +122,7 @@ namespace MfGames.Utility
 					}
 					catch (Exception e)
 					{
-						Error("Cannot run ticker tick: " + e);
+						log.Error("Cannot run ticker tick: " + e);
 					}
 				}
 
@@ -133,7 +133,7 @@ namespace MfGames.Utility
 			}
 			catch (Exception e)
 			{
-				Error("Error in the RunTicker thread: " + e);
+				log.Error("log.Error in the RunTicker thread: " + e);
 			}
 		}
 
@@ -147,11 +147,11 @@ namespace MfGames.Utility
 				serverThread.IsBackground = true;
 				serverThread.Priority = ThreadPriority.Lowest;
 				serverThread.Start();
-				Debug("Started tick manager thread");
+				log.Debug("Started tick manager thread");
 			}
 			catch (Exception e)
 			{
-				Error("Cannot start tick manager thread", e);
+				log.Error("Cannot start tick manager thread", e);
 			}
 		}
 
@@ -174,7 +174,7 @@ namespace MfGames.Utility
 			while (processing)
 				Thread.Sleep(tickSpan);
 
-			Debug("Stopped tick manager thread");
+			log.Debug("Stopped tick manager thread");
 		}
 
 		#endregion
@@ -211,6 +211,12 @@ namespace MfGames.Utility
 		{
 			TickEvent += tickable.OnTick;
 		}
+
+		#endregion
+
+		#region Logging
+
+		private readonly Log log = new Log(typeof(TickManager));
 
 		#endregion
 	}

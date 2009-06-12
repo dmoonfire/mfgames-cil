@@ -1,4 +1,4 @@
-#region Copyright and License
+﻿#region Copyright and License
 
 // Copyright (c) 2005-2009, Moonfire Games
 // 
@@ -22,36 +22,19 @@
 
 #endregion
 
-#region Namespaces
-
-using System;
-
-#endregion
-
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// Contains the parameters of a severity changed argument.
+	/// Implements a simple audit message container object.
 	/// </summary>
-	public class AuditSeverityEventArgs : EventArgs
+	public class Audit : AuditMessageSet, IAuditable
 	{
-		private readonly Severity newSeverity;
-		private readonly Severity oldSeverity;
-
-		public AuditSeverityEventArgs(Severity oldSeverity, Severity newSeverity)
+		/// <summary>
+		/// Contains a collection of audit messages for this object.
+		/// </summary>
+		public IAuditMessageCollection AuditMessages
 		{
-			this.oldSeverity = oldSeverity;
-			this.newSeverity = newSeverity;
-		}
-
-		public Severity OldSeverity
-		{
-			get { return oldSeverity; }
-		}
-
-		public Severity NewSeverity
-		{
-			get { return newSeverity; }
+			get { return this; }
 		}
 	}
 }

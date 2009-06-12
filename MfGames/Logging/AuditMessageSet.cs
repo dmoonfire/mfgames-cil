@@ -1,4 +1,4 @@
-#region Copyright and License
+﻿#region Copyright and License
 
 // Copyright (c) 2005-2009, Moonfire Games
 // 
@@ -22,22 +22,55 @@
 
 #endregion
 
+#region Namespaces
+
+using System.Collections.Generic;
+
+#endregion
+
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// An audited class is based on the concept that a class is capable
-	/// of indicating problems or issues with its properties and
-	/// public structures.
-	///
-	/// The way this is organized, a class can create the audit messages
-	/// during creation or setting (such as part of the getter) or at
-	/// the point of the message request.
+	/// Defines a basic set of audit messages.
 	/// </summary>
-	public interface IAuditable
+	public class AuditMessageSet : HashSet<AuditMessage>, IAuditMessageCollection
 	{
+		#region Properties
+
 		/// <summary>
-		/// Contains a collection of audit messages for this object.
+		/// Gets the highest (most important) severity in the collection.
 		/// </summary>
-		IAuditMessageCollection AuditMessages { get; }
+		/// <value>The severity.</value>
+		public Severity Severity
+		{
+			get
+			{
+				Severity severity = Severity.None;
+
+				foreach (AuditMessage auditMessage in this)
+				{
+					if (severity < auditMessage.Severity)
+						severity = auditMessage.Severity;
+				}
+
+				return severity;
+			}
+		}
+
+		#endregion
+
+		#region Collection Methods
+
+		/// <summary>
+		/// Adds the specified severity and message to the set.
+		/// </summary>
+		/// <param name="severity">The severity.</param>
+		/// <param name="message">The message.</param>
+		public void Add(Severity severity, string message)
+		{
+			Add(new AuditMessage(severity, message));
+		}
+
+		#endregion
 	}
 }

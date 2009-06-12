@@ -22,22 +22,33 @@
 
 #endregion
 
-namespace MfGames.Logging
+namespace MfGames.Numerics
 {
 	/// <summary>
-	/// An audited class is based on the concept that a class is capable
-	/// of indicating problems or issues with its properties and
-	/// public structures.
-	///
-	/// The way this is organized, a class can create the audit messages
-	/// during creation or setting (such as part of the getter) or at
-	/// the point of the message request.
+	/// Additional mathematics and algorithims.
 	/// </summary>
-	public interface IAuditable
+	public static class ExtendedMath
 	{
 		/// <summary>
-		/// Contains a collection of audit messages for this object.
+		/// Returns the greatest common factory (GCF) of two integers.
 		/// </summary>
-		IAuditMessageCollection AuditMessages { get; }
+		/// <param name="a">A non-zero integer.</param>
+		/// <param name="b">A non-zero integer.</param>
+		/// <returns></returns>
+		public static int GreatestCommonFactor(int a, int b)
+		{
+			int high = System.Math.Max(a, b);
+			int low = System.Math.Min(a, b);
+			int tmp = high % low;
+
+			while (tmp != 0)
+			{
+				high = low;
+				low = tmp;
+				tmp = high % low;
+			}
+
+			return low;
+		}
 	}
 }

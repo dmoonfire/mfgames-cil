@@ -1,4 +1,4 @@
-#region Copyright and License
+﻿#region Copyright and License
 
 // Copyright (c) 2005-2009, Moonfire Games
 // 
@@ -22,22 +22,23 @@
 
 #endregion
 
+#region Namespaces
+
+using System.Collections.Generic;
+
+#endregion
+
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// An audited class is based on the concept that a class is capable
-	/// of indicating problems or issues with its properties and
-	/// public structures.
-	///
-	/// The way this is organized, a class can create the audit messages
-	/// during creation or setting (such as part of the getter) or at
-	/// the point of the message request.
+	/// Defines the common interface of an audit message collection.
 	/// </summary>
-	public interface IAuditable
+	public interface IAuditMessageCollection : ICollection<AuditMessage>
 	{
 		/// <summary>
-		/// Contains a collection of audit messages for this object.
+		/// Gets the highest (most important) severity in the collection.
 		/// </summary>
-		IAuditMessageCollection AuditMessages { get; }
+		/// <value>The severity.</value>
+		Severity Severity { get; }
 	}
 }

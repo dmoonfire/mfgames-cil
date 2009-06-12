@@ -1,4 +1,4 @@
-#region Copyright and License
+﻿#region Copyright and License
 
 // Copyright (c) 2005-2009, Moonfire Games
 // 
@@ -22,22 +22,32 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+
+#endregion
+
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// An audited class is based on the concept that a class is capable
-	/// of indicating problems or issues with its properties and
-	/// public structures.
-	///
-	/// The way this is organized, a class can create the audit messages
-	/// during creation or setting (such as part of the getter) or at
-	/// the point of the message request.
+	/// Defines the interface of an IAuditable object that also have events exposed
+	/// for reporting changes.
 	/// </summary>
-	public interface IAuditable
+	public interface IReportingAuditable : IAuditable
 	{
 		/// <summary>
-		/// Contains a collection of audit messages for this object.
+		/// This event is triggered when a message is changed in the
+		/// system. The given severity will be Severity.None if it is
+		/// removed.
 		/// </summary>
-		IAuditMessageCollection AuditMessages { get; }
+		event EventHandler<AuditMessageEventArgs> AuditMessageChanged;
+
+		/// <summary>
+		/// This event is triggered when the severity changes. This
+		/// will not be called if the message changes, but the
+		/// severity does not.
+		/// </summary>
+		event EventHandler<SeverityEventArgs> AuditSeverityChanged;
 	}
 }

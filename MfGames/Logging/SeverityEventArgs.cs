@@ -22,22 +22,48 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+
+#endregion
+
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// An audited class is based on the concept that a class is capable
-	/// of indicating problems or issues with its properties and
-	/// public structures.
-	///
-	/// The way this is organized, a class can create the audit messages
-	/// during creation or setting (such as part of the getter) or at
-	/// the point of the message request.
+	/// Contains the parameters for severity changing.
 	/// </summary>
-	public interface IAuditable
+	public class SeverityEventArgs : EventArgs
 	{
+		#region Constructors
+
 		/// <summary>
-		/// Contains a collection of audit messages for this object.
+		/// Initializes a new instance of the <see cref="SeverityEventArgs"/> class.
 		/// </summary>
-		IAuditMessageCollection AuditMessages { get; }
+		/// <param name="oldSeverity">The old severity.</param>
+		/// <param name="newSeverity">The new severity.</param>
+		public SeverityEventArgs(Severity oldSeverity, Severity newSeverity)
+		{
+			OldSeverity = oldSeverity;
+			NewSeverity = newSeverity;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets or sets the old severity level.
+		/// </summary>
+		/// <value>The old severity.</value>
+		public Severity OldSeverity { get; private set; }
+
+		/// <summary>
+		/// Gets or sets the new severity level.
+		/// </summary>
+		/// <value>The new severity.</value>
+		public Severity NewSeverity { get; private set; }
+
+		#endregion
 	}
 }
