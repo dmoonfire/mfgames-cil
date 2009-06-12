@@ -87,11 +87,11 @@
     <Compile Include="Time\UpdateEventArgs.cs" />
     <Compile Include="Utility\AttributeTree.cs" />
     <Compile Include="Utility\AttributeTreeCollection.cs" />
-    <Compile Include="Utility\Auditable.cs" />
-    <Compile Include="Utility\AuditMessageArgs.cs" />
-    <Compile Include="Utility\AuditMessageHandler.cs" />
-    <Compile Include="Utility\AuditSeverityArgs.cs" />
-    <Compile Include="Utility\AuditSeverityHandler.cs" />
+    <Compile Include="Logging\Auditable.cs" />
+    <Compile Include="Logging\AuditMessageArgs.cs" />
+    <Compile Include="Logging\AuditMessageHandler.cs" />
+    <Compile Include="Logging\AuditSeverityArgs.cs" />
+    <Compile Include="Logging\AuditSeverityHandler.cs" />
     <Compile Include="Utility\ConfigStorage.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Entropy\ConstantDice.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Entropy\DiceFactory.cs" />
     <Compile Include="Entropy\RandomManager.cs" />
     <Compile Include="Utility\Enum.cs" />
-    <Compile Include="Utility\IAuditable.cs" />
+    <Compile Include="Logging\IAuditable.cs" />
     <Compile Include="Entropy\IDice.cs" />
     <Compile Include="Logging\ILogSink.cs" />
     <Compile Include="Utility\InvalidPathException.cs" />
@@ -113,7 +113,7 @@
     <Compile Include="Entropy\MersenneTwister.cs" />
     <Compile Include="Utility\ExtendedConvert.cs" />
     <Compile Include="Utility\MimeFilenameIdentifier.cs" />
-    <Compile Include="Utility\NestedAuditable.cs" />
+    <Compile Include="Logging\NestedAuditable.cs" />
     <Compile Include="Utility\NodeRef.cs" />
     <Compile Include="Utility\NotAbsolutePathException.cs" />
     <Compile Include="Entropy\Parser.cs" />
