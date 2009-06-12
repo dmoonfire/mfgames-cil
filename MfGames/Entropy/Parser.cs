@@ -191,6 +191,7 @@ namespace MfGames.Entropy
 
 	public class Errors
 	{
+		private readonly Log log = new Log(typeof(Parser));
 		public int Count = 0; // number of errors detected
 		public string errMsgFormat = "{3} ({0},{1}): {2}"; // 0=line, 1=column, 2=text
 		public string Format = null;
@@ -246,7 +247,5 @@ namespace MfGames.Entropy
 			        System.Environment.Exit(1);
 			 */
 		}
-
-		private readonly Log log = new Log(typeof(Parser));
 	}
 }

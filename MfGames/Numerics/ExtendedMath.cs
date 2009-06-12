@@ -22,6 +22,12 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+
+#endregion
+
 namespace MfGames.Numerics
 {
 	/// <summary>
@@ -37,8 +43,8 @@ namespace MfGames.Numerics
 		/// <returns></returns>
 		public static int GreatestCommonFactor(int a, int b)
 		{
-			int high = System.Math.Max(a, b);
-			int low = System.Math.Min(a, b);
+			int high = Math.Max(a, b);
+			int low = Math.Min(a, b);
 			int tmp = high % low;
 
 			while (tmp != 0)

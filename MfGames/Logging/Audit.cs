@@ -29,6 +29,8 @@ namespace MfGames.Logging
 	/// </summary>
 	public class Audit : AuditMessageSet, IAuditable
 	{
+		#region IAuditable Members
+
 		/// <summary>
 		/// Contains a collection of audit messages for this object.
 		/// </summary>
@@ -36,5 +38,7 @@ namespace MfGames.Logging
 		{
 			get { return this; }
 		}
+
+		#endregion
 	}
 }

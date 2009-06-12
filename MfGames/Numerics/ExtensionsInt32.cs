@@ -39,9 +39,9 @@ namespace MfGames.Numerics
 		{
 			double power = 0;
 			int nextValue = originalValue;
-			while (nextValue > System.Math.Pow(2.0, power))
+			while (nextValue > Math.Pow(2.0, power))
 				power++;
-			return (int) System.Math.Pow(2.0, power);
+			return (int) Math.Pow(2.0, power);
 		}
 	}
 }

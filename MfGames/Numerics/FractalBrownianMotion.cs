@@ -89,7 +89,7 @@ namespace MfGames.Numerics
 			total = (total + Coverage) * Density;
 
 			// Clamp the values from -1 to 1
-			total = System.Math.Max(-1, System.Math.Min(1, total));
+			total = Math.Max(-1, Math.Min(1, total));
 
 			// Return the results
 			return total;
@@ -108,7 +108,7 @@ namespace MfGames.Numerics
 		/// <returns></returns>
 		private double Interpolate(double x, double y, double a)
 		{
-			double val = (1 - System.Math.Cos(a * System.Math.PI)) * 0.5;
+			double val = (1 - Math.Cos(a * Math.PI)) * 0.5;
 			return x * (1 - val) + y * val;
 		}
 

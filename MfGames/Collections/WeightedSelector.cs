@@ -28,7 +28,6 @@ using System;
 using System.Collections;
 
 using MfGames.Entropy;
-using MfGames.Logging;
 
 #endregion
 

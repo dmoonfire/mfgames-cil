@@ -27,8 +27,6 @@
 using System;
 using System.Text.RegularExpressions;
 
-using MfGames.Logging;
-
 #endregion
 
 namespace MfGames.Collections
