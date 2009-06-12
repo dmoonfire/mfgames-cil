@@ -227,8 +227,8 @@ namespace MfGames.Tools
 
 		#region Tools
 
-		private readonly Dictionary<string,ITool> tools =
-			new Dictionary<string,ITool>();
+		private readonly Dictionary<string, ITool> tools =
+			new Dictionary<string, ITool>();
 
 		/// <summary>
 		/// Registers a single tool and its keys.

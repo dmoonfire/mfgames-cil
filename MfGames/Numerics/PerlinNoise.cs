@@ -24,7 +24,7 @@
 
 #region Namespaces
 
-using MfGames.Utility;
+using MfGames.Entropy;
 
 #endregion
 
@@ -43,7 +43,7 @@ namespace MfGames.Numerics
 		/// Creates a Perlin generator with a random seed.
 		/// </summary>
 		public PerlinNoise()
-			: this(Entropy.Next())
+			: this(RandomManager.Next())
 		{
 		}
 

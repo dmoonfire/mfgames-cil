@@ -1,8 +1,37 @@
+#region Copyright and License
+
+// Copyright (c) 2005-2009, Moonfire Games
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#endregion
+
+#region Namespaces
+
 using System;
 using System.IO;
 using System.Windows.Forms;
+
 using MfGames.Settings.Design;
 using MfGames.Utility;
+
+#endregion
 
 namespace SettingsEditor
 {
@@ -14,6 +43,7 @@ namespace SettingsEditor
 		}
 
 		#region Control Properties
+
 		/// <remarks>This is prefixed with a _ because it has internal processing.</remarks>
 		private DesignConfiguration _configuration;
 
@@ -28,10 +58,7 @@ namespace SettingsEditor
 		/// </summary>
 		public DesignConfiguration Configuration
 		{
-			get
-			{
-				return _configuration;
-			}
+			get { return _configuration; }
 			set
 			{
 				// Set the value
@@ -87,10 +114,7 @@ namespace SettingsEditor
 		/// </summary>
 		public DesignSetting Setting
 		{
-			get
-			{
-				return _setting;
-			}
+			get { return _setting; }
 			set
 			{
 				// Set the value
@@ -129,7 +153,9 @@ namespace SettingsEditor
 					group.Text = _setting.Group;
 					type.Text = _setting.TypeName;
 					defaultValue.Text = _setting.Default;
-					enumeration.Checked = _setting.Format == FormatType.Enumeration ? true : false;
+					enumeration.Checked = _setting.Format == FormatType.Enumeration
+					                      	? true
+					                      	: false;
 					usageCombo.SelectedIndex = (int) _setting.Usage;
 
 					// Enable everything
@@ -142,9 +168,11 @@ namespace SettingsEditor
 				}
 			}
 		}
+
 		#endregion
 
 		#region Tree Display
+
 		/// <summary>
 		/// Rebuilds the contents of the tree.
 		/// </summary>
@@ -174,6 +202,7 @@ namespace SettingsEditor
 			// Expand everything
 			settings.ExpandAll();
 		}
+
 		#endregion
 
 		private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -189,15 +218,16 @@ namespace SettingsEditor
 				return;
 
 			// Open up the XML
-			XmlDesignReader reader = new XmlDesignReader();
+			var reader = new XmlDesignReader();
 			Configuration = reader.Read(new FileInfo(openSettingsDialog.FileName));
 			filename = openSettingsDialog.FileName;
 		}
 
-		private void settings_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+		private void settings_NodeMouseDoubleClick(
+			object sender, TreeNodeMouseClickEventArgs e)
 		{
 			// Get the node and make sure it is a setting node
-			DesignSetting setting = (DesignSetting) e.Node.Tag;
+			var setting = (DesignSetting) e.Node.Tag;
 
 			if (setting == null)
 				return;
@@ -242,9 +272,7 @@ namespace SettingsEditor
 
 			// We have a new group, so move this setting
 			if (!Configuration.Contains(name))
-				Configuration.Groups.Add(new DesignGroup() {
-				                                 Name = name
-							 });
+				Configuration.Groups.Add(new DesignGroup { Name = name });
 
 			// Get the design groups
 			DesignGroup newGroup = Configuration[name];
@@ -274,16 +302,12 @@ namespace SettingsEditor
 		{
 			// Get (or create) the group
 			if (!Configuration.Contains("New Group"))
-				Configuration.Groups.Add(new DesignGroup() {
-				                                 Name = "New Group"
-							 });
+				Configuration.Groups.Add(new DesignGroup { Name = "New Group" });
 
 			DesignGroup group = Configuration["New Group"];
 
 			// Set up the default settings
-			DesignSetting setting = new DesignSetting() {
-				Name = "New Setting", Group = "New Group"
-			};
+			var setting = new DesignSetting { Name = "New Setting", Group = "New Group" };
 			group.Settings.Add(setting);
 			Setting = setting;
 
@@ -296,7 +320,9 @@ namespace SettingsEditor
 			if (!enumeration.Enabled)
 				return;
 
-			Setting.Format = enumeration.Checked ? FormatType.Enumeration : FormatType.Normal;
+			Setting.Format = enumeration.Checked
+			                 	? FormatType.Enumeration
+			                 	: FormatType.Normal;
 		}
 
 		private void defaultValue_TextChanged(object sender, EventArgs e)
@@ -317,7 +343,7 @@ namespace SettingsEditor
 
 		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			XmlDesignWriter writer = new XmlDesignWriter();
+			var writer = new XmlDesignWriter();
 			writer.Write(new FileInfo(filename), Configuration);
 		}
 
@@ -327,7 +353,7 @@ namespace SettingsEditor
 			string csFile = filename.Replace(".xml", ".cs");
 
 			// Create the file
-			XmlDesignGenerater generator = new XmlDesignGenerater();
+			var generator = new XmlDesignGenerater();
 			generator.Generate(new FileInfo(filename), new FileInfo(csFile));
 		}
 

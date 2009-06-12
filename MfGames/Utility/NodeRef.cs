@@ -203,11 +203,11 @@ namespace MfGames.Utility
 		#region Path Operations
 
 		// Constaints the string version of the entire path
-		private string[] parts = null;
-		private string pref = null;
+		private string[] parts;
+		private string pref;
 
 		// Contains the string usable in regexes
-		private string regexable = null;
+		private string regexable;
 
 		// Contains the various parts of the path, for comparison
 

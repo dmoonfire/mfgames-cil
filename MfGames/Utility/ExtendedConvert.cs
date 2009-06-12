@@ -24,6 +24,7 @@
 
 #region Namespaces
 
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -96,7 +97,7 @@ namespace MfGames.Utility
 			// First encrypt it
 			MD5 md5 = new MD5CryptoServiceProvider();
 			byte[] hash = md5.ComputeHash(input2);
-			return System.Convert.ToBase64String(hash);
+			return Convert.ToBase64String(hash);
 		}
 
 		#endregion

@@ -47,7 +47,7 @@ namespace MfGames.Tools
 
 		#region Properties
 
-		private string name = null;
+		private readonly string name;
 
 		/// <summary>
 		/// Contains the registered name of this attribute.

@@ -24,9 +24,9 @@
 
 #region Namespaces
 
-using MfGames.Utility;
+using System;
 
-using Convert=System.Convert;
+using MfGames.Entropy;
 
 #endregion
 
@@ -86,7 +86,7 @@ namespace MfGames.Numerics
 		{
 			double d1 = Convert.ToDouble(Minimum);
 			double d2 = Convert.ToDouble(Maximum);
-			double r = Entropy.NextDouble(d1, d2);
+			double r = RandomManager.NextDouble(d1, d2);
 			return (T) Convert.ChangeType(r, typeof(T));
 		}
 

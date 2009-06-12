@@ -27,6 +27,7 @@
 using System;
 using System.Collections;
 
+using MfGames.Entropy;
 using MfGames.Logging;
 
 #endregion
@@ -84,7 +85,7 @@ namespace MfGames.Utility
 			get
 			{
 				// Just a random element, based on weights
-				int sel = Entropy.Next(0, (int) total);
+				int sel = RandomManager.Next(0, (int) total);
 
 				return Select(sel);
 			}

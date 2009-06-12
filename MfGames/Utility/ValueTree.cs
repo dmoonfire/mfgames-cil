@@ -22,6 +22,12 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+
+#endregion
+
 namespace MfGames.Utility
 {
 	/// <summary>
@@ -46,7 +52,7 @@ namespace MfGames.Utility
 		/// </summary>
 		public int Int32
 		{
-			get { return System.Convert.ToInt32(String); }
+			get { return Convert.ToInt32(String); }
 			set { String = value.ToString(); }
 		}
 

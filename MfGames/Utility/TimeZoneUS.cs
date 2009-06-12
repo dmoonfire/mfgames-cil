@@ -36,10 +36,10 @@ namespace MfGames.Utility
 	/// </summary>
 	public class TimeZoneUS : TimeZone
 	{
-		private string dtName;
-		private int dtOffset;
-		private string stName;
-		private int stOffset;
+		private readonly string dtName;
+		private readonly int dtOffset;
+		private readonly string stName;
+		private readonly int stOffset;
 
 		/// <summary>
 		/// Creates the basic US zone with the three-letter names.
