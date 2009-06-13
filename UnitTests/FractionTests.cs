@@ -24,11 +24,11 @@
 
 #region Namespaces
 
+using System;
+
 using MfGames.Numerics;
 
 using NUnit.Framework;
-
-using Math=System.Math;
 
 #endregion
 
