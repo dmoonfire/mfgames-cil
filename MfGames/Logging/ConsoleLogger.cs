@@ -41,7 +41,7 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Writes out a log message at the given severity.
 		/// </summary>
-		public void Log(Severity level, string context, string msg, Exception e)
+		public void Log(Severity level, object context, string msg, Exception e)
 		{
 			// Write out the message to standard error
 			Console.Error.WriteLine("{0,5}: {1}: {2}", level, context, msg);

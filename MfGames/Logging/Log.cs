@@ -40,31 +40,25 @@ namespace MfGames.Logging
 	{
 		#region Constructors
 
-		public Log(string context)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Log"/> class.
+		/// </summary>
+		/// <param name="context">The context.</param>
+		public Log(object context)
 		{
 			this.context = context;
-		}
-
-		public Log(Type type)
-			: this(type.ToString())
-		{
-		}
-
-		public Log(object obj)
-			: this(obj.GetType().ToString())
-		{
 		}
 
 		#endregion
 
 		#region Properties
 
-		private string context;
+		private readonly object context;
 
 		/// <summary>
 		/// Contains the current log context for this log object.
 		/// </summary>
-		public string LogContext
+		public object LogContext
 		{
 			get { return context; }
 		}

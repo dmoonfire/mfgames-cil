@@ -60,13 +60,13 @@ namespace MfGames.Logging
 
 		#region Alert
 
-		public static void Alert(string context, string msg, params object[] parms)
+		public static void Alert(object context, string msg, params object[] parms)
 		{
 			Alert(context, null, msg, parms);
 		}
 
 		public static void Alert(
-			string context, Exception e, string msg, params object[] parms)
+			object context, Exception e, string msg, params object[] parms)
 		{
 			if (logger != null)
 			{
@@ -89,13 +89,13 @@ namespace MfGames.Logging
 
 		#region Debug
 
-		public static void Debug(string context, string msg, params object[] parms)
+		public static void Debug(object context, string msg, params object[] parms)
 		{
 			Debug(context, null, msg, parms);
 		}
 
 		public static void Debug(
-			string context, Exception e, string msg, params object[] parms)
+			object context, Exception e, string msg, params object[] parms)
 		{
 			if (logger != null)
 			{
@@ -118,13 +118,13 @@ namespace MfGames.Logging
 
 		#region Error
 
-		public static void Error(string context, string msg, params object[] parms)
+		public static void Error(object context, string msg, params object[] parms)
 		{
 			Error(context, null, msg, parms);
 		}
 
 		public static void Error(
-			string context, Exception e, string msg, params object[] parms)
+			object context, Exception e, string msg, params object[] parms)
 		{
 			if (logger != null)
 			{
@@ -147,13 +147,13 @@ namespace MfGames.Logging
 
 		#region Fatal
 
-		public static void Fatal(string context, string msg, params object[] parms)
+		public static void Fatal(object context, string msg, params object[] parms)
 		{
 			Fatal(context, null, msg, parms);
 		}
 
 		public static void Fatal(
-			string context, Exception e, string msg, params object[] parms)
+			object context, Exception e, string msg, params object[] parms)
 		{
 			if (logger != null)
 			{
@@ -176,13 +176,13 @@ namespace MfGames.Logging
 
 		#region Info
 
-		public static void Info(string context, string msg, params object[] parms)
+		public static void Info(object context, string msg, params object[] parms)
 		{
 			Info(context, null, msg, parms);
 		}
 
 		public static void Info(
-			string context, Exception e, string msg, params object[] parms)
+			object context, Exception e, string msg, params object[] parms)
 		{
 			if (logger != null)
 			{
@@ -205,13 +205,13 @@ namespace MfGames.Logging
 
 		#region Trace
 
-		public static void Trace(string context, string msg, params object[] parms)
+		public static void Trace(object context, string msg, params object[] parms)
 		{
 			Trace(context, null, msg, parms);
 		}
 
 		public static void Trace(
-			string context, Exception e, string msg, params object[] parms)
+			object context, Exception e, string msg, params object[] parms)
 		{
 			if (logger != null)
 			{

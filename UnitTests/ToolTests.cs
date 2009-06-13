@@ -87,8 +87,8 @@ namespace UnitTests
 		public string f1;
 
 		[Optional("c1f2")]
-		private string f2;
-
+		private string f2 = null;
+        
 		public string F2
 		{
 			get { return f2; }

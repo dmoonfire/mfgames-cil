@@ -30,8 +30,18 @@ using System;
 
 namespace MfGames.Logging
 {
+	/// <summary>
+	/// Defines the common functions for methods that can recieve logging messages.
+	/// </summary>
 	public interface ILogSink
 	{
-		void Log(Severity level, string context, string msg, Exception e);
+		/// <summary>
+		/// Logs a message at the specific level using the given context.
+		/// </summary>
+		/// <param name="level">The level.</param>
+		/// <param name="context">The context.</param>
+		/// <param name="msg">The MSG.</param>
+		/// <param name="e">The e.</param>
+		void Log(Severity level, object context, string msg, Exception e);
 	}
 }
