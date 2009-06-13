@@ -25,11 +25,7 @@
 #region Namespaces
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml;
-
-using MfGames.Logging;
 
 #endregion
 
@@ -37,5 +33,53 @@ namespace MfGames.Settings
 {
 	public class XmlSettingsSerializer
 	{
+		#region Reading
+
+		/// <summary>
+		/// Reads the specified file and returns the resulting settings.
+		/// </summary>
+		/// <param name="fileInfo">The file info.</param>
+		/// <returns></returns>
+		public SettingsCollection Read(FileInfo fileInfo)
+		{
+			var settings = new SettingsCollection();
+			Read(fileInfo, settings);
+			return settings;
+		}
+
+		/// <summary>
+		/// Reads the specified file and places them into the settings object.
+		/// </summary>
+		/// <param name="fileInfo">The file info.</param>
+		/// <param name="settings">The settings.</param>
+		public void Read(FileInfo fileInfo, SettingsCollection settings)
+		{
+			// Check for valid properties.
+			if (settings == null)
+			{
+				throw new ArgumentNullException("settings");
+			}
+
+			if (fileInfo == null)
+			{
+				throw new ArgumentNullException("fileInfo");
+			}
+		}
+
+		#endregion
+
+		#region Writing
+
+		/// <summary>
+		/// Writes the specified settings to the given file.
+		/// </summary>
+		/// <param name="fileInfo">The file info.</param>
+		/// <param name="settings">The settings.</param>
+		public void Write(FileInfo fileInfo, SettingsCollection settings)
+		{
+
+		}
+
+		#endregion
 	}
 }

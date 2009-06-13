@@ -30,7 +30,63 @@ using System;
 
 namespace MfGames.Settings
 {
+	/// <summary>
+	/// Contains a nested tree of settings objects which are set and get into 
+	/// various objects.
+	/// </summary>
 	public class SettingsCollection
 	{
+		#region Settings
+
+		/// <summary>
+		/// Clears the specified settings for the given object.
+		/// </summary>
+		/// <param name="settingsObject">The settings object.</param>
+		public void Clear(object settingsObject)
+		{
+		}
+
+		/// <summary>
+		/// Gets the specified settings and populates the settingsObject.
+		/// </summary>
+		/// <param name="settingsObject">The settings object.</param>
+		/// <returns></returns>
+		public bool Get(object settingsObject)
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// Sets the specified settings from the given object.
+		/// </summary>
+		/// <param name="settingsObject">The settings object.</param>
+		public void Set(object settingsObject)
+		{
+		}
+
+		#endregion
+
+		#region Cloning
+
+		/// <summary>
+		/// Clones this instance.
+		/// </summary>
+		/// <returns></returns>
+		public SettingsCollection Clone()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Clones the specified settings for the given object.
+		/// </summary>
+		/// <param name="settingsObject">The settings object.</param>
+		/// <returns></returns>
+		public SettingsCollection Clone(object settingsObject)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
 	}
 }
