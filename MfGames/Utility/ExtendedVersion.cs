@@ -72,7 +72,7 @@ namespace MfGames.Utility
 			// Check for null and blank
 			if (version == null || version.Trim() == "")
 			{
-				throw new UtilityException("Cannot parse a null or blank version");
+				throw new Exception("Cannot parse a null or blank version");
 			}
 
 			// Save the string version and remove the spaces
@@ -81,7 +81,7 @@ namespace MfGames.Utility
 			// Check for spaces
 			if (regexSpace.IsMatch(version))
 			{
-				throw new UtilityException("Versions cannot have whitespace");
+				throw new Exception("Versions cannot have whitespace");
 			}
 
 			// Split the version into parts. We also allocate the space for
@@ -94,7 +94,7 @@ namespace MfGames.Utility
 			{
 				// Check for match and sanity checking
 				if (!regexPart.IsMatch(parts[i]))
-					throw new UtilityException("Cannot parse part '" + parts[i] + "' of '" +
+					throw new Exception("Cannot parse part '" + parts[i] + "' of '" +
 					                           version + "'");
 
 				// Pull out the parts
@@ -109,7 +109,7 @@ namespace MfGames.Utility
 				}
 				catch
 				{
-					throw new UtilityException("Cannot numerically parse '" + parts[i] + "'");
+					throw new Exception("Cannot numerically parse '" + parts[i] + "'");
 				}
 			}
 		}
@@ -291,7 +291,7 @@ namespace MfGames.Utility
 			case ">=":
 				return this >= v;
 			default:
-				throw new UtilityException("Cannot identify operation: " + op);
+				throw new Exception("Cannot identify operation: " + op);
 			}
 		}
 

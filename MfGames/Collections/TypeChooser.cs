@@ -62,7 +62,7 @@ namespace MfGames.Collections
 			// Sanity checking
 			if (typeName == null || typeName == "")
 			{
-				throw new UtilityException("Cannot add a null type");
+				throw new Exception("Cannot add a null type");
 			}
 
 			// Ignore null objects

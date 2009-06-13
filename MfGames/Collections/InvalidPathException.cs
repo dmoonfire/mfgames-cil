@@ -37,7 +37,7 @@ namespace MfGames.Collections
 	/// required by the system. This should be an indicator of invalid
 	/// characters or something of that manner.
 	/// </summary>
-	public class InvalidPathException : UtilityException
+	public class InvalidPathException : Exception
 	{
 		public InvalidPathException(string msg)
 			: base(msg)

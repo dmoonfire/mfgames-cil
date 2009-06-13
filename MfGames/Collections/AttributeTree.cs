@@ -81,7 +81,7 @@ namespace MfGames.Collections
 			{
 				// Throw exceptions for null
 				if (nref == null)
-					throw new UtilityException("Cannot retrieve a null node");
+					throw new Exception("Cannot retrieve a null node");
 
 				// If we have a zero-length path ("/"), then we mean this one.
 				if (nref.Count == 0)
@@ -146,7 +146,7 @@ namespace MfGames.Collections
 			AttributeTree at = CreateClone();
 
 			if (at == null)
-				throw new UtilityException("CrateClone cannot return null.");
+				throw new Exception("CrateClone cannot return null.");
 
 			// Copy the attributes
 			at.attributes = attributes.Clone() as Hashtable;
@@ -193,7 +193,7 @@ namespace MfGames.Collections
 
 				if (at == null)
 				{
-					throw new UtilityException("Cannot retrieve object from " + name);
+					throw new Exception("Cannot retrieve object from " + name);
 				}
 
 				// Check to see if this is already here

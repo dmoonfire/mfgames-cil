@@ -36,7 +36,7 @@ namespace MfGames.Collections
 	/// Indicates that the given path does not have an absolute path nor
 	/// can it be converted into an absolute path.
 	/// </summary>
-	public class NotAbsolutePathException : UtilityException
+	public class NotAbsolutePathException : Exception
 	{
 		public NotAbsolutePathException(string msg)
 			: base(msg)

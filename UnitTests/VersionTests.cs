@@ -24,6 +24,8 @@
 
 #region Namespaces
 
+using System;
+
 using MfGames.Utility;
 
 using NUnit.Framework;
@@ -320,7 +322,7 @@ namespace UnitTests
 			Assert.IsTrue(v1 < v2);
 		}
 
-		[ExpectedException(typeof(UtilityException))]
+		[ExpectedException(typeof(Exception))]
 		[Test]
 		public void ParseBlank()
 		{
@@ -342,7 +344,7 @@ namespace UnitTests
 			Assert.AreEqual("1.2-3.4d", v.ToString());
 		}
 
-		[ExpectedException(typeof(UtilityException))]
+		[ExpectedException(typeof(Exception))]
 		[Test]
 		public void ParseInnerSpace()
 		{
@@ -350,7 +352,7 @@ namespace UnitTests
 			Assert.IsTrue(v == null, "Never get here");
 		}
 
-		[ExpectedException(typeof(UtilityException))]
+		[ExpectedException(typeof(Exception))]
 		[Test]
 		public void ParseNull()
 		{
@@ -365,7 +367,7 @@ namespace UnitTests
 			Assert.AreEqual("1", v.ToString());
 		}
 
-		[ExpectedException(typeof(UtilityException))]
+		[ExpectedException(typeof(Exception))]
 		[Test]
 		public void ParseSpace()
 		{

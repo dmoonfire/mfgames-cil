@@ -107,7 +107,6 @@
     <Compile Include="Timing\TickArgs.cs" />
     <Compile Include="Timing\TickManager.cs" />
     <Compile Include="Collections\TypeChooser.cs" />
-    <Compile Include="Utility\UtilityException.cs" />
     <Compile Include="Collections\ValueTree.cs" />
     <Compile Include="Utility\ExtendedVersion.cs" />
     <Compile Include="Collections\WeightedSelector.cs" />

@@ -36,7 +36,7 @@ namespace MfGames.Entropy
 	/// Top-level for all utility exceptions. This indicates a general
 	/// problem with the Utility library or one of the methods inside it.
 	/// </summary>
-	public class DiceException : UtilityException
+	public class DiceException : Exception
 	{
 		public DiceException(string msg)
 			: base(msg)
