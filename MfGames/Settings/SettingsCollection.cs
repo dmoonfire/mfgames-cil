@@ -22,11 +22,15 @@
 
 #endregion
 
-namespace MfGames.Settings.Design
+#region Namespaces
+
+using System;
+
+#endregion
+
+namespace MfGames.Settings
 {
-	public enum FormatType
+	public class SettingsCollection
 	{
-		Normal,
-		Enumeration
 	}
 }

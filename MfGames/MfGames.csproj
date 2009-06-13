@@ -69,14 +69,6 @@
     <Compile Include="Numerics\PerlinNoise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entropy\AdditionDice.cs" />
-    <Compile Include="Settings\Design\DesignGroup.cs" />
-    <Compile Include="Settings\Design\DesignSetting.cs" />
-    <Compile Include="Settings\Design\DesignConfiguration.cs" />
-    <Compile Include="Settings\Design\FormatType.cs" />
-    <Compile Include="Settings\Design\UsageType.cs" />
-    <Compile Include="Settings\Design\XmlDesignGenerator.cs" />
-    <Compile Include="Settings\Design\XmlDesignReader.cs" />
-    <Compile Include="Settings\Design\XmlDesignWriter.cs" />
     <Compile Include="Timing\UpdateEventArgs.cs" />
     <Compile Include="Collections\AttributeTree.cs" />
     <Compile Include="Collections\AttributeTreeCollection.cs" />
@@ -93,8 +85,6 @@
     <Compile Include="Entropy\IDice.cs" />
     <Compile Include="Logging\ILogSink.cs" />
     <Compile Include="Collections\InvalidPathException.cs" />
-    <Compile Include="Settings\ISettings.cs" />
-    <Compile Include="Settings\ISettingsStore.cs" />
     <Compile Include="Timing\ITickable.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
@@ -108,7 +98,7 @@
     <Compile Include="Entropy\Scanner.cs" />
     <Compile Include="Timing\SecondsCountdown.cs" />
     <Compile Include="Timing\SecondsGauge.cs" />
-    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\SettingsCollection.cs" />
     <Compile Include="Logging\Severity.cs" />
     <Compile Include="Entropy\SubtractionDice.cs" />
     <Compile Include="Timing\TickArgs.cs" />
@@ -118,10 +108,7 @@
     <Compile Include="Collections\ValueTree.cs" />
     <Compile Include="Utility\ExtendedVersion.cs" />
     <Compile Include="Collections\WeightedSelector.cs" />
-    <Compile Include="Settings\XmlSettingsStore.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Settings\Design\XmlSettings.xsl" />
+    <Compile Include="Settings\XmlSettingsSerializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

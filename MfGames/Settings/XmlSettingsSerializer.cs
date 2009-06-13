@@ -22,15 +22,20 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+
+using MfGames.Logging;
+
+#endregion
+
 namespace MfGames.Settings
 {
-	/// <summary>
-	/// Interface to describe a settings store, or an actual backing
-	/// of settings somewhere in the system. This can be a .config
-	/// file, an XML store (XmlSettingsStore), or a Nini
-	/// configuration.
-	/// </summary>
-	public interface ISettingsStore : ISettings
+	public class XmlSettingsSerializer
 	{
 	}
 }
