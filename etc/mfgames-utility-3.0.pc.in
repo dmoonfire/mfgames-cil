@@ -1,8 +1,0 @@
-prefix=@prefix@
-exec_prefix=@exec_prefix@
-libdir=@libdir@
-
-Name: MfGames.Utility
-Description: MfGames.Utility - utility classes and functions for C# and VB.NET
-Version: @PACKAGE_VERSION@
-Libs: -r:${libdir}/cli/mfgames-utility-3.0/MfGames.Utility.dll
