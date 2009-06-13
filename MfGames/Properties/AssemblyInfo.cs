@@ -24,44 +24,33 @@
 
 #region Namespaces
 
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
 #endregion
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+// General assembly information.
 
 [assembly:AssemblyTitle("MfGames")]
 [assembly:AssemblyDescription("")]
 [assembly:AssemblyConfiguration("")]
-[assembly:AssemblyCompany("")]
+[assembly:AssemblyCompany("Moonfire Games")]
 [assembly:AssemblyProduct("MfGames")]
-[assembly:AssemblyCopyright("Copyright ©  2008")]
+[assembly:AssemblyCopyright("Copyright © 2009")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
-// COM, set the ComVisible attribute to true on that type.
+// Compliance attributes.
+
+[assembly: CLSCompliant(true)]
+
+// Attributes for identifying the assembly.
 
 [assembly:ComVisible(false)]
+[assembly:Guid("BE699A0B-3102-4f7c-852E-405C92FC08D0")]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
+// File and assembly versions.
 
-[assembly:Guid("86687be9-0812-4674-9473-2814ed7e54f7")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-
-[assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyFileVersion("1.0.0.0")]
+[assembly:AssemblyVersion("3.0.0.0")]
+[assembly:AssemblyFileVersion("3.0.0.0")]

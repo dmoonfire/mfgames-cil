@@ -39,10 +39,13 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeTreeTests.cs" />
     <Compile Include="AuditTests.cs" />
+    <Compile Include="ConfigManagerTests.cs" />
     <Compile Include="FractionTests.cs" />
     <Compile Include="NodeRefTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +58,9 @@
       <Project>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</Project>
       <Name>MfGames</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
