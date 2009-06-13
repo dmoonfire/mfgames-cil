@@ -22,6 +22,22 @@
 
 #endregion
 
+#region File-Specific License
+
+// This file is copied from an individual file on the Internet. It is included because
+// it is useful. It does have a specific license on its own.
+//
+// C# Version Copyright (C) 2001-2004 Akihilo Kramot (Takel).
+// C# porting from a C-program for MT19937, originaly coded by
+// Takuji Nishimura, considering the suggestions by
+// Topher Cooper and Marc Rieffel in July-Aug. 1997.
+// This library is free software under the Artistic license:
+//
+// You can find the original C-program at
+//     http://www.math.keio.ac.jp/~matumoto/mt.html
+
+#endregion
+
 #region Namespaces
 
 using System;
@@ -91,7 +107,9 @@ namespace MfGames.Entropy
 		{
 			var initArray = new uint[init.Length];
 			for (int i = 0; i < init.Length; ++i)
+			{
 				initArray[i] = (uint) init[i];
+			}
 
 			init_by_array(initArray, (uint) initArray.Length);
 		}
@@ -150,8 +168,7 @@ namespace MfGames.Entropy
 				minValue = tmp;
 			}
 
-			return
-				(int) (Math.Floor((maxValue - minValue + 1) * genrand_real1() + minValue));
+			return (int) (Math.Floor((maxValue - minValue + 1) * genrand_real1() + minValue));
 		}
 
 		/// <summary>
@@ -281,7 +298,9 @@ namespace MfGames.Entropy
 		{
 			var initArray = new uint[init.Length];
 			for (int i = 0; i < init.Length; ++i)
+			{
 				initArray[i] = (uint) init[i];
+			}
 
 			init_by_array(initArray, (uint) initArray.Length);
 		}
@@ -316,9 +335,7 @@ namespace MfGames.Entropy
 			k = (int) (N > key_length ? N : key_length);
 			for (; k > 0; k--)
 			{
-				mt[i] =
-					(uint)
-					((mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1664525U)) + init_key[j] + j);
+				mt[i] = (uint) ((mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1664525U)) + init_key[j] + j);
 				/* non linear */
 				mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
 				i++;
@@ -331,12 +348,13 @@ namespace MfGames.Entropy
 				}
 
 				if (j >= key_length)
+				{
 					j = 0;
+				}
 			}
 			for (k = N - 1; k > 0; k--)
 			{
-				mt[i] =
-					(uint) ((mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1566083941U)) - i);
+				mt[i] = (uint) ((mt[i] ^ ((mt[i - 1] ^ (mt[i - 1] >> 30)) * 1566083941U)) - i);
 				/* non linear */
 				mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
 				i++;
@@ -362,7 +380,9 @@ namespace MfGames.Entropy
 				int kk;
 
 				if (mti == N + 1) /* if init_genrand() has not been called, */
+				{
 					init_genrand(5489U); /* a default initial seed is used */
+				}
 
 				for (kk = 0; kk < N - M; kk++)
 				{

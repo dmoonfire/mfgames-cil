@@ -196,8 +196,7 @@ namespace MfGames.Utility.Annotations
 	/// {}
 	/// </code>
 	/// </example>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)
-	]
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
 	[BaseTypeRequired(typeof(Attribute))]
 	[CLSCompliant(false)]
 	public sealed class BaseTypeRequiredAttribute : Attribute
