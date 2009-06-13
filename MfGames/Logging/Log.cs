@@ -26,6 +26,8 @@
 
 using System;
 
+using MfGames.Utility.Annotations;
+
 #endregion
 
 namespace MfGames.Logging
@@ -65,91 +67,109 @@ namespace MfGames.Logging
 
 		#endregion
 
+		[StringFormatMethod("msg")]
 		public void Alert(string msg, params object[] parms)
 		{
 			Logger.Alert(LogContext, String.Format(msg, parms));
 		}
 
+		[StringFormatMethod("msg")]
 		public void Alert(Exception e, string msg, params object[] parms)
 		{
 			Logger.Alert(LogContext, e, String.Format(msg, parms));
 		}
 
+		[StringFormatMethod("msg")]
 		public static void Alert(Type type, string msg, params object[] parms)
 		{
 			Logger.Alert(type.ToString(), String.Format(msg, parms));
 		}
 
+		[StringFormatMethod("msg")]
 		public void Debug(string msg, params object[] parms)
 		{
 			Logger.Debug(LogContext, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public void Debug(Exception e, string msg, params object[] parms)
 		{
 			Logger.Debug(LogContext, e, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public static void Debug(Type type, string msg, params object[] parms)
 		{
 			Logger.Debug(type.ToString(), msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public void Error(string msg, params object[] parms)
 		{
 			Logger.Error(LogContext, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public void Error(Exception e, string msg, params object[] parms)
 		{
 			Logger.Error(LogContext, e, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public static void Error(Type type, string msg, params object[] parms)
 		{
 			Logger.Error(type.ToString(), msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public void Fatal(string msg, params object[] parms)
 		{
 			Logger.Fatal(LogContext, String.Format(msg, parms));
 		}
 
+		[StringFormatMethod("msg")]
 		public void Fatal(Exception e, string msg, params object[] parms)
 		{
 			Logger.Fatal(LogContext, e, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public static void Fatal(Type type, string msg, params object[] parms)
 		{
 			Logger.Fatal(type.ToString(), String.Format(msg, parms));
 		}
 
+		[StringFormatMethod("msg")]
 		public void Info(string msg, params object[] parms)
 		{
 			Logger.Info(LogContext, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public void Info(Exception e, string msg, params object[] parms)
 		{
 			Logger.Info(LogContext, e, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public static void Info(Type type, string msg, params object[] parms)
 		{
 			Logger.Info(type.ToString(), String.Format(msg, parms));
 		}
 
+		[StringFormatMethod("msg")]
 		public void Trace(string msg, params object[] parms)
 		{
 			Logger.Trace(LogContext, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public void Trace(Exception e, string msg, params object[] parms)
 		{
 			Logger.Trace(LogContext, e, msg, parms);
 		}
 
+		[StringFormatMethod("msg")]
 		public static void Trace(Type type, string msg, params object[] parms)
 		{
 			Logger.Trace(type.ToString(), String.Format(msg, parms));
