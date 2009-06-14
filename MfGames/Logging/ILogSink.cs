@@ -41,7 +41,7 @@ namespace MfGames.Logging
 		/// <param name="level">The level.</param>
 		/// <param name="context">The context.</param>
 		/// <param name="msg">The MSG.</param>
-		/// <param name="e">The e.</param>
-		void Log(Severity level, object context, string msg, Exception e);
+		/// <param name="exception">The e.</param>
+		void Log(Severity level, object context, string msg, Exception exception);
 	}
 }

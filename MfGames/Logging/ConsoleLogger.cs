@@ -41,15 +41,15 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Writes out a log message at the given severity.
 		/// </summary>
-		public void Log(Severity level, object context, string msg, Exception e)
+		public void Log(Severity level, object context, string msg, Exception exception)
 		{
 			// Write out the message to standard error
 			Console.Error.WriteLine("{0,5}: {1}: {2}", level, context, msg);
 
 			// Add the stack trace if we have an exception
-			if (e != null)
+			if (exception != null)
 			{
-				Console.Error.WriteLine(e.StackTrace);
+				Console.Error.WriteLine(exception.StackTrace);
 			}
 		}
 
