@@ -25,8 +25,11 @@
 #region Namespaces
 
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+
+using MfGames.Utility.Annotations;
 
 #endregion
 
@@ -36,7 +39,7 @@ namespace MfGames.Utility
 	/// Contains various useful string conversion and hash methods. All
 	/// of the methods in this class are static.
 	/// </summary>
-	public abstract class ExtendedConvert
+	public static class ExtendedConvert
 	{
 		#region String Functions
 
@@ -98,6 +101,89 @@ namespace MfGames.Utility
 			MD5 md5 = new MD5CryptoServiceProvider();
 			byte[] hash = md5.ComputeHash(input2);
 			return Convert.ToBase64String(hash);
+		}
+
+		#endregion
+
+		#region Type Conversions
+
+		private static readonly Dictionary<Type, Dictionary<Type, IExtendedConverter>> converters = new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
+
+		/// <summary>
+		/// Changes the given value to something that matches the converted type.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <param name="convertType">Type of the convert.</param>
+		/// <returns></returns>
+		public static object ChangeType(object value, Type convertType)
+		{
+			// Check our custom converters first.
+			if (converters.ContainsKey(value.GetType()))
+			{
+				Dictionary<Type, IExtendedConverter> conversions = converters[value.GetType()];
+
+				if (conversions.ContainsKey(convertType))
+				{
+					return conversions[convertType].Convert(value, convertType);
+				}
+			}
+
+			// Failing everything else, fall back to the default converter.
+			return Convert.ChangeType(value, convertType);
+		}
+
+		/// <summary>
+		/// Registers the converter to change a value from fromType to toType. If there is a converter already registered,
+		/// it will be replaced by this one.
+		/// </summary>
+		/// <param name="fromType">From type.</param>
+		/// <param name="toType">To type.</param>
+		/// <param name="converter">The converter.</param>
+		public static void RegisterConverter([NotNull] Type fromType, [NotNull] Type toType, [NotNull] IExtendedConverter converter)
+		{
+			// Check for null values in any of the paramters.
+			if (fromType == null)
+			{
+				throw new ArgumentNullException("fromType");
+			}
+
+			if (toType == null)
+			{
+				throw new ArgumentNullException("toType");
+			}
+
+			if (converter == null)
+			{
+				throw new ArgumentNullException("converter");
+			}
+
+			// Get or create the from type.
+			if (!converters.ContainsKey(fromType))
+			{
+				converters.Add(fromType, new Dictionary<Type, IExtendedConverter>());
+			}
+
+			Dictionary<Type, IExtendedConverter> fromConverters = converters[fromType];
+
+			// Get or create the to type and set the converter to that key.
+			if (!fromConverters.ContainsKey(toType))
+			{
+				fromConverters.Add(toType, converter);
+			}
+			else
+			{
+				fromConverters[toType] = converter;
+			}
+		}
+
+		/// <summary>
+		/// Converts the given object into a string representation.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static string ToString(object value)
+		{
+			return (string) ChangeType(value, typeof(string));
 		}
 
 		#endregion
