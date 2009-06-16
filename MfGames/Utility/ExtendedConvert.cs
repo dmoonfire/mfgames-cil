@@ -30,6 +30,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 using MfGames.Utility.Annotations;
+using MfGames.Utility.Converters;
 
 #endregion
 
@@ -41,6 +42,21 @@ namespace MfGames.Utility
 	/// </summary>
 	public static class ExtendedConvert
 	{
+		#region Initialization
+
+		/// <summary>
+		/// Initializes the <see cref="ExtendedConvert"/> class.
+		/// </summary>
+		static ExtendedConvert()
+		{
+			// Register the common converters used.
+			IExtendedConverter converter = new ColorConverter();
+			RegisterConverter(typeof(System.Drawing.Color), typeof(string), converter);
+			RegisterConverter(typeof(string), typeof(System.Drawing.Color), converter);
+		}
+
+		#endregion
+
 		#region String Functions
 
 		private static readonly char[] HexDigits = {
@@ -187,5 +203,23 @@ namespace MfGames.Utility
 		}
 
 		#endregion
+	}
+
+	/// <summary>
+	/// Generics-based implementation of the extended converter.
+	/// </summary>
+	/// <typeparam name="TFrom">The type of from.</typeparam>
+	/// <typeparam name="TTo">The type of to.</typeparam>
+	public static class ExtendedConvert<TFrom, TTo>
+	{
+		/// <summary>
+		/// Changes the type from the given value to the type specified by the interface.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static TTo ChangeType(object value)
+		{
+			return (TTo) ExtendedConvert.ChangeType(value, typeof(TTo));
+		}
 	}
 }

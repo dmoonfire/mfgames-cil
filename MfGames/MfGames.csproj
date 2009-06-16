@@ -87,6 +87,7 @@
     <Compile Include="Entropy\DiceException.cs" />
     <Compile Include="Entropy\DiceFactory.cs" />
     <Compile Include="Entropy\RandomManager.cs" />
+    <Compile Include="Utility\Converters\ColorConverter.cs" />
     <Compile Include="Utility\Enum.cs" />
     <Compile Include="Logging\IAuditable.cs" />
     <Compile Include="Entropy\IDice.cs" />
