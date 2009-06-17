@@ -60,7 +60,7 @@ namespace MfGames.Collections
 		/// Returns the attribute tree node for the given path. If it does
 		/// not exist, a null is returned.
 		/// </summary>
-		public AttributeTree this[NodeRef nref]
+		public AttributeTree this[PathInfo nref]
 		{
 			get { return this[nref, false]; }
 			set { BaseSet(nref.ToString(), value); }
@@ -75,7 +75,7 @@ namespace MfGames.Collections
 		/// one. Instead, you should retrieve it from the
 		/// AttributeTree["/"].
 		/// </summary>
-		public AttributeTree this[NodeRef nref, bool create]
+		public AttributeTree this[PathInfo nref, bool create]
 		{
 			get
 			{
@@ -90,7 +90,7 @@ namespace MfGames.Collections
 
 				// Grab the first element
 				string first = "/" + nref[0];
-				var firstRef = new NodeRef(first);
+				var firstRef = new PathInfo(first);
 
 				// Check for it
 				var at = (AttributeTree) base.BaseGet(first);
@@ -109,20 +109,20 @@ namespace MfGames.Collections
 				}
 
 				// Return it down the path
-				NodeRef nr = firstRef.GetSubRef(nref);
+				PathInfo nr = firstRef.GetSubRef(nref);
 				return at[nr, create];
 			}
 		}
 
 		/// <summary>
 		/// Allows the child to be selected based on node reference. This
-		/// is wrapped into a NodeRef and may throw an exception if it is
+		/// is wrapped into a PathInfo and may throw an exception if it is
 		/// an invalid path. The default is not to create the elements as
 		/// needed.
 		/// </summary>
 		public AttributeTree this[string name]
 		{
-			get { return this[new NodeRef(name), false]; }
+			get { return this[new PathInfo(name), false]; }
 		}
 
 		/// <summary>
@@ -131,7 +131,7 @@ namespace MfGames.Collections
 		/// </summary>
 		public AttributeTree this[string name, bool create]
 		{
-			get { return this[new NodeRef(name), create]; }
+			get { return this[new PathInfo(name), create]; }
 		}
 
 		/// <summary>

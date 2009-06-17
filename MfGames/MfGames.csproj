@@ -100,7 +100,7 @@
     <Compile Include="Entropy\MersenneRandom.cs" />
     <Compile Include="Entropy\MersenneTwister.cs" />
     <Compile Include="Utility\ExtendedConvert.cs" />
-    <Compile Include="Collections\NodeRef.cs" />
+    <Compile Include="Collections\PathInfo.cs" />
     <Compile Include="Collections\NotAbsolutePathException.cs" />
     <Compile Include="Entropy\Parser.cs" />
     <Compile Include="Entropy\RandomDice.cs" />

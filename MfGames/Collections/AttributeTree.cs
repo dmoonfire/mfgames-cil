@@ -51,7 +51,7 @@ namespace MfGames.Collections
 		public AttributeTree()
 		{
 			// Set our path
-			Path = new NodeRef("/");
+			Path = new PathInfo("/");
 
 			// Create our children
 			children = new AttributeTreeCollection(this);
@@ -65,7 +65,7 @@ namespace MfGames.Collections
 		/// Returns the attribute tree node for the given path. If it does
 		/// not exist, a null is returned.
 		/// </summary>
-		public AttributeTree this[NodeRef nref]
+		public AttributeTree this[PathInfo nref]
 		{
 			get { return this[nref, false]; }
 		}
@@ -75,7 +75,7 @@ namespace MfGames.Collections
 		/// the second parameter is true, then it automatically creates it
 		/// and any parent objects above it as needed.
 		/// </summary>
-		public AttributeTree this[NodeRef nref, bool create]
+		public AttributeTree this[PathInfo nref, bool create]
 		{
 			get
 			{
@@ -94,13 +94,13 @@ namespace MfGames.Collections
 
 		/// <summary>
 		/// Allows the child to be selected based on node reference. This
-		/// is wrapped into a NodeRef and may throw an exception if it is
+		/// is wrapped into a PathInfo and may throw an exception if it is
 		/// an invalid path. The default is not to create the elements as
 		/// needed.
 		/// </summary>
 		public AttributeTree this[string name]
 		{
-			get { return this[new NodeRef(name), false]; }
+			get { return this[new PathInfo(name), false]; }
 		}
 
 		/// <summary>
@@ -109,7 +109,7 @@ namespace MfGames.Collections
 		/// </summary>
 		public AttributeTree this[string name, bool create]
 		{
-			get { return this[new NodeRef(name), create]; }
+			get { return this[new PathInfo(name), create]; }
 		}
 
 		/// <summary>
@@ -118,14 +118,14 @@ namespace MfGames.Collections
 		/// </summary>
 		public AttributeTree Create(string name)
 		{
-			return Create(new NodeRef(name));
+			return Create(new PathInfo(name));
 		}
 
 		/// <summary>
 		/// Ensures that the node is created and returns it as
 		/// appropriate. This automatically creates any parent nodes.
 		/// </summary>
-		public AttributeTree Create(NodeRef nref)
+		public AttributeTree Create(PathInfo nref)
 		{
 			// Create it
 			AttributeTree at = this[nref, true];
@@ -214,9 +214,9 @@ namespace MfGames.Collections
 		/// <summary>
 		/// Called when a new child is created (but not cloned).
 		/// </summary>
-		public virtual void OnCreatedAsChild(NodeRef nref, AttributeTree parent)
+		public virtual void OnCreatedAsChild(PathInfo nref, AttributeTree parent)
 		{
-			Path = new NodeRef(parent.Path + nref.ToString());
+			Path = new PathInfo(parent.Path + nref.ToString());
 		}
 
 		#endregion
@@ -262,7 +262,7 @@ namespace MfGames.Collections
 			{
 				foreach (AttributeTree at in value)
 				{
-					children[new NodeRef("/" + at.Path.Name)] = at;
+					children[new PathInfo("/" + at.Path.Name)] = at;
 				}
 			}
 		}
@@ -270,7 +270,7 @@ namespace MfGames.Collections
 		/// <summary>
 		/// Contains the path of this node.
 		/// </summary>
-		public NodeRef Path { get; set; }
+		public PathInfo Path { get; set; }
 
 		#endregion
 	}

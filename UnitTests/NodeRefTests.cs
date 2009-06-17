@@ -45,8 +45,8 @@ namespace UnitTests
 		[Test]
 		public void ChildIndex()
 		{
-			var up = new NodeRef("/dir1/sub1");
-			NodeRef c1 = up["sub2/sub3"];
+			var up = new PathInfo("/dir1/sub1");
+			PathInfo c1 = up["sub2/sub3"];
 			Assert.AreEqual("/dir1/sub1/sub2/sub3", c1.Path);
 		}
 
@@ -56,7 +56,7 @@ namespace UnitTests
 		[Test]
 		public void Count1()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.AreEqual(3, nr.Count);
 		}
 
@@ -66,7 +66,7 @@ namespace UnitTests
 		[Test]
 		public void Count2()
 		{
-			var nr = new NodeRef("/a");
+			var nr = new PathInfo("/a");
 			Assert.AreEqual(1, nr.Count);
 		}
 
@@ -76,7 +76,7 @@ namespace UnitTests
 		[Test]
 		public void Count3()
 		{
-			var nr = new NodeRef("/");
+			var nr = new PathInfo("/");
 			Assert.AreEqual(0, nr.Count);
 		}
 
@@ -86,7 +86,7 @@ namespace UnitTests
 		[Test]
 		public void DoubleDot()
 		{
-			var nr = new NodeRef("/a/b/../c");
+			var nr = new PathInfo("/a/b/../c");
 			Assert.AreEqual("/a/c", nr.Path);
 		}
 
@@ -96,7 +96,7 @@ namespace UnitTests
 		[Test]
 		public void DoubleDotTop()
 		{
-			var nr = new NodeRef("/a/..");
+			var nr = new PathInfo("/a/..");
 			Assert.AreEqual("/", nr.Path);
 		}
 
@@ -106,8 +106,8 @@ namespace UnitTests
 		[Test]
 		public void Includes1()
 		{
-			var nr = new NodeRef("/this/is");
-			var sr = new NodeRef("/this/is/a/path");
+			var nr = new PathInfo("/this/is");
+			var sr = new PathInfo("/this/is/a/path");
 			Assert.AreEqual(true, nr.Includes(sr));
 		}
 
@@ -117,8 +117,8 @@ namespace UnitTests
 		[Test]
 		public void Includes2()
 		{
-			var nr = new NodeRef("/this/is");
-			var sr = new NodeRef("/not/in/is/a/path");
+			var nr = new PathInfo("/this/is");
+			var sr = new PathInfo("/not/in/is/a/path");
 			Assert.AreEqual(false, nr.Includes(sr));
 		}
 
@@ -128,8 +128,8 @@ namespace UnitTests
 		[Test]
 		public void Includes3()
 		{
-			var nr = new NodeRef("/this/is");
-			var sr = new NodeRef("/this/is");
+			var nr = new PathInfo("/this/is");
+			var sr = new PathInfo("/this/is");
 			Assert.AreEqual(true, nr.Includes(sr));
 		}
 
@@ -139,8 +139,8 @@ namespace UnitTests
 		[Test]
 		public void Includes4()
 		{
-			var nr = new NodeRef("/this/is");
-			var sr = new NodeRef("/this");
+			var nr = new PathInfo("/this/is");
+			var sr = new PathInfo("/this");
 			Assert.AreEqual(false, nr.Includes(sr));
 		}
 
@@ -150,7 +150,7 @@ namespace UnitTests
 		[Test]
 		public void InvalidDoubleDot2()
 		{
-			var nr = new NodeRef("/../..");
+			var nr = new PathInfo("/../..");
 			Assert.AreEqual("/", nr.Path);
 		}
 
@@ -160,8 +160,8 @@ namespace UnitTests
 		[Test]
 		public void LeadingDot()
 		{
-			var context = new NodeRef("/");
-			var nr = new NodeRef(".", context);
+			var context = new PathInfo("/");
+			var nr = new PathInfo(".", context);
 			Assert.AreEqual("/", nr.Path);
 		}
 
@@ -171,8 +171,8 @@ namespace UnitTests
 		[Test]
 		public void LeadingDotSlash()
 		{
-			var context = new NodeRef("/");
-			var nr = new NodeRef("./", context);
+			var context = new PathInfo("/");
+			var nr = new PathInfo("./", context);
 			Assert.AreEqual("/", nr.Path);
 		}
 
@@ -182,7 +182,7 @@ namespace UnitTests
 		[Test]
 		public void Name()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.AreEqual("c", nr.Name);
 		}
 
@@ -193,7 +193,7 @@ namespace UnitTests
 		[Test]
 		public void NoAbsolute()
 		{
-			new NodeRef("foo");
+			new PathInfo("foo");
 		}
 
 		/// <summary>
@@ -202,7 +202,7 @@ namespace UnitTests
 		[Test]
 		public void ParentPath()
 		{
-			var up = new NodeRef("/dir1/sub1");
+			var up = new PathInfo("/dir1/sub1");
 			string up1 = up.ParentPath;
 			Assert.AreEqual("/dir1", up1);
 		}
@@ -213,8 +213,8 @@ namespace UnitTests
 		[Test]
 		public void ParentRef()
 		{
-			var up = new NodeRef("/dir1/sub1");
-			NodeRef up1 = up.ParentRef;
+			var up = new PathInfo("/dir1/sub1");
+			PathInfo up1 = up.ParentPathInfo;
 			Assert.AreEqual("/dir1", up1.Path);
 		}
 
@@ -224,7 +224,7 @@ namespace UnitTests
 		[Test]
 		public void ParsePluses()
 		{
-			var nr = new NodeRef("/Test/Test +1/Test +2");
+			var nr = new PathInfo("/Test/Test +1/Test +2");
 			Assert.AreEqual("/Test/Test +1/Test +2", nr.ToString());
 			Assert.AreEqual("Test +2", nr.Name);
 		}
@@ -235,16 +235,16 @@ namespace UnitTests
 		[Test]
 		public void Simple()
 		{
-			var up = new NodeRef("/dir1/sub1");
+			var up = new PathInfo("/dir1/sub1");
 			Assert.AreEqual("/dir1/sub1", up.Path);
 		}
 
 		[Test]
 		public void SubPluses()
 		{
-			var nr = new NodeRef("/Test +1/A");
-			var nr2 = new NodeRef("/Test +1");
-			NodeRef nr3 = nr2.GetSubRef(nr);
+			var nr = new PathInfo("/Test +1/A");
+			var nr2 = new PathInfo("/Test +1");
+			PathInfo nr3 = nr2.GetSubRef(nr);
 			Assert.AreEqual("/A", nr3.ToString());
 		}
 
@@ -254,8 +254,8 @@ namespace UnitTests
 		[Test]
 		public void SubRef1()
 		{
-			var nr = new NodeRef("/this/is");
-			var sr = new NodeRef("/this/is/a/path");
+			var nr = new PathInfo("/this/is");
+			var sr = new PathInfo("/this/is/a/path");
 			Assert.AreEqual("/a/path", nr.GetSubRef(sr).Path);
 		}
 
@@ -265,8 +265,8 @@ namespace UnitTests
 		[Test]
 		public void SubRef2()
 		{
-			var nr = new NodeRef("/this/is");
-			var sr = new NodeRef("/this/is");
+			var nr = new PathInfo("/this/is");
+			var sr = new PathInfo("/this/is");
 			Assert.AreEqual("/", nr.GetSubRef(sr).Path);
 		}
 
@@ -276,8 +276,8 @@ namespace UnitTests
 		[Test]
 		public void SubRef3()
 		{
-			var nr = new NodeRef("/this/is/a/path");
-			var sr = new NodeRef("/this/is");
+			var nr = new PathInfo("/this/is/a/path");
+			var sr = new PathInfo("/this/is");
 			Assert.AreEqual("/this/is", nr.GetSubRef(sr).Path);
 		}
 
@@ -287,8 +287,8 @@ namespace UnitTests
 		[Test]
 		public void SubRef4()
 		{
-			var nr = new NodeRef("/this/is/a/path");
-			var sr = new NodeRef("/not/a/path");
+			var nr = new PathInfo("/this/is/a/path");
+			var sr = new PathInfo("/not/a/path");
 			Assert.AreEqual("/not/a/path", nr.GetSubRef(sr).Path);
 		}
 
@@ -298,7 +298,7 @@ namespace UnitTests
 		[Test]
 		public void TestDoubleStarMatch()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.IsTrue(nr.IsMatch("/**/c"));
 		}
 
@@ -308,7 +308,7 @@ namespace UnitTests
 		[Test]
 		public void TestEscapedNone()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.AreEqual("/a/b/c", nr.ToString(), "String comparison");
 		}
 
@@ -318,9 +318,9 @@ namespace UnitTests
 		[Test]
 		public void TestEscapedStar()
 		{
-			var nr = new NodeRef("/*/*/*");
+			var nr = new PathInfo("/*/*/*");
 			Assert.AreEqual("/*/*/*", nr.ToString(), "String comparison");
-			Assert.IsTrue(nr.Includes(new NodeRef("/*/*/*/abb")), "nr.Includes");
+			Assert.IsTrue(nr.Includes(new PathInfo("/*/*/*/abb")), "nr.Includes");
 		}
 
 		/// <summary>
@@ -329,8 +329,8 @@ namespace UnitTests
 		[Test]
 		public void TestNodeCreateChild()
 		{
-			var up = new NodeRef("/dir1/sub1");
-			NodeRef c1 = up.CreateChild("sub2");
+			var up = new PathInfo("/dir1/sub1");
+			PathInfo c1 = up.CreateChild("sub2");
 			Assert.AreEqual("/dir1/sub1/sub2", c1.Path);
 		}
 
@@ -340,7 +340,7 @@ namespace UnitTests
 		[Test]
 		public void TestSingleStarMatch()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.IsTrue(nr.IsMatch("/a/*/c"));
 		}
 
@@ -350,7 +350,7 @@ namespace UnitTests
 		[Test]
 		public void TestSingleStarMatch2()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.IsTrue(nr.IsMatch("/*/*/c"));
 		}
 
@@ -360,7 +360,7 @@ namespace UnitTests
 		[Test]
 		public void TestSingleStarMatch3()
 		{
-			var nr = new NodeRef("/a/b/c");
+			var nr = new PathInfo("/a/b/c");
 			Assert.IsFalse(nr.IsMatch("/*/*/*/c"));
 		}
 	}

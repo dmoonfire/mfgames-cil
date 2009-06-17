@@ -39,8 +39,8 @@ namespace MfGames.Collections
 	/// referencing a file outside of the reference's scope.
 	///
 	/// A top-level reference starts with "/" as <i>absolute</i>. All
-	/// NodeRef objects are absolute, to create a reference without a
-	/// leading "/" requires a second, non-null NodeRef object to
+	/// PathInfo objects are absolute, to create a reference without a
+	/// leading "/" requires a second, non-null PathInfo object to
 	/// identify the current context of the reference. Paths also never
 	/// end in a trailing "/".
 	///
@@ -54,12 +54,12 @@ namespace MfGames.Collections
 	/// automatically.
 	/// </summary>
 	[Serializable]
-	public class NodeRef
+	public class PathInfo
 	{
 		#region Constants
 
 		// Contains the common root context
-		public static readonly NodeRef RootContext = new NodeRef();
+		public static readonly PathInfo RootContext = new PathInfo();
 
 		#endregion
 
@@ -68,9 +68,8 @@ namespace MfGames.Collections
 		/// <summary>
 		/// Private constructor that makes a root context.
 		/// </summary>
-		public NodeRef()
+		public PathInfo()
 		{
-			pref = "/";
 			parts = new string[] { };
 		}
 
@@ -79,13 +78,13 @@ namespace MfGames.Collections
 		/// path is invalid in any manner, including not being absolute,
 		/// an exception is thrown.
 		/// </summary>
-		public NodeRef(string path)
+		public PathInfo(string path)
 		{
 			// Create the path components
 			ParsePath(path, null);
 		}
 
-		public NodeRef(string path, NodeRef context)
+		public PathInfo(string path, PathInfo context)
 		{
 			// Create the path components
 			ParsePath(path, context);
@@ -96,31 +95,33 @@ namespace MfGames.Collections
 		#region Path Construction
 
 		/// Frequently used regex to simplify dupliate "//" characters
-		private static readonly Regex findDoubleSlashRegex = new Regex("//+");
+		private static readonly Regex FindDoubleSlashRegex = new Regex("//+");
 
 		// Regex to remove leading slashes
 
 		// Regex to find "/./" references
-		private static readonly Regex findHereRegex = new Regex("/\\./");
+		private static readonly Regex FindHereRegex = new Regex("/\\./");
 
 		// Regex to find the "/<something>/../"
 
 		// Regex to find the "/../"
-		private static readonly Regex findInvalidUpRegex = new Regex("/\\.\\./");
-		private static readonly Regex findLeadingSlashesRegex = new Regex("^/+");
-		private static readonly Regex findRefUpRegex = new Regex("/[^/]+/\\.\\./");
-		private static readonly Regex findTrailingSlashesRegex = new Regex("/+$");
+		private static readonly Regex FindInvalidUpRegex = new Regex("/\\.\\./");
+		private static readonly Regex FindLeadingSlashesRegex = new Regex("^/+");
+		private static readonly Regex FindRefUpRegex = new Regex("/[^/]+/\\.\\./");
+		private static readonly Regex FindTrailingSlashesRegex = new Regex("/+$");
 
 		/// <summary>
 		/// This parses the given path and builds up the public
 		/// representation into memory. This representation is used
 		/// for path and additional processing.
 		/// </summary>
-		private void ParsePath(string path, NodeRef context)
+		private void ParsePath(string path, PathInfo context)
 		{
 			// Perform some sanity checking on the path
 			if (path == null)
-				throw new InvalidPathException("Cannot create a node " + "ref from a null");
+			{
+				throw new ArgumentNullException("path");
+			}
 
 			// Check for absolute path
 			if (!path.StartsWith("/"))
@@ -128,8 +129,7 @@ namespace MfGames.Collections
 				// We don't have an absolute path, so check the context
 				if (context == null)
 				{
-					throw new NotAbsolutePathException("Cannot create " +
-					                                   "absolute path from '" + path + "'");
+					throw new NotAbsolutePathException("Cannot create absolute path from '" + path + "'");
 				}
 
 				// Construct the new path from this context
@@ -147,33 +147,24 @@ namespace MfGames.Collections
 			// make it easier and faster. We add the "/" to simplify our
 			// regexes later; we will also remove it as the last bit.
 			path += "/";
-			path = findDoubleSlashRegex.Replace(path, "/");
-			//Debug("Processing 1: {0}", path);
-
-			// Normalize the invalid characters
-			//Debug("Processing 2: {0}", path);
+			path = FindDoubleSlashRegex.Replace(path, "/");
 
 			// Normalize the "/./" and the "/../" references. Also remove
 			// the "/../" stuff at the beginning, by just deleting it.
-			path = findHereRegex.Replace(path, "/");
-			path = findRefUpRegex.Replace(path, "/");
-			path = findInvalidUpRegex.Replace(path, "/");
-			//Debug("Processing: {0} => {1}", orig, path);
+			path = FindHereRegex.Replace(path, "/");
+			path = FindRefUpRegex.Replace(path, "/");
+			path = FindInvalidUpRegex.Replace(path, "/");
 
 			// Finally, remove the leading and trailing slash that we put in.
-			//Debug("Processing 1: {0} => {1}", orig, path);
-			path = findTrailingSlashesRegex.Replace(path, "");
-			path = findLeadingSlashesRegex.Replace(path, "").Trim();
-			//Debug("Processing 2: {0} => {1}", orig, path);
+			path = FindTrailingSlashesRegex.Replace(path, "");
+			path = FindLeadingSlashesRegex.Replace(path, "").Trim();
 
 			// We need to do is make sure the regex characters are not
 			// allowed in the string. We do this by just replacing all
 			// the important ones with escaped versions.
 			regexable = "/" +
-			            path.Replace("+", "\\+").Replace("(", "\\(").Replace(")", "\\)").
-			            	Replace("[", "\\[").Replace("]", "\\]").Replace(".", "\\.").
-			            	Replace("*", "\\*").Replace("?", "\\?");
-			//Debug("Processing 3: {0}", path);
+			            path.Replace("+", "\\+").Replace("(", "\\(").Replace(")", "\\)").Replace("[", "\\[").Replace("]", "\\]").Replace(
+			            	".", "\\.").Replace("*", "\\*").Replace("?", "\\?");
 
 			// We now have a normalized path, without a leading or a
 			// trailing slash. If this is a blank string (one with no
@@ -186,13 +177,11 @@ namespace MfGames.Collections
 			{
 				// This is an empty path, which means it was a "/" reference
 				parts = new string[] { };
-				pref = "/";
 			}
 			else
 			{
 				// Split it along the slash characters
 				parts = path.Split('/');
-				pref = "/" + path;
 			}
 		}
 
@@ -202,7 +191,6 @@ namespace MfGames.Collections
 
 		// Constaints the string version of the entire path
 		private string[] parts;
-		private string pref;
 
 		// Contains the string usable in regexes
 		private string regexable;
@@ -222,8 +210,7 @@ namespace MfGames.Collections
 		/// </summary>
 		public string Path
 		{
-			get { return pref; }
-			set { pref = value; }
+			get { return "/" + string.Join("/", parts); }
 		}
 
 		/// <summary>
@@ -242,31 +229,33 @@ namespace MfGames.Collections
 			get
 			{
 				if (parts.Length == 0)
+				{
 					return ".";
-				else
-					return parts[parts.Length - 1];
-			}
+				}
 
-			set { }
+				return parts[parts.Length - 1];
+			}
 		}
 
 		/// <summary>
-		/// Returns a NodeRef which has this node's path removed from the
+		/// Returns a PathInfo which has this node's path removed from the
 		/// beginning. If the given reference is not included (as per the
 		/// Includes), it will be returned completely.
 		/// </summary>
-		public NodeRef GetSubRef(NodeRef nodeRef)
+		public PathInfo GetSubRef(PathInfo pathInfo)
 		{
 			// Check for includes
-			if (!Includes(nodeRef))
-				return nodeRef;
+			if (!Includes(pathInfo))
+			{
+				return pathInfo;
+			}
 
 			// Remove the first part. There is an easy method because we are
 			// so strict about paths. We use the root context in the case
 			// where the leading / is removed.
-			string path = Regex.Replace(nodeRef.Path, "^" + regexable, "");
+			string path = Regex.Replace(pathInfo.Path, "^" + regexable, "");
 
-			return new NodeRef(path, RootContext);
+			return new PathInfo(path, RootContext);
 		}
 
 		/// <summary>
@@ -274,8 +263,8 @@ namespace MfGames.Collections
 		/// </summary>
 		public override bool Equals(object obj)
 		{
-			var path = (NodeRef) obj;
-			return pref.Equals(path.pref);
+			var path = (PathInfo) obj;
+			return Path.Equals(path.Path);
 		}
 
 		/// <summary>
@@ -283,14 +272,14 @@ namespace MfGames.Collections
 		/// </summary>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return parts.GetHashCode();
 		}
 
 		/// <summary>
 		/// Returns true if this path includes the given path. This means
 		/// that given path is under or part of this node's path.
 		/// </summary>
-		public bool Includes(NodeRef path)
+		public bool Includes(PathInfo path)
 		{
 			// We have a real easy way of finding this
 			return Regex.IsMatch(path.ToString(), "^" + regexable);
@@ -307,10 +296,8 @@ namespace MfGames.Collections
 		{
 			// First sanatize the regular expressions
 			string regex =
-				pattern.Replace("\\", "\\\\").Replace("+", "\\+").Replace("(", "\\(").
-					Replace(")", "\\)").Replace("[", "\\[").Replace("]", "\\]").Replace(".",
-					                                                                    "\\.").
-					Replace("?", "\\?");
+				pattern.Replace("\\", "\\\\").Replace("+", "\\+").Replace("(", "\\(").Replace(")", "\\)").Replace("[", "\\[").Replace("]", "\\]")
+					.Replace(".", "\\.").Replace("?", "\\?");
 
 			// The "**" includes anything, including a path separator
 			// while the "*" only includes everything but a path
@@ -327,7 +314,7 @@ namespace MfGames.Collections
 		/// </summary>
 		public override string ToString()
 		{
-			return pref;
+			return Path;
 		}
 
 		#endregion
@@ -339,9 +326,9 @@ namespace MfGames.Collections
 		/// from this one. This, in effect, calls CreateChild(). The
 		/// exception is if the path is given as ".." which then returns
 		/// the parent object as appropriate (this will already return
-		/// something, unlike ParentRef or ParentPath.
+		/// something, unlike ParentPathInfo or ParentPath.
 		/// </summary>
-		public NodeRef this[string childPath]
+		public PathInfo this[string childPath]
 		{
 			get { return CreateChild(childPath); }
 		}
@@ -350,11 +337,11 @@ namespace MfGames.Collections
 		/// Creates a child from this node, by creating the path that uses
 		/// this object as a context.
 		/// </summary>
-		public NodeRef CreateChild(string childPath)
+		public PathInfo CreateChild(string childPath)
 		{
 			// By the rules, prefixing "./" will also create the desired
 			// results and use this as a context.
-			return new NodeRef("./" + childPath, this);
+			return new PathInfo("./" + childPath, this);
 		}
 
 		/// <summary>
@@ -365,18 +352,13 @@ namespace MfGames.Collections
 		public string ToFileSystemPath()
 		{
 			// Get the path
-			string nref = pref.Substring(1);
+			string nref = Path.Substring(1);
 
 			// We always use "/", so map it if we need "\"
 			if (System.IO.Path.DirectorySeparatorChar != '/')
 			{
-				nref = Regex.Replace(nref,
-				                     "/",
-				                     Regex.Escape(
-				                     	System.IO.Path.DirectorySeparatorChar.ToString()));
+				nref = Regex.Replace(nref, "/", Regex.Escape(System.IO.Path.DirectorySeparatorChar.ToString()));
 			}
-
-			//Debug("Trying {0} to {1}", pref, nref);
 
 			// Return it
 			return nref;
@@ -390,17 +372,19 @@ namespace MfGames.Collections
 		/// Returns the node reference for a parent. If this is already
 		/// the root, it will automatically return null on this object.
 		/// </summary>
-		public NodeRef ParentRef
+		public PathInfo ParentPathInfo
 		{
 			get
 			{
 				// If we have no parts, we don't have a parent.
 				if (parts.Length == 0)
+				{
 					return null;
+				}
 
 				// Just append a ".." to the path and rebuild it, and it will
 				// create the proper reference.
-				return new NodeRef("..", this);
+				return new PathInfo("..", this);
 			}
 		}
 
@@ -414,11 +398,13 @@ namespace MfGames.Collections
 			get
 			{
 				// Get the parent
-				NodeRef parent = ParentRef;
+				PathInfo parent = ParentPathInfo;
 
 				// If we got a null, return a null to say "no more"
 				if (parent == null)
+				{
 					return null;
+				}
 
 				// Return the parent's string
 				return parent.Path;
