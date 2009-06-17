@@ -28,19 +28,28 @@ using System;
 
 #endregion
 
-namespace MfGames.Numerics
+namespace MfGames.Extensions
 {
 	/// <summary>
 	/// Extension methods for Int32 (regular int).
 	/// </summary>
-	public static class ExtensionsInt32
+	public static class SystemInt32Extensions
 	{
-		public static int RaiseToPower2(this Int32 originalValue)
+		/// <summary>
+		/// Raises the given integer to the next power of two.
+		/// </summary>
+		/// <param name="originalValue">The original value.</param>
+		/// <returns></returns>
+		public static int NextPower2(this Int32 originalValue)
 		{
 			double power = 0;
 			int nextValue = originalValue;
+			
 			while (nextValue > Math.Pow(2.0, power))
+			{
 				power++;
+			}
+
 			return (int) Math.Pow(2.0, power);
 		}
 	}

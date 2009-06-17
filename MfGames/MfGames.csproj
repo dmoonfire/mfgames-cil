@@ -65,7 +65,7 @@
     <Compile Include="Logging\AuditMessageSet.cs" />
     <Compile Include="Logging\IAuditMessageCollection.cs" />
     <Compile Include="Logging\IReportingAuditable.cs" />
-    <Compile Include="Numerics\ExtensionsInt32.cs" />
+    <Compile Include="Extensions\SystemInt32Extensions.cs" />
     <Compile Include="Numerics\FractalBrownianMotion.cs" />
     <Compile Include="Numerics\Fraction.cs" />
     <Compile Include="Numerics\INoise2.cs" />
