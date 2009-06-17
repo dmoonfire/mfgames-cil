@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\SystemArrayExtensions.cs" />
+    <Compile Include="Extensions\SystemObjectExtensions.cs" />
     <Compile Include="Extensions\SystemReflectionMemberInfoExtensions.cs" />
     <Compile Include="Extensions\SystemReflectionParameterInfoExtensions.cs" />
     <Compile Include="Logging\Audit.cs" />

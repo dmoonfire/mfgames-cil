@@ -48,6 +48,7 @@
     <Compile Include="AuditTests.cs" />
     <Compile Include="ConfigManagerTests.cs" />
     <Compile Include="ConverterTests.cs" />
+    <Compile Include="ExtensionTests.cs" />
     <Compile Include="FractionTests.cs" />
     <Compile Include="NodeRefTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
