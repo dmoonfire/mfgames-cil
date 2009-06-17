@@ -85,44 +85,57 @@ namespace MfGames.Settings
 		{
 			// Use reflection to scan through the settings. We know this isn't null because of the calling method.
 			Type type = settingsObject.GetType();
-			MemberInfo[] members =
-				type.GetMembers(BindingFlags.GetField | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic);
 
-			foreach (MemberInfo memberInfo in members)
+			// Go through the fields.
+			foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
 			{
 				// Check for the presents of the settings custom attribute.
-				if (!memberInfo.HasCustomAttribute(typeof(SettingsAttribute)))
+				if (!fieldInfo.HasCustomAttribute(typeof(SettingsAttribute)))
 				{
 					// No attribute, no processing.
 					continue;
 				}
 
 				// Use the name to get the value.
-				if (!collection.ContainsKey(memberInfo.Name))
+				if (!collection.ContainsKey(fieldInfo.Name))
 				{
 					// We don't have it in our collection, so move on.
 					continue;
 				}
 
 				// Pull out the field and map it to the appropriate type.
-				string value = collection[memberInfo.Name];
+				string value = collection[fieldInfo.Name];
 
 				// Depending on the type, we have to use different methods.
-				if (memberInfo is PropertyInfo)
+				Type convertType = fieldInfo.FieldType;
+				object convertedValue = ExtendedConvert.ChangeType(value, convertType);
+				fieldInfo.SetValue(settingsObject, convertedValue);
+			}
+
+			// Go through the properties.
+			foreach (PropertyInfo propertyInfo in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+			{
+				// Check for the presents of the settings custom attribute.
+				if (!propertyInfo.HasCustomAttribute(typeof(SettingsAttribute)))
 				{
-					var propertyInfo = (PropertyInfo) memberInfo;
-					Type convertType = propertyInfo.PropertyType;
-					object convertedValue = ExtendedConvert.ChangeType(value, convertType);
-					propertyInfo.SetValue(settingsObject, convertedValue, null);
+					// No attribute, no processing.
+					continue;
 				}
 
-				if (memberInfo is FieldInfo)
+				// Use the name to get the value.
+				if (!collection.ContainsKey(propertyInfo.Name))
 				{
-					var fieldInfo = (FieldInfo) memberInfo;
-					Type convertType = fieldInfo.FieldType;
-					object convertedValue = ExtendedConvert.ChangeType(value, convertType);
-					fieldInfo.SetValue(settingsObject, convertedValue);
+					// We don't have it in our collection, so move on.
+					continue;
 				}
+
+				// Pull out the property and map it to the appropriate type.
+				string value = collection[propertyInfo.Name];
+
+				// Depending on the type, we have to use different methods.
+				Type convertType = propertyInfo.PropertyType;
+				object convertedValue = ExtendedConvert.ChangeType(value, convertType);
+				propertyInfo.SetValue(settingsObject, convertedValue, null);
 			}
 
 			// We are good, so return success.
@@ -143,7 +156,7 @@ namespace MfGames.Settings
 
 			// Pull out the type for this object and create a collection if needed.
 			string typeName = settingsObject.GetType().ToString();
-			TypeSettingsCollection typeSettingsCollection = null;
+			TypeSettingsCollection typeSettingsCollection;
 
 			if (!typeSettings.ContainsKey(typeName))
 			{
@@ -164,42 +177,22 @@ namespace MfGames.Settings
 		{
 			// Use reflection to scan through the settings. We know this isn't null because of the calling method.
 			Type type = settingsObject.GetType();
-			MemberInfo[] members =
-				type.GetMembers(BindingFlags.GetField | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic);
 
-			foreach (MemberInfo memberInfo in members)
+			// Scan through the fields of the settings object.
+			foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
 			{
 				// Check for the presents of the settings custom attribute.
-				if (!memberInfo.HasCustomAttribute(typeof(SettingsAttribute)))
+				if (!fieldInfo.HasCustomAttribute(typeof(SettingsAttribute)))
 				{
 					// No attribute, no processing.
 					continue;
 				}
 
-				// Use the name to get the value.
-				if (!collection.ContainsKey(memberInfo.Name))
-				{
-					// We don't have it in our collection, so move on.
-					continue;
-				}
-
 				// Depending on the type, we have to use different methods to get the data.
-				object value = null;
-
-				if (memberInfo is PropertyInfo)
-				{
-					var propertyInfo = (PropertyInfo) memberInfo;
-					value = propertyInfo.GetValue(settingsObject, null);
-				}
-
-				if (memberInfo is FieldInfo)
-				{
-					var fieldInfo = (FieldInfo) memberInfo;
-					value = fieldInfo.GetValue(settingsObject);
-				}
+				object value = fieldInfo.GetValue(settingsObject);
 
 				// Remove the contents of the old settings.
-				collection.Remove(memberInfo.Name);
+				collection.Remove(fieldInfo.Name);
 
 				if (value == null)
 				{
@@ -207,7 +200,32 @@ namespace MfGames.Settings
 				}
 
 				// Otherwise, we set the value within the collection.
-				collection.Add(memberInfo.Name, ExtendedConvert.ToString(value));
+				collection.Add(fieldInfo.Name, ExtendedConvert.ToString(value));
+			}
+
+			// Scan through the properties of the settings object.
+			foreach (PropertyInfo propertyInfo in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+			{
+				// Check for the presents of the settings custom attribute.
+				if (!propertyInfo.HasCustomAttribute(typeof(SettingsAttribute)))
+				{
+					// No attribute, no processing.
+					continue;
+				}
+
+				// Depending on the type, we have to use different methods to get the data.
+				object value = propertyInfo.GetValue(settingsObject, null);
+
+				// Remove the contents of the old settings.
+				collection.Remove(propertyInfo.Name);
+
+				if (value == null)
+				{
+					continue;
+				}
+
+				// Otherwise, we set the value within the collection.
+				collection.Add(propertyInfo.Name, ExtendedConvert.ToString(value));
 			}
 		}
 
