@@ -34,22 +34,42 @@ namespace MfGames.Logging
 	/// A simple console logger that writes out all the log messages to
 	/// the error stream.
 	/// </summary>
-	public class ConsoleLogger : ILogSink
+	public class ConsoleLogger
 	{
-		#region ILogSink Members
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+		/// </summary>
+		public ConsoleLogger()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+		/// </summary>
+		/// <param name="logger">The logger.</param>
+		public ConsoleLogger(Logger logger)
+		{
+			logger.Log += Log;
+		}
+
+		#endregion
+
+		#region Logging
 
 		/// <summary>
 		/// Writes out a log message at the given severity.
 		/// </summary>
-		public void Log(Severity level, object context, string msg, Exception exception)
+		public void Log(object sender, LogEventArgs args)
 		{
 			// Write out the message to standard error
-			Console.Error.WriteLine("{0,5}: {1}: {2}", level, context, msg);
+			Console.Error.WriteLine("{0,5}: {1}: {2}", args.Severity, sender, args.Message);
 
 			// Add the stack trace if we have an exception
-			if (exception != null)
+			if (args.Exception != null)
 			{
-				Console.Error.WriteLine(exception.StackTrace);
+				Console.Error.WriteLine(args.Exception.StackTrace);
 			}
 		}
 

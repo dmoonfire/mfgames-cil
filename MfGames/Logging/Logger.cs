@@ -31,204 +31,252 @@ using System;
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// Implements a low-profile logging context for the MfGames and related libraries. To
-	/// connect to the logging interface, one must just implement an ILogSink and assign it
-	/// to Logger.Instance.
+	/// Implements a low-profile logging sender for the MfGames and related libraries. To
+	/// connect to the logging interface, the code just needs to attach to the Log event.
 	/// </summary>
-	public static class Logger
+	public class Logger
 	{
-		#region Logger Singleton
+		#region Singleton
 
-		private static ILogSink logger;
+		private static Logger logger = new Logger();
 
 		/// <summary>
 		/// Contains the ILogger used for the system. This is a singleton
 		/// and cannot be null. Attempting to assign a null will throw an
-		/// exception.
+		/// exception. Setting this to null will assign a default logger and this
+		/// property will never be null.
 		/// </summary>
-		public static ILogSink Instance
+		public static Logger Instance
 		{
 			get { return logger; }
-			set
-			{
-				// Set it since we don't have a null
-				logger = value;
-			}
+			set { logger = value ?? new Logger(); }
 		}
 
 		#endregion
 
-		#region Alert
+		#region Eventing
 
-		public static void Alert(object context, string msg, params object[] parms)
+		/// <summary>
+		/// Gets a value indicating whether this instance is enabled and at least one listener is registered.
+		/// </summary>
+		/// <value>
+		/// 	<c>true</c> if this instance is enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsEnabled
 		{
-			Alert(context, null, msg, parms);
+			get { return Log != null; }
 		}
 
-		public static void Alert(
-			object context, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Occurs when a log message is received.
+		/// </summary>
+		public event EventHandler<LogEventArgs> Log;
+
+		/// <summary>
+		/// Reports the specified log message.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="args">The <see cref="MfGames.Logging.LogEventArgs"/> instance containing the event data.</param>
+		public void Report(object sender, LogEventArgs args)
 		{
-			if (logger != null)
+			if (Log != null)
 			{
-				logger.Log(Severity.Alert, context, String.Format(msg, parms), e);
+				Log(sender, args);
 			}
 		}
 
-		public static void Alert(Type type, string msg, params object[] parms)
+		/// <summary>
+		/// Reports the specified log message, formatting it as needed.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="severity">The severity.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Report(object sender, Severity severity, string format, params object[] arguments)
 		{
-			Alert(type.ToString(), null, msg, parms);
+			var args = new LogEventArgs(severity, format, arguments);
+			Report(sender, args);
 		}
 
-		public static void Alert(
-			Type type, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Reports the specified log message, formatting it as needed.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="severity">The severity.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Report(object sender, Severity severity, Exception exception, string format, params object[] arguments)
 		{
-			Alert(type.ToString(), e, msg, parms);
+			var args = new LogEventArgs(severity, exception, format, arguments);
+			Report(sender, args);
+		}
+
+		#endregion
+
+		#region Convience Methods
+
+		#region Alert
+
+		/// <summary>
+		/// Posts an alert logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Alert(object sender, string format, params object[] arguments)
+		{
+			Alert(sender, null, format, arguments);
+		}
+
+		/// <summary>
+		/// Posts an alert logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Alert(object sender, Exception exception, string format, params object[] arguments)
+		{
+			Report(sender, Severity.Alert, exception, format, arguments);
 		}
 
 		#endregion
 
 		#region Debug
 
-		public static void Debug(object context, string msg, params object[] parms)
+		/// <summary>
+		/// Posts a debug logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Debug(object sender, string format, params object[] arguments)
 		{
-			Debug(context, null, msg, parms);
+			Debug(sender, null, format, arguments);
 		}
 
-		public static void Debug(
-			object context, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Posts a debug logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Debug(object sender, Exception exception, string format, params object[] arguments)
 		{
-			if (logger != null)
-			{
-				logger.Log(Severity.Debug, context, String.Format(msg, parms), e);
-			}
-		}
-
-		public static void Debug(Type type, string msg, params object[] parms)
-		{
-			Debug(type.ToString(), null, msg, parms);
-		}
-
-		public static void Debug(
-			Type type, Exception e, string msg, params object[] parms)
-		{
-			Debug(type.ToString(), e, msg, parms);
+			Report(sender, Severity.Debug, exception, format, arguments);
 		}
 
 		#endregion
 
 		#region Error
 
-		public static void Error(object context, string msg, params object[] parms)
+		/// <summary>
+		/// Posts an error logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Error(object sender, string format, params object[] arguments)
 		{
-			Error(context, null, msg, parms);
+			Error(sender, null, format, arguments);
 		}
 
-		public static void Error(
-			object context, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Posts an error logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Error(object sender, Exception exception, string format, params object[] arguments)
 		{
-			if (logger != null)
-			{
-				logger.Log(Severity.Error, context, String.Format(msg, parms), e);
-			}
-		}
-
-		public static void Error(Type type, string msg, params object[] parms)
-		{
-			Error(type.ToString(), null, msg, parms);
-		}
-
-		public static void Error(
-			Type type, Exception e, string msg, params object[] parms)
-		{
-			Error(type.ToString(), e, msg, parms);
+			Report(sender, Severity.Error, exception, format, arguments);
 		}
 
 		#endregion
 
 		#region Fatal
 
-		public static void Fatal(object context, string msg, params object[] parms)
+		/// <summary>
+		/// Posts a fatal logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Fatal(object sender, string format, params object[] arguments)
 		{
-			Fatal(context, null, msg, parms);
+			Fatal(sender, null, format, arguments);
 		}
 
-		public static void Fatal(
-			object context, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Posts a fatal logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Fatal(object sender, Exception exception, string format, params object[] arguments)
 		{
-			if (logger != null)
-			{
-				logger.Log(Severity.Fatal, context, String.Format(msg, parms), e);
-			}
-		}
-
-		public static void Fatal(Type type, string msg, params object[] parms)
-		{
-			Fatal(type.ToString(), null, msg, parms);
-		}
-
-		public static void Fatal(
-			Type type, Exception e, string msg, params object[] parms)
-		{
-			Fatal(type.ToString(), e, msg, parms);
+			Report(sender, Severity.Fatal, exception, format, arguments);
 		}
 
 		#endregion
 
 		#region Info
 
-		public static void Info(object context, string msg, params object[] parms)
+		/// <summary>
+		/// Posts an info logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Info(object sender, string format, params object[] arguments)
 		{
-			Info(context, null, msg, parms);
+			Info(sender, null, format, arguments);
 		}
 
-		public static void Info(
-			object context, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Posts an info logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Info(object sender, Exception exception, string format, params object[] arguments)
 		{
-			if (logger != null)
-			{
-				logger.Log(Severity.Info, context, String.Format(msg, parms), e);
-			}
-		}
-
-		public static void Info(Type type, string msg, params object[] parms)
-		{
-			Info(type.ToString(), null, msg, parms);
-		}
-
-		public static void Info(
-			Type type, Exception e, string msg, params object[] parms)
-		{
-			Info(type.ToString(), e, msg, parms);
+			Report(sender, Severity.Info, exception, format, arguments);
 		}
 
 		#endregion
 
 		#region Trace
 
-		public static void Trace(object context, string msg, params object[] parms)
+		/// <summary>
+		/// Posts a trace logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Trace(object sender, string format, params object[] arguments)
 		{
-			Trace(context, null, msg, parms);
+			Trace(sender, null, format, arguments);
 		}
 
-		public static void Trace(
-			object context, Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Posts a trace logging mesage.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		public void Trace(object sender, Exception exception, string format, params object[] arguments)
 		{
-			if (logger != null)
-			{
-				logger.Log(Severity.Trace, context, msg, e);
-			}
+			Report(sender, Severity.Trace, exception, format, arguments);
 		}
 
-		public static void Trace(Type type, string msg, params object[] parms)
-		{
-			Trace(type.ToString(), null, msg, parms);
-		}
-
-		public static void Trace(
-			Type type, Exception e, string msg, params object[] parms)
-		{
-			Trace(type.ToString(), e, msg, parms);
-		}
+		#endregion
 
 		#endregion
 	}

@@ -37,7 +37,6 @@ namespace MfGames.Logging
 	/// static classes. This is a read-only class with a number of
 	/// constructors.
 	/// </summary>
-	[Serializable]
 	public class Log
 	{
 		#region Constructors
@@ -45,134 +44,159 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Log"/> class.
 		/// </summary>
-		/// <param name="context">The context.</param>
+		/// <param name="context">The sender.</param>
 		public Log(object context)
 		{
-			this.context = context;
+			Sender = context;
 		}
 
 		#endregion
 
 		#region Properties
 
-		private readonly object context;
-
 		/// <summary>
-		/// Contains the current log context for this log object.
+		/// Contains the current log sender for logs sent out by this container.
 		/// </summary>
-		public object LogContext
-		{
-			get { return context; }
-		}
+		public object Sender { get; private set; }
 
 		#endregion
 
-		[StringFormatMethod("msg")]
-		public void Alert(string msg, params object[] parms)
+		/// <summary>
+		/// Sends an alert message.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Alert(string format, params object[] arguments)
 		{
-			Logger.Alert(LogContext, String.Format(msg, parms));
+			Logger.Instance.Alert(Sender, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Alert(Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Sends an alert message.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Alert(Exception exception, string format, params object[] arguments)
 		{
-			Logger.Alert(LogContext, e, String.Format(msg, parms));
+			Logger.Instance.Alert(Sender, exception, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public static void Alert(Type type, string msg, params object[] parms)
+		/// <summary>
+		/// Sends a debug message.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Debug(string format, params object[] arguments)
 		{
-			Logger.Alert(type.ToString(), String.Format(msg, parms));
+			Logger.Instance.Debug(Sender, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Debug(string msg, params object[] parms)
+		/// <summary>
+		/// Sends a debug message.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Debug(Exception exception, string format, params object[] arguments)
 		{
-			Logger.Debug(LogContext, msg, parms);
+			Logger.Instance.Debug(Sender, exception, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Debug(Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Sends an error message.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Error(string format, params object[] arguments)
 		{
-			Logger.Debug(LogContext, e, msg, parms);
+			Logger.Instance.Error(Sender, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public static void Debug(Type type, string msg, params object[] parms)
+		/// <summary>
+		/// Sends an error message.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Error(Exception exception, string format, params object[] arguments)
 		{
-			Logger.Debug(type.ToString(), msg, parms);
+			Logger.Instance.Error(Sender, exception, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Error(string msg, params object[] parms)
+		/// <summary>
+		/// Sends a fatal message.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Fatal(string format, params object[] arguments)
 		{
-			Logger.Error(LogContext, msg, parms);
+			Logger.Instance.Fatal(Sender, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Error(Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Sends a fatal message.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Fatal(Exception exception, string format, params object[] arguments)
 		{
-			Logger.Error(LogContext, e, msg, parms);
+			Logger.Instance.Fatal(Sender, exception, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public static void Error(Type type, string msg, params object[] parms)
+		/// <summary>
+		/// Sends an info message.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Info(string format, params object[] arguments)
 		{
-			Logger.Error(type.ToString(), msg, parms);
+			Logger.Instance.Info(Sender, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Fatal(string msg, params object[] parms)
+		/// <summary>
+		/// Sends an info message.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Info(Exception exception, string format, params object[] arguments)
 		{
-			Logger.Fatal(LogContext, String.Format(msg, parms));
+			Logger.Instance.Info(Sender, exception, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public void Fatal(Exception e, string msg, params object[] parms)
+		/// <summary>
+		/// Sends a trace message.
+		/// </summary>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Trace(string format, params object[] arguments)
 		{
-			Logger.Fatal(LogContext, e, msg, parms);
+			Logger.Instance.Trace(Sender, format, arguments);
 		}
 
-		[StringFormatMethod("msg")]
-		public static void Fatal(Type type, string msg, params object[] parms)
+		/// <summary>
+		/// Sends a trace message.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="arguments">The arguments.</param>
+		[StringFormatMethod("format")]
+		public void Trace(Exception exception, string format, params object[] arguments)
 		{
-			Logger.Fatal(type.ToString(), String.Format(msg, parms));
-		}
-
-		[StringFormatMethod("msg")]
-		public void Info(string msg, params object[] parms)
-		{
-			Logger.Info(LogContext, msg, parms);
-		}
-
-		[StringFormatMethod("msg")]
-		public void Info(Exception e, string msg, params object[] parms)
-		{
-			Logger.Info(LogContext, e, msg, parms);
-		}
-
-		[StringFormatMethod("msg")]
-		public static void Info(Type type, string msg, params object[] parms)
-		{
-			Logger.Info(type.ToString(), String.Format(msg, parms));
-		}
-
-		[StringFormatMethod("msg")]
-		public void Trace(string msg, params object[] parms)
-		{
-			Logger.Trace(LogContext, msg, parms);
-		}
-
-		[StringFormatMethod("msg")]
-		public void Trace(Exception e, string msg, params object[] parms)
-		{
-			Logger.Trace(LogContext, e, msg, parms);
-		}
-
-		[StringFormatMethod("msg")]
-		public static void Trace(Type type, string msg, params object[] parms)
-		{
-			Logger.Trace(type.ToString(), String.Format(msg, parms));
+			Logger.Instance.Trace(Sender, exception, format, arguments);
 		}
 	}
 }

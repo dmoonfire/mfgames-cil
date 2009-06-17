@@ -67,6 +67,7 @@
     <Compile Include="Logging\IAuditMessageCollection.cs" />
     <Compile Include="Logging\IReportingAuditable.cs" />
     <Compile Include="Extensions\SystemInt32Extensions.cs" />
+    <Compile Include="Logging\LogEventArgs.cs" />
     <Compile Include="Numerics\FractalBrownianMotion.cs" />
     <Compile Include="Numerics\Fraction.cs" />
     <Compile Include="Numerics\INoise2.cs" />
@@ -92,7 +93,6 @@
     <Compile Include="Utility\Enum.cs" />
     <Compile Include="Logging\IAuditable.cs" />
     <Compile Include="Entropy\IDice.cs" />
-    <Compile Include="Logging\ILogSink.cs" />
     <Compile Include="Collections\InvalidPathException.cs" />
     <Compile Include="Timing\ITickable.cs" />
     <Compile Include="Logging\Log.cs" />
