@@ -56,6 +56,7 @@
     <Compile Include="SettingsTest.cs" />
     <Compile Include="UtilityTests.cs" />
     <Compile Include="VersionTests.cs" />
+    <Compile Include="XmlSettingsSerializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MfGames\MfGames.csproj">

@@ -1,4 +1,4 @@
-﻿#region Copyright and License
+#region Copyright and License
 
 // Copyright (c) 2005-2009, Moonfire Games
 // 
@@ -24,6 +24,8 @@
 
 #region Namespaces
 
+using System.IO;
+
 using MfGames.Settings;
 
 using NUnit.Framework;
@@ -33,7 +35,7 @@ using NUnit.Framework;
 namespace UnitTests
 {
 	[TestFixture]
-	public class SettingsTest
+	public class XmlSettingsSerializerTests
 	{
 		private sealed class Settings1
 		{
@@ -58,83 +60,66 @@ namespace UnitTests
 		}
 
 		[Test]
-		public void LoadInt32()
+		public void ReadFromFile()
 		{
+			// Write out the object to the settings collection.
 			var settings = new SettingsCollection();
-			int value = 23;
-			settings.Load(value);
-		}
-
-		[Test]
-		public void StoreLoadSettings1()
-		{
-			var value = new Settings1(111);
-			value.Property1 = -1;
-
-			var settings = new SettingsCollection();
-			settings.Store(value);
-
-			var value2 = new Settings1(111);
-			settings.Load(value2);
-
-			Assert.AreEqual(-1, value2.Property1);
-		}
-
-		[Test]
-		public void StoreLoadSettings1Field1()
-		{
-			var value = new Settings1(222.1f);
-
-			var settings = new SettingsCollection();
-			settings.Store(value);
-
-			var value2 = new Settings1(111);
-			settings.Load(value2);
-
-			Assert.AreEqual(222.1f, value2.Field1);
-		}
-
-		[Test]
-		public void StoreLoadSettings1Property2()
-		{
-			var value = new Settings1(222.1f);
+			var value = new Settings1(1234567);
+			value.Property1 = -123;
 			value.Property2 = "gary";
-
-			var settings = new SettingsCollection();
 			settings.Store(value);
 
-			var value2 = new Settings1(111);
-			value2.Property2 = "steve";
-			settings.Load(value2);
+			// Save the results to a temporary file.
+			var file = new FileInfo(Path.GetTempFileName());
 
-			Assert.AreEqual("gary", value2.Property2);
+			try
+			{
+				// Create a serializer and write out the file.
+				var serializer = new XmlSettingsSerializer();
+				serializer.Write(file, settings);
+
+				// Create a new serializer to read in the contents.
+				var serializer2 = new XmlSettingsSerializer();
+				SettingsCollection settings2 = serializer2.Read(file);
+				var value2 = new Settings1(0);
+				settings2.Load(value2);
+
+				// Assert that our contents were identical.
+				Assert.AreEqual(-123, value2.Property1, "Property2 did not match");
+				Assert.AreEqual("gary", value2.Property2, "Property1 did not match");
+				Assert.AreEqual(1234567, value2.Field1, "Field1 did not match");
+			}
+			finally
+			{
+				// Delete the file to clean up after ourselves.
+				file.Delete();
+			}
 		}
 
 		[Test]
-		public void StoreLoadSettings1Property2Null()
+		public void SaveToFile()
 		{
-			var value = new Settings1(222.1f);
-			value.Property2 = null;
-
+			// Write out the object to the settings collection.
 			var settings = new SettingsCollection();
+			var value = new Settings1(1234567);
+			value.Property1 = -123;
+			value.Property2 = "gary";
 			settings.Store(value);
 
-			var value2 = new Settings1(111);
-			value2.Property2 = "steve";
-			settings.Load(value2);
+			// Save the results to a temporary file.
+			var file = new FileInfo(Path.GetTempFileName());
 
-			Assert.AreEqual("steve", value2.Property2);
-		}
-
-		[Test]
-		public void StoreSettings1()
-		{
-			var value = new Settings1(111);
-			value.Property1 = -1;
-			value.Property2 = "bob";
-
-			var settings = new SettingsCollection();
-			settings.Store(value);
+			try
+			{
+				// Create a serializer and write out the file.
+				var serializer = new XmlSettingsSerializer();
+				serializer.Write(file, settings);
+			}
+			finally
+			{
+				// Delete the file to clean up after ourselves.
+				file.Delete();
+			}
 		}
 	}
 }

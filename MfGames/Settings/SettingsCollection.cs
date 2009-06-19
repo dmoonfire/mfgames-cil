@@ -30,7 +30,6 @@ using System.Reflection;
 
 using MfGames.Extensions;
 using MfGames.Utility;
-using MfGames.Utility.Annotations;
 
 #endregion
 
@@ -45,6 +44,15 @@ namespace MfGames.Settings
 		#region Collection Methods
 
 		private readonly Dictionary<string, TypeSettingsCollection> typeSettings = new Dictionary<string, TypeSettingsCollection>();
+
+		/// <summary>
+		/// Gets the type settings for the entire collection.
+		/// </summary>
+		/// <value>The type settings.</value>
+		public Dictionary<string, TypeSettingsCollection> TypeSettings
+		{
+			get { return typeSettings; }
+		}
 
 		/// <summary>
 		/// Gets the specified settings and populates the settingsObject.
@@ -63,7 +71,7 @@ namespace MfGames.Settings
 			// a type in the dictionary.
 			string typeName = settingsObject.GetType().ToString();
 
-			if (!typeSettings.ContainsKey(typeName))
+			if (!TypeSettings.ContainsKey(typeName))
 			{
 				// Nothing in the dictionary for this.
 				return false;
@@ -71,7 +79,7 @@ namespace MfGames.Settings
 
 			// We have a settings object, so grab that. We use reflection to scan the settings object
 			// and populate any fields or properties within that object.
-			TypeSettingsCollection typeSettingCollection = typeSettings[typeName];
+			TypeSettingsCollection typeSettingCollection = TypeSettings[typeName];
 			return Load(settingsObject, typeSettingCollection);
 		}
 
@@ -81,7 +89,7 @@ namespace MfGames.Settings
 		/// <param name="settingsObject">The settings object.</param>
 		/// <param name="collection">The collection.</param>
 		/// <returns></returns>
-		private static bool Load(object settingsObject, ObjectSettingsCollection collection)
+		private static bool Load(object settingsObject, TypeSettingsCollection collection)
 		{
 			// Use reflection to scan through the settings. We know this isn't null because of the calling method.
 			Type type = settingsObject.GetType();
@@ -158,22 +166,28 @@ namespace MfGames.Settings
 			string typeName = settingsObject.GetType().ToString();
 			TypeSettingsCollection typeSettingsCollection;
 
-			if (!typeSettings.ContainsKey(typeName))
+			if (!TypeSettings.ContainsKey(typeName))
 			{
 				// Create a new collection object to store.
 				typeSettingsCollection = new TypeSettingsCollection();
-				typeSettings.Add(typeName, typeSettingsCollection);
+				typeSettingsCollection.TypeName = typeName;
+				TypeSettings.Add(typeName, typeSettingsCollection);
 			}
 			else
 			{
-				typeSettingsCollection = typeSettings[typeName];
+				typeSettingsCollection = TypeSettings[typeName];
 			}
 
 			// Persist the contents of the settings object into the collection.
 			Store(settingsObject, typeSettingsCollection);
 		}
 
-		private static void Store(object settingsObject, ObjectSettingsCollection collection)
+		/// <summary>
+		/// Stores the specified settings object into the given second-level collection.
+		/// </summary>
+		/// <param name="settingsObject">The settings object.</param>
+		/// <param name="collection">The collection.</param>
+		private static void Store(object settingsObject, TypeSettingsCollection collection)
 		{
 			// Use reflection to scan through the settings. We know this isn't null because of the calling method.
 			Type type = settingsObject.GetType();
@@ -231,18 +245,19 @@ namespace MfGames.Settings
 
 		#endregion
 
-		#region Nested type: ObjectSettingsCollection
-
-		private class ObjectSettingsCollection : Dictionary<string, string>
-		{
-		}
-
-		#endregion
-
 		#region Nested type: TypeSettingsCollection
 
-		private sealed class TypeSettingsCollection : ObjectSettingsCollection
+		/// <summary>
+		/// The collected settings for a specific type, stored in a dictionary. This is used for
+		/// the "top level" settings objects.
+		/// </summary>
+		public sealed class TypeSettingsCollection : Dictionary<string, string>
 		{
+			/// <summary>
+			/// Gets or sets the name of the type associated with this collection.
+			/// </summary>
+			/// <value>The name of the type.</value>
+			public string TypeName { get; set; }
 		}
 
 		#endregion
