@@ -50,7 +50,7 @@ namespace MfGames.Utility
 		public ConfigStorage(string storageKey)
 		{
 			// Save the field
-			StorageKey = storageKey;
+			GroupName = storageKey;
 
 			// Initialize the storage
 			InitStorage();
@@ -66,7 +66,7 @@ namespace MfGames.Utility
 		/// Contains the singleton storage as defined by the
 		/// application. This is null unless defined by the application.
 		/// </summary>
-		public static ConfigStorage Singleton { get; set; }
+		public static ConfigStorage Instance { get; set; }
 
 		#endregion
 
@@ -79,39 +79,44 @@ namespace MfGames.Utility
 		// storage to create. This is used as the directory name of the
 		// top level and many of the functions will throw an exception if
 		// this is not defined.
-		private string storageKey;
+		private string groupName;
 
 		/// <summary>
-		/// Getter and setter for StorageKey. A storage key can consist of
+		/// Getter and setter for GroupName. A storage key can consist of
 		/// spaces, letters, and numbers, but no other special
 		/// characters. It is case-sensitive.
 		/// </summary>
-		public string StorageKey
+		public string GroupName
 		{
 			get
 			{
 				// Check for null, if so, throw an exception
-				if (storageKey == null)
-					throw new Exception("StorageKey is not defined");
+				if (groupName == null)
+				{
+					throw new Exception("GroupName is not defined");
+				}
 
 				// Return the key
-				return storageKey;
+				return groupName;
 			}
 			set
 			{
 				// Cause problems if we get a null
 				if (value == null)
-					throw new Exception("Cannot assign a null to StorageKey");
+				{
+					throw new Exception("Cannot assign a null to GroupName");
+				}
 
 				// Check for invalid key
 				if (!ValidateStorageKey.IsMatch(value))
-					throw new Exception("StorageKey may only have letters, " +
-					                    "numbers, and spaces.");
+				{
+					throw new Exception("GroupName may only have letters, numbers, and spaces.");
+				}
 
 				// Set it, while trimming. Leading and trailing spaces are
 				// bad in general and make life harder. So we do it silently.
-				storageKey = value.Trim();
-				log.Debug("StorageKey: {0}", storageKey);
+				groupName = value.Trim();
+				log.Debug("GroupName: {0}", groupName);
 			}
 		}
 
@@ -128,10 +133,8 @@ namespace MfGames.Utility
 		{
 			get
 			{
-				return
-					new DirectoryInfo(
-						Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-						Path.DirectorySeparatorChar + StorageKey);
+				string directoryName = string.Format("{0}{1}{2}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.DirectorySeparatorChar, GroupName);
+				return new DirectoryInfo(directoryName);
 			}
 		}
 
@@ -162,16 +165,18 @@ namespace MfGames.Utility
 		{
 			// Cause problems if we get a null
 			if (appName == null)
+			{
 				throw new Exception("Cannot create a null application");
+			}
 
 			// Check for invalid key
 			if (!ValidateStorageKey.IsMatch(appName))
-				throw new Exception("Application names may only have letters, " +
-				                    "numbers, and spaces.");
+			{
+				throw new Exception("Application names may only have letters, " + "numbers, and spaces.");
+			}
 
 			// Get the path
-			string path = StorageDirectory.FullName + Path.DirectorySeparatorChar +
-			              appName;
+			string path = StorageDirectory.FullName + Path.DirectorySeparatorChar + appName;
 			var dir = new DirectoryInfo(path);
 
 			// Create it if it doesn't exist

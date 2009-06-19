@@ -123,7 +123,7 @@ namespace MfGames.Utility
 
 		#region Type Conversions
 
-		private static readonly Dictionary<Type, Dictionary<Type, IExtendedConverter>> converters = new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
+		private static Dictionary<Type, Dictionary<Type, IExtendedConverter>> converters = new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
 
 		/// <summary>
 		/// Changes the given value to something that matches the converted type.

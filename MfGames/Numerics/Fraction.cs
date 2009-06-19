@@ -53,18 +53,11 @@ namespace MfGames.Numerics
 
 		#region Properties
 
-		private int denominator;
-		private int numerator;
-
 		/// <summary>
 		/// Gets or sets the denominator of the fraction.
 		/// </summary>
 		/// <value>The denominator.</value>
-		public int Denominator
-		{
-			get { return denominator; }
-			set { denominator = value; }
-		}
+		public int Denominator { get; set; }
 
 		/// <summary>
 		/// Gets the mixed fraction denominator.
@@ -72,7 +65,7 @@ namespace MfGames.Numerics
 		/// <value>The mixed denominator.</value>
 		public int MixedDenominator
 		{
-			get { return denominator; }
+			get { return Denominator; }
 		}
 
 		/// <summary>
@@ -81,7 +74,7 @@ namespace MfGames.Numerics
 		/// <value>The mixed numerator.</value>
 		public int MixedNumerator
 		{
-			get { return numerator % denominator; }
+			get { return Numerator % Denominator; }
 		}
 
 		/// <summary>
@@ -90,18 +83,14 @@ namespace MfGames.Numerics
 		/// <value>The mixed whole.</value>
 		public int MixedWhole
 		{
-			get { return numerator / denominator; }
+			get { return Numerator / Denominator; }
 		}
 
 		/// <summary>
 		/// Gets or sets the numerator of the fraction.
 		/// </summary>
 		/// <value>The numerator.</value>
-		public int Numerator
-		{
-			get { return numerator; }
-			set { numerator = value; }
-		}
+		public int Numerator { get; set; }
 
 		/// <summary>
 		/// Gets the double value of this fraction.
@@ -109,7 +98,7 @@ namespace MfGames.Numerics
 		/// <value>The value.</value>
 		public double Value
 		{
-			get { return (numerator) / ((double) denominator); }
+			get { return (Numerator) / ((double) Denominator); }
 		}
 
 		#endregion
@@ -121,9 +110,9 @@ namespace MfGames.Numerics
 		/// </summary>
 		public Fraction Simplify()
 		{
-			int gcf = ExtendedMath.GreatestCommonFactor(numerator, denominator);
+			int gcf = ExtendedMath.GreatestCommonFactor(Numerator, Denominator);
 
-			return new Fraction(numerator / gcf, denominator / gcf);
+			return new Fraction(Numerator / gcf, Denominator / gcf);
 		}
 
 		#endregion

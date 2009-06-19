@@ -70,8 +70,8 @@
     <Compile Include="Logging\LogEventArgs.cs" />
     <Compile Include="Numerics\FractalBrownianMotion.cs" />
     <Compile Include="Numerics\Fraction.cs" />
-    <Compile Include="Numerics\INoise2.cs" />
     <Compile Include="Numerics\ExtendedMath.cs" />
+    <Compile Include="Numerics\INoise2.cs" />
     <Compile Include="Numerics\PerlinNoise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entropy\AdditionDice.cs" />
