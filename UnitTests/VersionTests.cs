@@ -97,21 +97,21 @@ namespace UnitTests
 		public void CompareOpEqual()
 		{
 			var v1 = new ExtendedVersion("1.2.3");
-			Assert.IsTrue(v1.CompareOp("= 1.2.3"), "With space");
+			Assert.IsTrue(v1.Compare("= 1.2.3"), "With space");
 		}
 
 		[Test]
 		public void CompareOpEqual2()
 		{
 			var v1 = new ExtendedVersion("1.2.3");
-			Assert.IsTrue(v1.CompareOp("=1.2.3"), "Without space");
+			Assert.IsTrue(v1.Compare("=1.2.3"), "Without space");
 		}
 
 		[Test]
 		public void CompareOpEqual3()
 		{
 			var v1 = new ExtendedVersion("1.2.3");
-			Assert.IsTrue(v1.CompareOp("=   1.2.3"), "With too many spaces");
+			Assert.IsTrue(v1.Compare("=   1.2.3"), "With too many spaces");
 		}
 
 		[Test]

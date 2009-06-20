@@ -45,12 +45,12 @@ namespace MfGames.Utility
 
 		// Contains the simple matcher for string (number, followed
 		// by... stuff)
-		private static readonly Regex regexPart = new Regex(@"(\d+)([\d\w]*)");
-		private static readonly Regex regexSpace = new Regex(@"\s");
+		private static readonly Regex RegexPart = new Regex(@"(\d+)([\d\w]*)");
+		private static readonly Regex RegexSpace = new Regex(@"\s");
 
 		#endregion
 
-		#region Constructors and Construction
+		#region Constructors
 
 		/// <summary>
 		/// Constructs an empty version with a version of zero ("0").
@@ -79,7 +79,7 @@ namespace MfGames.Utility
 			this.version = version = version.Trim();
 
 			// Check for spaces
-			if (regexSpace.IsMatch(version))
+			if (RegexSpace.IsMatch(version))
 			{
 				throw new Exception("Versions cannot have whitespace");
 			}
@@ -93,12 +93,12 @@ namespace MfGames.Utility
 			for (int i = 0; i < parts.Length; i++)
 			{
 				// Check for match and sanity checking
-				if (!regexPart.IsMatch(parts[i]))
+				if (!RegexPart.IsMatch(parts[i]))
 					throw new Exception("Cannot parse part '" + parts[i] + "' of '" +
 					                           version + "'");
 
 				// Pull out the parts
-				Match match = regexPart.Match(parts[i]);
+				Match match = RegexPart.Match(parts[i]);
 				string strNumber = match.Groups[1].Value;
 				strings[i] = match.Groups[2].Value;
 
@@ -121,11 +121,11 @@ namespace MfGames.Utility
 		// Contains the string version
 
 		// Contains the numeric parts of the version
-		private int[] numerics = null;
+		private readonly int[] numerics;
 
 		// Contains the string parts of the version
-		private string[] strings = null;
-		private string version = null;
+		private readonly string[] strings;
+		private readonly string version;
 
 		#endregion
 
@@ -237,7 +237,7 @@ namespace MfGames.Utility
 		///
 		/// There may be any number of spaces between the op and the version.
 		/// </summary>
-		public bool CompareOp(string operation)
+		public bool Compare(string operation)
 		{
 			// Pull out the parts.
 			// DREM 2005-05-10 This is sloppy because I had a regex
