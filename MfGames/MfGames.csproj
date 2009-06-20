@@ -77,7 +77,6 @@
     <Compile Include="Entropy\AdditionDice.cs" />
     <Compile Include="Settings\ConfigManager.cs" />
     <Compile Include="Settings\SettingsAttribute.cs" />
-    <Compile Include="Timing\UpdateEventArgs.cs" />
     <Compile Include="Collections\AttributeTree.cs" />
     <Compile Include="Collections\AttributeTreeCollection.cs" />
     <Compile Include="Logging\AuditMessageEventArgs.cs" />
@@ -93,7 +92,6 @@
     <Compile Include="Logging\IAuditable.cs" />
     <Compile Include="Entropy\IDice.cs" />
     <Compile Include="Collections\InvalidPathException.cs" />
-    <Compile Include="Timing\ITickable.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Entropy\MersenneTwisterRandom.cs" />
@@ -104,13 +102,9 @@
     <Compile Include="Entropy\Parser.cs" />
     <Compile Include="Entropy\RandomDice.cs" />
     <Compile Include="Entropy\Scanner.cs" />
-    <Compile Include="Timing\SecondsCountdown.cs" />
-    <Compile Include="Timing\SecondsGauge.cs" />
     <Compile Include="Settings\SettingsCollection.cs" />
     <Compile Include="Logging\Severity.cs" />
     <Compile Include="Entropy\SubtractionDice.cs" />
-    <Compile Include="Timing\TickArgs.cs" />
-    <Compile Include="Timing\TickManager.cs" />
     <Compile Include="Collections\TypeChooser.cs" />
     <Compile Include="Collections\ValueTree.cs" />
     <Compile Include="Utility\ExtendedVersion.cs" />
