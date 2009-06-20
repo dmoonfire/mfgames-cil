@@ -49,18 +49,19 @@ namespace MfGames.Utility
 		/// </summary>
 		public ConfigStorage(string storageKey)
 		{
-			// Save the field
-			GroupName = storageKey;
-
-			// Initialize the storage
-			InitStorage();
+			// Save the field, this also creates the storage.
+			StorageName = storageKey;
 		}
 
 		#endregion
 
 		#region Singleton
 
-		// Contains the singleton, if one is defined
+		/// <summary>
+		/// Gets or sets the application directory which can be stored by the application.
+		/// </summary>
+		/// <value>The application directory.</value>
+		public static DirectoryInfo ApplicationDirectory { get; set; }
 
 		/// <summary>
 		/// Contains the singleton storage as defined by the
@@ -79,44 +80,38 @@ namespace MfGames.Utility
 		// storage to create. This is used as the directory name of the
 		// top level and many of the functions will throw an exception if
 		// this is not defined.
-		private string groupName;
+		private string storageName;
 
 		/// <summary>
-		/// Getter and setter for GroupName. A storage key can consist of
+		/// Getter and setter for StorageName. A storage key can consist of
 		/// spaces, letters, and numbers, but no other special
 		/// characters. It is case-sensitive.
 		/// </summary>
-		public string GroupName
+		public string StorageName
 		{
 			get
 			{
-				// Check for null, if so, throw an exception
-				if (groupName == null)
-				{
-					throw new Exception("GroupName is not defined");
-				}
-
 				// Return the key
-				return groupName;
+				return storageName;
 			}
 			set
 			{
-				// Cause problems if we get a null
-				if (value == null)
+				// If we are null or blank, then just clear it.
+				if (string.IsNullOrEmpty(value) || value.Trim().Length == 0)
 				{
-					throw new Exception("Cannot assign a null to GroupName");
+					storageName = null;
 				}
 
 				// Check for invalid key
 				if (!ValidateStorageKey.IsMatch(value))
 				{
-					throw new Exception("GroupName may only have letters, numbers, and spaces.");
+					throw new Exception("StorageName may only have letters, numbers, and spaces.");
 				}
 
 				// Set it, while trimming. Leading and trailing spaces are
 				// bad in general and make life harder. So we do it silently.
-				groupName = value.Trim();
-				log.Debug("GroupName: {0}", groupName);
+				storageName = value.Trim();
+				Initialize();
 			}
 		}
 
@@ -127,13 +122,16 @@ namespace MfGames.Utility
 		/// <summary>
 		/// Returns a DirectoryInfo representing the storage area. The
 		/// directory is not ensured to be created, unless the
-		/// InitStorage() method is called.
+		/// Initialize() method is called.
 		/// </summary>
 		public DirectoryInfo StorageDirectory
 		{
 			get
 			{
-				string directoryName = string.Format("{0}{1}{2}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.DirectorySeparatorChar, GroupName);
+				string directoryName = string.Format("{0}{1}{2}",
+				                                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+				                                     Path.DirectorySeparatorChar,
+				                                     StorageName);
 				return new DirectoryInfo(directoryName);
 			}
 		}
@@ -142,14 +140,20 @@ namespace MfGames.Utility
 		/// Creates the top-level directory for storage. This assumes that
 		/// the storage key is defined.
 		/// </summary>
-		public void InitStorage()
+		public void Initialize()
 		{
+			// If we don't have a group, then ignore it.
+			if (storageName == null)
+			{
+				return;
+			}
+
 			// Create it
 			DirectoryInfo dir = StorageDirectory;
 
 			if (!dir.Exists)
 			{
-				log.Info("Created storage area: {0}", dir.FullName);
+				Log.Info("Created storage area: {0}", dir.FullName);
 				dir.Create();
 			}
 		}
@@ -172,7 +176,7 @@ namespace MfGames.Utility
 			// Check for invalid key
 			if (!ValidateStorageKey.IsMatch(appName))
 			{
-				throw new Exception("Application names may only have letters, " + "numbers, and spaces.");
+				throw new Exception("Application names may only have letters, numbers, and spaces.");
 			}
 
 			// Get the path
@@ -182,7 +186,7 @@ namespace MfGames.Utility
 			// Create it if it doesn't exist
 			if (!dir.Exists)
 			{
-				log.Info("Creating application folder: {0}", path);
+				Log.Info("Creating application folder: {0}", path);
 				dir.Create();
 			}
 
@@ -194,7 +198,24 @@ namespace MfGames.Utility
 
 		#region Logging
 
-		private readonly Log log = new Log(typeof(ConfigStorage));
+		private Log internalLog;
+
+		/// <summary>
+		/// Gets the logging interface for this class.
+		/// </summary>
+		/// <value>The log.</value>
+		private Log Log
+		{
+			get
+			{
+				if (internalLog == null)
+				{
+					internalLog = new Log(this);
+				}
+
+				return internalLog;
+			}
+		}
 
 		#endregion
 	}
