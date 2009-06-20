@@ -57,11 +57,39 @@ namespace MfGames.Logging
 			// Save the values in the structure.
 			Severity = severity;
 			Message = message;
+			Key = message;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AuditMessage"/> struct.
+		/// </summary>
+		/// <param name="severity">The severity.</param>
+		/// <param name="key">The key.</param>
+		/// <param name="message">The message.</param>
+		public AuditMessage(Severity severity, object key, string message)
+			: this()
+		{
+			// Check the parameters.
+			if (String.IsNullOrEmpty(message))
+			{
+				throw new ArgumentException("Message cannot be blank or null", "message");
+			}
+
+			// Save the values in the structure.
+			Severity = severity;
+			Message = message;
+			Key = key;
 		}
 
 		#endregion
 
 		#region Properties
+
+		/// <summary>
+		/// Gets or sets the object used to define uniqueness of a message.
+		/// </summary>
+		/// <value>The uniqueness.</value>
+		public object Key { get; private set; }
 
 		/// <summary>
 		/// Gets the message.
@@ -91,7 +119,7 @@ namespace MfGames.Logging
 			if (obj is AuditMessage)
 			{
 				var auditMessage = (AuditMessage) obj;
-				return auditMessage.Message == Message;
+				return auditMessage.Key == Key;
 			}
 
 			return false;
@@ -105,7 +133,7 @@ namespace MfGames.Logging
 		/// </returns>
 		public override int GetHashCode()
 		{
-			return Message.GetHashCode();
+			return Key == null ? 0 : Key.GetHashCode();
 		}
 
 		#endregion

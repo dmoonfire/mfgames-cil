@@ -51,7 +51,7 @@ namespace MfGames.Logging
 		/// <param name="logger">The logger.</param>
 		public ConsoleLogger(Logger logger)
 		{
-			logger.Log += Log;
+			logger.Log += OnLog;
 		}
 
 		#endregion
@@ -61,7 +61,7 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Writes out a log message at the given severity.
 		/// </summary>
-		public void Log(object sender, LogEventArgs args)
+		private static void OnLog(object sender, LogEventArgs args)
 		{
 			// Write out the message to standard error
 			Console.Error.WriteLine("{0,5}: {1}: {2}", args.Severity, sender, args.Message);

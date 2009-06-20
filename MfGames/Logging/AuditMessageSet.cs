@@ -68,7 +68,34 @@ namespace MfGames.Logging
 		/// <param name="message">The message.</param>
 		public void Add(Severity severity, string message)
 		{
-			Add(new AuditMessage(severity, message));
+			Add(severity, message, message);
+		}
+
+		/// <summary>
+		/// Adds the specified severity and message to the set.
+		/// </summary>
+		/// <param name="severity">The severity.</param>
+		/// <param name="key">The key.</param>
+		/// <param name="message">The message.</param>
+		public void Add(Severity severity, object key, string message)
+		{
+			Add(new AuditMessage(severity, key, message));
+		}
+
+		/// <summary>
+		/// Removes the specified message from the audit set.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		public void Remove(object key)
+		{
+			foreach (AuditMessage auditMessage in this)
+			{
+				if (auditMessage.Key == key)
+				{
+					Remove(auditMessage);
+					return;
+				}
+			}
 		}
 
 		#endregion
