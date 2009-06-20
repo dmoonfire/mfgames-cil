@@ -29,6 +29,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
+using MfGames.Logging;
+
 #endregion
 
 namespace MfGames.Settings
@@ -41,6 +43,19 @@ namespace MfGames.Settings
 		/// Contains the namespace for settings object.
 		/// </summary>
 		private const string Namespace = "http://mfgames.com/2009/mfgames-settings";
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XmlSettingsSerializer"/> class.
+		/// </summary>
+		public XmlSettingsSerializer()
+		{
+			// Set up logging.
+			log = new Log(this);
+		}
 
 		#endregion
 
@@ -138,16 +153,14 @@ namespace MfGames.Settings
 			while (xml.Read())
 			{
 				// Check for closing our element out.
-				if (xml.NodeType == XmlNodeType.EndElement &&
-					xml.LocalName == "type-settings")
+				if (xml.NodeType == XmlNodeType.EndElement && xml.LocalName == "type-settings")
 				{
 					// We are done.
 					break;
 				}
 
 				// If we have an open tag, check for the elements we care about.
-				if (xml.NodeType == XmlNodeType.Element &&
-					xml.LocalName == "key-value")
+				if (xml.NodeType == XmlNodeType.Element && xml.LocalName == "key-value")
 				{
 					// Read in the key value.
 					string key = xml["key"];
@@ -161,6 +174,45 @@ namespace MfGames.Settings
 
 					settings.Add(key, value);
 				}
+			}
+		}
+
+		/// <summary>
+		/// Tries to read in the settings object and returns the results, or an empty collection
+		/// if there is an error.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <returns></returns>
+		public SettingsCollection TryRead(FileInfo file)
+		{
+			var settings = new SettingsCollection();
+
+			try
+			{
+				Read(file, settings);
+			}
+			catch (Exception exception)
+			{
+				log.Error(exception, "Cannot read the settings file: " + file.FullName);
+			}
+
+			return settings;
+		}
+
+		/// <summary>
+		/// Tries to read the given file into the given settings object.
+		/// </summary>
+		/// <param name="file">The file.</param>
+		/// <param name="settings">The settings.</param>
+		public void TryRead(FileInfo file, SettingsCollection settings)
+		{
+			try
+			{
+				Read(file, settings);
+			}
+			catch (Exception exception)
+			{
+				log.Error(exception, "Cannot read the settings file: " + file.FullName);
 			}
 		}
 
@@ -232,7 +284,7 @@ namespace MfGames.Settings
 			// Write the opening tag.
 			xml.WriteStartElement("type-settings", Namespace);
 			xml.WriteAttributeString("type", settings.TypeName);
-			
+
 			// Write out the top-level elements.
 			if (settings.Count > 0)
 			{
@@ -255,6 +307,12 @@ namespace MfGames.Settings
 			// Write out the ending tag.
 			xml.WriteEndElement();
 		}
+
+		#endregion
+
+		#region Logging
+
+		private readonly Log log;
 
 		#endregion
 	}
