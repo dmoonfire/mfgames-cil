@@ -32,8 +32,8 @@ namespace MfGames.Entropy
 {
 	public class RandomDice : IDice
 	{
-		private int count = 1;
-		private int sides = 1;
+		private readonly int count;
+		private readonly int sides;
 
 		public RandomDice(int count, int sides)
 		{
@@ -48,17 +48,14 @@ namespace MfGames.Entropy
 		/// count, with each die being 1 to sides. The total is returned
 		/// as the result.
 		/// </summary>
-		public int Roll
+		public int Roll(Random random)
 		{
-			get
-			{
-				int total = 0;
+			int total = 0;
 
-				for (int i = 0; i < count; i++)
-					total += RandomManager.Next(1, sides);
+			for (int i = 0; i < count; i++)
+				total += random.Next(1, sides);
 
-				return total;
-			}
+			return total;
 		}
 
 		#endregion

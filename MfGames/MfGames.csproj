@@ -96,7 +96,7 @@
     <Compile Include="Timing\ITickable.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Entropy\MersenneRandom.cs" />
+    <Compile Include="Entropy\MersenneTwisterRandom.cs" />
     <Compile Include="Entropy\MersenneTwister.cs" />
     <Compile Include="Utility\ExtendedConvert.cs" />
     <Compile Include="Collections\PathInfo.cs" />

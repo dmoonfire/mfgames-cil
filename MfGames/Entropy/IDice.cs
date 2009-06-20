@@ -22,10 +22,17 @@
 
 #endregion
 
+using System;
+
 namespace MfGames.Entropy
 {
 	public interface IDice
 	{
-		int Roll { get; }
+		/// <summary>
+		/// Rolls the specified format using the given random.
+		/// </summary>
+		/// <param name="random">The random.</param>
+		/// <returns></returns>
+		int Roll(Random random);
 	}
 }

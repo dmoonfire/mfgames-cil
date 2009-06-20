@@ -48,7 +48,9 @@ namespace MfGames.Entropy
 			{
 				// Create a new random if it hasn't been set
 				if (random == null)
-					random = new MersenneRandom();
+				{
+					random = new MersenneTwisterRandom();
+				}
 
 				// Return the results
 				return random;

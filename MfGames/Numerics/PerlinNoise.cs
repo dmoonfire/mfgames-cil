@@ -53,7 +53,7 @@ namespace MfGames.Numerics
 		/// <param name="seed"></param>
 		public PerlinNoise(int seed)
 		{
-			var random = new MersenneRandom(seed);
+			var random = new MersenneTwisterRandom(seed);
 			Rank1 = random.Next(1000, 10000);
 			Rank2 = random.Next(100000, 1000000);
 			Rank3 = random.Next(1000000000, 2000000000);

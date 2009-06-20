@@ -22,32 +22,54 @@
 
 #endregion
 
+#region Namespaces
+
+using System;
+
+#endregion
+
 namespace MfGames.Entropy
 {
 	public class ConstantDice : IDice
 	{
-		private int value = 0;
-
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConstantDice"/> class.
+		/// </summary>
+		/// <param name="value">The value.</param>
 		public ConstantDice(int value)
 		{
-			this.value = value;
+			Value = value;
 		}
 
 		#region IDice Members
 
 		/// <summary>
-		/// This simply returns the value of the constant.
+		/// Rolls the specified format using the given random.
 		/// </summary>
-		public int Roll
+		/// <param name="random">The random.</param>
+		/// <returns></returns>
+		public int Roll(Random random)
 		{
-			get { return value; }
+			return Value;
 		}
 
 		#endregion
 
+		#region Properties
+
+		public int Value { get; private set; }
+
+		#endregion
+
+		/// <summary>
+		/// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+		/// </returns>
 		public override string ToString()
 		{
-			return value.ToString();
+			return Value.ToString();
 		}
 	}
 }

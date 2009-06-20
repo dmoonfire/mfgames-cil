@@ -34,14 +34,14 @@ namespace MfGames.Entropy
 	/// Simple proxy interface between the MersenneTwister and the
 	/// base System.Random class.
 	/// </summary>
-	public class MersenneRandom : Random
+	public class MersenneTwisterRandom : Random
 	{
 		#region Constructors
 
 		/// <summary>
 		/// Constructs the twister with a default seed.
 		/// </summary>
-		public MersenneRandom()
+		public MersenneTwisterRandom()
 		{
 			twister = new MersenneTwister();
 		}
@@ -49,7 +49,7 @@ namespace MfGames.Entropy
 		/// <summary>
 		/// Constructs the twister with a given seed.
 		/// </summary>
-		public MersenneRandom(int seed)
+		public MersenneTwisterRandom(int seed)
 		{
 			twister = new MersenneTwister(seed);
 		}

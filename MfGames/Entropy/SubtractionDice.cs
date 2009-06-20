@@ -46,9 +46,9 @@ namespace MfGames.Entropy
 		/// <summary>
 		/// This adds the results of the two dice and returns the results.
 		/// </summary>
-		public int Roll
+		public int Roll(Random random)
 		{
-			get { return d1.Roll - d2.Roll; }
+			return d1.Roll(random) - d2.Roll(random);
 		}
 
 		#endregion
