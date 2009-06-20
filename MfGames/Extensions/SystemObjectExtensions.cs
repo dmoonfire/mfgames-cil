@@ -15,6 +15,17 @@ namespace MfGames.Extensions
 		/// <summary>
 		/// Changes the type of the given object to another type, using the ExtendedConvert.
 		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
+		public static object ChangeType(this object value, Type type)
+		{
+			return ExtendedConvert.ChangeType(value, type);
+		}
+
+		/// <summary>
+		/// Changes the type of the given object to another type, using the ExtendedConvert.
+		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>

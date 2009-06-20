@@ -123,20 +123,35 @@ namespace MfGames.Utility
 
 		#region Type Conversions
 
-		private static Dictionary<Type, Dictionary<Type, IExtendedConverter>> converters = new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
+		private static readonly Dictionary<Type, Dictionary<Type, IExtendedConverter>> Converters = new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
 
 		/// <summary>
-		/// Changes the given value to something that matches the converted type.
+		/// Changes the given value to something that is assignable the converted type.
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <param name="convertType">Type of the convert.</param>
 		/// <returns></returns>
 		public static object ChangeType(object value, Type convertType)
 		{
-			// Check our custom converters first.
-			if (converters.ContainsKey(value.GetType()))
+			// Check for nulls, since those are easy.
+			if (value == null)
 			{
-				Dictionary<Type, IExtendedConverter> conversions = converters[value.GetType()];
+				return null;
+			}
+
+			// If we are already the type or assignable to the type, we don't need to do anything.
+			Type valueType = value.GetType();
+
+			if (valueType == convertType ||
+				convertType.IsAssignableFrom(valueType))
+			{
+				return value;
+			}
+
+			// Check our custom converters first.
+			if (Converters.ContainsKey(value.GetType()))
+			{
+				Dictionary<Type, IExtendedConverter> conversions = Converters[value.GetType()];
 
 				if (conversions.ContainsKey(convertType))
 				{
@@ -146,6 +161,17 @@ namespace MfGames.Utility
 
 			// Failing everything else, fall back to the default converter.
 			return Convert.ChangeType(value, convertType);
+		}
+
+		/// <summary>
+		/// Changes the given value to something that is assignable the converted type.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static T ChangeType<T>(object value)
+		{
+			return (T) ChangeType(value, typeof(T));
 		}
 
 		/// <summary>
@@ -174,12 +200,12 @@ namespace MfGames.Utility
 			}
 
 			// Get or create the from type.
-			if (!converters.ContainsKey(fromType))
+			if (!Converters.ContainsKey(fromType))
 			{
-				converters.Add(fromType, new Dictionary<Type, IExtendedConverter>());
+				Converters.Add(fromType, new Dictionary<Type, IExtendedConverter>());
 			}
 
-			Dictionary<Type, IExtendedConverter> fromConverters = converters[fromType];
+			Dictionary<Type, IExtendedConverter> fromConverters = Converters[fromType];
 
 			// Get or create the to type and set the converter to that key.
 			if (!fromConverters.ContainsKey(toType))
@@ -193,13 +219,63 @@ namespace MfGames.Utility
 		}
 
 		/// <summary>
+		/// Converts the given object into a double representation.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static double ToDouble(object value)
+		{
+			return ChangeType<double>(value);
+		}
+
+		/// <summary>
+		/// Converts the given object into a short representation.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static short ToInt16(object value)
+		{
+			return ChangeType<short>(value);
+		}
+
+		/// <summary>
+		/// Converts the given object into a int representation.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static int ToInt32(object value)
+		{
+			return ChangeType<int>(value);
+		}
+
+		/// <summary>
+		/// Converts the given object into a long representation.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static long ToInt64(object value)
+		{
+			return ChangeType<long>(value);
+		}
+
+		/// <summary>
+		/// Converts the given object into a float representation.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static float ToSingle(object value)
+		{
+			return ChangeType<float>(value);
+		}
+
+		/// <summary>
 		/// Converts the given object into a string representation.
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
 		public static string ToString(object value)
 		{
-			return (string) ChangeType(value, typeof(string));
+			return ChangeType<string>(value);
 		}
 
 		#endregion
@@ -217,7 +293,7 @@ namespace MfGames.Utility
 		/// </summary>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		public static TTo ChangeType(object value)
+		public static TTo ChangeType(TFrom value)
 		{
 			return (TTo) ExtendedConvert.ChangeType(value, typeof(TTo));
 		}
