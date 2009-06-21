@@ -26,6 +26,8 @@
 
 using System;
 
+using MfGames.Numerics;
+
 #endregion
 
 namespace MfGames.Extensions
@@ -42,15 +44,7 @@ namespace MfGames.Extensions
 		/// <returns></returns>
 		public static int NextPower2(this Int32 originalValue)
 		{
-			double power = 0;
-			int nextValue = originalValue;
-
-			while (nextValue > Math.Pow(2.0, power))
-			{
-				power++;
-			}
-
-			return (int) Math.Pow(2.0, power);
+			return ExtendedMath.NextPower2(originalValue);
 		}
 	}
 }

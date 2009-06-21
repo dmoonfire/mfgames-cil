@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Numerics\ExtendedMath.cs" />
     <Compile Include="Numerics\FractalBrownianMotion.cs" />
     <Compile Include="Numerics\Fraction.cs" />
     <Compile Include="Numerics\INoise2.cs" />

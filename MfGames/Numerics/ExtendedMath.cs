@@ -56,5 +56,23 @@ namespace MfGames.Numerics
 
 			return low;
 		}
+
+		/// <summary>
+		/// Raises the given integer to the next power of two.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns></returns>
+		public static int NextPower2(int value)
+		{
+			double power = 0;
+			int nextValue = value;
+
+			while (nextValue > Math.Pow(2.0, power))
+			{
+				power++;
+			}
+
+			return (int) Math.Pow(2.0, power);
+		}
 	}
 }

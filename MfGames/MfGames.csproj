@@ -68,6 +68,7 @@
     <Compile Include="Logging\IReportingAuditable.cs" />
     <Compile Include="Extensions\SystemInt32Extensions.cs" />
     <Compile Include="Logging\LogEventArgs.cs" />
+    <Compile Include="Numerics\ExtendedMath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entropy\AdditionDice.cs" />
     <Compile Include="Settings\ConfigManager.cs" />
