@@ -94,8 +94,9 @@ namespace MfGames.Utility
 			{
 				// Check for match and sanity checking
 				if (!RegexPart.IsMatch(parts[i]))
-					throw new Exception("Cannot parse part '" + parts[i] + "' of '" +
-					                           version + "'");
+				{
+					throw new Exception("Cannot parse part '" + parts[i] + "' of '" + version + "'");
+				}
 
 				// Pull out the parts
 				Match match = RegexPart.Match(parts[i]);
@@ -180,16 +181,22 @@ namespace MfGames.Utility
 				// Make sure strings match. If they do not, then the versions
 				// will never match.
 				if (str1 != str2)
+				{
 					return swapped ? true : false;
+				}
 
 				// Compare the numbers. If num1 is less than num2, then the
 				// rest of the version will be less. If it is the reverse,
 				// return it.
 				if (num1 < num2)
+				{
 					return swapped ? false : true;
+				}
 
 				if (num1 > num2)
+				{
 					return swapped ? true : false;
+				}
 			}
 
 			// We never got something that explicitly was less or invalid,

@@ -22,8 +22,12 @@
 
 #endregion
 
+#region Namespaces
+
 using System;
 using System.Configuration;
+
+#endregion
 
 namespace MfGames.Settings
 {

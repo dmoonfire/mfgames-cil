@@ -26,11 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 
 using MfGames.Utility.Annotations;
-using MfGames.Utility.Converters;
+
+using ColorConverter=MfGames.Utility.Converters.ColorConverter;
 
 #endregion
 
@@ -51,19 +53,15 @@ namespace MfGames.Utility
 		{
 			// Register the common converters used.
 			IExtendedConverter converter = new ColorConverter();
-			RegisterConverter(typeof(System.Drawing.Color), typeof(string), converter);
-			RegisterConverter(typeof(string), typeof(System.Drawing.Color), converter);
+			RegisterConverter(typeof(Color), typeof(string), converter);
+			RegisterConverter(typeof(string), typeof(Color), converter);
 		}
 
 		#endregion
 
 		#region String Functions
 
-		private static readonly char[] HexDigits = {
-		                                           	'0', '1', '2', '3', '4', '5', '6'
-		                                           	, '7', '8', '9', 'a', 'b', 'c',
-		                                           	'd', 'e', 'f'
-		                                           };
+		private static readonly char[] HexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
 		/// <summary>
 		/// Generates a hex string from a give set of bytes. This code
@@ -123,7 +121,8 @@ namespace MfGames.Utility
 
 		#region Type Conversions
 
-		private static readonly Dictionary<Type, Dictionary<Type, IExtendedConverter>> Converters = new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
+		private static readonly Dictionary<Type, Dictionary<Type, IExtendedConverter>> Converters =
+			new Dictionary<Type, Dictionary<Type, IExtendedConverter>>();
 
 		/// <summary>
 		/// Changes the given value to something that is assignable the converted type.
@@ -142,8 +141,7 @@ namespace MfGames.Utility
 			// If we are already the type or assignable to the type, we don't need to do anything.
 			Type valueType = value.GetType();
 
-			if (valueType == convertType ||
-				convertType.IsAssignableFrom(valueType))
+			if (valueType == convertType || convertType.IsAssignableFrom(valueType))
 			{
 				return value;
 			}

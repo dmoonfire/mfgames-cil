@@ -22,7 +22,11 @@
 
 #endregion
 
+#region Namespaces
+
 using System;
+
+#endregion
 
 namespace MfGames.Entropy
 {

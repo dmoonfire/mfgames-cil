@@ -50,7 +50,9 @@ namespace MfGames.Logging
 				foreach (AuditMessage auditMessage in this)
 				{
 					if (severity < auditMessage.Severity)
+					{
 						severity = auditMessage.Severity;
+					}
 				}
 
 				return severity;

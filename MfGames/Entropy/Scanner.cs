@@ -65,14 +65,18 @@ namespace MfGames.Entropy
 			fileLen = bufLen = (int) s.Length;
 
 			if (stream.CanSeek && bufLen > MAX_BUFFER_LENGTH)
+			{
 				bufLen = MAX_BUFFER_LENGTH;
+			}
 
 			buf = new byte[bufLen];
 			bufStart = Int32.MaxValue; // nothing in the buffer so far
 			Pos = 0; // setup buffer to position 0 (start)
 
 			if (bufLen == fileLen)
+			{
 				Close();
+			}
 		}
 
 		public int Pos
@@ -81,9 +85,13 @@ namespace MfGames.Entropy
 			set
 			{
 				if (value < 0)
+				{
 					value = 0;
+				}
 				else if (value > fileLen)
+				{
 					value = fileLen;
+				}
 
 				if (value >= bufStart && value < bufStart + bufLen)
 				{
@@ -160,7 +168,9 @@ namespace MfGames.Entropy
 			int oldPos = Pos;
 			Pos = beg;
 			for (int i = 0; i < len; i++)
+			{
 				buf[i] = (char) Read();
+			}
 			Pos = oldPos;
 			return new String(buf);
 		}
@@ -187,20 +197,13 @@ namespace MfGames.Entropy
 		private Token pt; // current peek token
 
 		private short[] start = {
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4, 0, 0, 2, 2, 2, 2, 2
-		                        	, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
 		                        };
 
@@ -217,10 +220,7 @@ namespace MfGames.Entropy
 		{
 			try
 			{
-				Stream stream = new FileStream(fileName,
-				                               FileMode.Open,
-				                               FileAccess.Read,
-				                               FileShare.Read);
+				Stream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
 				buffer = new Buffer(stream, false);
 				Init();
 			}
@@ -267,7 +267,9 @@ namespace MfGames.Entropy
 				// replace isolated '\r' by '\n' in order to make
 				// eol handling uniform across Windows, Unix and Mac
 				if (ch == '\r' && buffer.Peek() != '\n')
+				{
 					ch = EOL;
+				}
 
 				if (ch == EOL)
 				{
@@ -302,7 +304,9 @@ namespace MfGames.Entropy
 		private Token NextToken()
 		{
 			while (ignore[ch])
+			{
 				NextCh();
+			}
 
 			t = new Token();
 			t.pos = pos;

@@ -69,7 +69,9 @@ namespace MfGames.Entropy
 		private void SynErr(int n)
 		{
 			if (errDist >= minErrDist)
+			{
 				errors.SynErr(la.line, la.col, n);
+			}
 
 			errDist = 0;
 		}
@@ -77,7 +79,9 @@ namespace MfGames.Entropy
 		public void SemErr(string msg)
 		{
 			if (errDist >= minErrDist)
+			{
 				errors.Error(token.line, token.col, msg);
+			}
 
 			errDist = 0;
 		}
@@ -102,7 +106,9 @@ namespace MfGames.Entropy
 		protected void Expect(int n)
 		{
 			if (la.kind == n)
+			{
 				Get();
+			}
 			else
 			{
 				SynErr(n);
@@ -131,9 +137,13 @@ namespace MfGames.Entropy
 			}
 
 			if (d2 == null)
+			{
 				dice = d1;
+			}
 			else
+			{
 				dice = new AdditionDice(d1, d2);
+			}
 		}
 
 		private void Subtraction(out IDice dice)
@@ -148,9 +158,13 @@ namespace MfGames.Entropy
 			}
 
 			if (d2 == null)
+			{
 				dice = d1;
+			}
 			else
+			{
 				dice = new SubtractionDice(d1, d2);
+			}
 		}
 
 		private void Expression(out IDice dice)
@@ -166,9 +180,13 @@ namespace MfGames.Entropy
 			}
 
 			if (sides == 0)
+			{
 				dice = new ConstantDice(number);
+			}
 			else
+			{
 				dice = new RandomDice(number, sides);
+			}
 		}
 
 		private void Integer(out int value)

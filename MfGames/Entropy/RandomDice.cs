@@ -53,7 +53,9 @@ namespace MfGames.Entropy
 			int total = 0;
 
 			for (int i = 0; i < count; i++)
+			{
 				total += random.Next(1, sides);
+			}
 
 			return total;
 		}

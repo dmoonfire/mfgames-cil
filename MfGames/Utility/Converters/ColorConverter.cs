@@ -58,6 +58,8 @@ namespace MfGames.Utility.Converters
 			return null;
 		}
 
+		#endregion
+
 		/// <summary>
 		/// Converts the given byte into a two-digit hex string.
 		/// </summary>
@@ -67,7 +69,5 @@ namespace MfGames.Utility.Converters
 		{
 			return value <= 0xF ? String.Format("0{0:X}", value) : value.ToString("X");
 		}
-
-		#endregion
 	}
 }

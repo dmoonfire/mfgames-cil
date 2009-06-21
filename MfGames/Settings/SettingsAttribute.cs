@@ -33,8 +33,7 @@ namespace MfGames.Settings
 	/// <summary>
 	/// Defines an attribute that marks a property or field as being a settings object.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property,
-		AllowMultiple = false, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public class SettingsAttribute : Attribute
 	{
 	}

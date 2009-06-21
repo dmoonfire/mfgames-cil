@@ -26,8 +26,6 @@
 
 using System;
 
-using MfGames.Utility;
-
 #endregion
 
 namespace MfGames.Entropy

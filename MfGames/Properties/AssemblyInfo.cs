@@ -43,7 +43,7 @@ using System.Runtime.InteropServices;
 
 // Compliance attributes.
 
-[assembly: CLSCompliant(true)]
+[assembly:CLSCompliant(true)]
 
 // Attributes for identifying the assembly.
 

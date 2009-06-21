@@ -39,12 +39,12 @@ namespace MfGames.Collections
 	/// 
 	/// Implements a basic type chooser which allows a system to add
 	/// zero or more objects as strings to a type name
-	/// ("MfGames.Utility.TypeDictionary" for example). Then, by giving the
+	/// ("MfGames.Utility.TypeHierarchyDictionary" for example). Then, by giving the
 	/// system a type object, it will return the list of all objects
 	/// that match the type, or any parent class or interface of that
 	/// type.
 	/// </summary>
-	public class TypeDictionary<T> : Dictionary<string, List<T>>
+	public class TypeHierarchyDictionary<T> : Dictionary<string, List<T>>
 	{
 		#region Retrieval
 
