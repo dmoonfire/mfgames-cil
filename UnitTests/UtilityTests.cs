@@ -41,34 +41,6 @@ namespace UnitTests
 		{
 			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
 			                ExtendedConvert.ToMd5HexString("jim"));
-			Assert.AreEqual("8621ffdbc5698829397d97767ac13db3",
-			                ExtendedConvert.ToMd5HexString("dragon"));
-		}
-
-		[Test]
-		public void TestWeightedSelectorAdd2()
-		{
-			var ws = new WeightedSelector();
-			ws["bob"] = 5;
-			ws["gary"] = 5;
-			Assert.AreEqual(ws.Total, 10);
-		}
-
-		[Test]
-		public void TestWeightedSelectorEmpty()
-		{
-			var ws = new WeightedSelector();
-			Assert.AreEqual(ws.Total, 0);
-		}
-
-		[Test]
-		public void TestWeightedSelectorReplace()
-		{
-			var ws = new WeightedSelector();
-			ws["bob"] = 5;
-			ws["gary"] = 5;
-			ws["bob"] = 2;
-			Assert.AreEqual(ws.Total, 7);
 		}
 	}
 }
