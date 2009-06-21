@@ -24,7 +24,6 @@
 
 #region Namespaces
 
-using MfGames.Collections;
 using MfGames.Utility;
 
 using NUnit.Framework;
@@ -39,8 +38,7 @@ namespace UnitTests
 		[Test]
 		public void TestMd5HexString()
 		{
-			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b",
-			                ExtendedConvert.ToMd5HexString("jim"));
+			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b", ExtendedConvert.ToMd5HexString("jim"));
 		}
 	}
 }

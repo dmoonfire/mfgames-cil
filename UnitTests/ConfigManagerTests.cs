@@ -36,15 +36,15 @@ namespace UnitTests
 	public class ConfigManagerTests
 	{
 		[Test]
-		public void ValidInt32()
-		{
-			Assert.AreEqual(2345, ConfigManager.Get("ValidInt32", -1));
-		}
-
-		[Test]
 		public void InvalidInt32()
 		{
 			Assert.AreEqual(-1, ConfigManager.Get("InvalidInt32", -1));
+		}
+
+		[Test]
+		public void ValidInt32()
+		{
+			Assert.AreEqual(2345, ConfigManager.Get("ValidInt32", -1));
 		}
 	}
 }
