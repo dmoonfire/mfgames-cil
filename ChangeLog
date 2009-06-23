@@ -1,3 +1,11 @@
+2009-06-23 Dylan R. E. MOonfire <contact@mfgames.com>
+
+	* Restructured the entire assembly into MfGames at the top level
+	and pulled out the elements from the Utility namespace.
+	* Brought up the code to use generics and 3.5 features.
+	* Created an MfGames.Unstable DLL for the code that isn't ready
+	for prime time.
+
 2007-10-09 Dylan R. E. Moonfire <contact@mfgames.com>
 
 	* Removed the IEntropy, MersenneEntropy, and related
