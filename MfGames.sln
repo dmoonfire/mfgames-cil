@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames", "MfGames\MfGames.csproj", "{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Unstable", "MfGames.Unstable\MfGames.Unstable.csproj", "{6B806454-198D-4A20-B08C-D926D636E927}"
 EndProject
 Global
@@ -17,14 +15,13 @@ Global
 		{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F5D4AF-38DF-46C5-B866-3CA531F07F95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B806454-198D-4A20-B08C-D926D636E927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B806454-198D-4A20-B08C-D926D636E927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B806454-198D-4A20-B08C-D926D636E927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B806454-198D-4A20-B08C-D926D636E927}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = MfGames\MfGames.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
