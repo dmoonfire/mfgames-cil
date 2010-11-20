@@ -1,1 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?><Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  <PropertyGroup>    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>    <ProductVersion>9.0.21022</ProductVersion>    <SchemaVersion>2.0</SchemaVersion>    <ProjectGuid>{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}</ProjectGuid>    <OutputType>Library</OutputType>    <RootNamespace>MfGames.Dice</RootNamespace>    <AssemblyName>MfGames.Dice</AssemblyName>    <SignAssembly>true</SignAssembly>    <AssemblyOriginatorKeyFile>..\MfGames.snk</AssemblyOriginatorKeyFile>    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">    <DebugSymbols>true</DebugSymbols>    <DebugType>full</DebugType>    <Optimize>false</Optimize>    <OutputPath>..\..\bin\Debug</OutputPath>    <DefineConstants>DEBUG</DefineConstants>    <ErrorReport>prompt</ErrorReport>    <WarningLevel>4</WarningLevel>    <ConsolePause>false</ConsolePause>  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">    <DebugType>none</DebugType>    <Optimize>false</Optimize>    <OutputPath>..\..\bin\Release</OutputPath>    <ErrorReport>prompt</ErrorReport>    <WarningLevel>4</WarningLevel>    <ConsolePause>false</ConsolePause>  </PropertyGroup>  <ItemGroup>    <Reference Include="System" />    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">      <SpecificVersion>False</SpecificVersion>      <HintPath>..\..\lib\nunit.framework.dll</HintPath>    </Reference>  </ItemGroup>  <ItemGroup>    <Compile Include="MyClass.cs" />    <Compile Include="Properties\AssemblyInfo.cs" />    <Compile Include="AdditionDice.cs" />    <Compile Include="ConstantDice.cs" />    <Compile Include="DiceException.cs" />    <Compile Include="DiceFactory.cs" />    <Compile Include="IDice.cs" />    <Compile Include="Parser.cs" />    <Compile Include="RandomDice.cs" />    <Compile Include="Scanner.cs" />    <Compile Include="SubtractionDice.cs" />    <Compile Include="Tests\DiceTests.cs" />  </ItemGroup>  <ItemGroup>    <Folder Include="Properties\" />    <Folder Include="Tests\" />  </ItemGroup>  <ItemGroup>    <ProjectReference Include="..\MfGames\MfGames.csproj">      <Project>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</Project>      <Name>MfGames</Name>    </ProjectReference>  </ItemGroup>  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" /></Project>
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MfGames.Dice</RootNamespace>
+    <AssemblyName>MfGames.Dice</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\MfGames.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AdditionDice.cs" />
+    <Compile Include="ConstantDice.cs" />
+    <Compile Include="DiceException.cs" />
+    <Compile Include="DiceFactory.cs" />
+    <Compile Include="IDice.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="RandomDice.cs" />
+    <Compile Include="Scanner.cs" />
+    <Compile Include="SubtractionDice.cs" />
+    <Compile Include="Tests\DiceTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MfGames\MfGames.csproj">
+      <Project>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</Project>
+      <Name>MfGames</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
