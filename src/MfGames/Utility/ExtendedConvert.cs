@@ -30,8 +30,6 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 
-using MfGames.Utility.Annotations;
-
 using ColorConverter=MfGames.Utility.Converters.ColorConverter;
 
 #endregion
@@ -179,7 +177,7 @@ namespace MfGames.Utility
 		/// <param name="fromType">From type.</param>
 		/// <param name="toType">To type.</param>
 		/// <param name="converter">The converter.</param>
-		public static void RegisterConverter([NotNull] Type fromType, [NotNull] Type toType, [NotNull] IExtendedConverter converter)
+		public static void RegisterConverter(Type fromType, Type toType, IExtendedConverter converter)
 		{
 			// Check for null values in any of the paramters.
 			if (fromType == null)

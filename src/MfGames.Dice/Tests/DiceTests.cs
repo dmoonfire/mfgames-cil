@@ -22,6 +22,8 @@
 
 #endregion
 
+#if DEBUG
+
 #region Namespaces
 
 using MfGames.Entropy;
@@ -30,7 +32,7 @@ using NUnit.Framework;
 
 #endregion
 
-namespace UnitTests
+namespace MfGames.Dice.Tests
 {
 	/// <summary>
 	/// Tests out the various dice parsing and generation routines.
@@ -83,3 +85,5 @@ namespace UnitTests
 		}
 	}
 }
+
+#endif

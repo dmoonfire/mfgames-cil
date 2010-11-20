@@ -26,8 +26,6 @@
 
 using System;
 
-using MfGames.Utility.Annotations;
-
 #endregion
 
 namespace MfGames.Logging
@@ -66,7 +64,6 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Alert(string format, params object[] arguments)
 		{
 			Logger.Instance.Alert(Sender, format, arguments);
@@ -78,7 +75,6 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Alert(Exception exception, string format, params object[] arguments)
 		{
 			Logger.Instance.Alert(Sender, exception, format, arguments);
@@ -89,7 +85,6 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Debug(string format, params object[] arguments)
 		{
 			Logger.Instance.Debug(Sender, format, arguments);
@@ -101,7 +96,6 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Debug(Exception exception, string format, params object[] arguments)
 		{
 			Logger.Instance.Debug(Sender, exception, format, arguments);
@@ -112,7 +106,6 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Error(string format, params object[] arguments)
 		{
 			Logger.Instance.Error(Sender, format, arguments);
@@ -124,7 +117,6 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Error(Exception exception, string format, params object[] arguments)
 		{
 			Logger.Instance.Error(Sender, exception, format, arguments);
@@ -135,7 +127,6 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Fatal(string format, params object[] arguments)
 		{
 			Logger.Instance.Fatal(Sender, format, arguments);
@@ -147,7 +138,6 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Fatal(Exception exception, string format, params object[] arguments)
 		{
 			Logger.Instance.Fatal(Sender, exception, format, arguments);
@@ -158,7 +148,6 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Info(string format, params object[] arguments)
 		{
 			Logger.Instance.Info(Sender, format, arguments);
@@ -170,7 +159,6 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Info(Exception exception, string format, params object[] arguments)
 		{
 			Logger.Instance.Info(Sender, exception, format, arguments);
@@ -181,7 +169,6 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Trace(string format, params object[] arguments)
 		{
 			Logger.Instance.Trace(Sender, format, arguments);
@@ -193,7 +180,6 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		[StringFormatMethod("format")]
 		public void Trace(Exception exception, string format, params object[] arguments)
 		{
 			Logger.Instance.Trace(Sender, exception, format, arguments);

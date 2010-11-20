@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames", "MfGames\MfGames.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Unstable", "MfGames.Unstable\MfGames.Unstable.csproj", "{6B806454-198D-4A20-B08C-D926D636E927}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Dice", "MfGames.Dice\MfGames.Dice.csproj", "{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{6B806454-198D-4A20-B08C-D926D636E927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B806454-198D-4A20-B08C-D926D636E927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B806454-198D-4A20-B08C-D926D636E927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = MfGames\MfGames.csproj
