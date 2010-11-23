@@ -22,29 +22,42 @@
 
 #endregion
 
-#region Namespaces
-
-using System;
-
-using MfGames.Numerics;
-
-#endregion
-
-namespace MfGames.Extensions
+namespace MfGames.Enumerations
 {
 	/// <summary>
-	/// Extension methods for Int32 (regular int).
+	/// Defines the standard levels of severity used by various API.
 	/// </summary>
-	public static class SystemInt32Extensions
+	public enum Severity
 	{
 		/// <summary>
-		/// Raises the given integer to the next power of two.
+		/// Trace level, used for function tracing.
 		/// </summary>
-		/// <param name="originalValue">The original value.</param>
-		/// <returns></returns>
-		public static int NextPower2(this Int32 originalValue)
-		{
-			return ExtendedMath.NextPower2(originalValue);
-		}
+		Trace,
+
+		/// <summary>
+		/// Indicates a severity used for debugging.
+		/// </summary>
+		Debug,
+
+		/// <summary>
+		/// Used for informational purposes.
+		/// </summary>
+		Info,
+
+		/// <summary>
+		/// Used for warning notices.
+		/// </summary>
+		Alert,
+
+		/// <summary>
+		/// Used for a non-fatal error condition.
+		/// </summary>
+		Error,
+
+		/// <summary>
+		/// Used for fatal conditions, usually indicating the application or
+		/// something has stopped.
+		/// </summary>
+		Fatal,
 	}
 }

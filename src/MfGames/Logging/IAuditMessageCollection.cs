@@ -26,6 +26,8 @@
 
 using System.Collections.Generic;
 
+using MfGames.Enumerations;
+
 #endregion
 
 namespace MfGames.Logging
