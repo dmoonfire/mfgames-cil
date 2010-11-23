@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace MfGames.Extensions
+namespace MfGames.Extensions.Collections.Generic
 {
 	/// <summary>
 	/// Extends IList-derived classes with additional extensions.

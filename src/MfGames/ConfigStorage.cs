@@ -32,7 +32,7 @@ using MfGames.Logging;
 
 #endregion
 
-namespace MfGames.Utility
+namespace MfGames
 {
 	/// <summary>
 	/// This implements a static, singleton-style class that managed a

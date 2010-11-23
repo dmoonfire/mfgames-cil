@@ -57,6 +57,10 @@
     <AssemblyOriginatorKeyFile>MfGames.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -67,36 +71,26 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\SystemCollectionsGenericListExtensions.cs" />
+    <Compile Include="Extensions\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\SystemArrayExtensions.cs" />
-    <Compile Include="Extensions\SystemObjectExtensions.cs" />
-    <Compile Include="Extensions\SystemReflectionMemberInfoExtensions.cs" />
-    <Compile Include="Extensions\SystemReflectionParameterInfoExtensions.cs" />
-    <Compile Include="Logging\Audit.cs" />
-    <Compile Include="Logging\AuditMessage.cs" />
-    <Compile Include="Logging\AuditMessageSet.cs" />
-    <Compile Include="Logging\IAuditMessageCollection.cs" />
-    <Compile Include="Logging\IReportingAuditable.cs" />
+    <Compile Include="Extensions\Reflection\SystemReflectionMemberInfoExtensions.cs" />
+    <Compile Include="Extensions\Reflection\SystemReflectionParameterInfoExtensions.cs" />
+    <Compile Include="Locking\ReadLock.cs" />
     <Compile Include="Logging\LogEventArgs.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Tests\HierarchicalPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\ConfigManager.cs" />
-    <Compile Include="Settings\SettingsAttribute.cs" />
-    <Compile Include="Logging\AuditMessageEventArgs.cs" />
-    <Compile Include="Logging\SeverityEventArgs.cs" />
-    <Compile Include="Utility\ConfigStorage.cs" />
+    <Compile Include="ConfigStorage.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="RandomManager.cs" />
-    <Compile Include="Logging\IAuditable.cs" />
-    <Compile Include="Collections\InvalidPathException.cs" />
+    <Compile Include="Exceptions\InvalidPathException.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Collections\PathInfo.cs" />
-    <Compile Include="Collections\NotAbsolutePathException.cs" />
-    <Compile Include="Settings\SettingsCollection.cs" />
+    <Compile Include="HierarchicalPath.cs" />
+    <Compile Include="Exceptions\NotAbsolutePathException.cs" />
     <Compile Include="Enumerations\Severity.cs" />
-    <Compile Include="Collections\TypeHierarchyDictionary.cs" />
-    <Compile Include="Utility\ExtendedVersion.cs" />
-    <Compile Include="Settings\XmlSettingsSerializer.cs" />
+    <Compile Include="ExtendedVersion.cs" />
+    <Compile Include="Tests\ExtendedVersionTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

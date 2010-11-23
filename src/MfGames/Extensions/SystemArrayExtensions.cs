@@ -24,6 +24,9 @@
 
 namespace MfGames.Extensions
 {
+	/// <summary>
+	/// Contains extensions to System.Array.
+	/// </summary>
 	public static class SystemArrayExtensions
 	{
 		/// <summary>
@@ -33,7 +36,9 @@ namespace MfGames.Extensions
 		/// <param name="oldArray">The old array.</param>
 		/// <param name="offset">The offset.</param>
 		/// <returns></returns>
-		public static object[] Splice(this object[] oldArray, int offset)
+		public static object[] Splice(
+			this object[] oldArray,
+			int offset)
 		{
 			// Check for nulls and blanks.
 			if (oldArray == null)
@@ -60,7 +65,9 @@ namespace MfGames.Extensions
 		/// <param name="oldArray">The old array.</param>
 		/// <param name="offset">The offset.</param>
 		/// <returns></returns>
-		public static string[] Splice(this string[] oldArray, int offset)
+		public static string[] Splice(
+			this string[] oldArray,
+			int offset)
 		{
 			// Check for nulls and blanks.
 			if (oldArray == null)
