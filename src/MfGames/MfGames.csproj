@@ -91,6 +91,11 @@
     <Compile Include="Enumerations\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
     <Compile Include="Tests\ExtendedVersionTests.cs" />
+    <Compile Include="Locking\WriterLock.cs" />
+    <Compile Include="Locking\UpgradableLock.cs" />
+    <Compile Include="Delegates\TryGetHandler.cs" />
+    <Compile Include="Delegates\CreateHandler.cs" />
+    <Compile Include="Locking\TryGetCreatePattern.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -113,4 +118,7 @@
     </MonoDevelop>
     <VisualStudio />
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Delegates\" />
+  </ItemGroup>
 </Project>
