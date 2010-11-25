@@ -36,7 +36,7 @@ namespace MfGames.Logging
 	/// Implements a low-profile logging sender for the MfGames and related libraries. To
 	/// connect to the logging interface, the code just needs to attach to the Log event.
 	/// </summary>
-	public class Logger
+	public class Logger : ILogger
 	{
 		#region Singleton
 

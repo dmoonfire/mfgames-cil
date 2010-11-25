@@ -37,6 +37,26 @@ namespace MfGames.Extensions.Reflection
 	public static class SystemReflectionMemberInfoExtensions
 	{
 		/// <summary>
+		/// Gets the custom attribute or null if one doesn't exist.
+		/// </summary>
+		/// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+		/// <param name="memberInfo">The member info.</param>
+		/// <returns></returns>
+		public static TAttribute GetCustomAttribute<TAttribute>(
+			this MemberInfo memberInfo) where TAttribute: Attribute
+		{
+			object[] attributes = memberInfo.GetCustomAttributes(
+				typeof(TAttribute), true);
+
+			if (attributes.Length == 0)
+			{
+				return null;
+			}
+
+			return (TAttribute) attributes[0];
+		}
+
+		/// <summary>
 		/// Extends the Type class to return a flag if there is the presence of a custom
 		/// attribute.
 		/// </summary>
@@ -45,7 +65,9 @@ namespace MfGames.Extensions.Reflection
 		/// <returns>
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
-		public static bool HasCustomAttribute(this MemberInfo memberInfo, Type attributeType)
+		public static bool HasCustomAttribute(
+			this MemberInfo memberInfo,
+			Type attributeType)
 		{
 			return HasCustomAttribute(memberInfo, attributeType, true);
 		}
@@ -60,7 +82,10 @@ namespace MfGames.Extensions.Reflection
 		/// <returns>
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
-		public static bool HasCustomAttribute(this MemberInfo memberInfo, Type attributeType, bool inherited)
+		public static bool HasCustomAttribute(
+			this MemberInfo memberInfo,
+			Type attributeType,
+			bool inherited)
 		{
 			// Check for null parameters.
 			if (attributeType == null)
@@ -69,7 +94,7 @@ namespace MfGames.Extensions.Reflection
 			}
 
 			// Go through the attributes of the member type and look for at least one.
-			return (memberInfo.GetCustomAttributes(attributeType, true).Length > 0);
+			return (memberInfo.GetCustomAttributes(attributeType, inherited).Length > 0);
 		}
 	}
 }

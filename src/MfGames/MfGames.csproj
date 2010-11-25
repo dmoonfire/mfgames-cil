@@ -72,11 +72,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
+    <Compile Include="Extensions\IO\SystemIODirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\SystemArrayExtensions.cs" />
     <Compile Include="Extensions\Reflection\SystemReflectionMemberInfoExtensions.cs" />
     <Compile Include="Extensions\Reflection\SystemReflectionParameterInfoExtensions.cs" />
     <Compile Include="Locking\ReadLock.cs" />
+    <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LogEventArgs.cs" />
+    <Compile Include="Logging\LoggerExtensions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Tests\HierarchicalPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
