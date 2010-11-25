@@ -10,14 +10,14 @@ namespace MfGames.Locking
 	/// <summary>
 	/// Defines a ReaderWriterLockSlim read-only lock.
 	/// </summary>
-	public class ReadLock : IDisposable
+	public class WriteLock : IDisposable
 	{
 		#region Constructors
 		
-		public ReadLock(ReaderWriterLockSlim readerWriterLockSlim)
+		public WriteLock(ReaderWriterLockSlim readerWriterLockSlim)
 		{
 			this.readerWriterLockSlim = readerWriterLockSlim;
-			readerWriterLockSlim.EnterReadLock();
+			readerWriterLockSlim.EnterWriteLock();
 		}
 		
 		#endregion
@@ -26,7 +26,7 @@ namespace MfGames.Locking
 		
 		public void Dispose()
 		{
-			readerWriterLockSlim.ExitReadLock();
+			readerWriterLockSlim.ExitWriteLock();
 		}
 		
 		#endregion

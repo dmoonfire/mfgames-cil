@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -57,10 +57,6 @@
     <AssemblyOriginatorKeyFile>MfGames.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -69,6 +65,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
@@ -94,6 +94,12 @@
     <Compile Include="Enumerations\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
     <Compile Include="Tests\ExtendedVersionTests.cs" />
+    <Compile Include="Locking\WriterLock.cs" />
+    <Compile Include="Locking\UpgradableLock.cs" />
+    <Compile Include="Delegates\TryGetHandler.cs" />
+    <Compile Include="Delegates\CreateHandler.cs" />
+    <Compile Include="Locking\TryGetCreatePattern.cs" />
+    <Compile Include="Enumerations\SettingsSearchOption.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -116,4 +122,7 @@
     </MonoDevelop>
     <VisualStudio />
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Delegates\" />
+  </ItemGroup>
 </Project>
