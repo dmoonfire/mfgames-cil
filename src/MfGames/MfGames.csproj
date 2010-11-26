@@ -78,8 +78,6 @@
     <Compile Include="Extensions\Reflection\SystemReflectionParameterInfoExtensions.cs" />
     <Compile Include="Locking\ReadLock.cs" />
     <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Logging\LogEventArgs.cs" />
-    <Compile Include="Logging\LoggerExtensions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Tests\HierarchicalPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,7 +86,6 @@
     <Compile Include="RandomManager.cs" />
     <Compile Include="Exceptions\InvalidPathException.cs" />
     <Compile Include="Logging\Log.cs" />
-    <Compile Include="Logging\Logger.cs" />
     <Compile Include="HierarchicalPath.cs" />
     <Compile Include="Exceptions\NotAbsolutePathException.cs" />
     <Compile Include="Enumerations\Severity.cs" />
@@ -99,7 +96,10 @@
     <Compile Include="Delegates\TryGetHandler.cs" />
     <Compile Include="Delegates\CreateHandler.cs" />
     <Compile Include="Locking\TryGetCreatePattern.cs" />
+    <Compile Include="Logging\LogEvent.cs" />
+    <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Enumerations\SettingSearchOptions.cs" />
+    <Compile Include="Logging\NullLogger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

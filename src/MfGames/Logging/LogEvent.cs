@@ -1,4 +1,4 @@
-﻿#region Copyright and License
+#region Copyright and License
 
 // Copyright (c) 2005-2009, Moonfire Games
 // 
@@ -35,14 +35,14 @@ namespace MfGames.Logging
 	/// <summary>
 	/// Encapsulates the functionality of a logging message.
 	/// </summary>
-	public class LogEventArgs : EventArgs
+	public class LogEvent : EventArgs
 	{
 		#region Constructors
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LogEventArgs"/> class.
 		/// </summary>
-		public LogEventArgs()
+		public LogEvent()
 		{
 		}
 
@@ -52,8 +52,9 @@ namespace MfGames.Logging
 		/// <param name="severity">The severity.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		public LogEventArgs(Severity severity, string format, params object[] arguments)
+		public LogEvent(string category, Severity severity, string format, params object[] arguments)
 		{
+			Category = category;
 			Message = String.Format(format, arguments);
 			Severity = severity;
 		}
@@ -65,8 +66,9 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		public LogEventArgs(Severity severity, Exception exception, string format, params object[] arguments)
+		public LogEvent(string category, Severity severity, Exception exception, string format, params object[] arguments)
 		{
+			Category = category;
 			Message = String.Format(format, arguments);
 			Exception = exception;
 			Severity = severity;
@@ -94,6 +96,8 @@ namespace MfGames.Logging
 		/// <value>The severity.</value>
 		public Severity Severity { get; set; }
 
+		public string Category { get; set; }
+		
 		#endregion
 	}
 }

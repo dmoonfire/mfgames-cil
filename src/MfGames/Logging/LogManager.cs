@@ -33,73 +33,36 @@ using MfGames.Enumerations;
 namespace MfGames.Logging
 {
 	/// <summary>
-	/// A simple console logger that writes out all the log messages to
-	/// the error stream.
+	/// Implements a low-profile logging sender for the MfGames and related libraries. To
+	/// connect to the logging interface, the code just needs to attach to the Log event.
 	/// </summary>
-	public class ConsoleLogger : ILogger
+	public static class LogManager
 	{
-		#region Constructors
+		#region Singleton
+
+		private static ILogger logger = new NullLogger();
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+		/// Contains the ILogger used for the system. This is a singleton
+		/// and cannot be null. Attempting to assign a null will throw an
+		/// exception. Setting this to null will assign a default logger and this
+		/// property will never be null.
 		/// </summary>
-		public ConsoleLogger()
+		public static ILogger Instance
 		{
-			formatString = "{0,5}: {1}";
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
-		/// </summary>
-		/// <param name="formatString">The format string.</param>
-		public ConsoleLogger(string formatString)
-		{
-			FormatString = formatString;
+			get { return logger; }
+			set { logger = value ?? new NullLogger(); }
 		}
 
 		#endregion
 
-		#region Logging
-
-		private string formatString;
+		#region Eventing
 
 		/// <summary>
-		/// Gets or sets the format string.
-		/// 
-		/// 0: Category
-		/// 1: Severity
-		/// 2: Message
-		/// 3: Timestamp (UTC)
-		/// 4: Timestamp (Local)
+		/// Occurs when a log message is received.
 		/// </summary>
-		/// <value>The format string.</value>
-		public string FormatString
-		{
-			get { return formatString; }
-			set { formatString = value; }
-		}
+		public static event EventHandler<LogEvent> Log;
 
-		/// <summary>
-		/// Logs the given log event.
-		/// </summary>
-		public void Report(object sender, LogEvent logEvent)
-		{
-			// Write out the message to the console.
-			Console.Error.WriteLine(
-				formatString,
-			    logEvent.Category,
-				logEvent.Severity,
-				logEvent.Message,
-				DateTime.UtcNow,
-				DateTime.Now);
-
-			// Add the stack trace if we have an exception
-			if (logEvent.Exception != null)
-			{
-				Console.Error.WriteLine(logEvent.Exception.StackTrace);
-			}
-		}
-		
 		#endregion
 	}
 }
