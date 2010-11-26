@@ -99,7 +99,7 @@
     <Compile Include="Delegates\TryGetHandler.cs" />
     <Compile Include="Delegates\CreateHandler.cs" />
     <Compile Include="Locking\TryGetCreatePattern.cs" />
-    <Compile Include="Enumerations\SettingsSearchOption.cs" />
+    <Compile Include="Enumerations\SettingSearchOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
