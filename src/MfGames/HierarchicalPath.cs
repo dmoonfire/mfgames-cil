@@ -25,35 +25,36 @@
 #region Namespaces
 
 using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Text;
 
 using MfGames.Exceptions;
+using System.Diagnostics;
 
 #endregion
 
 namespace MfGames
 {
 	/// <summary>
-	/// A node ref is a generic reference string that bears some
-	/// resemblance to the Unix file system path. It is used for a path
-	/// to either assets or some sort of public system. Methods are
-	/// included for moving up in the path, bounding it to prevent
-	/// referencing a file outside of the reference's scope.
-	///
-	/// A top-level reference starts with "/" as <i>absolute</i>. All
-	/// PathInfo objects are absolute, to create a reference without a
-	/// leading "/" requires a second, non-null PathInfo object to
-	/// identify the current context of the reference. Paths also never
-	/// end in a trailing "/".
-	///
-	/// This is also a read-only object. Once created, no methods alter
-	/// the public for the class. Methods that return a different path
-	/// always create a new object.
-	///
-	/// The choice of using the "/" character as a seperate is that it
-	/// requires no escaping in a normal C# string. Any regex
-	/// characters (such as "*", "[", "]", "(", ")") are escaped
-	/// automatically.
+	/// Represents an hierarchial path given in the same form as a Unix file
+	/// path. This is chosen because the forward slash does not require
+	/// escaping in C# strings and it is a well-known paradim for representing
+	/// a reference in a tree structure. The individual parts of the path
+	/// are called Levels.
+	/// 
+	/// There are two forms of paths: absolute and relative. Absolute paths
+	/// always start with a leading forward slash ("/") and relative start with
+	/// a period and slash ("."). Otherwise, they follow the same rules for
+	/// formatting. No path ends with a trailing slash nor can a path element
+	/// be blank. In these cases (e.g., "/root//child/"), the doubled slash
+	/// will be collapsed into a single one (e.g., "/root/child").
+	/// 
+	/// Paths can include any Unicode character without escaping except for
+	/// the backslash and the forward slash. In both cases, the two slashes
+	/// must be escaped with a backslash (e.g., "\\" and "\/").
+	/// 
+	/// HierarchialPath is a read-only object. Once created, no methods directly
+	/// alter the object. Instead, they return a new modified path.
 	/// </summary>
 	[Serializable]
 	public class HierarchicalPath
@@ -61,20 +62,28 @@ namespace MfGames
 		#region Constants
 
 		/// <summary>
-		/// Contains the top-level path, a root path which is only "/".
+		/// Contains static instance for an absolute root path (i.e., "/").
 		/// </summary>
-		public static readonly HierarchicalPath Root = new HierarchicalPath();
+		public static readonly HierarchicalPath AbsoluteRoot =
+			new HierarchicalPath(false);
+
+		/// <summary>
+		/// Contains a static instance of a relative root path (i.e., ".").
+		/// </summary>
+		public static readonly HierarchicalPath RelativeRoot =
+			new HierarchicalPath(true);
 
 		#endregion
 
 		#region Constructors
 
 		/// <summary>
-		/// Private constructor that makes a root context.
+		/// Creates an empty path that is either absolute or relative based
 		/// </summary>
-		public HierarchicalPath()
+		public HierarchicalPath(bool isRelative)
 		{
-			parts = new string[] { };
+			this.isRelative = isRelative;
+			levels = new string[] { };
 		}
 
 		/// <summary>
@@ -86,6 +95,12 @@ namespace MfGames
 		{
 			// Create the path components
 			ParsePath(path, null);
+		}
+		
+		public HierarchicalPath(string[] levels, bool isRelative)
+		{
+			this.levels = levels;
+			this.isRelative = isRelative;
 		}
 
 		/// <summary>
@@ -103,17 +118,9 @@ namespace MfGames
 
 		#region Path Construction
 
-		private static readonly Regex FindDoubleSlashRegex = new Regex("//+");
-		private static readonly Regex FindHereRegex = new Regex("/\\./");
-		private static readonly Regex FindInvalidUpRegex = new Regex("/\\.\\./");
-		private static readonly Regex FindLeadingSlashesRegex = new Regex("^/+");
-		private static readonly Regex FindRefUpRegex = new Regex("/[^/]+/\\.\\./");
-		private static readonly Regex FindTrailingSlashesRegex = new Regex("/+$");
-
 		/// <summary>
-		/// This parses the given path and builds up the public
-		/// representation into memory. This representation is used
-		/// for path and additional processing.
+		/// This parses the given path and sets the internal variables to
+		/// represent the given path.
 		/// </summary>
 		private void ParsePath(string path, HierarchicalPath context)
 		{
@@ -122,95 +129,250 @@ namespace MfGames
 			{
 				throw new ArgumentNullException("path");
 			}
-
-			// Check for absolute path
-			if (!path.StartsWith("/"))
+			
+			// Check for the leading characters. If the string starts with "."
+			// or "./" then it is a relative root. If it starts with a "/",
+			// then it is an absolute path. In all other cases, an invalid
+			// exception is thrown.
+			List<string> parsedLevels = new List<string>();
+			int index = 0;
+			
+			if (path == "/")
 			{
-				// We don't have an absolute path, so check the context
-				if (context == null)
-				{
-					throw new NotAbsolutePathException("Cannot create absolute path from '" + path + "'");
-				}
-
-				// Construct the new path from this context
-				path = context.Path + "/" + path;
+				// We can short-cut the processing of this path since there
+				// is only one element.
+				isRelative = false;
+				levels = new string[] {};
+				return;
 			}
-
-			// Save the original
-			//string orig = path;
-
-			// Start by escaping the escapes
-			path = path.Replace("\\", "\\\\");
-
-			// Normalize the path by adding a trailing "/" and reducing
-			// double "//" into single ones. This is done with regexes to
-			// make it easier and faster. We add the "/" to simplify our
-			// regexes later; we will also remove it as the last bit.
-			path += "/";
-			path = FindDoubleSlashRegex.Replace(path, "/");
-
-			// Normalize the "/./" and the "/../" references. Also remove
-			// the "/../" stuff at the beginning, by just deleting it.
-			path = FindHereRegex.Replace(path, "/");
-			path = FindRefUpRegex.Replace(path, "/");
-			path = FindInvalidUpRegex.Replace(path, "/");
-
-			// Finally, remove the leading and trailing slash that we put in.
-			path = FindTrailingSlashesRegex.Replace(path, "");
-			path = FindLeadingSlashesRegex.Replace(path, "").Trim();
-
-			// We need to do is make sure the regex characters are not
-			// allowed in the string. We do this by just replacing all
-			// the important ones with escaped versions.
-			regexable = "/" +
-			            path.Replace("+", "\\+").Replace("(", "\\(").Replace(")", "\\)").Replace("[", "\\[").Replace("]", "\\]").Replace(
-			            	".", "\\.").Replace("*", "\\*").Replace("?", "\\?");
-
-			// We now have a normalized path, without a leading or a
-			// trailing slash. If this is a blank string (one with no
-			// length), it means that the reference was "/". Otherwise, it
-			// represents some sort of path that had at least one
-			// element. We also save the entire string version because we
-			// are both read-only and we make the assumption that memory can
-			// handle it.
-			if (path.Equals(""))
+			else if (path.StartsWith("/"))
 			{
-				// This is an empty path, which means it was a "/" reference
-				parts = new string[] { };
+				// This is an absolute root path.
+				isRelative = false;
+				index++;
+			}
+			else if (path == ".")
+			{
+				// This is a relative path that has no other elements inside
+				// it. We can short-cut the parsing and finish up here.
+				isRelative = true;
+				levels = new string[] {  };
+				return;
+			}
+			else if (path.StartsWith("./"))
+			{
+				// This is a relative path but it potentially has more after
+				// it is. So, we first check to see if we have a context to
+				// see if we need to prefix the path.
+				if (context != null)
+				{
+					// Copy the contents of the context.
+					isRelative = context.IsRelative;
+					parsedLevels.AddRange(context.Levels);
+				}
+				
+				// Move the index forward two to represent the characters we've
+				// already parsed.
+				index += 2;
 			}
 			else
 			{
-				// Split it along the slash characters
-				parts = path.Split('/');
+				// Unknown leading characters, throw an exception to break out.
+				throw new InvalidPathException("Cannot parse path: " + path);
 			}
+			
+			// Go through the remaining elements of the string and break them
+			// into the individual levels.
+			StringBuilder currentLevel = new StringBuilder();
+			
+			for (; index < path.Length; index++)
+			{
+				// Check for the next character.
+				switch (path[index])
+				{
+				case '\\':
+					// Check to see if the escape character is the last
+					// character in the input string.
+					if (index == path.Length - 1)
+					{
+						// We have an escape backslash but we are at the end of
+						// the line.
+						throw new InvalidPathException(
+							"Cannot parse with escape at end of line: " + path);
+					}
+					
+					// Grab the next character after the backslash.
+					currentLevel.Append(path[index + 1]);
+					index++;
+					
+					break;
+					
+				case '/':
+					// This is a new path element, so first take the current
+					// buffer and add it if it has a length.
+					if (currentLevel.Length > 0)
+					{
+						// Check to see if we are a "move up" operation of "..".
+						if (currentLevel.ToString() == "..")
+						{
+							// Instead of adding to the level, we clear off the
+							// last one from the list. If there is not one,
+							// we throw an exception.
+							if (parsedLevels.Count == 0)
+							{
+								throw new InvalidCastException(
+									"Cannot parse .. with sufficient levels.");
+							}
+							
+							// Remove the last level parsed and ignore the
+							// "..".
+							parsedLevels.RemoveAt(parsedLevels.Count - 1);
+						}
+						else
+						{
+							// Add the current level to the list of levels.
+							parsedLevels.Add(currentLevel.ToString());
+						}
+						
+						// Clear out the current level.
+						currentLevel.Length = 0;
+					}
+					
+					break;
+					
+				default:
+					// Add the character to the current level.
+					currentLevel.Append(path[index]);
+					
+					break;
+				}
+			}
+
+			// Outside of the loop, we check to see if there is anything left
+			// in the current level and add it to the list.
+			if (currentLevel.Length > 0)
+			{
+				// Check to see if we are a "move up" operation of "..".
+				if (currentLevel.ToString() == "..")
+				{
+					// Instead of adding to the level, we clear off the
+					// last one from the list. If there is not one,
+					// we throw an exception.
+					if (parsedLevels.Count == 0)
+					{
+						throw new InvalidCastException(
+							"Cannot parse .. with sufficient levels.");
+					}
+					
+					// Remove the last level parsed and ignore the
+					// "..".
+					parsedLevels.RemoveAt(parsedLevels.Count - 1);
+				}
+				else
+				{
+					// Add the current level to the list of levels.
+					parsedLevels.Add(currentLevel.ToString());
+				}
+			}
+			
+			// Saved the parsed levels into the levels property.
+			levels = parsedLevels.ToArray();
 		}
 
 		#endregion
 
-		#region Path Operations
+		#region Path Properties
 
-		// Constaints the string version of the entire path
-		private string[] parts;
+		/// <summary>
+		/// Contains an array of individual levels within the path.
+		/// </summary>
+		private string[] levels;
+		
+		/// <summary>
+		/// Contains a flag if the path is relative or absolute.
+		/// </summary>
+		private bool isRelative;
 
-		// Contains the string usable in regexes
-		private string regexable;
-
-		// Contains the various parts of the path, for comparison
-
+		public bool IsRelative
+		{
+			get { return isRelative; }
+		}
+		
 		/// <summary>
 		/// Returns the nth element of the path.
 		/// </summary>
 		public string this[int index]
 		{
-			get { return parts[index]; }
+			get { return levels[index]; }
+		}
+		
+		public string[] Levels
+		{
+			get { return levels; }
 		}
 
 		/// <summary>
-		/// Returns the string path for comparison or values.
+		/// Returns the string version of the path including escaping for
+		/// the special characters.
 		/// </summary>
 		public string Path
 		{
-			get { return "/" + string.Join("/", parts); }
+			get
+			{
+				// Check for the simple paths.
+				if (levels.Length == 0)
+				{
+					return isRelative ? "." : "/";
+				}
+				
+				// Build up the path including any escaping.
+				StringBuilder buffer = new StringBuilder();
+				
+				if (isRelative)
+				{
+					buffer.Append(".");
+				}
+				
+				foreach (string level in levels)
+				{
+					buffer.Append("/");
+					buffer.Append(
+						level.Replace("\\", "\\\\").Replace("/", "\\/"));
+				}
+				
+				// Return the resulting string.
+				return buffer.ToString();
+			}
+		}
+
+		public string First
+		{
+			get 
+			{ 
+				// If we have a level, return the value.
+				if (levels.Length > 0)
+				{
+					return levels[0];
+				}
+			
+				// We don't have any, so return the root element.
+				return isRelative ? "." : "/";
+			}
+		}
+
+		public string Last
+		{
+			get 
+			{ 
+				// If we have a level, return the value.
+				if (levels.Length > 0)
+				{
+					return levels[levels.Length - 1];
+				}
+			
+				// We don't have any, so return the root element.
+				return isRelative ? "." : "/";
+			}
 		}
 
 		/// <summary>
@@ -218,46 +380,13 @@ namespace MfGames
 		/// </summary>
 		public int Count
 		{
-			get { return parts.Length; }
+			get { return levels.Length; }
 		}
 
-		/// <summary>
-		/// Returns the bottom-most name of the node reference.
-		/// </summary>
-		public string Name
-		{
-			get
-			{
-				if (parts.Length == 0)
-				{
-					return ".";
-				}
+		#endregion
 
-				return parts[parts.Length - 1];
-			}
-		}
-
-		/// <summary>
-		/// Returns a PathInfo which has this node's path removed from the
-		/// beginning. If the given reference is not included (as per the
-		/// Includes), it will be returned completely.
-		/// </summary>
-		public HierarchicalPath GetSubpath(HierarchicalPath pathInfo)
-		{
-			// Check for includes
-			if (!Includes(pathInfo))
-			{
-				return pathInfo;
-			}
-
-			// Remove the first part. There is an easy method because we are
-			// so strict about paths. We use the root context in the case
-			// where the leading / is removed.
-			string path = Regex.Replace(pathInfo.Path, "^" + regexable, "");
-
-			return new HierarchicalPath(path, Root);
-		}
-
+		#region Comparison
+		
 		/// <summary>
 		/// Compares two node references.
 		/// </summary>
@@ -272,43 +401,13 @@ namespace MfGames
 		/// </summary>
 		public override int GetHashCode()
 		{
-			return parts.GetHashCode();
+			return isRelative.GetHashCode() ^ levels.GetHashCode();
 		}
 
-		/// <summary>
-		/// Returns true if this path includes the given path. This means
-		/// that given path is under or part of this node's path.
-		/// </summary>
-		public bool Includes(HierarchicalPath path)
-		{
-			// We have a real easy way of finding this
-			return Regex.IsMatch(path.ToString(), "^" + regexable);
-		}
-
-		/// <summary>
-		/// Returns true if this results in a match in the string
-		/// using a variant pattern matching. A single "*" matches
-		/// anything other than the path separator while "**" matches
-		/// anything including a path separator. The pattern does not
-		/// have to start with a leading slash.
-		/// </summary>
-		public bool IsMatch(string pattern)
-		{
-			// First sanatize the regular expressions
-			string regex =
-				pattern.Replace("\\", "\\\\").Replace("+", "\\+").Replace("(", "\\(").Replace(")", "\\)").Replace("[", "\\[").Replace("]", "\\]")
-					.Replace(".", "\\.").Replace("?", "\\?");
-
-			// The "**" includes anything, including a path separator
-			// while the "*" only includes everything but a path
-			// separator.
-			regex = regex.Replace("*", "[^/]+");
-			regex = regex.Replace("[^/]+[^/]+", ".*");
-
-			// Check for the match
-			return Regex.IsMatch(regexable, regex);
-		}
-
+		#endregion
+		
+		#region Conversion
+		
 		/// <summary>
 		/// Returns the path when requested as a string.
 		/// </summary>
@@ -344,26 +443,6 @@ namespace MfGames
 			return new HierarchicalPath("./" + childPath, this);
 		}
 
-		/// <summary>
-		/// This returns a file system path, appropriate to the
-		/// filesystem, but without any roots. So, "/a/b" comes out as
-		/// "a\b" on Windows and "a/b" on Unix.
-		/// </summary>
-		public string ToFileSystemPath()
-		{
-			// Get the path
-			string nref = Path.Substring(1);
-
-			// We always use "/", so map it if we need "\"
-			if (System.IO.Path.DirectorySeparatorChar != '/')
-			{
-				nref = Regex.Replace(nref, "/", Regex.Escape(System.IO.Path.DirectorySeparatorChar.ToString()));
-			}
-
-			// Return it
-			return nref;
-		}
-
 		#endregion
 
 		#region Parent Path Operations
@@ -372,45 +451,34 @@ namespace MfGames
 		/// Returns the node reference for a parent. If this is already
 		/// the root, it will automatically return null on this object.
 		/// </summary>
-		public HierarchicalPath ParentPath
+		public HierarchicalPath Parent
 		{
 			get
 			{
 				// If we have no parts, we don't have a parent.
-				if (parts.Length == 0)
+				if (levels.Length == 0)
 				{
 					return null;
 				}
-
-				// Just append a ".." to the path and rebuild it, and it will
-				// create the proper reference.
-				return new HierarchicalPath("..", this);
-			}
-		}
-
-		/// <summary>
-		/// Returns the text-version of the parent path. This just
-		/// generates the parent and builds up the string path from
-		/// that. If this is already the top, it returns null.
-		/// </summary>
-		public string Parent
-		{
-			get
-			{
-				// Get the parent
-				HierarchicalPath parent = ParentPath;
-
-				// If we got a null, return a null to say "no more"
-				if (parent == null)
+				
+				// If we have exactly one level, then we are just the root.
+				if (levels.Length == 1)
 				{
-					return null;
+					return isRelative ? RelativeRoot : AbsoluteRoot;
 				}
-
-				// Return the parent's string
-				return parent.Path;
+					
+				// Create a new path without the last item in it.
+				string[] parentLevels = new string[levels.Length - 1];
+				
+				for (int index = 0; index < levels.Length - 1; index++)
+				{
+					parentLevels[index] = levels[index];
+				}
+				
+				return new HierarchicalPath(parentLevels, isRelative);
 			}
 		}
-
+		
 		#endregion
 	}
 }

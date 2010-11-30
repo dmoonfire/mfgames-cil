@@ -124,7 +124,7 @@ namespace MfGames.Settings
 			
 			if (searchPaths && path.Count != 1)
 			{
-				HierarchicalPath currentPath = path.ParentPath;
+				HierarchicalPath currentPath = path.Parent;
 
 				while (true)
 				{
@@ -140,7 +140,7 @@ namespace MfGames.Settings
 						break;
 					}
 					
-					currentPath = currentPath.ParentPath;
+					currentPath = currentPath.Parent;
 				}
 			}
 			

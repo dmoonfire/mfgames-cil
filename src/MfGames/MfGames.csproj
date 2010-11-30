@@ -87,7 +87,6 @@
     <Compile Include="Exceptions\InvalidPathException.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="HierarchicalPath.cs" />
-    <Compile Include="Exceptions\NotAbsolutePathException.cs" />
     <Compile Include="Enumerations\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
     <Compile Include="Tests\ExtendedVersionTests.cs" />
