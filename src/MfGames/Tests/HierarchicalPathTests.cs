@@ -164,8 +164,8 @@ namespace MfGames.Tests
 		public void LeadingDot()
 		{
 			var context = new HierarchicalPath("/");
-			var nr = new HierarchicalPath(".", context);
-			Assert.AreEqual("/", nr.Path);
+			var path = new HierarchicalPath(".", context);
+			Assert.AreEqual("/", path.Path);
 		}
 
 		/// <summary>
@@ -193,10 +193,11 @@ namespace MfGames.Tests
 		/// Test lack of absolute path.
 		/// </summary>
 		[Test]
-		[ExpectedException(typeof(InvalidPathException))]
 		public void NoAbsolute()
 		{
-			new HierarchicalPath("foo");
+			var path = new HierarchicalPath("foo");
+			Assert.IsTrue(path.IsRelative);
+			Assert.AreEqual("./foo", path.Path);
 		}
 
 		/// <summary>

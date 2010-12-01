@@ -135,35 +135,48 @@ namespace MfGames
 			HierarchicalPath context)
 		{
 			// Perform some sanity checking on the path
-			if (path == null)
+			if (String.IsNullOrEmpty(path))
 			{
 				throw new ArgumentNullException("path");
 			}
 
-			// Check for the leading characters. If the string starts with "."
-			// or "./" then it is a relative root. If it starts with a "/",
-			// then it is an absolute path. In all other cases, an invalid
-			// exception is thrown.
+			// Check for simple paths that are only a / (absolute root) or
+            // . (relative root).
+			if (path.Length == 1)
+			{
+				if (path == "/")
+				{
+					// We can short-cut the processing of this path since there
+					// is only one element.
+					isRelative = false;
+					levels = new string[] { };
+					return;
+				}
+
+				if (path == ".")
+				{
+					// This is a relative path that has no other elements inside
+					// it. We can short-cut the parsing and finish up here.
+					if (context != null)
+					{
+						isRelative = context.IsRelative;
+						levels = context.Levels;
+					}
+					else
+					{
+						isRelative = true;
+						levels = new string[] { };
+					}
+
+					return;
+				}
+			}
+
+			// We don't have a simple root path. Check to see if the path starts
+			// with a forward slash. If it does, it is an absolute path, otherwise
+			// it will be relative.
 			var parsedLevels = new List<string>();
 			int index = 0;
-
-			if (path == "/")
-			{
-				// We can short-cut the processing of this path since there
-				// is only one element.
-				isRelative = false;
-				levels = new string[] { };
-				return;
-			}
-
-			if (path == ".")
-			{
-				// This is a relative path that has no other elements inside
-				// it. We can short-cut the parsing and finish up here.
-				isRelative = true;
-				levels = new string[] { };
-				return;
-			}
 
 			if (path.StartsWith("/"))
 			{
@@ -171,26 +184,21 @@ namespace MfGames
 				isRelative = false;
 				index++;
 			}
-			else if (path.StartsWith("./"))
+			else
 			{
-				// This is a relative path but it potentially has more after
-				// it is. So, we first check to see if we have a context to
-				// see if we need to prefix the path.
+				// This is a relative path, so prepend the context, if we have
+				// one to our parsed levels.
 				if (context != null)
 				{
 					// Copy the contents of the context.
 					isRelative = context.IsRelative;
 					parsedLevels.AddRange(context.Levels);
 				}
-
-				// Move the index forward two to represent the characters we've
-				// already parsed.
-				index += 2;
-			}
-			else
-			{
-				// Unknown leading characters, throw an exception to break out.
-				throw new InvalidPathException("Cannot parse path: " + path);
+				else
+				{
+					// This is a relative path.
+					isRelative = true;
+				}
 			}
 
 			// Go through the remaining elements of the string and break them
@@ -220,35 +228,8 @@ namespace MfGames
 						break;
 
 					case '/':
-						// This is a new path element, so first take the current
-						// buffer and add it if it has a length.
-						if (currentLevel.Length > 0)
-						{
-							// Check to see if we are a "move up" operation of "..".
-							if (currentLevel.ToString() == "..")
-							{
-								// Instead of adding to the level, we clear off the
-								// last one from the list. If there is not one,
-								// we throw an exception.
-								if (parsedLevels.Count == 0)
-								{
-									throw new InvalidCastException(
-										"Cannot parse .. with sufficient levels.");
-								}
-
-								// Remove the last level parsed and ignore the
-								// "..".
-								parsedLevels.RemoveAt(parsedLevels.Count - 1);
-							}
-							else
-							{
-								// Add the current level to the list of levels.
-								parsedLevels.Add(currentLevel.ToString());
-							}
-
-							// Clear out the current level.
-							currentLevel.Length = 0;
-						}
+						AppendLevel(parsedLevels, currentLevel.ToString());
+						currentLevel.Length = 0;
 
 						break;
 
@@ -262,32 +243,58 @@ namespace MfGames
 
 			// Outside of the loop, we check to see if there is anything left
 			// in the current level and add it to the list.
-			if (currentLevel.Length > 0)
-			{
-				// Check to see if we are a "move up" operation of "..".
-				if (currentLevel.ToString() == "..")
-				{
-					// Instead of adding to the level, we clear off the
-					// last one from the list. If there is not one,
-					// we throw an exception.
-					if (parsedLevels.Count == 0)
-					{
-						throw new InvalidCastException("Cannot parse .. with sufficient levels.");
-					}
-
-					// Remove the last level parsed and ignore the
-					// "..".
-					parsedLevels.RemoveAt(parsedLevels.Count - 1);
-				}
-				else
-				{
-					// Add the current level to the list of levels.
-					parsedLevels.Add(currentLevel.ToString());
-				}
-			}
+			AppendLevel(parsedLevels, currentLevel.ToString());
 
 			// Saved the parsed levels into the levels property.
 			levels = parsedLevels.ToArray();
+		}
+
+		/// <summary>
+		/// Appends the level to the list, processing the "." and ".." elements
+		/// into the list operation.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="level">The level.</param>
+		private void AppendLevel(List<string> levels, string level)
+		{
+			// Levels cannot be blank, so throw an exception if we get it.
+			if (levels == null)
+			{
+				throw new ArgumentNullException("levels");
+			}
+
+			// If we have a blank level, we do nothing. This way, we can handle
+			// various "//" or trailing "/" elements in the parse.
+			if (String.IsNullOrEmpty(level))
+			{
+				return;
+			}
+
+			// Check for the path operations in the list.
+			if (level == ".")
+			{
+				// This is a current path operation, which is simply skipped
+				// (e.g., "/root/./child" = "/root/child").
+				return;
+			}
+
+			if (level == "..")
+			{
+				// This is a "move up" operation which pops the last item off
+				// the passed in levels from the list. If there is insuffient
+				// levels, it will throw an exception.
+				if (levels.Count == 0)
+				{
+					throw new InvalidPathException(
+						"Cannot parse .. with sufficient levels.");
+				}
+
+				levels.RemoveAt(levels.Count - 1);
+				return;
+			}
+
+			// Otherwise, we just append the level to the list.
+			levels.Add(level);
 		}
 
 		#endregion
