@@ -41,6 +41,46 @@ namespace MfGames.Locking
 	public static class TryGetCreatePattern
 	{
 		/// <summary>
+		/// Invokes the try/get/create pattern used a condition to test for it
+		/// and a constructor function.
+		/// </summary>
+		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
+		/// <param name="conditionHandler">The condition handler.</param>
+		/// <param name="createHandler">The create handler.</param>
+		public static void Invoke(
+			ReaderWriterLockSlim readerWriterLockSlim,
+			ConditionHandler conditionHandler,
+			EmptyVoidHandler createHandler)
+		{
+			using (new ReadLock(readerWriterLockSlim))
+			{
+				// Verify that the condition for creating it is false.
+				if (!conditionHandler())
+				{
+					return;
+				}
+			}
+
+			// We failed to get the lock using the read-only. We create an upgradable lock
+			// and try again since it may have been created with a race condition when the
+			// last lock was released and this one was acquired.
+			using (new UpgradableLock(readerWriterLockSlim))
+			{
+				// Verify that the condition for creating it is false.
+				if (!conditionHandler())
+				{
+					return;
+				}
+
+				// We failed to get it in the lock. Upgrade the lock to a write and create it.
+				using (new WriteLock(readerWriterLockSlim))
+				{
+					createHandler();
+				}
+			}
+		}
+
+		/// <summary>
 		/// Invokes the try/get/create pattern using a tryget retrieval and a
 		/// creator handler.
 		/// </summary>

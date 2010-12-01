@@ -71,6 +71,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates\ConditionHandler.cs" />
+    <Compile Include="Delegates\EmptyVoidHandler.cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
     <Compile Include="Extensions\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\IO\SystemIODirectoryInfoExtensions.cs" />
