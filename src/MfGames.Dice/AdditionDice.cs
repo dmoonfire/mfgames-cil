@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,9 @@ namespace MfGames.Entropy
 		private IDice d1 = null;
 		private IDice d2 = null;
 
-		public AdditionDice(IDice d1, IDice d2)
+		public AdditionDice(
+			IDice d1,
+			IDice d2)
 		{
 			this.d1 = d1;
 			this.d2 = d2;

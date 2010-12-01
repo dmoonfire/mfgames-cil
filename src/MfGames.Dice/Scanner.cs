@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +58,9 @@ namespace MfGames.Entropy
 		private int pos; // current position in buffer
 		private Stream stream; // input stream (seekable)
 
-		public Buffer(Stream s, bool isUserStream)
+		public Buffer(
+			Stream s,
+			bool isUserStream)
 		{
 			stream = s;
 			this.isUserStream = isUserStream;
@@ -113,11 +115,6 @@ namespace MfGames.Entropy
 			}
 		}
 
-		~Buffer()
-		{
-			Close();
-		}
-
 		private void Close()
 		{
 			if (!isUserStream && stream != null)
@@ -127,21 +124,25 @@ namespace MfGames.Entropy
 			}
 		}
 
-		public int Read()
+		~Buffer()
 		{
-			if (pos < bufLen)
+			Close();
+		}
+
+		public string GetString(
+			int beg,
+			int end)
+		{
+			int len = end - beg;
+			var buf = new char[len];
+			int oldPos = Pos;
+			Pos = beg;
+			for (int i = 0; i < len; i++)
 			{
-				return buf[pos++];
+				buf[i] = (char) Read();
 			}
-			else if (Pos < fileLen)
-			{
-				Pos = Pos; // shift buffer start to Pos
-				return buf[pos++];
-			}
-			else
-			{
-				return EOF;
-			}
+			Pos = oldPos;
+			return new String(buf);
 		}
 
 		public int Peek()
@@ -161,18 +162,21 @@ namespace MfGames.Entropy
 			}
 		}
 
-		public string GetString(int beg, int end)
+		public int Read()
 		{
-			int len = end - beg;
-			var buf = new char[len];
-			int oldPos = Pos;
-			Pos = beg;
-			for (int i = 0; i < len; i++)
+			if (pos < bufLen)
 			{
-				buf[i] = (char) Read();
+				return buf[pos++];
 			}
-			Pos = oldPos;
-			return new String(buf);
+			else if (Pos < fileLen)
+			{
+				Pos = Pos; // shift buffer start to Pos
+				return buf[pos++];
+			}
+			else
+			{
+				return EOF;
+			}
 		}
 	}
 
@@ -197,13 +201,20 @@ namespace MfGames.Entropy
 		private Token pt; // current peek token
 
 		private short[] start = {
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4, 0, 0, 2, 2, 2, 2, 2
+		                        	, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		                        	, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		                        	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
 		                        };
 
@@ -220,7 +231,8 @@ namespace MfGames.Entropy
 		{
 			try
 			{
-				Stream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+				Stream stream = new FileStream(
+					fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
 				buffer = new Buffer(stream, false);
 				Init();
 			}
@@ -235,6 +247,28 @@ namespace MfGames.Entropy
 		{
 			buffer = new Buffer(s, true);
 			Init();
+		}
+
+		private void AddCh()
+		{
+			if (tlen >= tval.Length)
+			{
+				var newBuf = new char[2 * tval.Length];
+				Array.Copy(tval, 0, newBuf, 0, tval.Length);
+				tval = newBuf;
+			}
+
+			tval[tlen++] = ch;
+			NextCh();
+		}
+
+		protected void CheckLiteral()
+		{
+			switch (t.val)
+			{
+				default:
+					break;
+			}
 		}
 
 		private void Init()
@@ -279,28 +313,6 @@ namespace MfGames.Entropy
 			}
 		}
 
-		private void AddCh()
-		{
-			if (tlen >= tval.Length)
-			{
-				var newBuf = new char[2 * tval.Length];
-				Array.Copy(tval, 0, newBuf, 0, tval.Length);
-				tval = newBuf;
-			}
-
-			tval[tlen++] = ch;
-			NextCh();
-		}
-
-		protected void CheckLiteral()
-		{
-			switch (t.val)
-			{
-			default:
-				break;
-			}
-		}
-
 		private Token NextToken()
 		{
 			while (ignore[ch])
@@ -318,62 +330,45 @@ namespace MfGames.Entropy
 
 			switch (state)
 			{
-			case -1:
-			{
-				t.kind = eofSym;
-				break;
-			} // NextCh already done
-			case 0:
-			{
-				t.kind = noSym;
-				break;
-			} // NextCh already done
-			case 1:
-			{
-				t.kind = 1;
-				break;
-			}
-			case 2:
-
-				if ((ch >= '0' && ch <= '9'))
-				{
-					AddCh();
-					goto case 2;
-				}
-				else
-				{
-					t.kind = 2;
+				case -1:{
+					t.kind = eofSym;
+					break;
+				} // NextCh already done
+				case 0:{
+					t.kind = noSym;
+					break;
+				} // NextCh already done
+				case 1:{
+					t.kind = 1;
 					break;
 				}
+				case 2:
 
-			case 3:
-			{
-				t.kind = 3;
-				break;
-			}
-			case 4:
-			{
-				t.kind = 4;
-				break;
-			}
+					if ((ch >= '0' && ch <= '9'))
+					{
+						AddCh();
+						goto case 2;
+					}
+					else
+					{
+						t.kind = 2;
+						break;
+					}
+
+				case 3:{
+					t.kind = 3;
+					break;
+				}
+				case 4:{
+					t.kind = 4;
+					break;
+				}
 			}
 			t.val = new String(tval, 0, tlen);
 			return t;
 		}
 
 		// get the next token (possibly a token already seen during peeking)
-		public Token Scan()
-		{
-			if (tokens.next == null)
-			{
-				return NextToken();
-			}
-			else
-			{
-				pt = tokens = tokens.next;
-				return tokens;
-			}
-		}
 
 		// peek for the next token, ignore pragmas
 		public Token Peek()
@@ -402,6 +397,19 @@ namespace MfGames.Entropy
 		public void ResetPeek()
 		{
 			pt = tokens;
+		}
+
+		public Token Scan()
+		{
+			if (tokens.next == null)
+			{
+				return NextToken();
+			}
+			else
+			{
+				pt = tokens = tokens.next;
+				return tokens;
+			}
 		}
 	}
 }

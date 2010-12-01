@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -101,9 +101,9 @@ namespace MfGames.Tests
 		}
 
 #if REMOVED
-		/// <summary>
-		/// Tests for the basic case of Includes.
-		/// </summary>
+	/// <summary>
+	/// Tests for the basic case of Includes.
+	/// </summary>
 		[Test]
 		public void Includes1()
 		{
@@ -145,7 +145,7 @@ namespace MfGames.Tests
 			Assert.AreEqual(false, nr.Includes(sr));
 		}
 #endif
-		
+
 		/// <summary>
 		/// Tests the leading "/../.." path construct.
 		/// </summary>
@@ -244,9 +244,9 @@ namespace MfGames.Tests
 		}
 
 #if REMOVED
-		/// <summary>
-		/// Tests getting a subpath with a plus symbol.
-		/// </summary>
+	/// <summary>
+	/// Tests getting a subpath with a plus symbol.
+	/// </summary>
 		[Test]
 		public void SubpathWithPluses()
 		{
@@ -311,7 +311,7 @@ namespace MfGames.Tests
 		}
 
 #endif
-		
+
 		/// <summary>
 		/// Tests an unescaped path.
 		/// </summary>
@@ -323,9 +323,9 @@ namespace MfGames.Tests
 		}
 
 #if REMOVED
-		/// <summary>
-		/// Tests an escaped *
-		/// </summary>
+	/// <summary>
+	/// Tests an escaped *
+	/// </summary>
 		[Test]
 		public void TestEscapedStar()
 		{

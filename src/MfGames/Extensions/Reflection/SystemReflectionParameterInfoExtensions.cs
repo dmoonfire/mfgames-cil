@@ -1,6 +1,6 @@
 ﻿#region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,9 @@ namespace MfGames.Extensions.Reflection
 		/// <returns>
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
-		public static bool HasCustomAttribute(this ParameterInfo memberInfo, Type attributeType)
+		public static bool HasCustomAttribute(
+			this ParameterInfo memberInfo,
+			Type attributeType)
 		{
 			return HasCustomAttribute(memberInfo, attributeType, true);
 		}
@@ -60,7 +62,10 @@ namespace MfGames.Extensions.Reflection
 		/// <returns>
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
-		public static bool HasCustomAttribute(this ParameterInfo memberInfo, Type attributeType, bool inherited)
+		public static bool HasCustomAttribute(
+			this ParameterInfo memberInfo,
+			Type attributeType,
+			bool inherited)
 		{
 			// Check for null parameters.
 			if (attributeType == null)

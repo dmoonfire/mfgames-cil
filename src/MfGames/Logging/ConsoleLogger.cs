@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,6 @@
 #region Namespaces
 
 using System;
-
-using MfGames.Enumerations;
 
 #endregion
 
@@ -82,12 +80,14 @@ namespace MfGames.Logging
 		/// <summary>
 		/// Logs the given log event.
 		/// </summary>
-		public void Report(object sender, LogEvent logEvent)
+		public void Report(
+			object sender,
+			LogEvent logEvent)
 		{
 			// Write out the message to the console.
 			Console.Error.WriteLine(
 				formatString,
-			    logEvent.Category,
+				logEvent.Category,
 				logEvent.Severity,
 				logEvent.Message,
 				DateTime.UtcNow,
@@ -99,7 +99,7 @@ namespace MfGames.Logging
 				Console.Error.WriteLine(logEvent.Exception.StackTrace);
 			}
 		}
-		
+
 		#endregion
 	}
 }

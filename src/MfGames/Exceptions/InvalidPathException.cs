@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,9 @@ namespace MfGames.Exceptions
 		/// </summary>
 		/// <param name="msg">The MSG.</param>
 		/// <param name="e">The e.</param>
-		public InvalidPathException(string msg, Exception e)
+		public InvalidPathException(
+			string msg,
+			Exception e)
 			: base(msg, e)
 		{
 		}

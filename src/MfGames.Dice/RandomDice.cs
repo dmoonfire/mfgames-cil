@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,9 @@ namespace MfGames.Entropy
 		private readonly int count;
 		private readonly int sides;
 
-		public RandomDice(int count, int sides)
+		public RandomDice(
+			int count,
+			int sides)
 		{
 			this.count = count;
 			this.sides = sides;

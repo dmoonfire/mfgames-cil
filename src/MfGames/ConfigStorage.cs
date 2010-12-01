@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,6 @@
 
 using System;
 using System.IO;
-using System.Text.RegularExpressions;
-
-using MfGames.Logging;
 
 #endregion
 
@@ -46,12 +43,9 @@ namespace MfGames
 		/// </summary>
 		public static string ConfigurationDirectory
 		{
-			get
-			{
-				return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-			}
+			get { return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); }
 		}
-		
+
 		/// <summary>
 		/// Contains the configuration directory for the current user.
 		/// </summary>
@@ -63,54 +57,54 @@ namespace MfGames
 		/// <summary>
 		/// Retrieves, creating if needed, a directory inside the user's configuration area.
 		/// </summary>
+		public static string GetDirectory(params string[] relativeDirectories)
+		{
+			return GetDirectoryInfo(true, relativeDirectories).FullName;
+		}
+
+		/// <summary>
+		/// Retrieves, creating if requested, a directory inside the user's configuration area.
+		/// </summary>
+		public static string GetDirectory(
+			bool create,
+			params string[] relativeDirectories)
+		{
+			return GetDirectoryInfo(create, relativeDirectories).FullName;
+		}
+
+		/// <summary>
+		/// Retrieves, creating if needed, a directory inside the user's configuration area.
+		/// </summary>
 		public static DirectoryInfo GetDirectoryInfo(
 			params string[] relativeDirectories)
 		{
 			return GetDirectoryInfo(true, relativeDirectories);
 		}
-		
-		/// <summary>
-		/// Retrieves, creating if needed, a directory inside the user's configuration area.
-		/// </summary>
-		public static string GetDirectory(
-			params string[] relativeDirectories)
-		{
-			return GetDirectoryInfo(true, relativeDirectories).FullName;
-		}
-		
-		/// <summary>
-		/// Retrieves, creating if requested, a directory inside the user's configuration area.
-		/// </summary>
-		public static string GetDirectory(
-		    bool create,
-			params string[] relativeDirectories)
-		{
-			return GetDirectoryInfo(create, relativeDirectories).FullName;
-		}
-		
+
 		/// <summary>
 		/// Retrieves, creating if requested, a directory inside the user's configuration area.
 		/// </summary>
 		public static DirectoryInfo GetDirectoryInfo(
-		    bool create,
+			bool create,
 			params string[] relativeDirectories)
 		{
 			// Start at the top-level configuration directory and create all the relative
 			// directories before returning the inner-mode directory.
 			DirectoryInfo directory = ConfigurationDirectoryInfo;
-			
+
 			foreach (string relativeDirectory in relativeDirectories)
 			{
 				// Create the new child directory.
-				directory = new DirectoryInfo(Path.Combine(directory.FullName, relativeDirectory));
-				
+				directory =
+					new DirectoryInfo(Path.Combine(directory.FullName, relativeDirectory));
+
 				// Create the directory if we were requested to create it and it doesn't exist.
 				if (create && !directory.Exists)
 				{
 					directory.Create();
 				}
 			}
-			
+
 			// Return the resulting directory.
 			return directory;
 		}

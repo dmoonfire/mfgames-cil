@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,6 @@
 #endregion
 
 #region Namespaces
-
-using System;
-
-using MfGames.Enumerations;
 
 #endregion
 
@@ -63,7 +59,9 @@ namespace MfGames.Logging
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="log">The log.</param>
-		public static void Report(object sender, LogEvent log)
+		public static void Report(
+			object sender,
+			LogEvent log)
 		{
 			logger.Report(sender, log);
 		}

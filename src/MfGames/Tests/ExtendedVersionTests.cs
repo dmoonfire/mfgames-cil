@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ using NUnit.Framework;
 #endregion
 
 #pragma warning disable 1591
+
 namespace MfGames.Tests
 {
 	/// <summary>
@@ -407,4 +408,5 @@ namespace MfGames.Tests
 		}
 	}
 }
+
 #pragma warning restore 1591

@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -66,65 +66,6 @@ namespace MfGames.Entropy
 			get { return errors; }
 		}
 
-		private void SynErr(int n)
-		{
-			if (errDist >= minErrDist)
-			{
-				errors.SynErr(la.line, la.col, n);
-			}
-
-			errDist = 0;
-		}
-
-		public void SemErr(string msg)
-		{
-			if (errDist >= minErrDist)
-			{
-				errors.Error(token.line, token.col, msg);
-			}
-
-			errDist = 0;
-		}
-
-		private void Get()
-		{
-			for (;;)
-			{
-				token = la;
-				la = scanner.Scan();
-
-				if (la.kind <= maxT)
-				{
-					++errDist;
-					break;
-				}
-
-				la = token;
-			}
-		}
-
-		protected void Expect(int n)
-		{
-			if (la.kind == n)
-			{
-				Get();
-			}
-			else
-			{
-				SynErr(n);
-			}
-		}
-
-		protected bool StartOf(int s)
-		{
-			return set[s, la.kind];
-		}
-
-		private void Dice()
-		{
-			Addition(out dice);
-		}
-
 		private void Addition(out IDice dice)
 		{
 			IDice d1, d2 = null;
@@ -146,24 +87,20 @@ namespace MfGames.Entropy
 			}
 		}
 
-		private void Subtraction(out IDice dice)
+		private void Dice()
 		{
-			IDice d1, d2 = null;
-			Expression(out d1);
+			Addition(out dice);
+		}
 
-			if (la.kind == 4)
+		protected void Expect(int n)
+		{
+			if (la.kind == n)
 			{
 				Get();
-				Subtraction(out d2);
-			}
-
-			if (d2 == null)
-			{
-				dice = d1;
 			}
 			else
 			{
-				dice = new SubtractionDice(d1, d2);
+				SynErr(n);
 			}
 		}
 
@@ -189,6 +126,23 @@ namespace MfGames.Entropy
 			}
 		}
 
+		private void Get()
+		{
+			for (;;)
+			{
+				token = la;
+				la = scanner.Scan();
+
+				if (la.kind <= maxT)
+				{
+					++errDist;
+					break;
+				}
+
+				la = token;
+			}
+		}
+
 		private void Integer(out int value)
 		{
 			Expect(2);
@@ -205,6 +159,52 @@ namespace MfGames.Entropy
 			Expect(0);
 			return dice;
 		}
+
+		public void SemErr(string msg)
+		{
+			if (errDist >= minErrDist)
+			{
+				errors.Error(token.line, token.col, msg);
+			}
+
+			errDist = 0;
+		}
+
+		protected bool StartOf(int s)
+		{
+			return set[s, la.kind];
+		}
+
+		private void Subtraction(out IDice dice)
+		{
+			IDice d1, d2 = null;
+			Expression(out d1);
+
+			if (la.kind == 4)
+			{
+				Get();
+				Subtraction(out d2);
+			}
+
+			if (d2 == null)
+			{
+				dice = d1;
+			}
+			else
+			{
+				dice = new SubtractionDice(d1, d2);
+			}
+		}
+
+		private void SynErr(int n)
+		{
+			if (errDist >= minErrDist)
+			{
+				errors.SynErr(la.line, la.col, n);
+			}
+
+			errDist = 0;
+		}
 	}
 
 	public class Errors
@@ -214,45 +214,10 @@ namespace MfGames.Entropy
 		public string errMsgFormat = "{3} ({0},{1}): {2}"; // 0=line, 1=column, 2=text
 		public string Format = null;
 
-		public void SynErr(int line, int col, int n)
-		{
-			string s;
-			switch (n)
-			{
-			case 0:
-				s = "EOF expected";
-				break;
-			case 1:
-				s = "DICE expected";
-				break;
-			case 2:
-				s = "NUMBER expected";
-				break;
-			case 3:
-				s = "PLUS expected";
-				break;
-			case 4:
-				s = "MINUS expected";
-				break;
-			case 5:
-				s = "??? expected";
-				break;
-
-			default:
-				s = "error " + n;
-				break;
-			}
-			log.Alert(errMsgFormat, line, col, s, Format);
-			Count++;
-		}
-
-		public void SemErr(int line, int col, int n)
-		{
-			log.Alert(errMsgFormat, line, col, ("error " + n), Format);
-			Count++;
-		}
-
-		public void Error(int line, int col, string s)
+		public void Error(
+			int line,
+			int col,
+			string s)
 		{
 			log.Alert(errMsgFormat, line, col, s, Format);
 			Count++;
@@ -264,6 +229,50 @@ namespace MfGames.Entropy
 			        Console.WriteLine(s);
 			        System.Environment.Exit(1);
 			 */
+		}
+
+		public void SemErr(
+			int line,
+			int col,
+			int n)
+		{
+			log.Alert(errMsgFormat, line, col, ("error " + n), Format);
+			Count++;
+		}
+
+		public void SynErr(
+			int line,
+			int col,
+			int n)
+		{
+			string s;
+			switch (n)
+			{
+				case 0:
+					s = "EOF expected";
+					break;
+				case 1:
+					s = "DICE expected";
+					break;
+				case 2:
+					s = "NUMBER expected";
+					break;
+				case 3:
+					s = "PLUS expected";
+					break;
+				case 4:
+					s = "MINUS expected";
+					break;
+				case 5:
+					s = "??? expected";
+					break;
+
+				default:
+					s = "error " + n;
+					break;
+			}
+			log.Alert(errMsgFormat, line, col, s, Format);
+			Count++;
 		}
 	}
 }

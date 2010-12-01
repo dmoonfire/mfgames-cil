@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,11 @@ namespace MfGames.Logging
 		/// <param name="severity">The severity.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		public LogEvent(string category, Severity severity, string format, params object[] arguments)
+		public LogEvent(
+			string category,
+			Severity severity,
+			string format,
+			params object[] arguments)
 		{
 			Category = category;
 			Message = String.Format(format, arguments);
@@ -68,7 +72,12 @@ namespace MfGames.Logging
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
-		public LogEvent(string category, Severity severity, Exception exception, string format, params object[] arguments)
+		public LogEvent(
+			string category,
+			Severity severity,
+			Exception exception,
+			string format,
+			params object[] arguments)
 		{
 			Category = category;
 			Message = String.Format(format, arguments);
@@ -79,6 +88,12 @@ namespace MfGames.Logging
 		#endregion
 
 		#region Properties
+
+		/// <summary>
+		/// Gets or sets the category.
+		/// </summary>
+		/// <value>The category.</value>
+		public string Category { get; set; }
 
 		/// <summary>
 		/// Gets or sets the exception associated with the log event.
@@ -98,12 +113,6 @@ namespace MfGames.Logging
 		/// <value>The severity.</value>
 		public Severity Severity { get; set; }
 
-		/// <summary>
-		/// Gets or sets the category.
-		/// </summary>
-		/// <value>The category.</value>
-		public string Category { get; set; }
-		
 		#endregion
 	}
 }

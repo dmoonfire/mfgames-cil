@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -127,6 +127,55 @@ namespace MfGames
 		#region Path Construction
 
 		/// <summary>
+		/// Appends the level to the list, processing the "." and ".." elements
+		/// into the list operation.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="level">The level.</param>
+		private void AppendLevel(
+			List<string> levels,
+			string level)
+		{
+			// Levels cannot be blank, so throw an exception if we get it.
+			if (levels == null)
+			{
+				throw new ArgumentNullException("levels");
+			}
+
+			// If we have a blank level, we do nothing. This way, we can handle
+			// various "//" or trailing "/" elements in the parse.
+			if (String.IsNullOrEmpty(level))
+			{
+				return;
+			}
+
+			// Check for the path operations in the list.
+			if (level == ".")
+			{
+				// This is a current path operation, which is simply skipped
+				// (e.g., "/root/./child" = "/root/child").
+				return;
+			}
+
+			if (level == "..")
+			{
+				// This is a "move up" operation which pops the last item off
+				// the passed in levels from the list. If there is insuffient
+				// levels, it will throw an exception.
+				if (levels.Count == 0)
+				{
+					throw new InvalidPathException("Cannot parse .. with sufficient levels.");
+				}
+
+				levels.RemoveAt(levels.Count - 1);
+				return;
+			}
+
+			// Otherwise, we just append the level to the list.
+			levels.Add(level);
+		}
+
+		/// <summary>
 		/// This parses the given path and sets the internal variables to
 		/// represent the given path.
 		/// </summary>
@@ -141,7 +190,7 @@ namespace MfGames
 			}
 
 			// Check for simple paths that are only a / (absolute root) or
-            // . (relative root).
+			// . (relative root).
 			if (path.Length == 1)
 			{
 				if (path == "/")
@@ -247,54 +296,6 @@ namespace MfGames
 
 			// Saved the parsed levels into the levels property.
 			levels = parsedLevels.ToArray();
-		}
-
-		/// <summary>
-		/// Appends the level to the list, processing the "." and ".." elements
-		/// into the list operation.
-		/// </summary>
-		/// <param name="levels">The levels.</param>
-		/// <param name="level">The level.</param>
-		private void AppendLevel(List<string> levels, string level)
-		{
-			// Levels cannot be blank, so throw an exception if we get it.
-			if (levels == null)
-			{
-				throw new ArgumentNullException("levels");
-			}
-
-			// If we have a blank level, we do nothing. This way, we can handle
-			// various "//" or trailing "/" elements in the parse.
-			if (String.IsNullOrEmpty(level))
-			{
-				return;
-			}
-
-			// Check for the path operations in the list.
-			if (level == ".")
-			{
-				// This is a current path operation, which is simply skipped
-				// (e.g., "/root/./child" = "/root/child").
-				return;
-			}
-
-			if (level == "..")
-			{
-				// This is a "move up" operation which pops the last item off
-				// the passed in levels from the list. If there is insuffient
-				// levels, it will throw an exception.
-				if (levels.Count == 0)
-				{
-					throw new InvalidPathException(
-						"Cannot parse .. with sufficient levels.");
-				}
-
-				levels.RemoveAt(levels.Count - 1);
-				return;
-			}
-
-			// Otherwise, we just append the level to the list.
-			levels.Add(level);
 		}
 
 		#endregion

@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -95,7 +95,8 @@ namespace MfGames
 				// Check for match and sanity checking
 				if (!RegexPart.IsMatch(parts[i]))
 				{
-					throw new Exception("Cannot parse part '" + parts[i] + "' of '" + version + "'");
+					throw new Exception(
+						"Cannot parse part '" + parts[i] + "' of '" + version + "'");
 				}
 
 				// Pull out the parts
@@ -131,108 +132,6 @@ namespace MfGames
 		#endregion
 
 		#region Operators
-
-		/// <summary>
-		/// Determines if the two versions are syntactically equal. If all
-		/// the version parts are identical, then so is the entire version.
-		/// </summary>
-		public static bool operator ==(ExtendedVersion v1, ExtendedVersion v2)
-		{
-			return v1.ToString() == v2.ToString();
-		}
-
-		/// <summary>
-		/// Determines if the two versions are syntactically equal. If all
-		/// the version parts are identical, then so is the entire version.
-		/// </summary>
-		public static bool operator !=(ExtendedVersion v1, ExtendedVersion v2)
-		{
-			return v1.ToString() != v2.ToString();
-		}
-
-		/// <summary>
-		/// Determines if the first is less than the second one. There are
-		/// some conditions where a version is neither less than or greater
-		/// than another version, specifcally with version parts that have
-		/// text in it.
-		/// </summary>
-		public static bool operator <(ExtendedVersion v1, ExtendedVersion v2)
-		{
-			// Make sure v1 has the less parts, for simplicicity.
-			bool swapped = false;
-
-			if (v1.numerics.Length > v2.numerics.Length)
-			{
-				ExtendedVersion v3 = v2;
-				v2 = v1;
-				v1 = v3;
-				swapped = true;
-			}
-
-			// Go through the various parts
-			for (int i = 0; i < v1.numerics.Length; i++)
-			{
-				// Get the parts
-				int num1 = v1.numerics[i];
-				string str1 = v1.strings[i];
-				int num2 = v2.numerics[i];
-				string str2 = v2.strings[i];
-
-				// Make sure strings match. If they do not, then the versions
-				// will never match.
-				if (str1 != str2)
-				{
-					return swapped ? true : false;
-				}
-
-				// Compare the numbers. If num1 is less than num2, then the
-				// rest of the version will be less. If it is the reverse,
-				// return it.
-				if (num1 < num2)
-				{
-					return swapped ? false : true;
-				}
-
-				if (num1 > num2)
-				{
-					return swapped ? true : false;
-				}
-			}
-
-			// We never got something that explicitly was less or invalid,
-			// so assume false (equals).
-			return swapped ? true : false;
-		}
-
-		/// <summary>
-		/// Determines if the first version is less than or equal to
-		/// the second version. See the &lt; operator for more conditions.
-		/// </summary>
-		public static bool operator <=(ExtendedVersion v1, ExtendedVersion v2)
-		{
-			// Just do the reverse, its easier
-			return v1 == v2 || v1 < v2;
-		}
-
-		/// <summary>
-		/// Determines if the first version is greater than the second
-		/// version. See the &lt; operator for more conditions.
-		/// </summary>
-		public static bool operator >(ExtendedVersion v1, ExtendedVersion v2)
-		{
-			// Just do the reverse, its easier
-			return v2 < v1;
-		}
-
-		/// <summary>
-		/// Determines if the first version is greater than or equal to
-		/// the second version. See the &lt; operator for more conditions.
-		/// </summary>
-		public static bool operator >=(ExtendedVersion v1, ExtendedVersion v2)
-		{
-			// Just do the reverse, its easier
-			return v1 == v2 || v2 < v1;
-		}
 
 		/// <summary>
 		/// A Debian-like parsing of version numbers that encodes the
@@ -298,6 +197,114 @@ namespace MfGames
 				default:
 					throw new Exception("Cannot identify operation: " + op);
 			}
+		}
+
+		/// <summary>
+		/// Determines if the two versions are syntactically equal. If all
+		/// the version parts are identical, then so is the entire version.
+		/// </summary>
+		public static bool operator ==(ExtendedVersion v1,
+		                               ExtendedVersion v2)
+		{
+			return v1.ToString() == v2.ToString();
+		}
+
+		/// <summary>
+		/// Determines if the first version is greater than the second
+		/// version. See the &lt; operator for more conditions.
+		/// </summary>
+		public static bool operator >(ExtendedVersion v1,
+		                              ExtendedVersion v2)
+		{
+			// Just do the reverse, its easier
+			return v2 < v1;
+		}
+
+		/// <summary>
+		/// Determines if the first version is greater than or equal to
+		/// the second version. See the &lt; operator for more conditions.
+		/// </summary>
+		public static bool operator >=(ExtendedVersion v1,
+		                               ExtendedVersion v2)
+		{
+			// Just do the reverse, its easier
+			return v1 == v2 || v2 < v1;
+		}
+
+		/// <summary>
+		/// Determines if the two versions are syntactically equal. If all
+		/// the version parts are identical, then so is the entire version.
+		/// </summary>
+		public static bool operator !=(ExtendedVersion v1,
+		                               ExtendedVersion v2)
+		{
+			return v1.ToString() != v2.ToString();
+		}
+
+		/// <summary>
+		/// Determines if the first is less than the second one. There are
+		/// some conditions where a version is neither less than or greater
+		/// than another version, specifcally with version parts that have
+		/// text in it.
+		/// </summary>
+		public static bool operator <(ExtendedVersion v1,
+		                              ExtendedVersion v2)
+		{
+			// Make sure v1 has the less parts, for simplicicity.
+			bool swapped = false;
+
+			if (v1.numerics.Length > v2.numerics.Length)
+			{
+				ExtendedVersion v3 = v2;
+				v2 = v1;
+				v1 = v3;
+				swapped = true;
+			}
+
+			// Go through the various parts
+			for (int i = 0; i < v1.numerics.Length; i++)
+			{
+				// Get the parts
+				int num1 = v1.numerics[i];
+				string str1 = v1.strings[i];
+				int num2 = v2.numerics[i];
+				string str2 = v2.strings[i];
+
+				// Make sure strings match. If they do not, then the versions
+				// will never match.
+				if (str1 != str2)
+				{
+					return swapped ? true : false;
+				}
+
+				// Compare the numbers. If num1 is less than num2, then the
+				// rest of the version will be less. If it is the reverse,
+				// return it.
+				if (num1 < num2)
+				{
+					return swapped ? false : true;
+				}
+
+				if (num1 > num2)
+				{
+					return swapped ? true : false;
+				}
+			}
+
+			// We never got something that explicitly was less or invalid,
+			// so assume false (equals).
+			return swapped ? true : false;
+		}
+
+		/// <summary>
+		/// Determines if the first version is less than or equal to
+		/// the second version. See the &lt; operator for more conditions.
+		/// </summary>
+		public static bool operator <=(ExtendedVersion v1,
+		                               ExtendedVersion v2)
+		{
+			// Just do the reverse, its easier
+			return v1 == v2 || v1 < v2;
 		}
 
 		#endregion
