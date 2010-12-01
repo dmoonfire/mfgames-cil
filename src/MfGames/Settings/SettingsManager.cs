@@ -1,6 +1,10 @@
+#region Namespaces
+
 using System.Collections.Generic;
 
 using MfGames.Enumerations;
+
+#endregion
 
 namespace MfGames.Settings
 {
@@ -13,90 +17,166 @@ namespace MfGames.Settings
 	public class SettingsManager
 	{
 		#region Constructors
-		
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SettingsManager"/> class.
+		/// </summary>
 		public SettingsManager()
 		{
 			parents = new List<SettingsManager>();
 			settings = new Dictionary<HierarchicalPath, object>();
 		}
-		
+
 		#endregion
-		
+
 		#region Parents
-		
-		private List<SettingsManager> parents;
-		
+
+		private readonly List<SettingsManager> parents;
+
+		/// <summary>
+		/// Gets the parent settings.
+		/// </summary>
+		/// <value>The parents.</value>
 		public List<SettingsManager> Parents
 		{
 			get { return parents; }
 		}
-		
+
 		#endregion
-		
+
 		#region Settings
-		
-		private Dictionary<HierarchicalPath, object> settings;
-		
-		public TSetting Get<TSetting>(HierarchicalPath path)
-			where TSetting: new()
-		{
-			return Get<TSetting>(path, SettingSearchOptions.None);
-		}
-		
-		public TSetting Get<TSetting>(
-		                              HierarchicalPath path,
-		                              SettingSearchOptions searchOptions)
-			where TSetting: new()
-		{
-			TSetting output;
-			SettingsManager manager;
-			
-			if (!TryGet<TSetting>(path, searchOptions, out output, out manager))
-			{
-				output = new TSetting();
-			}
-			
-			return output;
-		}
-		
+
+		private readonly Dictionary<HierarchicalPath, object> settings;
+
+		/// <summary>
+		/// Determines whether the settings contain the specified path.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <returns>
+		/// 	<c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
+		/// </returns>
 		public bool Contains(HierarchicalPath path)
 		{
 			return Contains(path, SettingSearchOptions.None);
 		}
-		
-		public bool Contains(HierarchicalPath path, SettingSearchOptions searchOptions)
+
+		/// <summary>
+		/// Determines whether the settings contain the specified path.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The search options.</param>
+		/// <returns>
+		/// 	<c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
+		/// </returns>
+		public bool Contains(
+			HierarchicalPath path,
+			SettingSearchOptions searchOptions)
 		{
 			object output;
 			SettingsManager manager;
-			return TryGet<object>(path, searchOptions, out output, out manager);
+			return TryGet(path, searchOptions, out output, out manager);
 		}
 
-		public bool TryGet<TSetting>(
-			HierarchicalPath path, 
-			SettingSearchOptions searchOptions,
-			out SettingsManager containingManager)
-			where TSetting: new()
+		/// <summary>
+		/// Gets a settings at the specific path.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <returns></returns>
+		public TSetting Get<TSetting>(HierarchicalPath path) where TSetting: new()
+		{
+			return Get<TSetting>(path, SettingSearchOptions.None);
+		}
+
+		/// <summary>
+		/// Gets a settings at the specific path.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The search options.</param>
+		/// <returns></returns>
+		public TSetting Get<TSetting>(
+			HierarchicalPath path,
+			SettingSearchOptions searchOptions) where TSetting: new()
 		{
 			TSetting output;
-			return TryGet<TSetting>(path, searchOptions, out output, out containingManager);
+			SettingsManager manager;
+
+			if (!TryGet(path, searchOptions, out output, out manager))
+			{
+				output = new TSetting();
+			}
+
+			return output;
 		}
 
+		/// <summary>
+		/// Maps the specified input into the appropriate format.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="input">The input.</param>
+		/// <returns></returns>
+		private TSetting Map<TSetting>(object input) where TSetting: new()
+		{
+			if (input is TSetting)
+			{
+				return (TSetting) input;
+			}
+
+			return new TSetting();
+		}
+
+		/// <summary>
+		/// Tries to get settings at the given path without creating it if
+		/// missing.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The search options.</param>
+		/// <param name="containingManager">The containing manager.</param>
+		/// <returns></returns>
 		public bool TryGet<TSetting>(
-			HierarchicalPath path, 
+			HierarchicalPath path,
 			SettingSearchOptions searchOptions,
-			out TSetting output)
-			where TSetting: new()
+			out SettingsManager containingManager) where TSetting: new()
+		{
+			TSetting output;
+			return TryGet(path, searchOptions, out output, out containingManager);
+		}
+
+		/// <summary>
+		/// Tries to get settings at the given path without creating it if
+		/// missing.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The search options.</param>
+		/// <param name="output">The output.</param>
+		/// <returns></returns>
+		public bool TryGet<TSetting>(
+			HierarchicalPath path,
+			SettingSearchOptions searchOptions,
+			out TSetting output) where TSetting: new()
 		{
 			SettingsManager manager;
-			return TryGet<TSetting>(path, searchOptions, out output, out manager);
+			return TryGet(path, searchOptions, out output, out manager);
 		}
 
+		/// <summary>
+		/// Tries to get settings at the given path without creating it if
+		/// missing.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The search options.</param>
+		/// <param name="output">The output.</param>
+		/// <param name="containingManager">The containing manager.</param>
+		/// <returns></returns>
 		public bool TryGet<TSetting>(
-			HierarchicalPath path, 
+			HierarchicalPath path,
 			SettingSearchOptions searchOptions,
 			out TSetting output,
-			out SettingsManager containingManager)
-			where TSetting: new()
+			out SettingsManager containingManager) where TSetting: new()
 		{
 			// Try the current settings for the key.
 			if (settings.ContainsKey(path))
@@ -105,23 +185,28 @@ namespace MfGames.Settings
 				containingManager = this;
 				return true;
 			}
-			
+
 			// Check to see if we need to search for the parents and we want to check it first.
-			bool searchSettings = (searchOptions & SettingSearchOptions.SearchParentSettings) == SettingSearchOptions.SearchParentSettings;
-			bool searchPaths = (searchOptions & SettingSearchOptions.SearchHierarchicalParents) == SettingSearchOptions.SearchHierarchicalParents;
-			bool depthFirst = (searchOptions & SettingSearchOptions.DepthFirstSearch) == SettingSearchOptions.DepthFirstSearch;
-			
+			bool searchSettings = (searchOptions &
+			                       SettingSearchOptions.SearchParentSettings) ==
+			                      SettingSearchOptions.SearchParentSettings;
+			bool searchPaths = (searchOptions &
+			                    SettingSearchOptions.SearchHierarchicalParents) ==
+			                   SettingSearchOptions.SearchHierarchicalParents;
+			bool depthFirst = (searchOptions & SettingSearchOptions.DepthFirstSearch) ==
+			                  SettingSearchOptions.DepthFirstSearch;
+
 			if (searchSettings && depthFirst)
 			{
 				foreach (SettingsManager parent in parents)
 				{
-					if (parent.TryGet<TSetting>(path, searchOptions, out output, out containingManager))
+					if (parent.TryGet(path, searchOptions, out output, out containingManager))
 					{
 						return true;
 					}
 				}
 			}
-			
+
 			if (searchPaths && path.Count != 1)
 			{
 				HierarchicalPath currentPath = path.Parent;
@@ -134,49 +219,38 @@ namespace MfGames.Settings
 						containingManager = this;
 						return true;
 					}
-					
+
 					if (currentPath.Count == 1)
 					{
 						break;
 					}
-					
+
 					currentPath = currentPath.Parent;
 				}
 			}
-			
+
 			if (searchSettings && !depthFirst)
 			{
 				foreach (SettingsManager parent in parents)
 				{
-					if (parent.TryGet<TSetting>(path, searchOptions, out output, out containingManager))
+					if (parent.TryGet(path, searchOptions, out output, out containingManager))
 					{
 						return true;
 					}
 				}
 			}
-			
+
 			// If we got this far, we couldn't find it with the given settings. So, we set the default
 			// value and return false.
 			output = default(TSetting);
 			containingManager = null;
 			return false;
 		}
-		
-		private TSetting Map<TSetting>(object input)
-			where TSetting: new()
-		{
-			if (input is TSetting)
-			{
-				return (TSetting) input;
-			}
-			
-			return new TSetting();
-		}
-		
+
 		#endregion
-		
+
 		#region Serialization
-		
+
 		#endregion
 	}
 }

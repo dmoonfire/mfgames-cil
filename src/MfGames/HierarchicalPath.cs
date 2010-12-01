@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using MfGames.Exceptions;
-using System.Diagnostics;
 
 #endregion
 
@@ -96,8 +95,15 @@ namespace MfGames
 			// Create the path components
 			ParsePath(path, null);
 		}
-		
-		public HierarchicalPath(string[] levels, bool isRelative)
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
+		public HierarchicalPath(
+			string[] levels,
+			bool isRelative)
 		{
 			this.levels = levels;
 			this.isRelative = isRelative;
@@ -108,7 +114,9 @@ namespace MfGames
 		/// </summary>
 		/// <param name="path">The path.</param>
 		/// <param name="context">The context.</param>
-		public HierarchicalPath(string path, HierarchicalPath context)
+		public HierarchicalPath(
+			string path,
+			HierarchicalPath context)
 		{
 			// Create the path components
 			ParsePath(path, context);
@@ -122,42 +130,46 @@ namespace MfGames
 		/// This parses the given path and sets the internal variables to
 		/// represent the given path.
 		/// </summary>
-		private void ParsePath(string path, HierarchicalPath context)
+		private void ParsePath(
+			string path,
+			HierarchicalPath context)
 		{
 			// Perform some sanity checking on the path
 			if (path == null)
 			{
 				throw new ArgumentNullException("path");
 			}
-			
+
 			// Check for the leading characters. If the string starts with "."
 			// or "./" then it is a relative root. If it starts with a "/",
 			// then it is an absolute path. In all other cases, an invalid
 			// exception is thrown.
-			List<string> parsedLevels = new List<string>();
+			var parsedLevels = new List<string>();
 			int index = 0;
-			
+
 			if (path == "/")
 			{
 				// We can short-cut the processing of this path since there
 				// is only one element.
 				isRelative = false;
-				levels = new string[] {};
+				levels = new string[] { };
 				return;
 			}
-			else if (path.StartsWith("/"))
-			{
-				// This is an absolute root path.
-				isRelative = false;
-				index++;
-			}
-			else if (path == ".")
+
+			if (path == ".")
 			{
 				// This is a relative path that has no other elements inside
 				// it. We can short-cut the parsing and finish up here.
 				isRelative = true;
-				levels = new string[] {  };
+				levels = new string[] { };
 				return;
+			}
+
+			if (path.StartsWith("/"))
+			{
+				// This is an absolute root path.
+				isRelative = false;
+				index++;
 			}
 			else if (path.StartsWith("./"))
 			{
@@ -170,7 +182,7 @@ namespace MfGames
 					isRelative = context.IsRelative;
 					parsedLevels.AddRange(context.Levels);
 				}
-				
+
 				// Move the index forward two to represent the characters we've
 				// already parsed.
 				index += 2;
@@ -180,71 +192,71 @@ namespace MfGames
 				// Unknown leading characters, throw an exception to break out.
 				throw new InvalidPathException("Cannot parse path: " + path);
 			}
-			
+
 			// Go through the remaining elements of the string and break them
 			// into the individual levels.
-			StringBuilder currentLevel = new StringBuilder();
-			
+			var currentLevel = new StringBuilder();
+
 			for (; index < path.Length; index++)
 			{
 				// Check for the next character.
 				switch (path[index])
 				{
-				case '\\':
-					// Check to see if the escape character is the last
-					// character in the input string.
-					if (index == path.Length - 1)
-					{
-						// We have an escape backslash but we are at the end of
-						// the line.
-						throw new InvalidPathException(
-							"Cannot parse with escape at end of line: " + path);
-					}
-					
-					// Grab the next character after the backslash.
-					currentLevel.Append(path[index + 1]);
-					index++;
-					
-					break;
-					
-				case '/':
-					// This is a new path element, so first take the current
-					// buffer and add it if it has a length.
-					if (currentLevel.Length > 0)
-					{
-						// Check to see if we are a "move up" operation of "..".
-						if (currentLevel.ToString() == "..")
+					case '\\':
+						// Check to see if the escape character is the last
+						// character in the input string.
+						if (index == path.Length - 1)
 						{
-							// Instead of adding to the level, we clear off the
-							// last one from the list. If there is not one,
-							// we throw an exception.
-							if (parsedLevels.Count == 0)
+							// We have an escape backslash but we are at the end of
+							// the line.
+							throw new InvalidPathException(
+								"Cannot parse with escape at end of line: " + path);
+						}
+
+						// Grab the next character after the backslash.
+						currentLevel.Append(path[index + 1]);
+						index++;
+
+						break;
+
+					case '/':
+						// This is a new path element, so first take the current
+						// buffer and add it if it has a length.
+						if (currentLevel.Length > 0)
+						{
+							// Check to see if we are a "move up" operation of "..".
+							if (currentLevel.ToString() == "..")
 							{
-								throw new InvalidCastException(
-									"Cannot parse .. with sufficient levels.");
+								// Instead of adding to the level, we clear off the
+								// last one from the list. If there is not one,
+								// we throw an exception.
+								if (parsedLevels.Count == 0)
+								{
+									throw new InvalidCastException(
+										"Cannot parse .. with sufficient levels.");
+								}
+
+								// Remove the last level parsed and ignore the
+								// "..".
+								parsedLevels.RemoveAt(parsedLevels.Count - 1);
 							}
-							
-							// Remove the last level parsed and ignore the
-							// "..".
-							parsedLevels.RemoveAt(parsedLevels.Count - 1);
+							else
+							{
+								// Add the current level to the list of levels.
+								parsedLevels.Add(currentLevel.ToString());
+							}
+
+							// Clear out the current level.
+							currentLevel.Length = 0;
 						}
-						else
-						{
-							// Add the current level to the list of levels.
-							parsedLevels.Add(currentLevel.ToString());
-						}
-						
-						// Clear out the current level.
-						currentLevel.Length = 0;
-					}
-					
-					break;
-					
-				default:
-					// Add the character to the current level.
-					currentLevel.Append(path[index]);
-					
-					break;
+
+						break;
+
+					default:
+						// Add the character to the current level.
+						currentLevel.Append(path[index]);
+
+						break;
 				}
 			}
 
@@ -260,10 +272,9 @@ namespace MfGames
 					// we throw an exception.
 					if (parsedLevels.Count == 0)
 					{
-						throw new InvalidCastException(
-							"Cannot parse .. with sufficient levels.");
+						throw new InvalidCastException("Cannot parse .. with sufficient levels.");
 					}
-					
+
 					// Remove the last level parsed and ignore the
 					// "..".
 					parsedLevels.RemoveAt(parsedLevels.Count - 1);
@@ -274,7 +285,7 @@ namespace MfGames
 					parsedLevels.Add(currentLevel.ToString());
 				}
 			}
-			
+
 			// Saved the parsed levels into the levels property.
 			levels = parsedLevels.ToArray();
 		}
@@ -283,21 +294,44 @@ namespace MfGames
 
 		#region Path Properties
 
-		/// <summary>
-		/// Contains an array of individual levels within the path.
-		/// </summary>
+		private bool isRelative;
 		private string[] levels;
-		
+
+		/// <summary>
+		/// Returns the number of components in the path.
+		/// </summary>
+		public int Count
+		{
+			get { return levels.Length; }
+		}
+
+		/// <summary>
+		/// Gets the first level (or root) in the path.
+		/// </summary>
+		/// <value>The first.</value>
+		public string First
+		{
+			get
+			{
+				// If we have a level, return the value.
+				if (levels.Length > 0)
+				{
+					return levels[0];
+				}
+
+				// We don't have any, so return the root element.
+				return isRelative ? "." : "/";
+			}
+		}
+
 		/// <summary>
 		/// Contains a flag if the path is relative or absolute.
 		/// </summary>
-		private bool isRelative;
-
 		public bool IsRelative
 		{
 			get { return isRelative; }
 		}
-		
+
 		/// <summary>
 		/// Returns the nth element of the path.
 		/// </summary>
@@ -305,7 +339,29 @@ namespace MfGames
 		{
 			get { return levels[index]; }
 		}
-		
+
+		/// <summary>
+		/// Gets the last level in the path.
+		/// </summary>
+		/// <value>The last.</value>
+		public string Last
+		{
+			get
+			{
+				// If we have a level, return the value.
+				if (levels.Length > 0)
+				{
+					return levels[levels.Length - 1];
+				}
+
+				// We don't have any, so return the root element.
+				return isRelative ? "." : "/";
+			}
+		}
+
+		/// <summary>
+		/// Contains an array of individual levels within the path.
+		/// </summary>
 		public string[] Levels
 		{
 			get { return levels; }
@@ -324,69 +380,30 @@ namespace MfGames
 				{
 					return isRelative ? "." : "/";
 				}
-				
+
 				// Build up the path including any escaping.
-				StringBuilder buffer = new StringBuilder();
-				
+				var buffer = new StringBuilder();
+
 				if (isRelative)
 				{
 					buffer.Append(".");
 				}
-				
+
 				foreach (string level in levels)
 				{
 					buffer.Append("/");
-					buffer.Append(
-						level.Replace("\\", "\\\\").Replace("/", "\\/"));
+					buffer.Append(level.Replace("\\", "\\\\").Replace("/", "\\/"));
 				}
-				
+
 				// Return the resulting string.
 				return buffer.ToString();
 			}
 		}
 
-		public string First
-		{
-			get 
-			{ 
-				// If we have a level, return the value.
-				if (levels.Length > 0)
-				{
-					return levels[0];
-				}
-			
-				// We don't have any, so return the root element.
-				return isRelative ? "." : "/";
-			}
-		}
-
-		public string Last
-		{
-			get 
-			{ 
-				// If we have a level, return the value.
-				if (levels.Length > 0)
-				{
-					return levels[levels.Length - 1];
-				}
-			
-				// We don't have any, so return the root element.
-				return isRelative ? "." : "/";
-			}
-		}
-
-		/// <summary>
-		/// Returns the number of components in the path.
-		/// </summary>
-		public int Count
-		{
-			get { return levels.Length; }
-		}
-
 		#endregion
 
 		#region Comparison
-		
+
 		/// <summary>
 		/// Compares two node references.
 		/// </summary>
@@ -405,9 +422,9 @@ namespace MfGames
 		}
 
 		#endregion
-		
+
 		#region Conversion
-		
+
 		/// <summary>
 		/// Returns the path when requested as a string.
 		/// </summary>
@@ -460,25 +477,25 @@ namespace MfGames
 				{
 					return null;
 				}
-				
+
 				// If we have exactly one level, then we are just the root.
 				if (levels.Length == 1)
 				{
 					return isRelative ? RelativeRoot : AbsoluteRoot;
 				}
-					
+
 				// Create a new path without the last item in it.
-				string[] parentLevels = new string[levels.Length - 1];
-				
+				var parentLevels = new string[levels.Length - 1];
+
 				for (int index = 0; index < levels.Length - 1; index++)
 				{
 					parentLevels[index] = levels[index];
 				}
-				
+
 				return new HierarchicalPath(parentLevels, isRelative);
 			}
 		}
-		
+
 		#endregion
 	}
 }

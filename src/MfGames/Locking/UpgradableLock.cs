@@ -13,7 +13,11 @@ namespace MfGames.Locking
 	public class UpgradableLock : IDisposable
 	{
 		#region Constructors
-		
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UpgradableLock"/> class.
+		/// </summary>
+		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
 		public UpgradableLock(ReaderWriterLockSlim readerWriterLockSlim)
 		{
 			this.readerWriterLockSlim = readerWriterLockSlim;
@@ -23,7 +27,10 @@ namespace MfGames.Locking
 		#endregion
 		
 		#region Destructors
-		
+
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
 		public void Dispose()
 		{
 			readerWriterLockSlim.ExitUpgradeableReadLock();

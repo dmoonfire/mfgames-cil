@@ -1,8 +1,8 @@
-
-using System;
-
 namespace MfGames.Logging
 {
+	/// <summary>
+	/// Implements a logger that does nothing.
+	/// </summary>
 	public class NullLogger : ILogger
 	{
 		#region Logging

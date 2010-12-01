@@ -1,6 +1,10 @@
+#region Namespaces
+
 using System.Threading;
 
 using MfGames.Delegates;
+
+#endregion
 
 namespace MfGames.Locking
 {
@@ -12,15 +16,26 @@ namespace MfGames.Locking
 	/// </summary>
 	public static class TryGetCreatePattern
 	{
+		/// <summary>
+		/// Invokes the try/get/create pattern using a tryget retrieval and a
+		/// creator handler.
+		/// </summary>
+		/// <typeparam name="TInput">The type of the input.</typeparam>
+		/// <typeparam name="TOutput">The type of the output.</typeparam>
+		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
+		/// <param name="input">The input.</param>
+		/// <param name="tryGetHandler">The try get handler.</param>
+		/// <param name="createHandler">The create handler.</param>
+		/// <returns></returns>
 		public static TOutput Invoke<TInput, TOutput>(
 			ReaderWriterLockSlim readerWriterLockSlim,
-		    TInput input,
-		    TryGetHandler<TInput, TOutput> tryGetHandler,
-		    CreateHandler<TInput, TOutput> createHandler)
+			TInput input,
+			TryGetHandler<TInput, TOutput> tryGetHandler,
+			CreateHandler<TInput, TOutput> createHandler)
 		{
 			// First attempt to get the item using a read-only lock.
 			TOutput output;
-			
+
 			using (new ReadLock(readerWriterLockSlim))
 			{
 				// Try to get the item using the try/get handler.
@@ -30,7 +45,7 @@ namespace MfGames.Locking
 					return output;
 				}
 			}
-			
+
 			// We failed to get the lock using the read-only. We create an upgradable lock
 			// and try again since it may have been created with a race condition when the
 			// last lock was released and this one was acquired.
@@ -43,7 +58,7 @@ namespace MfGames.Locking
 					// upgrading the lock.
 					return output;
 				}
-				
+
 				// We failed to get it in the lock. Upgrade the lock to a write and create it.
 				using (new WriteLock(readerWriterLockSlim))
 				{

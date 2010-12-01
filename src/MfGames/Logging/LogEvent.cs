@@ -40,15 +40,16 @@ namespace MfGames.Logging
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LogEventArgs"/> class.
+		/// Initializes a new instance of the <see cref="LogEvent"/> class.
 		/// </summary>
 		public LogEvent()
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LogEventArgs"/> class.
+		/// Initializes a new instance of the <see cref="LogEvent"/> class.
 		/// </summary>
+		/// <param name="category">The category.</param>
 		/// <param name="severity">The severity.</param>
 		/// <param name="format">The format.</param>
 		/// <param name="arguments">The arguments.</param>
@@ -60,8 +61,9 @@ namespace MfGames.Logging
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LogEventArgs"/> class.
+		/// Initializes a new instance of the <see cref="LogEvent"/> class.
 		/// </summary>
+		/// <param name="category">The category.</param>
 		/// <param name="severity">The severity.</param>
 		/// <param name="exception">The exception.</param>
 		/// <param name="format">The format.</param>
@@ -96,6 +98,10 @@ namespace MfGames.Logging
 		/// <value>The severity.</value>
 		public Severity Severity { get; set; }
 
+		/// <summary>
+		/// Gets or sets the category.
+		/// </summary>
+		/// <value>The category.</value>
 		public string Category { get; set; }
 		
 		#endregion

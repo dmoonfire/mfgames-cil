@@ -59,9 +59,14 @@ namespace MfGames.Logging
 		#region Eventing
 
 		/// <summary>
-		/// Occurs when a log message is received.
+		/// Logs the given object to the current instance logger.
 		/// </summary>
-		public static event EventHandler<LogEvent> Log;
+		/// <param name="sender">The sender.</param>
+		/// <param name="log">The log.</param>
+		public static void Report(object sender, LogEvent log)
+		{
+			logger.Report(sender, log);
+		}
 
 		#endregion
 	}
