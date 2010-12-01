@@ -24,42 +24,59 @@
 
 #region Namespaces
 
-using System;
+using MfGames.Exceptions;
+
+using NUnit.Framework;
 
 #endregion
 
-namespace MfGames.Exceptions
+namespace MfGames.Tests
 {
 	/// <summary>
-	/// Indicates that the given path does not conform to the format
-	/// required by the system. This should be an indicator of invalid
-	/// characters or something of that manner.
+	/// Testing fixture to test all of the various methods or possible
+	/// errors involved with a hierarchical selectors.
 	/// </summary>
-	public class InvalidPathException : HierarchicalPathException
+	[TestFixture]
+	public class HierarchicalSelectorTests
 	{
-		#region Constructors
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidPathException"/> class.
+		/// Tests the regex matching for a simple string.
 		/// </summary>
-		/// <param name="msg">The MSG.</param>
-		public InvalidPathException(string msg)
-			: base(msg)
+		[Test]
+		public void TestDoubleStarMatch()
 		{
+			var nr = new HierarchicalSelector("/**/c");
+			Assert.IsTrue(nr.IsMatch("/a/b/c"));
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidPathException"/> class.
+		/// Tests the regex matching for a simple string.
 		/// </summary>
-		/// <param name="msg">The MSG.</param>
-		/// <param name="e">The e.</param>
-		public InvalidPathException(
-			string msg,
-			Exception e)
-			: base(msg, e)
+		[Test]
+		public void TestSingleStarMatch()
 		{
+			var nr = new HierarchicalSelector("/a/*/c");
+			Assert.IsTrue(nr.IsMatch("/a/b/c"));
 		}
 
-		#endregion
+		/// <summary>
+		/// Tests the regex matching for a simple string.
+		/// </summary>
+		[Test]
+		public void TestSingleStarMatch2()
+		{
+			var nr = new HierarchicalSelector("/*/*/c");
+			Assert.IsTrue(nr.IsMatch("/a/b/c"));
+		}
+
+		/// <summary>
+		/// Tests the regex matching for a simple string.
+		/// </summary>
+		[Test]
+		public void TestSingleStarMatch3()
+		{
+			var nr = new HierarchicalSelector("/*/*/*/c");
+			Assert.IsFalse(nr.IsMatch("/a/b/c"));
+		}
 	}
 }

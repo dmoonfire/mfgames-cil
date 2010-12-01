@@ -31,32 +31,30 @@ using System;
 namespace MfGames.Exceptions
 {
 	/// <summary>
-	/// Indicates that the given path does not conform to the format
-	/// required by the system. This should be an indicator of invalid
-	/// characters or something of that manner.
+	/// Represents an exception while processing HierarchialPath objects.
 	/// </summary>
-	public class InvalidPathException : HierarchicalPathException
+	public class HierarchicalPathException : ApplicationException
 	{
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidPathException"/> class.
+		/// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
 		/// </summary>
-		/// <param name="msg">The MSG.</param>
-		public InvalidPathException(string msg)
-			: base(msg)
+		/// <param name="message">The message.</param>
+		public HierarchicalPathException(string message)
+			: base(message)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidPathException"/> class.
+		/// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
 		/// </summary>
-		/// <param name="msg">The MSG.</param>
-		/// <param name="e">The e.</param>
-		public InvalidPathException(
-			string msg,
-			Exception e)
-			: base(msg, e)
+		/// <param name="message">The message.</param>
+		/// <param name="exception">The exception.</param>
+		public HierarchicalPathException(
+			string message,
+			Exception exception)
+			: base(message, exception)
 		{
 		}
 

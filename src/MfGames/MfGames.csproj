@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -71,11 +71,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\HierarchicalPathException.cs" />
     <Compile Include="Extensions\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\IO\SystemIODirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\SystemArrayExtensions.cs" />
     <Compile Include="Extensions\Reflection\SystemReflectionMemberInfoExtensions.cs" />
     <Compile Include="Extensions\Reflection\SystemReflectionParameterInfoExtensions.cs" />
+    <Compile Include="HierarchicalSelector.cs" />
     <Compile Include="Locking\ReadLock.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Enumerations\SettingSearchOptions.cs" />
     <Compile Include="Logging\NullLogger.cs" />
+    <Compile Include="Tests\HierarchicalSelectorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -121,7 +124,4 @@
     </MonoDevelop>
     <VisualStudio />
   </ProjectExtensions>
-  <ItemGroup>
-    <Folder Include="Delegates\" />
-  </ItemGroup>
 </Project>

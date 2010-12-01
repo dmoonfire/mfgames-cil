@@ -112,6 +112,28 @@ namespace MfGames
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
 		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="startIndex">The start index.</param>
+		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
+		public HierarchicalPath(
+			string[] levels,
+			int startIndex,
+			bool isRelative)
+		{
+			// Create a sub-array version of the path.
+			this.levels = new string[levels.Length - startIndex];
+
+			for (int index = startIndex; index < levels.Length; index++)
+			{
+				this.levels[index - startIndex] = levels[index];
+			}
+
+			this.isRelative = isRelative;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
 		/// <param name="path">The path.</param>
 		/// <param name="context">The context.</param>
 		public HierarchicalPath(
@@ -132,7 +154,7 @@ namespace MfGames
 		/// </summary>
 		/// <param name="levels">The levels.</param>
 		/// <param name="level">The level.</param>
-		private void AppendLevel(
+		private static void AppendLevel(
 			List<string> levels,
 			string level)
 		{
@@ -429,6 +451,74 @@ namespace MfGames
 			return isRelative.GetHashCode() ^ levels.GetHashCode();
 		}
 
+		/// <summary>
+		/// Gets the child path of this path after the root path. If the path
+		/// doesn't start with the rootPath, an exception is thrown.
+		/// </summary>
+		/// <param name="rootPath">The root path.</param>
+		/// <returns></returns>
+		public HierarchicalPath GetPathAfter(HierarchicalPath rootPath)
+		{
+			// Check for the starting path.
+			if (!StartsWith(rootPath))
+			{
+				throw new HierarchicalPathException(
+					"The two paths don't have a common prefix");
+			}
+
+			// Strip off the root path and create a new path.
+			var newLevels = new string[levels.Length - rootPath.Levels.Length];
+
+			for (int index = rootPath.Levels.Length; index < levels.Length; index++)
+			{
+				newLevels[index - rootPath.Levels.Length] = levels[index];
+			}
+
+			// Create the new path and return it. This will always be relative
+			// to the given path since it is a subset.
+			return new HierarchicalPath(newLevels, true);
+		}
+
+		/// <summary>
+		/// Returns true if the current path starts with the same elements as
+		/// the specified path and they have the same absolute/relative root.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <returns></returns>
+		public bool StartsWith(HierarchicalPath path)
+		{
+			// Make sure we didn't get a null.
+			if (path == null)
+			{
+				return false;
+			}
+
+			// If the given path is longer than ourselves, then it won't be.
+			if (levels.Length < path.levels.Length)
+			{
+				return false;
+			}
+
+			// If our root type isn't the same, then they don't match.
+			if (isRelative != path.isRelative)
+			{
+				return false;
+			}
+
+			// Loop through the elements in the path and make sure they match
+			// with the elements of this path.
+			for (int index = 0; index < path.levels.Length; index++)
+			{
+				if (levels[index] != path.levels[index])
+				{
+					return false;
+				}
+			}
+
+			// The current path has all the same elements as the given path.
+			return true;
+		}
+
 		#endregion
 
 		#region Conversion
@@ -447,21 +537,21 @@ namespace MfGames
 
 		/// <summary>
 		/// A simple accessor that allows retrieval of a child path
-		/// from this one. This, in effect, calls CreateChild(). The
+		/// from this one. This, in effect, calls Append(). The
 		/// exception is if the path is given as ".." which then returns
 		/// the parent object as appropriate (this will already return
 		/// something, unlike ParentPath or Parent.
 		/// </summary>
 		public HierarchicalPath this[string childPath]
 		{
-			get { return CreateChild(childPath); }
+			get { return Append(childPath); }
 		}
 
 		/// <summary>
 		/// Creates a child from this node, by creating the path that uses
 		/// this object as a context.
 		/// </summary>
-		public HierarchicalPath CreateChild(string childPath)
+		public HierarchicalPath Append(string childPath)
 		{
 			// By the rules, prefixing "./" will also create the desired
 			// results and use this as a context.

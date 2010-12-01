@@ -100,52 +100,6 @@ namespace MfGames.Tests
 			Assert.AreEqual("/", nr.Path);
 		}
 
-#if REMOVED
-	/// <summary>
-	/// Tests for the basic case of Includes.
-	/// </summary>
-		[Test]
-		public void Includes1()
-		{
-			var nr = new HierarchicalPath("/this/is");
-			var sr = new HierarchicalPath("/this/is/a/path");
-			Assert.AreEqual(true, nr.Includes(sr));
-		}
-
-		/// <summary>
-		/// Tests for the case of not including.
-		/// </summary>
-		[Test]
-		public void Includes2()
-		{
-			var nr = new HierarchicalPath("/this/is");
-			var sr = new HierarchicalPath("/not/in/is/a/path");
-			Assert.AreEqual(false, nr.Includes(sr));
-		}
-
-		/// <summary>
-		/// Tests for the identical cases
-		/// </summary>
-		[Test]
-		public void Includes3()
-		{
-			var nr = new HierarchicalPath("/this/is");
-			var sr = new HierarchicalPath("/this/is");
-			Assert.AreEqual(true, nr.Includes(sr));
-		}
-
-		/// <summary>
-		/// Tests for the same parents
-		/// </summary>
-		[Test]
-		public void Includes4()
-		{
-			var nr = new HierarchicalPath("/this/is");
-			var sr = new HierarchicalPath("/this");
-			Assert.AreEqual(false, nr.Includes(sr));
-		}
-#endif
-
 		/// <summary>
 		/// Tests the leading "/../.." path construct.
 		/// </summary>
@@ -243,17 +197,60 @@ namespace MfGames.Tests
 			Assert.AreEqual("/dir1/sub1", up.Path);
 		}
 
-#if REMOVED
-	/// <summary>
-	/// Tests getting a subpath with a plus symbol.
-	/// </summary>
+		/// <summary>
+		/// Tests for the basic case of StartsWith.
+		/// </summary>
+		[Test]
+		public void StartsWith1()
+		{
+			var nr = new HierarchicalPath("/this/is");
+			var sr = new HierarchicalPath("/this/is/a/path");
+			Assert.AreEqual(false, nr.StartsWith(sr));
+		}
+
+		/// <summary>
+		/// Tests for the case of not including.
+		/// </summary>
+		[Test]
+		public void StartsWith2()
+		{
+			var nr = new HierarchicalPath("/this/is");
+			var sr = new HierarchicalPath("/not/in/is/a/path");
+			Assert.AreEqual(false, nr.StartsWith(sr));
+		}
+
+		/// <summary>
+		/// Tests for the identical cases
+		/// </summary>
+		[Test]
+		public void StartsWith3()
+		{
+			var nr = new HierarchicalPath("/this/is");
+			var sr = new HierarchicalPath("/this/is");
+			Assert.AreEqual(true, nr.StartsWith(sr));
+		}
+
+		/// <summary>
+		/// Tests for the same parents
+		/// </summary>
+		[Test]
+		public void StartsWith4()
+		{
+			var nr = new HierarchicalPath("/this/is");
+			var sr = new HierarchicalPath("/this");
+			Assert.AreEqual(true, nr.StartsWith(sr));
+		}
+
+		/// <summary>
+		/// Tests getting a subpath with a plus symbol.
+		/// </summary>
 		[Test]
 		public void SubpathWithPluses()
 		{
 			var nr = new HierarchicalPath("/Test +1/A");
 			var nr2 = new HierarchicalPath("/Test +1");
-			HierarchicalPath nr3 = nr2.GetSubpath(nr);
-			Assert.AreEqual("/A", nr3.ToString());
+			HierarchicalPath nr3 = nr.GetPathAfter(nr2);
+			Assert.AreEqual("./A", nr3.ToString());
 		}
 
 		/// <summary>
@@ -264,7 +261,7 @@ namespace MfGames.Tests
 		{
 			var nr = new HierarchicalPath("/this/is");
 			var sr = new HierarchicalPath("/this/is/a/path");
-			Assert.AreEqual("/a/path", nr.GetSubpath(sr).Path);
+			Assert.AreEqual("./a/path", sr.GetPathAfter(nr).Path);
 		}
 
 		/// <summary>
@@ -275,42 +272,32 @@ namespace MfGames.Tests
 		{
 			var nr = new HierarchicalPath("/this/is");
 			var sr = new HierarchicalPath("/this/is");
-			Assert.AreEqual("/", nr.GetSubpath(sr).Path);
+			Assert.AreEqual(".", nr.GetPathAfter(sr).Path);
 		}
 
 		/// <summary>
 		/// Tests for reverse items.
 		/// </summary>
 		[Test]
+		[ExpectedException(typeof(HierarchicalPathException))]
 		public void SubRef3()
 		{
 			var nr = new HierarchicalPath("/this/is/a/path");
 			var sr = new HierarchicalPath("/this/is");
-			Assert.AreEqual("/this/is", nr.GetSubpath(sr).Path);
+			sr.GetPathAfter(nr);
 		}
 
 		/// <summary>
 		/// Tests for completely different sub reference.
 		/// </summary>
 		[Test]
+		[ExpectedException(typeof(HierarchicalPathException))]
 		public void SubRef4()
 		{
 			var nr = new HierarchicalPath("/this/is/a/path");
 			var sr = new HierarchicalPath("/not/a/path");
-			Assert.AreEqual("/not/a/path", nr.GetSubpath(sr).Path);
+			nr.GetPathAfter(sr);
 		}
-		
-		/// <summary>
-		/// Tests the regex matching for a simple string.
-		/// </summary>
-		[Test]
-		public void TestDoubleStarMatch()
-		{
-			var nr = new HierarchicalPath("/a/b/c");
-			Assert.IsTrue(nr.IsMatch("/**/c"));
-		}
-
-#endif
 
 		/// <summary>
 		/// Tests an unescaped path.
@@ -322,18 +309,6 @@ namespace MfGames.Tests
 			Assert.AreEqual("/a/b/c", nr.ToString(), "String comparison");
 		}
 
-#if REMOVED
-	/// <summary>
-	/// Tests an escaped *
-	/// </summary>
-		[Test]
-		public void TestEscapedStar()
-		{
-			var nr = new HierarchicalPath("/*/*/*");
-			Assert.AreEqual("/*/*/*", nr.ToString(), "String comparison");
-			Assert.IsTrue(nr.Includes(new HierarchicalPath("/*/*/*/abb")), "nr.Includes");
-		}
-
 		/// <summary>
 		/// Tests the basic create child functionality.
 		/// </summary>
@@ -341,39 +316,8 @@ namespace MfGames.Tests
 		public void TestNodeCreateChild()
 		{
 			var up = new HierarchicalPath("/dir1/sub1");
-			HierarchicalPath c1 = up.CreateChild("sub2");
+			HierarchicalPath c1 = up.Append("sub2");
 			Assert.AreEqual("/dir1/sub1/sub2", c1.Path);
 		}
-
-		/// <summary>
-		/// Tests the regex matching for a simple string.
-		/// </summary>
-		[Test]
-		public void TestSingleStarMatch()
-		{
-			var nr = new HierarchicalPath("/a/b/c");
-			Assert.IsTrue(nr.IsMatch("/a/*/c"));
-		}
-
-		/// <summary>
-		/// Tests the regex matching for a simple string.
-		/// </summary>
-		[Test]
-		public void TestSingleStarMatch2()
-		{
-			var nr = new HierarchicalPath("/a/b/c");
-			Assert.IsTrue(nr.IsMatch("/*/*/c"));
-		}
-
-		/// <summary>
-		/// Tests the regex matching for a simple string.
-		/// </summary>
-		[Test]
-		public void TestSingleStarMatch3()
-		{
-			var nr = new HierarchicalPath("/a/b/c");
-			Assert.IsFalse(nr.IsMatch("/*/*/*/c"));
-		}
-#endif
 	}
 }
