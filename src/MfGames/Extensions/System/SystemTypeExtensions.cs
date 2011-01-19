@@ -39,12 +39,12 @@ namespace MfGames.Extensions.System
 		/// Gets the custom attribute or null if one doesn't exist.
 		/// </summary>
 		/// <typeparam name="TAttribute">The type of the attribute.</typeparam>
-		/// <param name="memberInfo">The member info.</param>
+		/// <param name="type">The member info.</param>
 		/// <returns></returns>
-		public static TAttribute GetCustomAttribute<TAttribute>(this Type memberInfo)
+		public static TAttribute GetCustomAttribute<TAttribute>(this Type type)
 			where TAttribute: Attribute
 		{
-			object[] attributes = memberInfo.GetCustomAttributes(
+			object[] attributes = type.GetCustomAttributes(
 				typeof(TAttribute), true);
 
 			if (attributes.Length == 0)
@@ -59,30 +59,50 @@ namespace MfGames.Extensions.System
 		/// Extends the Type class to return a flag if there is the presence of a custom
 		/// attribute.
 		/// </summary>
-		/// <param name="memberInfo">The member info.</param>
+		/// <param name="type">The member info.</param>
 		/// <param name="attributeType">Type of the attribute.</param>
 		/// <returns>
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
 		public static bool HasCustomAttribute(
-			this Type memberInfo,
+			this Type type,
 			Type attributeType)
 		{
-			return HasCustomAttribute(memberInfo, attributeType, true);
+			return HasCustomAttribute(type, attributeType, true);
 		}
 
 		/// <summary>
 		/// Extends the Type class to return a flag if there is the presence of a custom
 		/// attribute.
 		/// </summary>
-		/// <param name="memberInfo">The member info.</param>
+		public static bool HasCustomAttribute<TAttribute>(this Type type)
+		{
+			return type.HasCustomAttribute(typeof(TAttribute));
+		}
+
+		/// <summary>
+		/// Extends the Type class to return a flag if there is the presence of a custom
+		/// attribute.
+		/// </summary>
+		public static bool HasCustomAttribute<TAttribute>(
+			this Type type,
+			bool inherited)
+		{
+			return type.HasCustomAttribute(typeof(TAttribute), inherited);
+		}
+
+		/// <summary>
+		/// Extends the Type class to return a flag if there is the presence of a custom
+		/// attribute.
+		/// </summary>
+		/// <param name="type">The member info.</param>
 		/// <param name="attributeType">Type of the attribute.</param>
 		/// <param name="inherited">if set to <c>true</c> [inherited].</param>
 		/// <returns>
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
 		public static bool HasCustomAttribute(
-			this Type memberInfo,
+			this Type type,
 			Type attributeType,
 			bool inherited)
 		{
@@ -93,7 +113,7 @@ namespace MfGames.Extensions.System
 			}
 
 			// Go through the attributes of the member type and look for at least one.
-			return (memberInfo.GetCustomAttributes(attributeType, inherited).Length > 0);
+			return (type.GetCustomAttributes(attributeType, inherited).Length > 0);
 		}
 	}
 }

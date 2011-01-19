@@ -53,6 +53,26 @@ namespace MfGames.Extensions.System.Reflection
 		}
 
 		/// <summary>
+		/// Extends the PropertyInfo class to return a flag if there is the presence of a custom
+		/// attribute.
+		/// </summary>
+		public static bool HasCustomAttribute<TAttribute>(this PropertyInfo propertyInfo)
+		{
+			return propertyInfo.HasCustomAttribute(typeof(TAttribute));
+		}
+
+		/// <summary>
+		/// Extends the PropertyInfo class to return a flag if there is the presence of a custom
+		/// attribute.
+		/// </summary>
+		public static bool HasCustomAttribute<TAttribute>(
+			this PropertyInfo propertyInfo,
+			bool inherited)
+		{
+			return propertyInfo.HasCustomAttribute(typeof(TAttribute), inherited);
+		}
+
+		/// <summary>
 		/// Extends the Type class to return a flag if there is the presence of a custom
 		/// attribute.
 		/// </summary>
