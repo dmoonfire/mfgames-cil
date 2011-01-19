@@ -79,6 +79,7 @@
     <Compile Include="Extensions\System\SystemArrayExtensions.cs" />
     <Compile Include="Extensions\System\Reflection\SystemReflectionMemberInfoExtensions.cs" />
     <Compile Include="Extensions\System\Reflection\SystemReflectionParameterInfoExtensions.cs" />
+    <Compile Include="Extensions\System\SystemTypeExtensions.cs" />
     <Compile Include="HierarchicalSelector.cs" />
     <Compile Include="Locking\ReadLock.cs" />
     <Compile Include="Logging\ILogger.cs" />

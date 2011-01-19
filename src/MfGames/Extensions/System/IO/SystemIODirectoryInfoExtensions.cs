@@ -28,7 +28,7 @@ using System.IO;
 
 #endregion
 
-namespace MfGames.Extensions.IO
+namespace MfGames.Extensions.System.IO
 {
 	/// <summary>
 	/// Defines various extensions to System.IO.DirectoryInfo.

@@ -1,4 +1,4 @@
-﻿#region Copyright and License
+#region Copyright and License
 
 // Copyright (c) 2005-2011, Moonfire Games
 // 
@@ -25,16 +25,15 @@
 #region Namespaces
 
 using System;
-using System.Reflection;
 
 #endregion
 
-namespace MfGames.Extensions.System.Reflection
+namespace MfGames.Extensions.System
 {
 	/// <summary>
-	/// Extends the MemberInfo class with additional methods.
+	/// Defines extensions for System.Type.
 	/// </summary>
-	public static class SystemReflectionMemberInfoExtensions
+	public static class SystemTypeExtensions
 	{
 		/// <summary>
 		/// Gets the custom attribute or null if one doesn't exist.
@@ -42,8 +41,8 @@ namespace MfGames.Extensions.System.Reflection
 		/// <typeparam name="TAttribute">The type of the attribute.</typeparam>
 		/// <param name="memberInfo">The member info.</param>
 		/// <returns></returns>
-		public static TAttribute GetCustomAttribute<TAttribute>(
-			this MemberInfo memberInfo) where TAttribute: Attribute
+		public static TAttribute GetCustomAttribute<TAttribute>(this Type memberInfo)
+			where TAttribute: Attribute
 		{
 			object[] attributes = memberInfo.GetCustomAttributes(
 				typeof(TAttribute), true);
@@ -66,7 +65,7 @@ namespace MfGames.Extensions.System.Reflection
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
 		public static bool HasCustomAttribute(
-			this MemberInfo memberInfo,
+			this Type memberInfo,
 			Type attributeType)
 		{
 			return HasCustomAttribute(memberInfo, attributeType, true);
@@ -83,7 +82,7 @@ namespace MfGames.Extensions.System.Reflection
 		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
 		/// </returns>
 		public static bool HasCustomAttribute(
-			this MemberInfo memberInfo,
+			this Type memberInfo,
 			Type attributeType,
 			bool inherited)
 		{

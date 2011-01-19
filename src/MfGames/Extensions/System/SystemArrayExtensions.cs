@@ -22,7 +22,7 @@
 
 #endregion
 
-namespace MfGames.Extensions
+namespace MfGames.Extensions.System
 {
 	/// <summary>
 	/// Contains extensions to System.Array.

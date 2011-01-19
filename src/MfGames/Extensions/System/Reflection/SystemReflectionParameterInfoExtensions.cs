@@ -29,7 +29,7 @@ using System.Reflection;
 
 #endregion
 
-namespace MfGames.Extensions.Reflection
+namespace MfGames.Extensions.System.Reflection
 {
 	/// <summary>
 	/// Extensions to System.Reflection.ParameterInfo.

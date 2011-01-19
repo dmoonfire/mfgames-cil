@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace MfGames.Extensions.Collections.Generic
+namespace MfGames.Extensions.System.Collections.Generic
 {
 	/// <summary>
 	/// Extends IList-derived classes with additional extensions.
