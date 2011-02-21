@@ -84,7 +84,6 @@
     <Compile Include="HierarchicalSelector.cs" />
     <Compile Include="Locking\ReadLock.cs" />
     <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Tests\HierarchicalPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigStorage.cs" />
@@ -103,7 +102,6 @@
     <Compile Include="Locking\TryGetCreatePattern.cs" />
     <Compile Include="Logging\LogEvent.cs" />
     <Compile Include="Logging\LogManager.cs" />
-    <Compile Include="Enumerations\SettingSearchOptions.cs" />
     <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="Tests\HierarchicalSelectorTests.cs" />
     <Compile Include="Tests\WeightedSelectorTests.cs" />

@@ -26,7 +26,7 @@
 
 using System.Collections.Generic;
 
-using MfGames.Enumerations;
+using MfGames.Settings.Enumerations;
 
 #endregion
 

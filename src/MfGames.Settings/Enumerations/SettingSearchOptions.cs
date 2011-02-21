@@ -28,7 +28,7 @@ using System;
 
 #endregion
 
-namespace MfGames.Enumerations
+namespace MfGames.Settings.Enumerations
 {
 	/// <summary>
 	/// Defines the various options for searching values in settings.
