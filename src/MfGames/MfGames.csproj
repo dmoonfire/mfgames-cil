@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\WeightedSelector.cs" />
     <Compile Include="Delegates\ConditionHandler.cs" />
     <Compile Include="Delegates\EmptyVoidHandler.cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Enumerations\SettingSearchOptions.cs" />
     <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="Tests\HierarchicalSelectorTests.cs" />
+    <Compile Include="Tests\WeightedSelectorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
