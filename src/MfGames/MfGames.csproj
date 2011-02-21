@@ -13,6 +13,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>MfGames.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\MfGames.XML</DocumentationFile>
-    <AssemblyOriginatorKeyFile>..\MfGames.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>MfGames.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\MfGames.XML</DocumentationFile>
-    <AssemblyOriginatorKeyFile>..\MfGames.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>MfGames.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -106,6 +108,9 @@
     <Compile Include="Tests\HierarchicalSelectorTests.cs" />
     <Compile Include="Tests\WeightedSelectorTests.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MfGames.snk" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -114,9 +119,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <None Include="..\MfGames.snk" />
-  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>

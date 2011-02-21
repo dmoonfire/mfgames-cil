@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,7 +10,7 @@
     <RootNamespace>MfGames.Dice</RootNamespace>
     <AssemblyName>MfGames.Dice</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\MfGames.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>MfGames.Dice.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -52,14 +52,13 @@
     <Compile Include="Tests\DiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
-    <Folder Include="Tests\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MfGames\MfGames.csproj">
       <Project>{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}</Project>
       <Name>MfGames</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MfGames.Dice.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
