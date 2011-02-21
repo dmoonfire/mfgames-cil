@@ -84,7 +84,7 @@ namespace MfGames.Collections
 		private WeightedSelectorEntry Get(TKey key)
 		{
 			// If we get a null, then throw an argument exception.
-			if (Equals(key, default(TKey)))
+			if (key == null)
 			{
 				throw new ArgumentNullException("key");
 			}
