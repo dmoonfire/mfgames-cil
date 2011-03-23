@@ -24,6 +24,8 @@
 
 #region Namespaces
 
+using System.Collections.Generic;
+
 using MfGames.Exceptions;
 
 using NUnit.Framework;
@@ -39,6 +41,8 @@ namespace MfGames.Tests
 	[TestFixture]
 	public class HierarchicalPathTests
 	{
+		#region Tests
+
 		/// <summary>
 		/// Tests the index accessor to the created children.
 		/// </summary>
@@ -319,5 +323,41 @@ namespace MfGames.Tests
 			HierarchicalPath c1 = up.Append("sub2");
 			Assert.AreEqual("/dir1/sub1/sub2", c1.Path);
 		}
+
+		#endregion
+
+		#region Comparison Tests
+
+		[Test]
+		public void AreEqual()
+		{
+			// Setup
+			var expected = new HierarchicalPath("/Application/Quit");
+
+			// Operation
+			var path = new HierarchicalPath("/Application/Quit");
+
+			// Verification
+			Assert.AreEqual(expected, path);
+			Assert.IsTrue(expected == path);
+		}
+
+		[Test]
+		public void InDictionary()
+		{
+			// Setup
+			var dictionary = new Dictionary<HierarchicalPath,string>();
+			dictionary[new HierarchicalPath("/Application/Quit")] = "yes";
+
+			// Operation
+			var key = new HierarchicalPath("/Application/Quit");
+			string value = dictionary[key];
+
+			// Verification
+			Assert.IsTrue(dictionary.ContainsKey(key));
+			Assert.AreEqual("yes", value);
+		}
+
+		#endregion
 	}
 }
