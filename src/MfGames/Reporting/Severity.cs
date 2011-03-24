@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,40 +22,38 @@
 
 #endregion
 
-#region Namespaces
-
-using MfGames.Logging;
-
-using NUnit.Framework;
-
-#endregion
-
-namespace UnitTests
+namespace MfGames.Reporting
 {
-	[TestFixture]
-	public class AuditTest
+	/// <summary>
+	/// Defines the standard levels of severity used by
+	/// the library.
+	/// </summary>
+	public enum Severity
 	{
-		[Test]
-		public void TestAlert()
-		{
-			var ait = new Audit();
-			ait.Add(Severity.Alert, "test");
-			Assert.AreEqual(Severity.Alert, ait.Severity);
-		}
+		/// <summary>
+		/// Indicates a severity used for debugging.
+		/// </summary>
+		Debug,
 
-		[Test]
-		public void TestError()
-		{
-			var ait = new Audit();
-			ait.Add(Severity.Error, "test");
-			Assert.AreEqual(Severity.Error, ait.Severity);
-		}
+		/// <summary>
+		/// Used for informational purposes.
+		/// </summary>
+		Info,
 
-		[Test]
-		public void TestNone()
-		{
-			var ait = new Audit();
-			Assert.AreEqual(Severity.None, ait.Severity);
-		}
+		/// <summary>
+		/// Used for warning notices.
+		/// </summary>
+		Alert,
+
+		/// <summary>
+		/// Used for a non-fatal error condition.
+		/// </summary>
+		Error,
+
+		/// <summary>
+		/// Used for fatal conditions, usually indicating the application or
+		/// something has stopped.
+		/// </summary>
+		Fatal,
 	}
 }

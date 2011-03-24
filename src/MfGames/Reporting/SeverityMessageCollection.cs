@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2009, Moonfire Games
+// Copyright (c) 2005-2011, Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,21 +24,48 @@
 
 #region Namespaces
 
-using MfGames.Utility;
-
-using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 #endregion
 
-namespace UnitTests
+namespace MfGames.Reporting
 {
-	[TestFixture]
-	public class UtilityTests
+	/// <summary>
+	/// Contains an unordered collection of messages along with various query
+	/// methods for determining the contents of the collection
+	/// </summary>
+	public class SeverityMessageCollection : HashSet<SeverityMessage>
 	{
-		[Test]
-		public void TestMd5HexString()
+		#region Severity
+
+		/// <summary>
+		/// Gets the highest severity in the collection. If there are no elements
+		/// in the collection, this returns Severity.Debug.
+		/// </summary>
+		public Severity? HighestSeverity
 		{
-			Assert.AreEqual("5e027396789a18c37aeda616e3d7991b", ExtendedConvert.ToMd5HexString("jim"));
+			get
+			{
+				// Check for an empty collection.
+				if (Count == 0)
+				{
+					return null;
+				}
+
+				// Go through and gather the severity from the collection.
+				int highest = (int) Severity.Debug;
+
+				foreach (SeverityMessage message in this)
+				{
+					highest = Math.Max((int) message.Severity, highest);
+				}
+
+				// Return the resulting severity.
+				return (Severity) highest;
+			}
 		}
+
+		#endregion
 	}
 }

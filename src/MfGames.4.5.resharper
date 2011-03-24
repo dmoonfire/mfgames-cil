@@ -28,13 +28,14 @@
               <ParamDirection>Any</ParamDirection>
             </Match>
           </CommentMatch>
+          <CommentNotMatch />
           <SuppressIfBaseHasComment>false</SuppressIfBaseHasComment>
           <MaxLineLength>80</MaxLineLength>
         </CommentsSettings>
         <NamingConventionSettings>
           <Rules>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -72,7 +73,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Public Internal Protected ProtectedInternal</AccessLevel>
@@ -111,7 +112,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Private</AccessLevel>
@@ -150,7 +151,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -174,7 +175,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -195,7 +196,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -216,7 +217,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -237,7 +238,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -255,7 +256,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -283,7 +284,7 @@
               <Regex>^(?&gt;(XML|SQL|[A-Z]{0,2})[A-Z]?([^A-Z]|$)|[^A-Z]+)*$</Regex>
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -335,7 +336,7 @@
               <Regex>(?&lt;remove&gt;_)</Regex>
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -358,7 +359,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -381,7 +382,7 @@
               </MustNotHaveSuffixes>
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -401,7 +402,7 @@
               </MustNotHaveSuffixes>
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -420,7 +421,7 @@
               <Regex>(?&lt;remove&gt;(reserved|Reserved))</Regex>
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -441,7 +442,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -492,7 +493,7 @@
               </MustNotHaveSuffixes>
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -513,7 +514,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -534,7 +535,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -555,7 +556,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -587,7 +588,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -651,7 +652,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -680,7 +681,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -702,7 +703,7 @@
               <MustNotHaveSuffixes />
             </NamingConventionRule>
             <NamingConventionRule>
-              <IsDisabled>false</IsDisabled>
+              <IsDisabled>true</IsDisabled>
               <Matches>
                 <Match>
                   <AccessLevel>Any</AccessLevel>
@@ -1003,7 +1004,7 @@ THE SOFTWARE.]]></FileHeader>
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="PrivateInstanceFields" />
-      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateConstants" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
       <Abbreviation Text="IO" />

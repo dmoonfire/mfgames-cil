@@ -74,8 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\WeightedSelector.cs" />
-    <Compile Include="Delegates\ConditionHandler.cs" />
-    <Compile Include="Delegates\EmptyVoidHandler.cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\System\IO\SystemIODirectoryInfoExtensions.cs" />
@@ -85,26 +83,24 @@
     <Compile Include="Extensions\System\SystemTypeExtensions.cs" />
     <Compile Include="HierarchicalSelector.cs" />
     <Compile Include="Locking\ReadLock.cs" />
-    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Reporting\SeverityMessage.cs" />
+    <Compile Include="Reporting\SeverityMessageCollection.cs" />
+    <Compile Include="Reporting\SeverityMessageEventArgs.cs" />
     <Compile Include="Tests\HierarchicalPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigStorage.cs" />
-    <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="RandomManager.cs" />
     <Compile Include="Exceptions\InvalidPathException.cs" />
-    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Reporting\Logger.cs" />
     <Compile Include="HierarchicalPath.cs" />
-    <Compile Include="Enumerations\Severity.cs" />
+    <Compile Include="Reporting\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
     <Compile Include="Tests\ExtendedVersionTests.cs" />
     <Compile Include="Locking\WriterLock.cs" />
     <Compile Include="Locking\UpgradableLock.cs" />
-    <Compile Include="Delegates\TryGetHandler.cs" />
-    <Compile Include="Delegates\CreateHandler.cs" />
+    <Compile Include="Locking\TryGetHandler.cs" />
     <Compile Include="Locking\TryGetCreatePattern.cs" />
-    <Compile Include="Logging\LogEvent.cs" />
-    <Compile Include="Logging\LogManager.cs" />
-    <Compile Include="Logging\NullLogger.cs" />
+    <Compile Include="Reporting\LogManager.cs" />
     <Compile Include="Tests\HierarchicalSelectorTests.cs" />
     <Compile Include="Tests\WeightedSelectorTests.cs" />
   </ItemGroup>

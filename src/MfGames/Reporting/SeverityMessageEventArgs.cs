@@ -24,21 +24,40 @@
 
 #region Namespaces
 
+using System;
+
 #endregion
 
-namespace MfGames.Logging
+namespace MfGames.Reporting
 {
 	/// <summary>
-	/// Defines a common logger signature that allows for a flexible reporting
-	/// of log messages.
+	/// Wraps a severity message in an event argument class.
 	/// </summary>
-	public interface ILogger
+	public class SeverityMessageEventArgs : EventArgs
 	{
+		#region Constructors
+
 		/// <summary>
-		/// Logs the given log event.
+		/// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
 		/// </summary>
-		void Report(
-			object sender,
-			LogEvent logEvent);
+		/// <param name="message">The message.</param>
+		public SeverityMessageEventArgs(SeverityMessage message)
+		{
+			Message = message;
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		/// Gets the message associated with this event.
+		/// </summary>
+		/// <value>
+		/// The message.
+		/// </value>
+		public SeverityMessage Message { get; protected set; }
+
+		#endregion
 	}
 }

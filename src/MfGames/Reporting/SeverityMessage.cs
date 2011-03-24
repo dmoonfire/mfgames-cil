@@ -28,77 +28,64 @@ using System;
 
 #endregion
 
-namespace MfGames.Logging
+namespace MfGames.Reporting
 {
 	/// <summary>
-	/// A simple console logger that writes out all the log messages to
-	/// the error stream.
+	/// Represents a message with an associated severity. This is similar
+	/// to <see cref="Exception"/>, but can represents messages of other
+	/// levels.
 	/// </summary>
-	public class ConsoleLogger : ILogger
+	public class SeverityMessage
 	{
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+		/// Initializes a new instance of the <see cref="SeverityMessage"/>
+		/// class with an info severity.
 		/// </summary>
-		public ConsoleLogger()
+		/// <param name="text">The message text.</param>
+		public SeverityMessage(string text)
+			: this(Severity.Info, text)
 		{
-			formatString = "{0,5}: {1}";
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+		/// Initializes a new instance of the <see cref="SeverityMessage"/> class.
 		/// </summary>
-		/// <param name="formatString">The format string.</param>
-		public ConsoleLogger(string formatString)
+		/// <param name="severity">The severity.</param>
+		/// <param name="text">The message text.</param>
+		public SeverityMessage(
+			Severity severity,
+			string text)
 		{
-			FormatString = formatString;
+			if (String.IsNullOrEmpty(text))
+			{
+				throw new ArgumentNullException("message");
+			}
+
+			Severity = severity;
+			Text = text;
+			Created = DateTime.UtcNow;
 		}
 
 		#endregion
 
-		#region Logging
-
-		private string formatString;
+		#region Properties
 
 		/// <summary>
-		/// Gets or sets the format string.
-		/// 
-		/// 0: Category
-		/// 1: Severity
-		/// 2: Message
-		/// 3: Timestamp (UTC)
-		/// 4: Timestamp (Local)
+		/// Gets when the message was created.
 		/// </summary>
-		/// <value>The format string.</value>
-		public string FormatString
-		{
-			get { return formatString; }
-			set { formatString = value; }
-		}
+		public DateTime Created { get; protected set; }
 
 		/// <summary>
-		/// Logs the given log event.
+		/// Contains the severity of the message.
 		/// </summary>
-		public void Report(
-			object sender,
-			LogEvent logEvent)
-		{
-			// Write out the message to the console.
-			Console.Error.WriteLine(
-				formatString,
-				logEvent.Category,
-				logEvent.Severity,
-				logEvent.Message,
-				DateTime.UtcNow,
-				DateTime.Now);
+		public Severity Severity { get; protected set; }
 
-			// Add the stack trace if we have an exception
-			if (logEvent.Exception != null)
-			{
-				Console.Error.WriteLine(logEvent.Exception.StackTrace);
-			}
-		}
+		/// <summary>
+		/// Contains the message text.
+		/// </summary>
+		public string Text { get; protected set; }
 
 		#endregion
 	}

@@ -24,9 +24,8 @@
 
 #region Namespaces
 
+using System;
 using System.Threading;
-
-using MfGames.Delegates;
 
 #endregion
 
@@ -49,8 +48,8 @@ namespace MfGames.Locking
 		/// <param name="createHandler">The create handler.</param>
 		public static void Invoke(
 			ReaderWriterLockSlim readerWriterLockSlim,
-			ConditionHandler conditionHandler,
-			EmptyVoidHandler createHandler)
+			Func<bool> conditionHandler,
+			Action createHandler)
 		{
 			using (new ReadLock(readerWriterLockSlim))
 			{
@@ -95,7 +94,7 @@ namespace MfGames.Locking
 			ReaderWriterLockSlim readerWriterLockSlim,
 			TInput input,
 			TryGetHandler<TInput, TOutput> tryGetHandler,
-			CreateHandler<TInput, TOutput> createHandler)
+			Func<TInput, TOutput> createHandler)
 		{
 			// First attempt to get the item using a read-only lock.
 			TOutput output;
