@@ -49,7 +49,6 @@
     <Compile Include="RandomDice.cs" />
     <Compile Include="Scanner.cs" />
     <Compile Include="SubtractionDice.cs" />
-    <Compile Include="Tests\DiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MfGames\MfGames.csproj">
