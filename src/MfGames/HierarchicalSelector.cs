@@ -24,7 +24,6 @@
 
 #region Namespaces
 
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -34,8 +33,8 @@ using System.Text.RegularExpressions;
 namespace MfGames
 {
 	/// <summary>
-	/// Extends the HierarchicalPath to include functionality for selecting
-	/// HierarchicalPaths and returning them.
+	/// Extends the <see cref="HierarchicalPath"/> to include functionality for
+	/// selecting HierarchicalPaths and returning them.
 	/// </summary>
 	public class HierarchicalSelector : HierarchicalPath
 	{
@@ -67,7 +66,7 @@ namespace MfGames
 		/// <param name="levels">The levels.</param>
 		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
 		public HierarchicalSelector(
-			string[] levels,
+			IEnumerable<string> levels,
 			bool isRelative)
 			: base(levels, isRelative)
 		{
@@ -81,7 +80,7 @@ namespace MfGames
 		/// <param name="startIndex">The start I ndex.</param>
 		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
 		public HierarchicalSelector(
-			string[] levels,
+			IEnumerable<string> levels,
 			int startIndex,
 			bool isRelative)
 			: base(levels, startIndex, isRelative)
@@ -110,14 +109,14 @@ namespace MfGames
 
 		/// <summary>
 		/// Parses the given path and converts the various ** and * elements into
-		/// regular expresions for selection.
+		/// regular expressions for selection.
 		/// </summary>
 		private void ParseSelectors()
 		{
 			// Create a selector regex that matches the length.
-			operations = new object[Levels.Length];
+			operations = new object[Levels.Count];
 
-			for (int index = 0; index < Levels.Length; index++)
+			for (int index = 0; index < Levels.Count; index++)
 			{
 				// Check for "**" by itself which means zero or more levels.
 				string level = Levels[index];
@@ -126,10 +125,7 @@ namespace MfGames
 				{
 					// Create a sub-tree of the selector and put it into this
 					// object.
-					operations[index] = new HierarchicalSelector(
-						Levels, 
-						index + 1,
-						true);
+					operations[index] = new HierarchicalSelector(Levels, index + 1, true);
 					continue;
 				}
 
@@ -185,18 +181,20 @@ namespace MfGames
 		/// <returns>
 		/// 	<c>true</c> if the specified path is match; otherwise, <c>false</c>.
 		/// </returns>
-		public bool IsMatch(HierarchicalPath path, int startIndex)
+		public bool IsMatch(
+			HierarchicalPath path,
+			int startIndex)
 		{
 			// If the selector is longer than the given path, it will never
 			// match the path.
-			if (Levels.Length > path.Levels.Length)
+			if (Levels.Count > path.Levels.Count)
 			{
 				return false;
 			}
 
 			// Go through all the elements of the selector.
 			for (int selectorIndex = 0, pathIndex = startIndex;
-			     selectorIndex < Levels.Length;
+			     selectorIndex < Levels.Count;
 			     selectorIndex++)
 			{
 				// Check to see if we have a special function for the selector's
@@ -232,7 +230,7 @@ namespace MfGames
 
 				// If we got this far, we are a double-star match. If this is
 				// the last index in the selector, it will match everything.
-				if (selectorIndex == Levels.Length - 1)
+				if (selectorIndex == Levels.Count - 1)
 				{
 					return true;
 				}
@@ -241,7 +239,7 @@ namespace MfGames
 				// we can find a subtree match.
 				HierarchicalSelector subSelector = (HierarchicalSelector) operation;
 
-				for (int starIndex = pathIndex; starIndex < path.Levels.Length; starIndex++)
+				for (int starIndex = pathIndex; starIndex < path.Levels.Count; starIndex++)
 				{
 					// If this is a match, use it.
 					if (subSelector.IsMatch(path, starIndex))

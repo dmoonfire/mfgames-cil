@@ -346,7 +346,7 @@ namespace MfGames.Tests
 		public void InDictionary()
 		{
 			// Setup
-			var dictionary = new Dictionary<HierarchicalPath,string>();
+			var dictionary = new Dictionary<HierarchicalPath, string>();
 			dictionary[new HierarchicalPath("/Application/Quit")] = "yes";
 
 			// Operation
