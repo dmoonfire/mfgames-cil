@@ -93,6 +93,64 @@ namespace MfGames.Settings
 		}
 
 		/// <summary>
+		/// Gets the number of deserialized settings.
+		/// </summary>
+		public int LoadedCount
+		{
+			get { return objectSettings.Count; }
+		}
+
+		/// <summary>
+		/// Gets the number of settings that are in serialized form.
+		/// </summary>
+		public int StoredCount
+		{
+			get { return xmlSettings.Count; }
+		}
+
+		private bool GetParentSettingsFirst(SettingSearchOptions searchOptions)
+		{
+			return (searchOptions & SettingSearchOptions.ParentSettingsFirst) ==
+			       SettingSearchOptions.ParentSettingsFirst;
+		}
+
+		private static bool GetSearchParent(SettingSearchOptions searchOptions)
+		{
+			return (searchOptions & SettingSearchOptions.SearchParentSettings) ==
+			       SettingSearchOptions.SearchParentSettings;
+		}
+
+		private bool GetSearchPaths(SettingSearchOptions searchOptions)
+		{
+			return (searchOptions & SettingSearchOptions.SearchHierarchicalParents) ==
+			       SettingSearchOptions.SearchHierarchicalParents;
+		}
+
+		private static bool GetSerializeDeserializeMapping(
+			SettingSearchOptions searchOptions)
+		{
+			return (searchOptions & SettingSearchOptions.SerializeDeserializeMapping) ==
+			       SettingSearchOptions.SerializeDeserializeMapping;
+		}
+
+		#endregion
+
+		#region Contains
+
+		/// <summary>
+		/// Determines whether the settings contain the specified path.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <returns>
+		///   <c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
+		/// </returns>
+		public bool Contains(string path)
+		{
+			var hierarchicalPath = new HierarchicalPath(path);
+			return Contains(hierarchicalPath);
+		}
+
+		/// <summary>
 		/// Determines whether the settings contain the specified path.
 		/// </summary>
 		/// <param name="path">The path.</param>
@@ -116,9 +174,83 @@ namespace MfGames.Settings
 			HierarchicalPath path,
 			SettingSearchOptions searchOptions)
 		{
-			object output;
-			SettingsManager manager;
-			return TryGet(path, searchOptions, out output, out manager);
+			// If this settings has a setting for this specific path, then
+			// attempt to map it. If we can't map it, return false.
+			if (ContainsInternal(path))
+			{
+				return true;
+			}
+
+			// We aren't in the exact path of this item, so we need to search
+			// for the parent paths or up the HierarchicalPath reference.
+			bool searchParent = (searchOptions &
+			                     SettingSearchOptions.SearchParentSettings) ==
+			                    SettingSearchOptions.SearchParentSettings;
+			bool searchPaths = (searchOptions &
+			                    SettingSearchOptions.SearchHierarchicalParents) ==
+			                   SettingSearchOptions.SearchHierarchicalParents;
+			bool parentSettingsFirst = (searchOptions &
+			                            SettingSearchOptions.ParentSettingsFirst) ==
+			                           SettingSearchOptions.ParentSettingsFirst;
+
+			// If we are searching neither, then we couldn't find it.
+			if (!searchParent && !searchPaths)
+			{
+				return false;
+			}
+
+			// Check to see if we are searching parents first.
+			if (searchParent && parentSettingsFirst && Parent != null)
+			{
+				// We are searching the parent. We only have the parent search
+				// its parents since we'll be searching the path in the next
+				// step.
+				if (Parent.Contains(path, SettingSearchOptions.SearchParentSettings))
+				{
+					return true;
+				}
+			}
+
+			// Search the path three until we get to the top.
+			if (searchPaths && path.Count != 1)
+			{
+				// Grab the current path.
+				HierarchicalPath currentPath = path.Parent;
+
+				while (true)
+				{
+					// Try to retrieve the object.
+					if (Contains(currentPath, searchOptions))
+					{
+						// We found it through recursion.
+						return true;
+					}
+
+					// We couldn't find it, so move up a level.
+					if (currentPath.Count == 1)
+					{
+						break;
+					}
+
+					currentPath = currentPath.Parent;
+				}
+			}
+
+			// We have found it so far, so check to see if we are searching
+			// parents
+			if (searchParent && !parentSettingsFirst && Parent != null)
+			{
+				// We are searching the parent. We only have the parent search
+				// its parents since we'll be searching the path in the next
+				// step.
+				if (Contains(path, SettingSearchOptions.SearchParentSettings))
+				{
+					return true;
+				}
+			}
+
+			// We couldn't find it.
+			return false;
 		}
 
 		/// <summary>
@@ -134,16 +266,20 @@ namespace MfGames.Settings
 			return xmlSettings.ContainsKey(path) || objectSettings.ContainsKey(path);
 		}
 
+		#endregion
+
+		#region Get
+
 		/// <summary>
 		/// Gets a settings at the specific path.
 		/// </summary>
 		/// <typeparam name="TSetting">The type of the setting.</typeparam>
 		/// <param name="path">The path.</param>
 		/// <returns></returns>
-		public TSetting Get<TSetting>(string path)
-			where TSetting : class, new()
+		public TSetting Get<TSetting>(string path) where TSetting: class, new()
 		{
-			return Get<TSetting>(new HierarchicalPath(path));
+			var hierarchicalPath = new HierarchicalPath(path);
+			return Get<TSetting>(hierarchicalPath);
 		}
 
 		/// <summary>
@@ -169,7 +305,19 @@ namespace MfGames.Settings
 			string path,
 			SettingSearchOptions searchOptions) where TSetting: class, new()
 		{
-			return Get<TSetting>(new HierarchicalPath(path), searchOptions);
+			var hierarchicalPath = new HierarchicalPath(path);
+			return Get<TSetting>(hierarchicalPath, searchOptions);
+		}
+
+		/// <summary>
+		/// Gets a settings at the specific path.
+		/// </summary>
+		public TSetting Get<TSetting>(
+			HierarchicalPath path,
+			SettingSearchOptions searchOptions) where TSetting: class, new()
+		{
+			SettingsManager containingManager;
+			return Get<TSetting>(path, searchOptions, out containingManager);
 		}
 
 		/// <summary>
@@ -178,21 +326,36 @@ namespace MfGames.Settings
 		/// <typeparam name="TSetting">The type of the setting.</typeparam>
 		/// <param name="path">The path.</param>
 		/// <param name="searchOptions">The search options.</param>
+		/// <param name="containingManager">The containing manager.</param>
 		/// <returns></returns>
 		public TSetting Get<TSetting>(
 			HierarchicalPath path,
-			SettingSearchOptions searchOptions) where TSetting: class, new()
+			SettingSearchOptions searchOptions,
+			out SettingsManager containingManager) where TSetting: class, new()
 		{
-			TSetting output;
-			SettingsManager manager;
+			// Attempt to retrieve the item from the collection.
+			SettingSearchOptions newSearchOptions = searchOptions |
+			                                        SettingSearchOptions.
+			                                        	SerializeDeserializeMapping;
 
-			if (!TryGet(path, searchOptions, out output, out manager))
+			TSetting output;
+
+			if (TryGet(path, newSearchOptions, out output, out containingManager))
 			{
-				output = new TSetting();
+				return output;
 			}
+
+			// We couldn't find it, so create a new one and store it.
+			output = new TSetting();
+			objectSettings[path] = output;
+			xmlSettings.Remove(path);
 
 			return output;
 		}
+
+		#endregion
+
+		#region Remove
 
 		/// <summary>
 		/// Removes the specified path from the settings.
@@ -203,6 +366,10 @@ namespace MfGames.Settings
 			xmlSettings.Remove(path);
 			objectSettings.Remove(path);
 		}
+
+		#endregion
+
+		#region Set
 
 		/// <summary>
 		/// Sets the setting to the specified path.
@@ -217,6 +384,10 @@ namespace MfGames.Settings
 			xmlSettings.Remove(path);
 			objectSettings[path] = setting;
 		}
+
+		#endregion
+
+		#region TryGet
 
 		/// <summary>
 		/// Tries to get settings at the given path without creating it if
@@ -274,30 +445,26 @@ namespace MfGames.Settings
 			// Try the current settings for the key.
 			if (ContainsInternal(path))
 			{
-				if (CanMap<TSetting>(path))
+				// Attempt to map the current path item. Depending on option
+				// settings, this will serialize/deserialize objects that don't
+				// match.
+				if (TryMap(path, searchOptions, out output))
 				{
-					output = Map<TSetting>(path);
 					containingManager = this;
 					return true;
 				}
 
 				// We couldn't map it.
-				output = default(TSetting);
+				output = null;
 				containingManager = null;
 				return false;
 			}
 
 			// We aren't in the exact path of this item, so we need to search
-			// for the parent paths or up the HierarchicalPath reference.
-			bool searchParent = (searchOptions &
-			                     SettingSearchOptions.SearchParentSettings) ==
-			                    SettingSearchOptions.SearchParentSettings;
-			bool searchPaths = (searchOptions &
-			                    SettingSearchOptions.SearchHierarchicalParents) ==
-			                   SettingSearchOptions.SearchHierarchicalParents;
-			bool parentSettingsFirst = (searchOptions &
-			                            SettingSearchOptions.ParentSettingsFirst) ==
-			                           SettingSearchOptions.ParentSettingsFirst;
+			// for the parent paths or up the path for an entry.
+			bool searchParent = GetSearchParent(searchOptions);
+			bool searchPaths = GetSearchPaths(searchOptions);
+			bool parentSettingsFirst = GetParentSettingsFirst(searchOptions);
 
 			// If we are searching neither, then we couldn't find it.
 			if (!searchParent && !searchPaths)
@@ -415,22 +582,22 @@ namespace MfGames.Settings
 		}
 
 		/// <summary>
-		/// Maps the specified input into the appropriate format. If the
-		/// currently deserialized version cannot be assigned to the TSettings,
-		/// then it will be serialized back into XML and attempted to deserialize
-		/// into the proper format.
+		/// Attempts to map the setting in the collection to the desired goal.
 		/// </summary>
 		/// <typeparam name="TSetting">The type of the setting.</typeparam>
-		/// <param name="path">
-		/// The path that has a an item in either the data or XML settings.
-		/// </param>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The options.</param>
+		/// <param name="output">The output.</param>
 		/// <returns></returns>
-		private TSetting Map<TSetting>(HierarchicalPath path)
-			where TSetting: class, new()
+		private bool TryMap<TSetting>(
+			HierarchicalPath path,
+			SettingSearchOptions searchOptions,
+			out TSetting output) where TSetting: class, new()
 		{
 			// Check to see if we have an object already deserialized.
-			TSetting output;
+			bool mapObject = GetSerializeDeserializeMapping(searchOptions);
 
+			// Check to see if we have an object already deserialized.
 			if (objectSettings.ContainsKey(path))
 			{
 				// Pull it out and see if we can do anything with it.
@@ -438,7 +605,8 @@ namespace MfGames.Settings
 
 				if (input == null)
 				{
-					return new TSetting();
+					output = null;
+					return false;
 				}
 
 				// Check to see if we can cast the object into the new type.
@@ -446,11 +614,19 @@ namespace MfGames.Settings
 
 				if (output != null)
 				{
-					return output;
+					return true;
 				}
 
-				// We cannot cast the input into the output. We serialize the
-				// input back into XML.
+				// If we aren't mapping, then we can't do anything so we need
+				// to return false.
+				if (!mapObject)
+				{
+					return false;
+				}
+
+				// We cannot cast it directly, but we are going to attempt to
+				// deserialize it in a different type. So, we need to flush it
+				// back to XML for the deserialization.
 				Flush(path);
 			}
 
@@ -465,7 +641,8 @@ namespace MfGames.Settings
 			}
 			catch
 			{
-				return new TSetting();
+				output = null;
+				return false;
 			}
 
 			// Remove it from the XML dictionary and put it into the object store.
@@ -473,45 +650,7 @@ namespace MfGames.Settings
 			xmlSettings.Remove(path);
 
 			// Return the results.
-			return output;
-		}
-
-		/// <summary>
-		/// Determines whether this instance can map the setting at the specified
-		/// path to the given type.
-		/// </summary>
-		/// <typeparam name="TSetting">The type of the setting.</typeparam>
-		/// <param name="path">The path.</param>
-		/// <returns>
-		///   <c>true</c> if this instance can map the specified path; otherwise, <c>false</c>.
-		/// </returns>
-		private bool CanMap<TSetting>(HierarchicalPath path)
-			where TSetting : class, new()
-		{
-			// Check to see if we have an object already deserialized.
-			TSetting output;
-
-			if (objectSettings.ContainsKey(path))
-			{
-				// Pull it out and see if we can do anything with it.
-				object input = objectSettings[path];
-
-				if (input == null)
-				{
-					return false;
-				}
-
-				// Check to see if we can cast the object into the new type.
-				output = input as TSetting;
-
-				if (output != null)
-				{
-					return true;
-				}
-			}
-
-			// We can't map it.
-			return false;
+			return true;
 		}
 
 		#endregion

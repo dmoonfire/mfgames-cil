@@ -25,9 +25,11 @@
 #region Namespaces
 
 using System.IO;
+using System.Xml.Serialization;
 
 using MfGames;
 using MfGames.Settings;
+using MfGames.Settings.Enumerations;
 
 using NUnit.Framework;
 
@@ -53,7 +55,7 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Operation
-			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA(2, "two"));
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA1(2, "two"));
 
 			// Verification
 			Assert.AreEqual(1, settingsManager.Count);
@@ -69,7 +71,7 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Operation
-			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA(3, "three"));
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA1(3, "three"));
 			settingsManager.Flush();
 
 			// Verification
@@ -77,17 +79,17 @@ namespace UnitTests
 		}
 
 		/// <summary>
-		/// Saves a setting A and loads it as B.
+		/// Saves a setting A and loads it as B, but without mapping.
 		/// </summary>
 		[Test]
-		public void ConvertFromAToB()
+		public void ConvertFromAtoB()
 		{
 			// Setup
 			var settingsManager = new SettingsManager();
-			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA(1, "one"));
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA1(1, "one"));
 
 			// Operation
-			var b = settingsManager.Get<SettingsB>("/a");
+			var b = settingsManager.Get<SettingsA2>("/a", SettingSearchOptions.SerializeDeserializeMapping);
 
 			// Verification
 			Assert.AreEqual(1, settingsManager.Count);
@@ -137,17 +139,18 @@ namespace UnitTests
 
 		#endregion
 
-		#region Nested type: SettingsA
+		#region Nested type: SettingsA1
 
-		public class SettingsA
+		[XmlRoot("SettingsA")]
+		public class SettingsA1
 		{
 			#region Constructors
 
-			public SettingsA()
+			public SettingsA1()
 			{
 			}
 
-			public SettingsA(
+			public SettingsA1(
 				int a,
 				string b)
 			{
@@ -167,18 +170,20 @@ namespace UnitTests
 
 		#endregion
 
-		#region Nested type: SettingsB
+		#region Nested type: SettingsA2
 
-		public class SettingsB
-
+		[XmlRoot("SettingsA")]
+		public class SettingsA2
 		{
 			#region Constructors
 
-			public SettingsB()
+			public SettingsA2()
 			{
+				A = -123;
+				B = "uninitialized";
 			}
 
-			public SettingsB(
+			public SettingsA2(
 				int a,
 				string b)
 			{

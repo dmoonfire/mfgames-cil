@@ -57,5 +57,11 @@ namespace MfGames.Settings.Enumerations
 		/// parents will be searched first.
 		/// </summary>
 		ParentSettingsFirst = 4,
+
+		/// <summary>
+		/// If set, the various operations will attempt to serialize and
+		/// deserialize the objects if they can't be mapped directly.
+		/// </summary>
+		SerializeDeserializeMapping = 8,
 	}
 }
