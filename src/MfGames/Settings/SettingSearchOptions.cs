@@ -56,6 +56,6 @@ namespace MfGames.Settings.Enumerations
 		/// If set, it searches the parent settings first. Otherwise, the hierarchical
 		/// parents will be searched first.
 		/// </summary>
-		DepthFirstSearch = 4,
+		ParentSettingsFirst = 4,
 	}
 }

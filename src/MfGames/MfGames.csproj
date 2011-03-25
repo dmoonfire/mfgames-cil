@@ -95,6 +95,8 @@
     <Compile Include="Locking\TryGetHandler.cs" />
     <Compile Include="Locking\TryGetCreatePattern.cs" />
     <Compile Include="Reporting\LogManager.cs" />
+    <Compile Include="Settings\SettingSearchOptions.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MfGames.snk" />
