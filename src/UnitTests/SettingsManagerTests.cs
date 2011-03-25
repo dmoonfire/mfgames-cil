@@ -44,21 +44,6 @@ namespace UnitTests
 		#region Settings Test
 
 		/// <summary>
-		/// Tests the initial state of an empty manager.
-		/// </summary>
-		[Test]
-		public void EmptyManager()
-		{
-			// Setup
-
-			// Operation
-			var settingsManager = new SettingsManager();
-
-			// Verification
-			Assert.AreEqual(0, settingsManager.Count);
-		}
-
-		/// <summary>
 		/// Tests adding one to the manager.
 		/// </summary>
 		[Test]
@@ -68,7 +53,7 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Operation
-			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA());
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA(2, "two"));
 
 			// Verification
 			Assert.AreEqual(1, settingsManager.Count);
@@ -84,11 +69,45 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Operation
-			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA());
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA(3, "three"));
 			settingsManager.Flush();
 
 			// Verification
 			Assert.AreEqual(1, settingsManager.Count);
+		}
+
+		/// <summary>
+		/// Saves a setting A and loads it as B.
+		/// </summary>
+		[Test]
+		public void ConvertFromAToB()
+		{
+			// Setup
+			var settingsManager = new SettingsManager();
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA(1, "one"));
+
+			// Operation
+			var b = settingsManager.Get<SettingsB>("/a");
+
+			// Verification
+			Assert.AreEqual(1, settingsManager.Count);
+			Assert.AreEqual(1, b.A);
+			Assert.AreEqual("one", b.B);
+		}
+
+		/// <summary>
+		/// Tests the initial state of an empty manager.
+		/// </summary>
+		[Test]
+		public void EmptyManager()
+		{
+			// Setup
+
+			// Operation
+			var settingsManager = new SettingsManager();
+
+			// Verification
+			Assert.AreEqual(0, settingsManager.Count);
 		}
 
 		#endregion
@@ -122,8 +141,28 @@ namespace UnitTests
 
 		public class SettingsA
 		{
+			#region Constructors
+
+			public SettingsA()
+			{
+			}
+
+			public SettingsA(
+				int a,
+				string b)
+			{
+				A = a;
+				B = b;
+			}
+
+			#endregion
+
+			#region Properties
+
 			public int A;
 			public string B;
+
+			#endregion
 		}
 
 		#endregion
@@ -131,9 +170,30 @@ namespace UnitTests
 		#region Nested type: SettingsB
 
 		public class SettingsB
+
 		{
+			#region Constructors
+
+			public SettingsB()
+			{
+			}
+
+			public SettingsB(
+				int a,
+				string b)
+			{
+				A = a;
+				B = b;
+			}
+
+			#endregion
+
+			#region Properties
+
 			public int A;
 			public string B;
+
+			#endregion
 		}
 
 		#endregion

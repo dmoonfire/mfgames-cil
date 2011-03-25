@@ -140,10 +140,36 @@ namespace MfGames.Settings
 		/// <typeparam name="TSetting">The type of the setting.</typeparam>
 		/// <param name="path">The path.</param>
 		/// <returns></returns>
+		public TSetting Get<TSetting>(string path)
+			where TSetting : class, new()
+		{
+			return Get<TSetting>(new HierarchicalPath(path));
+		}
+
+		/// <summary>
+		/// Gets a settings at the specific path.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <returns></returns>
 		public TSetting Get<TSetting>(HierarchicalPath path)
 			where TSetting: class, new()
 		{
 			return Get<TSetting>(path, SettingSearchOptions.None);
+		}
+
+		/// <summary>
+		/// Gets a settings at the specific path.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <param name="searchOptions">The search options.</param>
+		/// <returns></returns>
+		public TSetting Get<TSetting>(
+			string path,
+			SettingSearchOptions searchOptions) where TSetting: class, new()
+		{
+			return Get<TSetting>(new HierarchicalPath(path), searchOptions);
 		}
 
 		/// <summary>
@@ -248,9 +274,17 @@ namespace MfGames.Settings
 			// Try the current settings for the key.
 			if (ContainsInternal(path))
 			{
-				output = Map<TSetting>(path);
-				containingManager = this;
-				return true;
+				if (CanMap<TSetting>(path))
+				{
+					output = Map<TSetting>(path);
+					containingManager = this;
+					return true;
+				}
+
+				// We couldn't map it.
+				output = default(TSetting);
+				containingManager = null;
+				return false;
 			}
 
 			// We aren't in the exact path of this item, so we need to search
@@ -440,6 +474,44 @@ namespace MfGames.Settings
 
 			// Return the results.
 			return output;
+		}
+
+		/// <summary>
+		/// Determines whether this instance can map the setting at the specified
+		/// path to the given type.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <returns>
+		///   <c>true</c> if this instance can map the specified path; otherwise, <c>false</c>.
+		/// </returns>
+		private bool CanMap<TSetting>(HierarchicalPath path)
+			where TSetting : class, new()
+		{
+			// Check to see if we have an object already deserialized.
+			TSetting output;
+
+			if (objectSettings.ContainsKey(path))
+			{
+				// Pull it out and see if we can do anything with it.
+				object input = objectSettings[path];
+
+				if (input == null)
+				{
+					return false;
+				}
+
+				// Check to see if we can cast the object into the new type.
+				output = input as TSetting;
+
+				if (output != null)
+				{
+					return true;
+				}
+			}
+
+			// We can't map it.
+			return false;
 		}
 
 		#endregion
