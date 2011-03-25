@@ -26,7 +26,7 @@
 
 using System;
 
-using MfGames.Logging;
+using MfGames.Reporting;
 
 #endregion
 
@@ -209,7 +209,7 @@ namespace MfGames.Entropy
 
 	public class Errors
 	{
-		private readonly Log log = new Log(typeof(Parser));
+		private readonly Logger logger = new Logger(typeof(Parser));
 		public int Count = 0; // number of errors detected
 		public string errMsgFormat = "{3} ({0},{1}): {2}"; // 0=line, 1=column, 2=text
 		public string Format = null;
@@ -219,7 +219,7 @@ namespace MfGames.Entropy
 			int col,
 			string s)
 		{
-			log.Alert(errMsgFormat, line, col, s, Format);
+			logger.Alert(errMsgFormat, line, col, s, Format);
 			Count++;
 		}
 
@@ -236,7 +236,7 @@ namespace MfGames.Entropy
 			int col,
 			int n)
 		{
-			log.Alert(errMsgFormat, line, col, ("error " + n), Format);
+			logger.Alert(errMsgFormat, line, col, ("error " + n), Format);
 			Count++;
 		}
 
@@ -271,7 +271,7 @@ namespace MfGames.Entropy
 					s = "error " + n;
 					break;
 			}
-			log.Alert(errMsgFormat, line, col, s, Format);
+			logger.Alert(errMsgFormat, line, col, s, Format);
 			Count++;
 		}
 	}

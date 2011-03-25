@@ -22,10 +22,11 @@
 
 #endregion
 
-namespace MfGames.Delegates
+namespace MfGames.Locking
 {
 	/// <summary>
-	/// Defines the a create item handler.
+	/// Defines the common try/get handler to retrieve an item of a given type.
 	/// </summary>
-	public delegate TOutput CreateHandler<TInput, TOutput>(TInput input);
+	public delegate bool TryGetHandler<TInput, TOutput>(TInput input,
+	                                                    out TOutput output);
 }
