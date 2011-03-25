@@ -35,7 +35,7 @@ using MfGames.Exceptions;
 namespace MfGames
 {
 	/// <summary>
-	/// Represents an hierarchial path given in the same form as a Unix file
+	/// Represents an hierarchical path given in the same form as a Unix file
 	/// path. This is chosen because the forward slash does not require
 	/// escaping in C# strings and it is a well-known paradim for representing
 	/// a reference in a tree structure. The individual parts of the path
@@ -52,7 +52,7 @@ namespace MfGames
 	/// the backslash and the forward slash. In both cases, the two slashes
 	/// must be escaped with a backslash (e.g., "\\" and "\/").
 	/// 
-	/// HierarchialPath is a read-only object. Once created, no methods directly
+	/// HierarchicalPath is a read-only object. Once created, no methods directly
 	/// alter the object. Instead, they return a new modified path.
 	/// </summary>
 	[Serializable]
@@ -90,10 +90,23 @@ namespace MfGames
 		/// path is invalid in any manner, including not being absolute,
 		/// an exception is thrown.
 		/// </summary>
+		/// <param name="path">The path.</param>
 		public HierarchicalPath(string path)
+			: this(path, null, HierarchicalPathOptions.None)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="options">The options.</param>
+		public HierarchicalPath(
+			string path,
+			HierarchicalPathOptions options)
 		{
 			// Create the path components
-			ParsePath(path, null);
+			ParsePath(path, null, options);
 		}
 
 		/// <summary>
@@ -102,10 +115,19 @@ namespace MfGames
 		/// <param name="levels">The levels.</param>
 		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
 		public HierarchicalPath(
-			string[] levels,
+			IEnumerable<string> levels,
 			bool isRelative)
 		{
-			this.levels = levels;
+			// Create a sub-array version of the path.
+			var parts = new List<string>();
+
+			foreach (string level in levels)
+			{
+				parts.Add(level);
+			}
+
+			// Save the components.
+			this.levels = parts.ToArray();
 			this.isRelative = isRelative;
 		}
 
@@ -116,16 +138,24 @@ namespace MfGames
 		/// <param name="startIndex">The start index.</param>
 		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
 		public HierarchicalPath(
-			string[] levels,
+			IEnumerable<string> levels,
 			int startIndex,
 			bool isRelative)
 		{
 			// Create a sub-array version of the path.
-			this.levels = new string[levels.Length - startIndex];
+			var parts = new List<string>();
 
-			for (int index = startIndex; index < levels.Length; index++)
+			foreach (string level in levels)
 			{
-				this.levels[index - startIndex] = levels[index];
+				parts.Add(level);
+			}
+
+			// Get the subset of those levels.
+			this.levels = new string[parts.Count - startIndex];
+
+			for (int index = startIndex; index < parts.Count; index++)
+			{
+				this.levels[index - startIndex] = parts[index];
 			}
 
 			this.isRelative = isRelative;
@@ -139,9 +169,23 @@ namespace MfGames
 		public HierarchicalPath(
 			string path,
 			HierarchicalPath context)
+			: this(path, context, HierarchicalPathOptions.None)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="context">The context.</param>
+		/// <param name="options">The options.</param>
+		public HierarchicalPath(
+			string path,
+			HierarchicalPath context,
+			HierarchicalPathOptions options)
 		{
 			// Create the path components
-			ParsePath(path, context);
+			ParsePath(path, context, options);
 		}
 
 		#endregion
@@ -201,9 +245,13 @@ namespace MfGames
 		/// This parses the given path and sets the internal variables to
 		/// represent the given path.
 		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="context">The context.</param>
+		/// <param name="options">The options.</param>
 		private void ParsePath(
 			string path,
-			HierarchicalPath context)
+			HierarchicalPath context,
+			HierarchicalPathOptions options)
 		{
 			// Perform some sanity checking on the path
 			if (String.IsNullOrEmpty(path))
@@ -231,7 +279,7 @@ namespace MfGames
 					if (context != null)
 					{
 						isRelative = context.IsRelative;
-						levels = context.Levels;
+						levels = context.levels;
 					}
 					else
 					{
@@ -318,6 +366,16 @@ namespace MfGames
 
 			// Saved the parsed levels into the levels property.
 			levels = parsedLevels.ToArray();
+
+			// If we are interning, then intern all the strings.
+			if ((options & HierarchicalPathOptions.InternStrings) ==
+			    HierarchicalPathOptions.InternStrings)
+			{
+				for (int i = 0; i < levels.Length; i++)
+				{
+					levels[i] = String.Intern(levels[i]);
+				}
+			}
 		}
 
 		#endregion
@@ -392,9 +450,9 @@ namespace MfGames
 		/// <summary>
 		/// Contains an array of individual levels within the path.
 		/// </summary>
-		public string[] Levels
+		public IList<string> Levels
 		{
-			get { return levels; }
+			get { return new List<string>(levels); }
 		}
 
 		/// <summary>
@@ -435,12 +493,77 @@ namespace MfGames
 		#region Comparison
 
 		/// <summary>
-		/// Compares two node references.
+		/// Equalses the specified other.
 		/// </summary>
+		/// <param name="other">The other.</param>
+		/// <returns></returns>
+		public bool Equals(HierarchicalPath other)
+		{
+			// Make sure that the other is not null.
+			if (ReferenceEquals(null, other))
+			{
+				return false;
+			}
+
+			// If we are identical objects, then return true.
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
+			// Check for the relatively.
+			if (other.isRelative != isRelative)
+			{
+				return false;
+			}
+
+			// Equality on the array of strings doesn't work as expected, so we
+			// compare each string to itself.
+			string[] otherLevels = other.levels;
+
+			if (otherLevels.Length != levels.Length)
+			{
+				return false;
+			}
+
+			for (int i = 0; i < otherLevels.Length; i++)
+			{
+				if (!otherLevels[i].Equals(levels[i]))
+				{
+					return false;
+				}
+			}
+
+			// We got this far, therefore we are equal.
+			return true;
+		}
+
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <param name="obj">The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.</param>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.</exception>
 		public override bool Equals(object obj)
 		{
-			var path = (HierarchicalPath) obj;
-			return Path.Equals(path.Path);
+			if (ReferenceEquals(null, obj))
+			{
+				return false;
+			}
+
+			if (ReferenceEquals(this, obj))
+			{
+				return true;
+			}
+
+			if (obj.GetType() != typeof(HierarchicalPath))
+			{
+				return false;
+			}
+
+			return Equals((HierarchicalPath) obj);
 		}
 
 		/// <summary>
@@ -448,7 +571,21 @@ namespace MfGames
 		/// </summary>
 		public override int GetHashCode()
 		{
-			return isRelative.GetHashCode() ^ levels.GetHashCode();
+			unchecked
+			{
+				// Build up the hash, starting with the flag.
+				int hashCode = isRelative.GetHashCode() * 397;
+
+				// We can't use the array itself because it doesn't produce
+				// a consistent hash code for dictionary operations.
+				for (int i = 0; i < levels.Length; i++)
+				{
+					hashCode ^= levels[i].GetHashCode();
+				}
+
+				// Return the results.
+				return hashCode;
+			}
 		}
 
 		/// <summary>
@@ -467,16 +604,45 @@ namespace MfGames
 			}
 
 			// Strip off the root path and create a new path.
-			var newLevels = new string[levels.Length - rootPath.Levels.Length];
+			var newLevels = new string[levels.Length - rootPath.levels.Length];
 
-			for (int index = rootPath.Levels.Length; index < levels.Length; index++)
+			for (int index = rootPath.levels.Length; index < levels.Length; index++)
 			{
-				newLevels[index - rootPath.Levels.Length] = levels[index];
+				newLevels[index - rootPath.levels.Length] = levels[index];
 			}
 
 			// Create the new path and return it. This will always be relative
 			// to the given path since it is a subset.
 			return new HierarchicalPath(newLevels, true);
+		}
+
+		/// <summary>
+		/// Implements the operator ==.
+		/// </summary>
+		/// <param name="c1">The c1.</param>
+		/// <param name="c2">The c2.</param>
+		/// <returns>The result of the operator.</returns>
+		public static bool operator ==(HierarchicalPath c1,
+		                               HierarchicalPath c2)
+		{
+			if (ReferenceEquals(null, c1) && ReferenceEquals(null, c2))
+			{
+				return true;
+			}
+
+			return c1.Equals(c2);
+		}
+
+		/// <summary>
+		/// Implements the operator !=.
+		/// </summary>
+		/// <param name="c1">The c1.</param>
+		/// <param name="c2">The c2.</param>
+		/// <returns>The result of the operator.</returns>
+		public static bool operator !=(HierarchicalPath c1,
+		                               HierarchicalPath c2)
+		{
+			return !(c1 == c2);
 		}
 
 		/// <summary>
