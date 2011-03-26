@@ -52,6 +52,7 @@
     <Compile Include="DiceTests.cs" />
     <Compile Include="ExtendedVersionTests.cs" />
     <Compile Include="HierarchicalPathTests.cs" />
+    <Compile Include="HierarchicalPathTreeCollectionTests.cs" />
     <Compile Include="HierarchicalSelectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsManagerTests.cs" />
