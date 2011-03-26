@@ -724,6 +724,16 @@ namespace MfGames
 			return new HierarchicalPath("./" + childPath, this);
 		}
 
+		/// <summary>
+		/// Gets the subpath starting with the given index.
+		/// </summary>
+		/// <param name="firstIndex">The first index.</param>
+		/// <returns></returns>
+		public HierarchicalPath Splice(int firstIndex)
+		{
+			return new HierarchicalPath(levels, firstIndex, true);
+		}
+
 		#endregion
 
 		#region Parent Path Operations

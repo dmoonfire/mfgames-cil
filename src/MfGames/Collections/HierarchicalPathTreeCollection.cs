@@ -76,6 +76,31 @@ namespace MfGames.Collections
 		#region Collection
 
 		/// <summary>
+		/// Determines whether the collection contains a collection at that path.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <returns>
+		///   <c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
+		/// </returns>
+		public bool Contains(HierarchicalPath path)
+		{
+			// If we have no levels, then we found it.
+			if (path.Count == 0)
+			{
+				return true;
+			}
+
+			// Check to see if this tree contains the next level.
+			if (children.ContainsKey(path.First))
+			{
+				return children[path.First].Contains(path.Splice(1));
+			}
+
+			// Otherwise, we don't have the child so we won't contain it.
+			return false;
+		}
+
+		/// <summary>
 		/// Retrieves the collection at a given path.
 		/// </summary>
 		/// <param name="path"></param>
@@ -90,7 +115,7 @@ namespace MfGames.Collections
 
 			// Get the top-level element for a child.
 			string topLevel = path.First;
-			var childPath = new HierarchicalPath(path.Levels, 1, true);
+			var childPath = path.Splice(1);
 
 			return children[topLevel].Get(childPath);
 		}
@@ -122,7 +147,7 @@ namespace MfGames.Collections
 
 			// Pull out the child tree so we can add it.
 			HierarchicalPathTreeCollection<TValue> child = children[topLevel];
-			var childPath = new HierarchicalPath(path.Levels, 1, true);
+			var childPath = path.Splice(1);
 
 			child.Add(childPath, item);
 		}
