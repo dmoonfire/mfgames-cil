@@ -45,8 +45,8 @@
 
   <!-- Repositories -->
   <repository>
-    <SVNRepository>
-      <location rdf:resource="http://svn.mfgames.com/MfGames/"/>
-    </SVNRepository>
+    <GitRepository>
+      <browse rdf:resource="https://github.com/dmoonfire/mfgames-cil"/>
+    </GitRepository>
   </repository>
 </Project>
