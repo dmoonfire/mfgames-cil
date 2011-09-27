@@ -1,11 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames", "MfGames\MfGames.csproj", "{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Dice", "MfGames.Dice\MfGames.Dice.csproj", "{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Lookup", "MfGames.Lookup\MfGames.Lookup.csproj", "{A88831D6-3A1E-4558-A9BC-C9D066819256}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{08F24085-6341-4BC6-92CF-1DFD8F3B1AF4}"
 EndProject
@@ -19,14 +15,6 @@ Global
 		{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BABBE73-CD1D-494E-A81F-E4EA40107FA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA85C5CA-764C-4F6D-8BB4-792BE3B80367}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A88831D6-3A1E-4558-A9BC-C9D066819256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A88831D6-3A1E-4558-A9BC-C9D066819256}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A88831D6-3A1E-4558-A9BC-C9D066819256}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A88831D6-3A1E-4558-A9BC-C9D066819256}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08F24085-6341-4BC6-92CF-1DFD8F3B1AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08F24085-6341-4BC6-92CF-1DFD8F3B1AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08F24085-6341-4BC6-92CF-1DFD8F3B1AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
