@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,36 +24,36 @@
 
 namespace MfGames.Reporting
 {
-	/// <summary>
-	/// Defines the standard levels of severity used by
-	/// the library.
-	/// </summary>
-	public enum Severity
-	{
-		/// <summary>
-		/// Indicates a severity used for debugging.
-		/// </summary>
-		Debug,
+    /// <summary>
+    /// Defines the standard levels of severity used by
+    /// the library.
+    /// </summary>
+    public enum Severity
+    {
+        /// <summary>
+        /// Indicates a severity used for debugging.
+        /// </summary>
+        Debug,
 
-		/// <summary>
-		/// Used for informational purposes.
-		/// </summary>
-		Info,
+        /// <summary>
+        /// Used for informational purposes.
+        /// </summary>
+        Info,
 
-		/// <summary>
-		/// Used for warning notices.
-		/// </summary>
-		Alert,
+        /// <summary>
+        /// Used for warning notices.
+        /// </summary>
+        Alert,
 
-		/// <summary>
-		/// Used for a non-fatal error condition.
-		/// </summary>
-		Error,
+        /// <summary>
+        /// Used for a non-fatal error condition.
+        /// </summary>
+        Error,
 
-		/// <summary>
-		/// Used for fatal conditions, usually indicating the application or
-		/// something has stopped.
-		/// </summary>
-		Fatal,
-	}
+        /// <summary>
+        /// Used for fatal conditions, usually indicating the application or
+        /// something has stopped.
+        /// </summary>
+        Fatal,
+    }
 }

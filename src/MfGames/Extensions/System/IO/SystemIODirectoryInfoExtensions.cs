@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,35 +30,35 @@ using System.IO;
 
 namespace MfGames.Extensions.System.IO
 {
-	/// <summary>
-	/// Defines various extensions to System.IO.DirectoryInfo.
-	/// </summary>
-	public static class SystemIODirectoryInfoExtensions
-	{
-		/// <summary>
-		/// Gets the directory info from the directory.
-		/// </summary>
-		/// <param name="directory">The directory.</param>
-		/// <param name="dirname">The dirname.</param>
-		/// <returns></returns>
-		public static DirectoryInfo GetDirectoryInfo(
-			this DirectoryInfo directory,
-			string dirname)
-		{
-			return new DirectoryInfo(Path.Combine(directory.FullName, dirname));
-		}
+    /// <summary>
+    /// Defines various extensions to System.IO.DirectoryInfo.
+    /// </summary>
+    public static class SystemIODirectoryInfoExtensions
+    {
+        /// <summary>
+        /// Gets the directory info from the directory.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="dirname">The dirname.</param>
+        /// <returns></returns>
+        public static DirectoryInfo GetDirectoryInfo(
+            this DirectoryInfo directory,
+            string dirname)
+        {
+            return new DirectoryInfo(Path.Combine(directory.FullName, dirname));
+        }
 
-		/// <summary>
-		/// Gets a child FileInfo object from the directory.
-		/// </summary>
-		/// <param name="directory">The directory.</param>
-		/// <param name="filename">The filename.</param>
-		/// <returns></returns>
-		public static FileInfo GetFileInfo(
-			this DirectoryInfo directory,
-			string filename)
-		{
-			return new FileInfo(Path.Combine(directory.FullName, filename));
-		}
-	}
+        /// <summary>
+        /// Gets a child FileInfo object from the directory.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="filename">The filename.</param>
+        /// <returns></returns>
+        public static FileInfo GetFileInfo(
+            this DirectoryInfo directory,
+            string filename)
+        {
+            return new FileInfo(Path.Combine(directory.FullName, filename));
+        }
+    }
 }

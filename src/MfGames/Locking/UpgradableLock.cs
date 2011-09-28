@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,41 +31,41 @@ using System.Threading;
 
 namespace MfGames.Locking
 {
-	/// <summary>
-	/// Defines a ReaderWriterLockSlim read-only lock.
-	/// </summary>
-	public class UpgradableLock : IDisposable
-	{
-		#region Constructors
+    /// <summary>
+    /// Defines a ReaderWriterLockSlim read-only lock.
+    /// </summary>
+    public class UpgradableLock : IDisposable
+    {
+        #region Constructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="UpgradableLock"/> class.
-		/// </summary>
-		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
-		public UpgradableLock(ReaderWriterLockSlim readerWriterLockSlim)
-		{
-			this.readerWriterLockSlim = readerWriterLockSlim;
-			readerWriterLockSlim.EnterUpgradeableReadLock();
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpgradableLock"/> class.
+        /// </summary>
+        /// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
+        public UpgradableLock(ReaderWriterLockSlim readerWriterLockSlim)
+        {
+            this.readerWriterLockSlim = readerWriterLockSlim;
+            readerWriterLockSlim.EnterUpgradeableReadLock();
+        }
 
-		#endregion
+        #endregion
 
-		#region Destructors
+        #region Destructors
 
-		/// <summary>
-		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-		/// </summary>
-		public void Dispose()
-		{
-			readerWriterLockSlim.ExitUpgradeableReadLock();
-		}
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            readerWriterLockSlim.ExitUpgradeableReadLock();
+        }
 
-		#endregion
+        #endregion
 
-		#region Locking
+        #region Locking
 
-		private readonly ReaderWriterLockSlim readerWriterLockSlim;
+        private readonly ReaderWriterLockSlim readerWriterLockSlim;
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,34 +30,34 @@ using System;
 
 namespace MfGames.Exceptions
 {
-	/// <summary>
-	/// Represents an exception while processing HierarchialPath objects.
-	/// </summary>
-	public class HierarchicalPathException : ApplicationException
-	{
-		#region Constructors
+    /// <summary>
+    /// Represents an exception while processing HierarchialPath objects.
+    /// </summary>
+    public class HierarchicalPathException : ApplicationException
+    {
+        #region Constructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		public HierarchicalPathException(string message)
-			: base(message)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public HierarchicalPathException(string message)
+            : base(message)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		/// <param name="exception">The exception.</param>
-		public HierarchicalPathException(
-			string message,
-			Exception exception)
-			: base(message, exception)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">The exception.</param>
+        public HierarchicalPathException(
+            string message,
+            Exception exception)
+            : base(message, exception)
+        {
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

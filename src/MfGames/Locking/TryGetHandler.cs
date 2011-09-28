@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,9 @@
 
 namespace MfGames.Locking
 {
-	/// <summary>
-	/// Defines the common try/get handler to retrieve an item of a given type.
-	/// </summary>
-	public delegate bool TryGetHandler<TInput, TOutput>(TInput input,
-	                                                    out TOutput output);
+    /// <summary>
+    /// Defines the common try/get handler to retrieve an item of a given type.
+    /// </summary>
+    public delegate bool TryGetHandler<TInput, TOutput>(TInput input,
+                                                        out TOutput output);
 }

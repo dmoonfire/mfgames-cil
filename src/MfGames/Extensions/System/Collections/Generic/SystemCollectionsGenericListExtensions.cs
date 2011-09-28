@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,42 +30,42 @@ using System.Collections.Generic;
 
 namespace MfGames.Extensions.System.Collections.Generic
 {
-	/// <summary>
-	/// Extends IList-derived classes with additional extensions.
-	/// </summary>
-	public static class SystemCollectionsGenericListExtensions
-	{
-		/// <summary>
-		/// Gets the last item in the list.
-		/// </summary>
-		/// <param name="list">The list.</param>
-		/// <returns></returns>
-		public static TItem GetLast<TItem>(this IList<TItem> list)
-		{
-			if (list.Count == 0)
-			{
-				return default(TItem);
-			}
+    /// <summary>
+    /// Extends IList-derived classes with additional extensions.
+    /// </summary>
+    public static class SystemCollectionsGenericListExtensions
+    {
+        /// <summary>
+        /// Gets the last item in the list.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        /// <returns></returns>
+        public static TItem GetLast<TItem>(this IList<TItem> list)
+        {
+            if (list.Count == 0)
+            {
+                return default(TItem);
+            }
 
-			return list[list.Count - 1];
-		}
+            return list[list.Count - 1];
+        }
 
-		/// <summary>
-		/// Removes the last item in the list.
-		/// </summary>
-		/// <typeparam name="TItem">The type of the item.</typeparam>
-		/// <param name="list">The list.</param>
-		/// <returns></returns>
-		public static TItem RemoveLast<TItem>(this IList<TItem> list)
-		{
-			if (list.Count == 0)
-			{
-				return default(TItem);
-			}
+        /// <summary>
+        /// Removes the last item in the list.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the item.</typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns></returns>
+        public static TItem RemoveLast<TItem>(this IList<TItem> list)
+        {
+            if (list.Count == 0)
+            {
+                return default(TItem);
+            }
 
-			TItem last = list[list.Count - 1];
-			list.RemoveAt(list.Count - 1);
-			return last;
-		}
-	}
+            TItem last = list[list.Count - 1];
+            list.RemoveAt(list.Count - 1);
+            return last;
+        }
+    }
 }
