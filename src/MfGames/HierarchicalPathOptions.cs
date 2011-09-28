@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,21 +30,21 @@ using System;
 
 namespace MfGames
 {
-	/// <summary>
-	/// Defines the options used for creating and parsing hierarchical paths.
-	/// </summary>
-	[Flags]
-	public enum HierarchicalPathOptions
-	{
-		/// <summary>
-		/// Defines no additional options.
-		/// </summary>
-		None,
+    /// <summary>
+    /// Defines the options used for creating and parsing hierarchical paths.
+    /// </summary>
+    [Flags]
+    public enum HierarchicalPathOptions
+    {
+        /// <summary>
+        /// Defines no additional options.
+        /// </summary>
+        None,
 
-		/// <summary>
-		/// If included, the path will intern the various string components of
-		/// the path in an attempt to save memory.
-		/// </summary>
-		InternStrings,
-	}
+        /// <summary>
+        /// If included, the path will intern the various string components of
+        /// the path in an attempt to save memory.
+        /// </summary>
+        InternStrings,
+    }
 }

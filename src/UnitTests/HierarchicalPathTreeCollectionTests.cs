@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,82 +33,82 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
-	/// <summary>
-	/// Test the <see cref="HierarchicalPathTreeCollection{TValue}"/> functionality.
-	/// </summary>
-	[TestFixture]
-	public class HierarchicalPathTreeCollectionTests
-	{
-		/// <summary>
-		/// Tests the state of an empty collection.
-		/// </summary>
-		[Test]
-		public void TestEmpty()
-		{
-			// Setup
-			var collection = new HierarchicalPathTreeCollection<int>();
+    /// <summary>
+    /// Test the <see cref="HierarchicalPathTreeCollection{TValue}"/> functionality.
+    /// </summary>
+    [TestFixture]
+    public class HierarchicalPathTreeCollectionTests
+    {
+        /// <summary>
+        /// Tests adding item at depth.
+        /// </summary>
+        [Test]
+        public void TestDepthAdd()
+        {
+            // Setup
+            var collection = new HierarchicalPathTreeCollection<int>();
+            var path = new HierarchicalPath("/a/b");
 
-			// Operation
-			
-			// Verification
-			Assert.AreEqual(0, collection.Count);
-		}
+            // Operation
+            collection.Add(path, 234);
 
-		/// <summary>
-		/// Tests adding a single item to the root path.
-		/// </summary>
-		[Test]
-		public void TestRootAdd()
-		{
-			// Setup
-			var collection = new HierarchicalPathTreeCollection<int>();
-			var path = new HierarchicalPath("/");
+            // Verification
+            Assert.AreEqual(1, collection.Count);
+            Assert.AreEqual(0, collection.Item);
+            Assert.AreEqual(234, collection.Get(path).Item);
+        }
 
-			// Operation
-			collection.Add(path, 234);
+        /// <summary>
+        /// Tests the state of an empty collection.
+        /// </summary>
+        [Test]
+        public void TestEmpty()
+        {
+            // Setup
+            var collection = new HierarchicalPathTreeCollection<int>();
 
-			// Verification
-			Assert.AreEqual(0, collection.Count);
-			Assert.AreEqual(234, collection.Item);
-		}
-		
-		/// <summary>
-		/// Tests adding item at depth.
-		/// </summary>
-		[Test]
-		public void TestDepthAdd()
-		{
-			// Setup
-			var collection = new HierarchicalPathTreeCollection<int>();
-			var path = new HierarchicalPath("/a/b");
+            // Operation
 
-			// Operation
-			collection.Add(path, 234);
+            // Verification
+            Assert.AreEqual(0, collection.Count);
+        }
 
-			// Verification
-			Assert.AreEqual(1, collection.Count);
-			Assert.AreEqual(0, collection.Item);
-			Assert.AreEqual(234, collection.Get(path).Item);
-		}
+        [Test]
+        public void TestMultipleDepthAdds()
+        {
+            // Setup
+            var collection = new HierarchicalPathTreeCollection<int>();
+            var path1 = new HierarchicalPath("/a/b");
+            var path2 = new HierarchicalPath("/a/c");
 
-		[Test]
-		public void TestMultipleDepthAdds()
-		{
-			// Setup
-			var collection = new HierarchicalPathTreeCollection<int>();
-			var path1 = new HierarchicalPath("/a/b");
-			var path2 = new HierarchicalPath("/a/c");
+            // Operation
+            collection.Add(path1, 234);
+            collection.Add(path2, 567);
 
-			// Operation
-			collection.Add(path1, 234);
-			collection.Add(path2, 567);
+            // Verification
+            Assert.AreEqual(1, collection.Count);
+            Assert.AreEqual(0, collection.Item);
+            Assert.AreEqual(2, collection.Get(new HierarchicalPath("/a")).Count);
+            Assert.AreEqual(234, collection.Get(path1).Item);
+            Assert.AreEqual(567, collection.Get(path2).Item);
+        }
 
-			// Verification
-			Assert.AreEqual(1, collection.Count);
-			Assert.AreEqual(0, collection.Item);
-			Assert.AreEqual(2, collection.Get(new HierarchicalPath("/a")).Count);
-			Assert.AreEqual(234, collection.Get(path1).Item);
-			Assert.AreEqual(567, collection.Get(path2).Item);
-		}
-	}
+        /// <summary>
+        /// Tests adding a single item to the root path.
+        /// </summary>
+        [Test]
+        public void TestRootAdd()
+        {
+            // Setup
+            var collection = new HierarchicalPathTreeCollection<int>();
+            var path = new HierarchicalPath("/");
+
+            // Operation
+            collection.Add(path, 234);
+
+            // Verification
+            Assert.AreEqual(0, collection.Count);
+            Assert.AreEqual(234, collection.Item);
+        }
+    }
 }

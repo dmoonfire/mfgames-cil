@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,34 +30,34 @@ using System;
 
 namespace MfGames.Reporting
 {
-	/// <summary>
-	/// Wraps a severity message in an event argument class.
-	/// </summary>
-	public class SeverityMessageEventArgs : EventArgs
-	{
-		#region Constructors
+    /// <summary>
+    /// Wraps a severity message in an event argument class.
+    /// </summary>
+    public class SeverityMessageEventArgs : EventArgs
+    {
+        #region Constructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		public SeverityMessageEventArgs(SeverityMessage message)
-		{
-			Message = message;
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public SeverityMessageEventArgs(SeverityMessage message)
+        {
+            Message = message;
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		/// <summary>
-		/// Gets the message associated with this event.
-		/// </summary>
-		/// <value>
-		/// The message.
-		/// </value>
-		public SeverityMessage Message { get; protected set; }
+        /// <summary>
+        /// Gets the message associated with this event.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
+        public SeverityMessage Message { get; protected set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

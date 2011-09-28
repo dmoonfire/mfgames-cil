@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,140 +30,141 @@ using System.Collections.Generic;
 
 namespace MfGames.Collections
 {
-	/// <summary>
-	/// Represents a collection of items, keyed by a <see cref="HierarchicalPath"/>
-	/// and arranged into a tree view.
-	/// </summary>
-	public class HierarchicalPathTreeCollection<TValue>
-	{
-		#region Constructors
+    /// <summary>
+    /// Represents a collection of items, keyed by a <see cref="HierarchicalPath"/>
+    /// and arranged into a tree view.
+    /// </summary>
+    public class HierarchicalPathTreeCollection<TValue>
+    {
+        #region Constructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathTreeCollection&lt;TValue&gt;"/> class.
-		/// </summary>
-		public HierarchicalPathTreeCollection()
-		{
-			children = new Dictionary<string, HierarchicalPathTreeCollection<TValue>>();
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalPathTreeCollection&lt;TValue&gt;"/> class.
+        /// </summary>
+        public HierarchicalPathTreeCollection()
+        {
+            children =
+                new Dictionary<string, HierarchicalPathTreeCollection<TValue>>();
+        }
 
-		#endregion
+        #endregion
 
-		#region Factory
+        #region Factory
 
-		private readonly Dictionary<string, HierarchicalPathTreeCollection<TValue>>
-			children;
+        private readonly
+            Dictionary<string, HierarchicalPathTreeCollection<TValue>> children;
 
-		/// <summary>
-		/// Gets the count of child items.
-		/// </summary>
-		public int Count
-		{
-			get { return children.Count; }
-		}
+        /// <summary>
+        /// Gets the count of child items.
+        /// </summary>
+        public int Count
+        {
+            get { return children.Count; }
+        }
 
-		/// <summary>
-		/// Creates the child collection. This is called when the tree needs to
-		/// create a child tree.
-		/// </summary>
-		/// <returns></returns>
-		protected virtual HierarchicalPathTreeCollection<TValue> CreateChild()
-		{
-			return new HierarchicalPathTreeCollection<TValue>();
-		}
+        /// <summary>
+        /// Creates the child collection. This is called when the tree needs to
+        /// create a child tree.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual HierarchicalPathTreeCollection<TValue> CreateChild()
+        {
+            return new HierarchicalPathTreeCollection<TValue>();
+        }
 
-		#endregion
+        #endregion
 
-		#region Collection
+        #region Collection
 
-		/// <summary>
-		/// Determines whether the collection contains a collection at that path.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		/// <returns>
-		///   <c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
-		/// </returns>
-		public bool Contains(HierarchicalPath path)
-		{
-			// If we have no levels, then we found it.
-			if (path.Count == 0)
-			{
-				return true;
-			}
+        /// <summary>
+        /// Adds an item at the specified path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="item">The item.</param>
+        public void Add(
+            HierarchicalPath path,
+            TValue item)
+        {
+            // If are the top-level path, set the item.
+            if (path.Count == 0)
+            {
+                Item = item;
+                return;
+            }
 
-			// Check to see if this tree contains the next level.
-			if (children.ContainsKey(path.First))
-			{
-				return children[path.First].Contains(path.Splice(1));
-			}
+            // We have at least one more level. Figure out the top-level string
+            // and create the key for it.
+            string topLevel = path.First;
 
-			// Otherwise, we don't have the child so we won't contain it.
-			return false;
-		}
+            if (!children.ContainsKey(topLevel))
+            {
+                children[topLevel] = CreateChild();
+            }
 
-		/// <summary>
-		/// Retrieves the collection at a given path.
-		/// </summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
-		public HierarchicalPathTreeCollection<TValue> Get(HierarchicalPath path)
-		{
-			// If we are at the top-level path, return ourselves.
-			if (path.Count == 0)
-			{
-				return this;
-			}
+            // Pull out the child tree so we can add it.
+            HierarchicalPathTreeCollection<TValue> child = children[topLevel];
+            var childPath = path.Splice(1);
 
-			// Get the top-level element for a child.
-			string topLevel = path.First;
-			var childPath = path.Splice(1);
+            child.Add(childPath, item);
+        }
 
-			return children[topLevel].Get(childPath);
-		}
+        /// <summary>
+        /// Determines whether the collection contains a collection at that path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>
+        ///   <c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool Contains(HierarchicalPath path)
+        {
+            // If we have no levels, then we found it.
+            if (path.Count == 0)
+            {
+                return true;
+            }
 
-		/// <summary>
-		/// Adds an item at the specified path.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		/// <param name="item">The item.</param>
-		public void Add(
-			HierarchicalPath path,
-			TValue item)
-		{
-			// If are the top-level path, set the item.
-			if (path.Count == 0)
-			{
-				Item = item;
-				return;
-			}
+            // Check to see if this tree contains the next level.
+            if (children.ContainsKey(path.First))
+            {
+                return children[path.First].Contains(path.Splice(1));
+            }
 
-			// We have at least one more level. Figure out the top-level string
-			// and create the key for it.
-			string topLevel = path.First;
+            // Otherwise, we don't have the child so we won't contain it.
+            return false;
+        }
 
-			if (!children.ContainsKey(topLevel))
-			{
-				children[topLevel] = CreateChild();
-			}
+        /// <summary>
+        /// Retrieves the collection at a given path.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public HierarchicalPathTreeCollection<TValue> Get(HierarchicalPath path)
+        {
+            // If we are at the top-level path, return ourselves.
+            if (path.Count == 0)
+            {
+                return this;
+            }
 
-			// Pull out the child tree so we can add it.
-			HierarchicalPathTreeCollection<TValue> child = children[topLevel];
-			var childPath = path.Splice(1);
+            // Get the top-level element for a child.
+            string topLevel = path.First;
+            var childPath = path.Splice(1);
 
-			child.Add(childPath, item);
-		}
+            return children[topLevel].Get(childPath);
+        }
 
-		#endregion
+        #endregion
 
-		#region Item
+        #region Item
 
-		/// <summary>
-		/// Gets or sets the item at this level.
-		/// </summary>
-		/// <value>
-		/// The item.
-		/// </value>
-		public TValue Item { get; set; }
+        /// <summary>
+        /// Gets or sets the item at this level.
+        /// </summary>
+        /// <value>
+        /// The item.
+        /// </value>
+        public TValue Item { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

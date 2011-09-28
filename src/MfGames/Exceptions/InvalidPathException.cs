@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,36 +30,36 @@ using System;
 
 namespace MfGames.Exceptions
 {
-	/// <summary>
-	/// Indicates that the given path does not conform to the format
-	/// required by the system. This should be an indicator of invalid
-	/// characters or something of that manner.
-	/// </summary>
-	public class InvalidPathException : HierarchicalPathException
-	{
-		#region Constructors
+    /// <summary>
+    /// Indicates that the given path does not conform to the format
+    /// required by the system. This should be an indicator of invalid
+    /// characters or something of that manner.
+    /// </summary>
+    public class InvalidPathException : HierarchicalPathException
+    {
+        #region Constructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidPathException"/> class.
-		/// </summary>
-		/// <param name="msg">The MSG.</param>
-		public InvalidPathException(string msg)
-			: base(msg)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvalidPathException"/> class.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        public InvalidPathException(string msg)
+            : base(msg)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="InvalidPathException"/> class.
-		/// </summary>
-		/// <param name="msg">The MSG.</param>
-		/// <param name="e">The e.</param>
-		public InvalidPathException(
-			string msg,
-			Exception e)
-			: base(msg, e)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvalidPathException"/> class.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        /// <param name="e">The e.</param>
+        public InvalidPathException(
+            string msg,
+            Exception e)
+            : base(msg, e)
+        {
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

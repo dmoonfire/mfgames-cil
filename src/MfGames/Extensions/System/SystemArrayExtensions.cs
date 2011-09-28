@@ -1,6 +1,6 @@
 ﻿#region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,67 +24,67 @@
 
 namespace MfGames.Extensions.System
 {
-	/// <summary>
-	/// Contains extensions to System.Array.
-	/// </summary>
-	public static class SystemArrayExtensions
-	{
-		/// <summary>
-		/// Splices the specified old array by creating a new array from the given offset
-		/// to the end.
-		/// </summary>
-		/// <param name="oldArray">The old array.</param>
-		/// <param name="offset">The offset.</param>
-		/// <returns></returns>
-		public static object[] Splice(
-			this object[] oldArray,
-			int offset)
-		{
-			// Check for nulls and blanks.
-			if (oldArray == null)
-			{
-				return null;
-			}
+    /// <summary>
+    /// Contains extensions to System.Array.
+    /// </summary>
+    public static class SystemArrayExtensions
+    {
+        /// <summary>
+        /// Splices the specified old array by creating a new array from the given offset
+        /// to the end.
+        /// </summary>
+        /// <param name="oldArray">The old array.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns></returns>
+        public static object[] Splice(
+            this object[] oldArray,
+            int offset)
+        {
+            // Check for nulls and blanks.
+            if (oldArray == null)
+            {
+                return null;
+            }
 
-			// Create a new array and copy into it.
-			var newArray = new object[oldArray.Length - offset];
+            // Create a new array and copy into it.
+            var newArray = new object[oldArray.Length - offset];
 
-			for (int index = offset; index < oldArray.Length; index++)
-			{
-				newArray[index - offset] = oldArray[index];
-			}
+            for (int index = offset; index < oldArray.Length; index++)
+            {
+                newArray[index - offset] = oldArray[index];
+            }
 
-			// Return the resulting array.
-			return newArray;
-		}
+            // Return the resulting array.
+            return newArray;
+        }
 
-		/// <summary>
-		/// Splices the specified old array by creating a new array from the given offset
-		/// to the end.
-		/// </summary>
-		/// <param name="oldArray">The old array.</param>
-		/// <param name="offset">The offset.</param>
-		/// <returns></returns>
-		public static string[] Splice(
-			this string[] oldArray,
-			int offset)
-		{
-			// Check for nulls and blanks.
-			if (oldArray == null)
-			{
-				return null;
-			}
+        /// <summary>
+        /// Splices the specified old array by creating a new array from the given offset
+        /// to the end.
+        /// </summary>
+        /// <param name="oldArray">The old array.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns></returns>
+        public static string[] Splice(
+            this string[] oldArray,
+            int offset)
+        {
+            // Check for nulls and blanks.
+            if (oldArray == null)
+            {
+                return null;
+            }
 
-			// Create a new array and copy into it.
-			var newArray = new string[oldArray.Length - offset];
+            // Create a new array and copy into it.
+            var newArray = new string[oldArray.Length - offset];
 
-			for (int index = offset; index < oldArray.Length; index++)
-			{
-				newArray[index - offset] = oldArray[index];
-			}
+            for (int index = offset; index < oldArray.Length; index++)
+            {
+                newArray[index - offset] = oldArray[index];
+            }
 
-			// Return the resulting array.
-			return newArray;
-		}
-	}
+            // Return the resulting array.
+            return newArray;
+        }
+    }
 }

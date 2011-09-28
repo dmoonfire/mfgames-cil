@@ -1,6 +1,6 @@
 #region Copyright and License
 
-// Copyright (c) 2005-2011, Moonfire Games
+// Copyright (C) 2005-2011 by Moonfire Games
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,100 +33,102 @@ using MfGames.Locking;
 
 namespace MfGames.Reporting
 {
-	/// <summary>
-	/// Implements a low-profile logging sender for the MfGames and related libraries. To
-	/// connect to the logging interface, the code just needs to attach to the Log event.
-	/// </summary>
-	public static class LogManager
-	{
-		#region Constructors
+    /// <summary>
+    /// Implements a low-profile logging sender for the MfGames and related libraries. To
+    /// connect to the logging interface, the code just needs to attach to the Log event.
+    /// </summary>
+    public static class LogManager
+    {
+        #region Constructors
 
-		/// <summary>
-		/// Initializes the <see cref="LogManager"/> class.
-		/// </summary>
-		static LogManager()
-		{
-			threadLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
-		}
+        /// <summary>
+        /// Initializes the <see cref="LogManager"/> class.
+        /// </summary>
+        static LogManager()
+        {
+            threadLock =
+                new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
+        }
 
-		#endregion
+        #endregion
 
-		#region Eventing
+        #region Eventing
 
-		private static readonly ReaderWriterLockSlim threadLock;
-		private static event EventHandler<SeverityMessageEventArgs> logged;
+        private static readonly ReaderWriterLockSlim threadLock;
 
-		/// <summary>
-		/// Occurs when a message is logged. The sender can be <see langword="null"/>
-		/// with events, if the logging interface does not give a context.
-		/// </summary>
-		public static event EventHandler<SeverityMessageEventArgs> Logged
-		{
-			add
-			{
-				using (new WriteLock(threadLock))
-				{
-					logged += value;
-				}
-			}
+        /// <summary>
+        /// Occurs when a message is logged. The sender can be <see langword="null"/>
+        /// with events, if the logging interface does not give a context.
+        /// </summary>
+        public static event EventHandler<SeverityMessageEventArgs> Logged
+        {
+            add
+            {
+                using (new WriteLock(threadLock))
+                {
+                    logged += value;
+                }
+            }
 
-			remove
-			{
-				using (new WriteLock(threadLock))
-				{
-					logged -= value;
-				}
-			}
-		}
+            remove
+            {
+                using (new WriteLock(threadLock))
+                {
+                    logged -= value;
+                }
+            }
+        }
 
-		#endregion
+        private static event EventHandler<SeverityMessageEventArgs> logged;
 
-		#region Logging
+        #endregion
 
-		/// <summary>
-		/// Logs the message to any class listening to the manager.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		public static void Log(SeverityMessage message)
-		{
-			Log(null, message);
-		}
+        #region Logging
 
-		/// <summary>
-		/// Logs the specified sender.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="message">The message.</param>
-		public static void Log(
-			object sender,
-			SeverityMessage message)
-		{
-			// Check the listeners outside of a lock. If we have anything, then
-			// return as fast as we can.
-			if (logged == null)
-			{
-				return;
-			}
+        /// <summary>
+        /// Logs the message to any class listening to the manager.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public static void Log(SeverityMessage message)
+        {
+            Log(null, message);
+        }
 
-			// Get the listeners at the point of reading the log.
-			EventHandler<SeverityMessageEventArgs> listeners;
+        /// <summary>
+        /// Logs the specified sender.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="message">The message.</param>
+        public static void Log(
+            object sender,
+            SeverityMessage message)
+        {
+            // Check the listeners outside of a lock. If we have anything, then
+            // return as fast as we can.
+            if (logged == null)
+            {
+                return;
+            }
 
-			using (new ReadLock(threadLock))
-			{
-				listeners = logged;
-			}
+            // Get the listeners at the point of reading the log.
+            EventHandler<SeverityMessageEventArgs> listeners;
 
-			// If we don't have listeners, then just break out.
-			if (listeners == null)
-			{
-				return;
-			}
+            using (new ReadLock(threadLock))
+            {
+                listeners = logged;
+            }
 
-			// Create an event handler and invoke it.
-			var args = new SeverityMessageEventArgs(message);
-			listeners(sender, args);
-		}
+            // If we don't have listeners, then just break out.
+            if (listeners == null)
+            {
+                return;
+            }
 
-		#endregion
-	}
+            // Create an event handler and invoke it.
+            var args = new SeverityMessageEventArgs(message);
+            listeners(sender, args);
+        }
+
+        #endregion
+    }
 }
