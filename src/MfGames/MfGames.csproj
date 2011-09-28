@@ -118,7 +118,7 @@
     <Compile Include="HierarchicalPath.cs" />
     <Compile Include="Reporting\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
-    <Compile Include="Locking\WriterLock.cs" />
+    <Compile Include="Locking\WriteLock.cs" />
     <Compile Include="Locking\UpgradableLock.cs" />
     <Compile Include="Locking\TryGetHandler.cs" />
     <Compile Include="Locking\TryGetCreatePattern.cs" />
