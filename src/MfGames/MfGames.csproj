@@ -125,6 +125,7 @@
     <Compile Include="Reporting\LogManager.cs" />
     <Compile Include="Settings\SettingSearchOptions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="TranslatorManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MfGames.snk" />
