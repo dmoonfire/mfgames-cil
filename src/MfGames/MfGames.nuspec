@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://raw.github.com/dmoonfire/mfgames-cil/master/License.txt</licenseUrl>
+    <projectUrl>http://mfgames.com/mfgames-cil</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of useful CIL methods and classes.</description>
+    <copyright>Copyright 2009-2011</copyright>
+  </metadata>
+</package>
