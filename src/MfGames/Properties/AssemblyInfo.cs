@@ -33,11 +33,11 @@ using System.Runtime.InteropServices;
 // General assembly information.
 
 [assembly:AssemblyTitle("MfGames")]
-[assembly:AssemblyDescription("")]
+[assembly:AssemblyDescription("A collection of useful CIL methods, libraries, and small frameworks.")]
 [assembly:AssemblyConfiguration("")]
 [assembly:AssemblyCompany("Moonfire Games")]
 [assembly:AssemblyProduct("MfGames")]
-[assembly:AssemblyCopyright("Copyright © 2009-2011")]
+[assembly:AssemblyCopyright("Copyright © 2005-2011")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
 
