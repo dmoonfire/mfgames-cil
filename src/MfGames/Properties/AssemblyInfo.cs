@@ -37,7 +37,7 @@ using System.Runtime.InteropServices;
 [assembly:AssemblyConfiguration("")]
 [assembly:AssemblyCompany("Moonfire Games")]
 [assembly:AssemblyProduct("MfGames")]
-[assembly:AssemblyCopyright("Copyright © 2009")]
+[assembly:AssemblyCopyright("Copyright © 2009-2011")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
 
@@ -52,5 +52,5 @@ using System.Runtime.InteropServices;
 
 // File and assembly versions.
 
-[assembly:AssemblyVersion("3.0.0.0")]
-[assembly:AssemblyFileVersion("3.0.0.0")]
+[assembly:AssemblyVersion("4.0.0.0")]
+[assembly:AssemblyFileVersion("4.0.0.0")]
