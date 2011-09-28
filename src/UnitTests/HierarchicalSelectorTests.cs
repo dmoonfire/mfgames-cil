@@ -24,13 +24,13 @@
 
 #region Namespaces
 
-using MfGames.Exceptions;
+using MfGames;
 
 using NUnit.Framework;
 
 #endregion
 
-namespace MfGames.Tests
+namespace UnitTests
 {
 	/// <summary>
 	/// Testing fixture to test all of the various methods or possible

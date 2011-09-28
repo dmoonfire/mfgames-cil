@@ -3,13 +3,12 @@
 using System;
 
 using MfGames.Collections;
-using MfGames.Exceptions;
 
 using NUnit.Framework;
 
 #endregion
 
-namespace MfGames.Tests
+namespace UnitTests
 {
 	/// <summary>
 	/// Tests various functionality of the weighted selectors.

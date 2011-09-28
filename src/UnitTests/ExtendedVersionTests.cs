@@ -26,13 +26,15 @@
 
 using System;
 
+using MfGames;
+
 using NUnit.Framework;
 
 #endregion
 
 #pragma warning disable 1591
 
-namespace MfGames.Tests
+namespace UnitTests
 {
 	/// <summary>
 	/// Tests the ExtendedVersion class.

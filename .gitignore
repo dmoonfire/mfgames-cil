@@ -3,6 +3,10 @@
 *.pidb
 *.suo
 
+NuGet.exe
+
 bin
 obj
 test-results
+
+src/packages/*

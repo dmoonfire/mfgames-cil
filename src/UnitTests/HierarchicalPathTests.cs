@@ -26,13 +26,14 @@
 
 using System.Collections.Generic;
 
+using MfGames;
 using MfGames.Exceptions;
 
 using NUnit.Framework;
 
 #endregion
 
-namespace MfGames.Tests
+namespace UnitTests
 {
 	/// <summary>
 	/// Testing fixture to test all of the various methods or possible
