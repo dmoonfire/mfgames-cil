@@ -56,7 +56,7 @@ namespace MfGames
     /// alter the object. Instead, they return a new modified path.
     /// </summary>
     [Serializable]
-    public class HierarchicalPath
+    public class HierarchicalPath : IComparable<HierarchicalPath>
     {
         #region Constants
 
@@ -496,7 +496,17 @@ namespace MfGames
         #region Comparison
 
         /// <summary>
-        /// Equalses the specified other.
+        /// Compares the path to another path.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(HierarchicalPath other)
+        {
+            return ToString().CompareTo(other.ToString());
+        }
+
+        /// <summary>
+        /// Does an equality check on the other path.
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns></returns>
