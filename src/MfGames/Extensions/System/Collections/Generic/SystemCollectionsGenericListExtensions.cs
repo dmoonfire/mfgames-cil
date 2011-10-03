@@ -24,6 +24,7 @@
 
 #region Namespaces
 
+using System;
 using System.Collections.Generic;
 
 #endregion
@@ -50,7 +51,31 @@ namespace MfGames.Extensions.System.Collections.Generic
             return list[list.Count - 1];
         }
 
-        /// <summary>
+		/// <summary>
+		/// Chooses a random item from the list using the random from RandomManager.
+		/// </summary>
+		public static TItem GetRandom<TItem>(this IList<TItem> list)
+		{
+			return GetRandom(list, RandomManager.Random);
+		}
+
+		/// <summary>
+		/// Chooses a random item from the list using the given random.
+		/// </summary>
+		public static TItem GetRandom<TItem>(this IList<TItem> list, Random random)
+		{
+			// If we have an empty list, then we can't return anything.
+			if (list.Count == 0)
+			{
+				throw new InvalidOperationException("Cannot randomly select if there are no items in the list.");
+			}
+			
+			// Pick a random item from the list.
+			int index = random.Next(0, list.Count);
+			return list[index];
+		}
+
+		/// <summary>
         /// Removes the last item in the list.
         /// </summary>
         /// <typeparam name="TItem">The type of the item.</typeparam>

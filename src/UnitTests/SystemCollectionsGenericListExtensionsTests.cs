@@ -25,8 +25,10 @@
 #region Namespaces
 
 using System;
+using System.Collections.Generic;
 
 using MfGames.Collections;
+using MfGames.Extensions.System.Collections.Generic;
 
 using NUnit.Framework;
 
@@ -38,7 +40,7 @@ namespace UnitTests
     /// Tests various functionality of the weighted selectors.
     /// </summary>
     [TestFixture]
-    public class WeightedSelectorTests
+    public class SystemCollectionsGenericListExtensionsTests
     {
         /// <summary>
         /// Tests selection from an empty selector.
@@ -48,10 +50,10 @@ namespace UnitTests
         public void EmptySelector()
         {
             // Setup
-            var selector = new WeightedSelector<string>();
+			var list = new List<string>();
 
             // Test
-            selector.GetRandomItem();
+			list.GetRandom();
         }
 
         /// <summary>
@@ -62,13 +64,13 @@ namespace UnitTests
         public void SingleWeightSelector()
         {
             // Setup
-            var selector = new WeightedSelector<string>();
-            selector["bob"] = 1;
-
-            // Test
+			var list = new List<string>();
+			list.Add("bob");
+            
+			// Test
             for (int i = 0; i < 100; i++)
             {
-                selector.GetRandomItem();
+				list.GetRandom();
             }
         }
     }

@@ -25,14 +25,15 @@
 #region Namespaces
 
 using System.Collections.Generic;
+using System.Linq;
 
 #endregion
 
 namespace MfGames.Collections
 {
     /// <summary>
-    /// Represents a collection of items, keyed by a <see cref="HierarchicalPath"/>
-    /// and arranged into a tree view.
+    /// Organizes a collection of key/value pairs where the key is a
+    /// HierarchicalPath and the value for a given key is a TValue.
     /// </summary>
     public class HierarchicalPathTreeCollection<TValue>
     {
@@ -54,15 +55,37 @@ namespace MfGames.Collections
         private readonly
             Dictionary<string, HierarchicalPathTreeCollection<TValue>> children;
 
-        /// <summary>
-        /// Gets the count of child items.
+		/// <summary>
+		/// Contains the number of child trees within the collection.
+		/// </summary>
+    	public int ChildCount
+    	{
+    		get { return children.Count; }
+    	}
+
+    	/// <summary>
+        /// Gets the count of items, recursively going through the child elements.
         /// </summary>
         public int Count
         {
-            get { return children.Count; }
+			get
+			{
+				return (HasItem ? 1 : 0) + children.Values.Sum(child => child.Count);
+			}
         }
 
-        /// <summary>
+		/// <summary>
+		/// Contains the number of nodes in the tree.
+		/// </summary>
+    	public int NodeCount
+    	{
+    		get
+    		{
+    			return 1 + children.Values.Sum(child => child.NodeCount);
+    		}
+    	}
+
+    	/// <summary>
         /// Creates the child collection. This is called when the tree needs to
         /// create a child tree.
         /// </summary>
@@ -89,11 +112,12 @@ namespace MfGames.Collections
             if (path.Count == 0)
             {
                 Item = item;
+                HasItem = true;
                 return;
             }
 
             // We have at least one more level. Figure out the top-level string
-            // and create the key for it.
+            // and see if we have to create the child tree node for it.
             string topLevel = path.First;
 
             if (!children.ContainsKey(topLevel))
@@ -120,49 +144,98 @@ namespace MfGames.Collections
             // If we have no levels, then we found it.
             if (path.Count == 0)
             {
-                return true;
+                return HasItem;
             }
 
-            // Check to see if this tree contains the next level.
+            // Check to see if this tree contains the next level in the path.
             if (children.ContainsKey(path.First))
             {
                 return children[path.First].Contains(path.Splice(1));
             }
 
-            // Otherwise, we don't have the child so we won't contain it.
+            // Otherwise, we don't have the child so there is no chance
+            // we can contain the item.
             return false;
         }
 
         /// <summary>
-        /// Retrieves the collection at a given path.
+        /// Retrieves an item at the given path. If the item doesn't exist,
+        /// then a NotFoundException.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public HierarchicalPathTreeCollection<TValue> Get(HierarchicalPath path)
+        public TValue Get(HierarchicalPath path)
         {
             // If we are at the top-level path, return ourselves.
             if (path.Count == 0)
             {
-                return this;
+                // If we have the item, then return it. If we don't have the
+                // item, then throw an exception.
+                if (HasItem)
+                {
+                    // We have the item, so return it.
+                    return Item;
+                }
+
+                // Throw a not found exception since we can't find it.
+                throw new KeyNotFoundException("Cannot retrieve value at path " + path);
             }
 
-            // Get the top-level element for a child.
+            // Get the top-level element for a child and make sure we have it.
             string topLevel = path.First;
-            var childPath = path.Splice(1);
 
-            return children[topLevel].Get(childPath);
+            if (!children.ContainsKey(topLevel))
+            {
+				throw new KeyNotFoundException("Cannot retrieve value at path " + path);
+            }
+
+			// Pass the request into the child level.
+            HierarchicalPath childPath = path.Splice(1);
+			HierarchicalPathTreeCollection<TValue> child = children[topLevel];
+
+			return child.Get(childPath);
         }
 
-        #endregion
+		/// <summary>
+		/// Retrieves the child-level tree collection for a given path.
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public HierarchicalPathTreeCollection<TValue> GetChild(HierarchicalPath path)
+		{
+			// If we are at the top-level path, return ourselves.
+			if (path.Count == 0)
+			{
+				return this;
+			}
+
+			// Get the top-level element for a child and make sure we have it.
+			string topLevel = path.First;
+
+			if (!children.ContainsKey(topLevel))
+			{
+				throw new KeyNotFoundException("Cannot retrieve value at path " + path);
+			}
+
+			// Pass the request to the child.
+			HierarchicalPathTreeCollection<TValue> child = children[topLevel];
+
+			return child.GetChild(path.Splice(1));
+		}
+
+    	#endregion
 
         #region Item
 
         /// <summary>
-        /// Gets or sets the item at this level.
+        /// Internal flag to determine if the item is populated.
         /// </summary>
-        /// <value>
-        /// The item.
-        /// </value>
+        public bool HasItem { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the item at this level. This is the equivelant of
+        /// setting or getting the path "/".
+        /// </summary>
         public TValue Item { get; set; }
 
         #endregion

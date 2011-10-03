@@ -55,7 +55,7 @@ namespace UnitTests
             // Verification
             Assert.AreEqual(1, collection.Count);
             Assert.AreEqual(0, collection.Item);
-            Assert.AreEqual(234, collection.Get(path).Item);
+            Assert.AreEqual(234, collection.Get(path));
         }
 
         /// <summary>
@@ -86,11 +86,12 @@ namespace UnitTests
             collection.Add(path2, 567);
 
             // Verification
-            Assert.AreEqual(1, collection.Count);
+            Assert.AreEqual(2, collection.Count);
+			Assert.AreEqual(4, collection.NodeCount);
             Assert.AreEqual(0, collection.Item);
-            Assert.AreEqual(2, collection.Get(new HierarchicalPath("/a")).Count);
-            Assert.AreEqual(234, collection.Get(path1).Item);
-            Assert.AreEqual(567, collection.Get(path2).Item);
+            Assert.AreEqual(2, collection.GetChild(new HierarchicalPath("/a")).Count);
+            Assert.AreEqual(234, collection.Get(path1));
+            Assert.AreEqual(567, collection.Get(path2));
         }
 
         /// <summary>
@@ -107,7 +108,7 @@ namespace UnitTests
             collection.Add(path, 234);
 
             // Verification
-            Assert.AreEqual(0, collection.Count);
+            Assert.AreEqual(1, collection.Count);
             Assert.AreEqual(234, collection.Item);
         }
     }
