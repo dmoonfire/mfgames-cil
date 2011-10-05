@@ -326,7 +326,46 @@ namespace UnitTests
             Assert.AreEqual("/dir1/sub1/sub2", c1.Path);
         }
 
-        #endregion
+		[Test]
+		public void TestSplice1()
+		{
+			// Setup
+			var path = new HierarchicalPath("/a/b/c/d/e");
+
+			// Operation
+			var results = path.Splice(0, 2);
+
+			// Verification
+			Assert.AreEqual("/a/b", results.ToString());
+		}
+
+		[Test]
+		public void TestSplice2()
+		{
+			// Setup
+			var path = new HierarchicalPath("/a/b/c/d/e");
+
+			// Operation
+			var results = path.Splice(2, 2);
+
+			// Verification
+			Assert.AreEqual("./c/d", results.ToString());
+		}
+
+		[Test]
+		public void TestSplice3()
+		{
+			// Setup
+			var path = new HierarchicalPath("/a/b/c/d/e");
+
+			// Operation
+			var results = path.Splice(3, 2);
+
+			// Verification
+			Assert.AreEqual("./d/e", results.ToString());
+		}
+
+		#endregion
 
         #region Comparison Tests
 
