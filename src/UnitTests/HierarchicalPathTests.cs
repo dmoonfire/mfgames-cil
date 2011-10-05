@@ -28,6 +28,7 @@ using System.Collections.Generic;
 
 using MfGames;
 using MfGames.Exceptions;
+using MfGames.HierarchicalPaths;
 
 using NUnit.Framework;
 

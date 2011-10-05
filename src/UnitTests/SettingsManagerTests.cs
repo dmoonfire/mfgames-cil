@@ -28,6 +28,7 @@ using System.IO;
 using System.Xml.Serialization;
 
 using MfGames;
+using MfGames.HierarchicalPaths;
 using MfGames.Settings;
 using MfGames.Settings.Enumerations;
 

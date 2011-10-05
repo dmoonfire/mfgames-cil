@@ -26,6 +26,7 @@
 
 using MfGames;
 using MfGames.Collections;
+using MfGames.HierarchicalPaths;
 
 using NUnit.Framework;
 

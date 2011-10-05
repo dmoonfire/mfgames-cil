@@ -32,7 +32,7 @@ using MfGames.Exceptions;
 
 #endregion
 
-namespace MfGames
+namespace MfGames.HierarchicalPaths
 {
     /// <summary>
     /// Represents an hierarchical path given in the same form as a Unix file

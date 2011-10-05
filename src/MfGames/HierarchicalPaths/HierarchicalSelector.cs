@@ -30,7 +30,7 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace MfGames
+namespace MfGames.HierarchicalPaths
 {
     /// <summary>
     /// Extends the <see cref="HierarchicalPath"/> to include functionality for

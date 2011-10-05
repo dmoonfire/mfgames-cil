@@ -25,6 +25,7 @@
 #region Namespaces
 
 using MfGames;
+using MfGames.HierarchicalPaths;
 
 using NUnit.Framework;
 

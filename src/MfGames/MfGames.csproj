@@ -82,8 +82,10 @@
     <Compile Include="Extensions\System\Reflection\SystemReflectionMemberInfoExtensions.cs" />
     <Compile Include="Extensions\System\Reflection\SystemReflectionParameterInfoExtensions.cs" />
     <Compile Include="Extensions\System\SystemTypeExtensions.cs" />
-    <Compile Include="HierarchicalPathOptions.cs" />
-    <Compile Include="HierarchicalSelector.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalPathKeyValue.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalPathOptions.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalSelector.cs" />
+    <Compile Include="HierarchicalPaths\IHierarchicalPathContainer.cs" />
     <Compile Include="Locking\ReadLock.cs" />
     <Compile Include="Reporting\SeverityMessage.cs" />
     <Compile Include="Reporting\SeverityMessageCollection.cs" />
@@ -93,7 +95,7 @@
     <Compile Include="RandomManager.cs" />
     <Compile Include="Exceptions\InvalidPathException.cs" />
     <Compile Include="Reporting\Logger.cs" />
-    <Compile Include="HierarchicalPath.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalPath.cs" />
     <Compile Include="Reporting\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
     <Compile Include="Locking\WriteLock.cs" />

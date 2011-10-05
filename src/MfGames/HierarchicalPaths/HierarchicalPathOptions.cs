@@ -28,7 +28,7 @@ using System;
 
 #endregion
 
-namespace MfGames
+namespace MfGames.HierarchicalPaths
 {
     /// <summary>
     /// Defines the options used for creating and parsing hierarchical paths.

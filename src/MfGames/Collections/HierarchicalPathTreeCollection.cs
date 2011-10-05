@@ -27,6 +27,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using MfGames.HierarchicalPaths;
+
 #endregion
 
 namespace MfGames.Collections
