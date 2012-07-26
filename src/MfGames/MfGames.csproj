@@ -146,5 +146,4 @@
     </MonoDevelop>
     <VisualStudio />
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
 </Project>

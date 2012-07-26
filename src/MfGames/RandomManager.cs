@@ -33,8 +33,7 @@ namespace MfGames
     /// <summary>
     /// Set of utility functions for creating a singleton instance of
     /// a random number generator that may be used anywhere. This
-    /// takes any System.Random derived class as the singleton, but
-    /// defaults to the MersenneTwister in this package.
+    /// takes any System.Random derived class as the singleton.
     /// </summary>
     public static class RandomManager
     {
