@@ -39,7 +39,9 @@ namespace UnitTests
 				stringWriter,
 				settings))
 			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
+			{
 				identityWriter.Load(xmlReader);
+			}
 
 			// Assert
 			string actual = stringWriter.ToString();
