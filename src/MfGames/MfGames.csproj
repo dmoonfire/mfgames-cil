@@ -107,6 +107,7 @@
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="TranslatorManager.cs" />
     <Compile Include="Xml\XmlIdentityWriter.cs" />
+    <Compile Include="Xml\XmlProxyReader.cs" />
     <Compile Include="Xml\XmlProxyWriter.cs" />
   </ItemGroup>
   <ItemGroup>

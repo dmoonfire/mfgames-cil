@@ -20,7 +20,7 @@ namespace MfGames.Xml
 		/// <param name="writer">The writer.</param>
 		public XmlProxyWriter(XmlWriter writer)
 		{
-			Writer = writer;
+			UnderlyingWriter = writer;
 		}
 
 		#endregion
@@ -28,7 +28,7 @@ namespace MfGames.Xml
 		/// <summary>
 		/// Gets the underlying XML writer.
 		/// </summary>
-		protected XmlWriter Writer { get; private set; }
+		protected XmlWriter UnderlyingWriter { get; set; }
 
 		/// <summary>
 		/// When overridden in a derived class, gets the state of the writer.
@@ -38,7 +38,7 @@ namespace MfGames.Xml
 		///   </returns>
 		public override WriteState WriteState
 		{
-			get { return Writer.WriteState; }
+			get { return UnderlyingWriter.WriteState; }
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteStartDocument()
 		{
-			Writer.WriteStartDocument();
+			UnderlyingWriter.WriteStartDocument();
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteStartDocument(bool standalone)
 		{
-			Writer.WriteStartDocument(standalone);
+			UnderlyingWriter.WriteStartDocument(standalone);
 		}
 
 		/// <summary>
@@ -72,7 +72,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteEndDocument()
 		{
-			Writer.WriteEndDocument();
+			UnderlyingWriter.WriteEndDocument();
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace MfGames.Xml
 			string sysid,
 			string subset)
 		{
-			Writer.WriteDocType(
+			UnderlyingWriter.WriteDocType(
 				name,
 				pubid,
 				sysid,
@@ -116,7 +116,7 @@ namespace MfGames.Xml
 			string localName,
 			string ns)
 		{
-			Writer.WriteStartElement(
+			UnderlyingWriter.WriteStartElement(
 				prefix,
 				localName,
 				ns);
@@ -130,7 +130,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteEndElement()
 		{
-			Writer.WriteEndElement();
+			UnderlyingWriter.WriteEndElement();
 		}
 
 		/// <summary>
@@ -138,7 +138,7 @@ namespace MfGames.Xml
 		/// </summary>
 		public override void WriteFullEndElement()
 		{
-			Writer.WriteFullEndElement();
+			UnderlyingWriter.WriteFullEndElement();
 		}
 
 		/// <summary>
@@ -152,7 +152,7 @@ namespace MfGames.Xml
 			string localName,
 			string ns)
 		{
-			Writer.WriteStartAttribute(
+			UnderlyingWriter.WriteStartAttribute(
 				prefix,
 				localName,
 				ns);
@@ -163,7 +163,7 @@ namespace MfGames.Xml
 		/// </summary>
 		public override void WriteEndAttribute()
 		{
-			Writer.WriteEndAttribute();
+			UnderlyingWriter.WriteEndAttribute();
 		}
 
 		/// <summary>
@@ -175,7 +175,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteCData(string text)
 		{
-			Writer.WriteCData(text);
+			UnderlyingWriter.WriteCData(text);
 		}
 
 		/// <summary>
@@ -187,7 +187,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteComment(string text)
 		{
-			Writer.WriteComment(text);
+			UnderlyingWriter.WriteComment(text);
 		}
 
 		/// <summary>
@@ -204,7 +204,7 @@ namespace MfGames.Xml
 			string name,
 			string text)
 		{
-			Writer.WriteProcessingInstruction(
+			UnderlyingWriter.WriteProcessingInstruction(
 				name,
 				text);
 		}
@@ -218,7 +218,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteEntityRef(string name)
 		{
-			Writer.WriteEntityRef(name);
+			UnderlyingWriter.WriteEntityRef(name);
 		}
 
 		/// <summary>
@@ -230,7 +230,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteCharEntity(char ch)
 		{
-			Writer.WriteCharEntity(ch);
+			UnderlyingWriter.WriteCharEntity(ch);
 		}
 
 		/// <summary>
@@ -242,7 +242,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteWhitespace(string ws)
 		{
-			Writer.WriteWhitespace(ws);
+			UnderlyingWriter.WriteWhitespace(ws);
 		}
 
 		/// <summary>
@@ -254,7 +254,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteString(string text)
 		{
-			Writer.WriteString(text);
+			UnderlyingWriter.WriteString(text);
 		}
 
 		/// <summary>
@@ -269,7 +269,7 @@ namespace MfGames.Xml
 			char lowChar,
 			char highChar)
 		{
-			Writer.WriteSurrogateCharEntity(
+			UnderlyingWriter.WriteSurrogateCharEntity(
 				lowChar,
 				highChar);
 		}
@@ -298,7 +298,7 @@ namespace MfGames.Xml
 			int index,
 			int count)
 		{
-			Writer.WriteChars(
+			UnderlyingWriter.WriteChars(
 				buffer,
 				index,
 				count);
@@ -324,7 +324,7 @@ namespace MfGames.Xml
 			int index,
 			int count)
 		{
-			Writer.WriteRaw(
+			UnderlyingWriter.WriteRaw(
 				buffer,
 				index,
 				count);
@@ -339,7 +339,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void WriteRaw(string data)
 		{
-			Writer.WriteRaw(data);
+			UnderlyingWriter.WriteRaw(data);
 		}
 
 		/// <summary>
@@ -364,7 +364,7 @@ namespace MfGames.Xml
 			int index,
 			int count)
 		{
-			Writer.WriteBase64(
+			UnderlyingWriter.WriteBase64(
 				buffer,
 				index,
 				count);
@@ -378,7 +378,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override void Close()
 		{
-			Writer.Close();
+			UnderlyingWriter.Close();
 		}
 
 		/// <summary>
@@ -386,7 +386,7 @@ namespace MfGames.Xml
 		/// </summary>
 		public override void Flush()
 		{
-			Writer.Flush();
+			UnderlyingWriter.Flush();
 		}
 
 		/// <summary>
@@ -401,7 +401,7 @@ namespace MfGames.Xml
 		///   </exception>
 		public override string LookupPrefix(string ns)
 		{
-			return Writer.LookupPrefix(ns);
+			return UnderlyingWriter.LookupPrefix(ns);
 		}
 	}
 }
