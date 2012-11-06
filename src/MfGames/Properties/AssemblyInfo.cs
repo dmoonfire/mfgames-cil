@@ -18,8 +18,8 @@ using System.Runtime.InteropServices;
 		"A collection of useful CIL methods, libraries, and small frameworks.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Moonfire Games")]
-[assembly: AssemblyProduct("MfGames")]
-[assembly: AssemblyCopyright("Copyright © 2005-2011")]
+[assembly: AssemblyProduct("MfGames CIL")]
+[assembly: AssemblyCopyright("Copyright © 2005-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 
 // File and assembly versions.
 
-[assembly: AssemblyVersion("4.0.0.0")]
-[assembly: AssemblyFileVersion("4.0.0.0")]
+[assembly: AssemblyVersion("4.1.0.0")]
+[assembly: AssemblyFileVersion("4.1.0.0")]
