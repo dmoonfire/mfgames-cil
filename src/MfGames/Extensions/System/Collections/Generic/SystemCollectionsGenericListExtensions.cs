@@ -1,42 +1,21 @@
-#region Copyright and License
-
-// Copyright (C) 2005-2011 by Moonfire Games
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-#endregion
+// Copyright 2005-2012 Moonfire Games
+// Released under the MIT license
+// http://mfgames.com/mfgames-cil/license
 
 #region Namespaces
 
 using System;
 using System.Collections.Generic;
-
 using MfGames.HierarchicalPaths;
 
 #endregion
 
 namespace MfGames.Extensions.System.Collections.Generic
 {
-    /// <summary>
-    /// Extends IList-derived classes with additional extensions.
-    /// </summary>
-    public static class SystemCollectionsGenericListExtensions
+	/// <summary>
+	/// Extends IList-derived classes with additional extensions.
+	/// </summary>
+	public static class SystemCollectionsGenericListExtensions
 	{
 		#region Ordering/Sorting
 
@@ -65,21 +44,26 @@ namespace MfGames.Extensions.System.Collections.Generic
 			// For the first path, go through the list and perform a bubble
 			// sort to reorder the elements so that parent elements will be
 			// before the child ones.
-			for (int startIndex = 0; startIndex < count - 1; startIndex++)
+			for (int startIndex = 0;
+				startIndex < count - 1;
+				startIndex++)
 			{
 				// Pull out the path at this index.
 				HierarchicalPath startPath = list[startIndex].HierarchicalPath;
 				bool startOver = false;
 
 				// Go through all the items after the start index.
-				for (int testIndex = startIndex + 1; testIndex < count; testIndex++)
+				for (int testIndex = startIndex + 1;
+					testIndex < count;
+					testIndex++)
 				{
 					// Pull out the test path for comparison.
 					HierarchicalPath testPath = list[testIndex].HierarchicalPath;
 
 					// Check for equal levels since we don't swap equal-level
 					// elements.
-					if (startPath.Count == testPath.Count)
+					if (startPath.Count
+						== testPath.Count)
 					{
 						continue;
 					}
@@ -92,7 +76,9 @@ namespace MfGames.Extensions.System.Collections.Generic
 						// index, then start processing again.
 						TItem item = list[testIndex];
 						list.RemoveAt(testIndex);
-						list.Insert(startIndex, item);
+						list.Insert(
+							startIndex,
+							item);
 
 						// Decrement the start index to start again.
 						startOver = true;
@@ -113,7 +99,9 @@ namespace MfGames.Extensions.System.Collections.Generic
 			// This is a 2-loop process. The first loop is the item we are
 			// comparing against. The second looks for items that are underneath
 			// the test path and brings them before items that are not.
-			for (int startIndex = 0; startIndex < count - 1; startIndex++)
+			for (int startIndex = 0;
+				startIndex < count - 1;
+				startIndex++)
 			{
 				// Pull out the path at this index.
 				HierarchicalPath startPath = list[startIndex].HierarchicalPath;
@@ -122,7 +110,9 @@ namespace MfGames.Extensions.System.Collections.Generic
 				int lastChildIndex = startIndex;
 				bool foundNonChild = false;
 
-				for (int testIndex = startIndex + 1; testIndex < count; testIndex++)
+				for (int testIndex = startIndex + 1;
+					testIndex < count;
+					testIndex++)
 				{
 					// Pull out the test path for comparison.
 					HierarchicalPath testPath = list[testIndex].HierarchicalPath;
@@ -131,7 +121,7 @@ namespace MfGames.Extensions.System.Collections.Generic
 					if (testPath.StartsWith(startPath))
 					{
 						// Check to see if we have a non-child between the last
- 						// child path and this one.
+						// child path and this one.
 						if (foundNonChild)
 						{
 							// Increment the last child index since we'll be
@@ -142,7 +132,9 @@ namespace MfGames.Extensions.System.Collections.Generic
 							// it into the updated child index.
 							TItem item = list[testIndex];
 							list.RemoveAt(testIndex);
-							list.Insert(lastChildIndex, item);
+							list.Insert(
+								lastChildIndex,
+								item);
 
 							// Move the index back to it (and a bit more to
 							// handle the for() loop incrementer.
@@ -176,61 +168,68 @@ namespace MfGames.Extensions.System.Collections.Generic
 		/// <param name="list">The list.</param>
 		/// <returns></returns>
 		public static TItem GetLast<TItem>(this IList<TItem> list)
-    	{
-    		if (list.Count == 0)
-    		{
-    			return default(TItem);
-    		}
+		{
+			if (list.Count == 0)
+			{
+				return default(TItem);
+			}
 
-    		return list[list.Count - 1];
-    	}
+			return list[list.Count - 1];
+		}
 
-    	/// <summary>
-    	/// Removes the last item in the list.
-    	/// </summary>
-    	/// <typeparam name="TItem">The type of the item.</typeparam>
-    	/// <param name="list">The list.</param>
-    	/// <returns></returns>
-    	public static TItem RemoveLast<TItem>(this IList<TItem> list)
-    	{
-    		if (list.Count == 0)
-    		{
-    			return default(TItem);
-    		}
+		/// <summary>
+		/// Removes the last item in the list.
+		/// </summary>
+		/// <typeparam name="TItem">The type of the item.</typeparam>
+		/// <param name="list">The list.</param>
+		/// <returns></returns>
+		public static TItem RemoveLast<TItem>(this IList<TItem> list)
+		{
+			if (list.Count == 0)
+			{
+				return default(TItem);
+			}
 
-    		TItem last = list[list.Count - 1];
-    		list.RemoveAt(list.Count - 1);
-    		return last;
-    	}
+			TItem last = list[list.Count - 1];
+			list.RemoveAt(list.Count - 1);
+			return last;
+		}
 
-    	#endregion
+		#endregion
 
-    	#region Selection
+		#region Selection
 
-    	/// <summary>
-    	/// Chooses a random item from the list using the random from RandomManager.
-    	/// </summary>
-    	public static TItem GetRandom<TItem>(this IList<TItem> list)
-    	{
-    		return GetRandom(list, RandomManager.Random);
-    	}
+		/// <summary>
+		/// Chooses a random item from the list using the random from RandomManager.
+		/// </summary>
+		public static TItem GetRandom<TItem>(this IList<TItem> list)
+		{
+			return GetRandom(
+				list,
+				RandomManager.Random);
+		}
 
-    	/// <summary>
-    	/// Chooses a random item from the list using the given random.
-    	/// </summary>
-    	public static TItem GetRandom<TItem>(this IList<TItem> list, Random random)
-    	{
-    		// If we have an empty list, then we can't return anything.
-    		if (list.Count == 0)
-    		{
-    			throw new InvalidOperationException("Cannot randomly select if there are no items in the list.");
-    		}
-			
-    		// Pick a random item from the list.
-    		int index = random.Next(0, list.Count);
-    		return list[index];
-    	}
+		/// <summary>
+		/// Chooses a random item from the list using the given random.
+		/// </summary>
+		public static TItem GetRandom<TItem>(
+			this IList<TItem> list,
+			Random random)
+		{
+			// If we have an empty list, then we can't return anything.
+			if (list.Count == 0)
+			{
+				throw new InvalidOperationException(
+					"Cannot randomly select if there are no items in the list.");
+			}
 
-    	#endregion
-    }
+			// Pick a random item from the list.
+			int index = random.Next(
+				0,
+				list.Count);
+			return list[index];
+		}
+
+		#endregion
+	}
 }

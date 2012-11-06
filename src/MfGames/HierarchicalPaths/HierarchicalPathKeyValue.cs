@@ -1,26 +1,6 @@
-﻿#region Copyright and License
-
-// Copyright (C) 2005-2011 by Moonfire Games
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-#endregion
+﻿// Copyright 2005-2012 Moonfire Games
+// Released under the MIT license
+// http://mfgames.com/mfgames-cil/license
 
 #region Namespaces
 
@@ -35,10 +15,10 @@ namespace MfGames.HierarchicalPaths
 	/// with a given value. This is an immutable object and cannot be alterated
 	/// once created.
 	/// </summary>
-	public class HierarchicalPathKeyValue<TValue>
-		: IHierarchicalPathContainer, IComparable<HierarchicalPath>,
-		  IComparable<IHierarchicalPathContainer>,
-		  IEquatable<HierarchicalPathKeyValue<TValue>>
+	public class HierarchicalPathKeyValue<TValue>: IHierarchicalPathContainer,
+		IComparable<HierarchicalPath>,
+		IComparable<IHierarchicalPathContainer>,
+		IEquatable<HierarchicalPathKeyValue<TValue>>
 	{
 		#region Constructors
 
@@ -50,7 +30,8 @@ namespace MfGames.HierarchicalPaths
 		public HierarchicalPathKeyValue(
 			string hierarchialPath,
 			TValue value)
-			: this(new HierarchicalPath(hierarchialPath), value)
+			: this(new HierarchicalPath(hierarchialPath),
+				value)
 		{
 		}
 
@@ -104,15 +85,21 @@ namespace MfGames.HierarchicalPaths
 		///                 </param>
 		public bool Equals(HierarchicalPathKeyValue<TValue> other)
 		{
-			if (ReferenceEquals(null, other))
+			if (ReferenceEquals(
+				null,
+				other))
 			{
 				return false;
 			}
-			if (ReferenceEquals(this, other))
+			if (ReferenceEquals(
+				this,
+				other))
 			{
 				return true;
 			}
-			return Equals(other.HierarchicalPath, HierarchicalPath);
+			return Equals(
+				other.HierarchicalPath,
+				HierarchicalPath);
 		}
 
 		/// <summary>
@@ -126,15 +113,20 @@ namespace MfGames.HierarchicalPaths
 		///                 </exception><filterpriority>2</filterpriority>
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(null, obj))
+			if (ReferenceEquals(
+				null,
+				obj))
 			{
 				return false;
 			}
-			if (ReferenceEquals(this, obj))
+			if (ReferenceEquals(
+				this,
+				obj))
 			{
 				return true;
 			}
-			if (obj.GetType() != typeof(HierarchicalPathKeyValue<TValue>))
+			if (obj.GetType()
+				!= typeof (HierarchicalPathKeyValue<TValue>))
 			{
 				return false;
 			}
@@ -162,9 +154,11 @@ namespace MfGames.HierarchicalPaths
 		/// The result of the operator.
 		/// </returns>
 		public static bool operator ==(HierarchicalPathKeyValue<TValue> left,
-		                               HierarchicalPathKeyValue<TValue> right)
+			HierarchicalPathKeyValue<TValue> right)
 		{
-			return Equals(left, right);
+			return Equals(
+				left,
+				right);
 		}
 
 		/// <summary>
@@ -176,14 +170,18 @@ namespace MfGames.HierarchicalPaths
 		/// The result of the operator.
 		/// </returns>
 		public static bool operator !=(HierarchicalPathKeyValue<TValue> left,
-		                               HierarchicalPathKeyValue<TValue> right)
+			HierarchicalPathKeyValue<TValue> right)
 		{
-			return !Equals(left, right);
+			return !Equals(
+				left,
+				right);
 		}
 
 		#endregion
 
 		#region Comparison
+
+		#region IComparable<HierarchicalPath> Members
 
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -204,6 +202,10 @@ namespace MfGames.HierarchicalPaths
 		{
 			return HierarchicalPath.CompareTo(other);
 		}
+
+		#endregion
+
+		#region IComparable<IHierarchicalPathContainer> Members
 
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -227,6 +229,8 @@ namespace MfGames.HierarchicalPaths
 
 		#endregion
 
+		#endregion
+
 		#region Conversion
 
 		/// <summary>
@@ -237,7 +241,10 @@ namespace MfGames.HierarchicalPaths
 		/// </returns>
 		public override string ToString()
 		{
-			return String.Format("{0} => {1}", HierarchicalPath, Value);
+			return String.Format(
+				"{0} => {1}",
+				HierarchicalPath,
+				Value);
 		}
 
 		#endregion

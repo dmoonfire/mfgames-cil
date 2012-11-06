@@ -1,219 +1,200 @@
-#region Copyright and License
-
-// Copyright (C) 2005-2011 by Moonfire Games
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-#endregion
+// Copyright 2005-2012 Moonfire Games
+// Released under the MIT license
+// http://mfgames.com/mfgames-cil/license
 
 #region Namespaces
 
 using System.IO;
 using System.Xml.Serialization;
-
-using MfGames;
 using MfGames.HierarchicalPaths;
 using MfGames.Settings;
 using MfGames.Settings.Enumerations;
-
 using NUnit.Framework;
 
 #endregion
 
 namespace UnitTests
 {
-    /// <summary>
-    /// Tests various functionality of the <see cref="SettingsManager"/>.
-    /// </summary>
-    [TestFixture]
-    public class SettingsManagerTests
-    {
-        #region Settings Test
+	/// <summary>
+	/// Tests various functionality of the <see cref="SettingsManager"/>.
+	/// </summary>
+	[TestFixture]
+	public class SettingsManagerTests
+	{
+		[XmlRoot("SettingsA")]
+		public class SettingsA1
+		{
+			#region Constructors
 
-        /// <summary>
-        /// Tests adding one to the manager.
-        /// </summary>
-        [Test]
-        public void AddOneToManager()
-        {
-            // Setup
-            var settingsManager = new SettingsManager();
+			public SettingsA1()
+			{
+			}
 
-            // Operation
-            settingsManager.Set(
-                new HierarchicalPath("/a"), new SettingsA1(2, "two"));
+			public SettingsA1(
+				int a,
+				string b)
+			{
+				A = a;
+				B = b;
+			}
 
-            // Verification
-            Assert.AreEqual(1, settingsManager.Count);
-        }
+			#endregion
 
-        /// <summary>
-        /// Tests adding one to the manager then flushing it.
-        /// </summary>
-        [Test]
-        public void AddOneToManagerAndFlush()
-        {
-            // Setup
-            var settingsManager = new SettingsManager();
+			#region Properties
 
-            // Operation
-            settingsManager.Set(
-                new HierarchicalPath("/a"), new SettingsA1(3, "three"));
-            settingsManager.Flush();
+			public int A;
+			public string B;
 
-            // Verification
-            Assert.AreEqual(1, settingsManager.Count);
-        }
+			#endregion
+		}
 
-        /// <summary>
-        /// Saves a setting A and loads it as B, but without mapping.
-        /// </summary>
-        [Test]
-        public void ConvertFromAtoB()
-        {
-            // Setup
-            var settingsManager = new SettingsManager();
-            settingsManager.Set(
-                new HierarchicalPath("/a"), new SettingsA1(1, "one"));
+		[XmlRoot("SettingsA")]
+		public class SettingsA2
+		{
+			#region Constructors
 
-            // Operation
-            var b = settingsManager.Get<SettingsA2>(
-                "/a", SettingSearchOptions.SerializeDeserializeMapping);
+			public SettingsA2()
+			{
+				A = -123;
+				B = "uninitialized";
+			}
 
-            // Verification
-            Assert.AreEqual(1, settingsManager.Count);
-            Assert.AreEqual(1, b.A);
-            Assert.AreEqual("one", b.B);
-        }
+			public SettingsA2(
+				int a,
+				string b)
+			{
+				A = a;
+				B = b;
+			}
 
-        /// <summary>
-        /// Tests the initial state of an empty manager.
-        /// </summary>
-        [Test]
-        public void EmptyManager()
-        {
-            // Setup
+			#endregion
 
-            // Operation
-            var settingsManager = new SettingsManager();
+			#region Properties
 
-            // Verification
-            Assert.AreEqual(0, settingsManager.Count);
-        }
+			public int A;
+			public string B;
 
-        #endregion
+			#endregion
+		}
 
-        #region Serialization Tests
+		public class SettingsC
+		{
+		}
 
-        /// <summary>
-        /// Tests serializing, then deserializing an empty manager.
-        /// </summary>
-        [Test]
-        public void SerializeEmptyManager()
-        {
-            // Setup
-            var settingsManager = new SettingsManager();
+		/// <summary>
+		/// Tests adding one to the manager.
+		/// </summary>
+		[Test]
+		public void AddOneToManager()
+		{
+			// Setup
+			var settingsManager = new SettingsManager();
 
-            // Operation
-            var writer = new StringWriter();
-            settingsManager.Save(writer);
+			// Operation
+			settingsManager.Set(
+				new HierarchicalPath("/a"),
+				new SettingsA1(
+					2,
+					"two"));
 
-            var reader = new StringReader(writer.ToString());
-            settingsManager = new SettingsManager();
-            settingsManager.Load(reader);
+			// Verification
+			Assert.AreEqual(
+				1,
+				settingsManager.Count);
+		}
 
-            // Verification
-            Assert.AreEqual(0, settingsManager.Count);
-        }
+		/// <summary>
+		/// Tests adding one to the manager then flushing it.
+		/// </summary>
+		[Test]
+		public void AddOneToManagerAndFlush()
+		{
+			// Setup
+			var settingsManager = new SettingsManager();
 
-        #endregion
+			// Operation
+			settingsManager.Set(
+				new HierarchicalPath("/a"),
+				new SettingsA1(
+					3,
+					"three"));
+			settingsManager.Flush();
 
-        #region Nested type: SettingsA1
+			// Verification
+			Assert.AreEqual(
+				1,
+				settingsManager.Count);
+		}
 
-        [XmlRoot("SettingsA")]
-        public class SettingsA1
-        {
-            #region Constructors
+		/// <summary>
+		/// Saves a setting A and loads it as B, but without mapping.
+		/// </summary>
+		[Test]
+		public void ConvertFromAtoB()
+		{
+			// Setup
+			var settingsManager = new SettingsManager();
+			settingsManager.Set(
+				new HierarchicalPath("/a"),
+				new SettingsA1(
+					1,
+					"one"));
 
-            public SettingsA1()
-            {
-            }
+			// Operation
+			var b = settingsManager.Get<SettingsA2>(
+				"/a",
+				SettingSearchOptions.SerializeDeserializeMapping);
 
-            public SettingsA1(
-                int a,
-                string b)
-            {
-                A = a;
-                B = b;
-            }
+			// Verification
+			Assert.AreEqual(
+				1,
+				settingsManager.Count);
+			Assert.AreEqual(
+				1,
+				b.A);
+			Assert.AreEqual(
+				"one",
+				b.B);
+		}
 
-            #endregion
+		/// <summary>
+		/// Tests the initial state of an empty manager.
+		/// </summary>
+		[Test]
+		public void EmptyManager()
+		{
+			// Setup
 
-            #region Properties
+			// Operation
+			var settingsManager = new SettingsManager();
 
-            public int A;
-            public string B;
+			// Verification
+			Assert.AreEqual(
+				0,
+				settingsManager.Count);
+		}
 
-            #endregion
-        }
+		/// <summary>
+		/// Tests serializing, then deserializing an empty manager.
+		/// </summary>
+		[Test]
+		public void SerializeEmptyManager()
+		{
+			// Setup
+			var settingsManager = new SettingsManager();
 
-        #endregion
+			// Operation
+			var writer = new StringWriter();
+			settingsManager.Save(writer);
 
-        #region Nested type: SettingsA2
+			var reader = new StringReader(writer.ToString());
+			settingsManager = new SettingsManager();
+			settingsManager.Load(reader);
 
-        [XmlRoot("SettingsA")]
-        public class SettingsA2
-        {
-            #region Constructors
-
-            public SettingsA2()
-            {
-                A = -123;
-                B = "uninitialized";
-            }
-
-            public SettingsA2(
-                int a,
-                string b)
-            {
-                A = a;
-                B = b;
-            }
-
-            #endregion
-
-            #region Properties
-
-            public int A;
-            public string B;
-
-            #endregion
-        }
-
-        #endregion
-
-        #region Nested type: SettingsC
-
-        public class SettingsC
-        {
-        }
-
-        #endregion
-    }
+			// Verification
+			Assert.AreEqual(
+				0,
+				settingsManager.Count);
+		}
+	}
 }

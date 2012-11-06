@@ -1,33 +1,12 @@
-#region Copyright and License
-
-// Copyright (C) 2005-2011 by Moonfire Games
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-#endregion
+// Copyright 2005-2012 Moonfire Games
+// Released under the MIT license
+// http://mfgames.com/mfgames-cil/license
 
 #region Namespaces
 
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 using MfGames.Exceptions;
 using MfGames.Extensions.System;
 
@@ -57,7 +36,7 @@ namespace MfGames.HierarchicalPaths
 	/// alter the object. Instead, they return a new modified path.
 	/// </summary>
 	[Serializable]
-	public class HierarchicalPath : IComparable<HierarchicalPath>
+	public class HierarchicalPath: IComparable<HierarchicalPath>
 	{
 		#region Constants
 
@@ -83,7 +62,9 @@ namespace MfGames.HierarchicalPaths
 		public HierarchicalPath(bool isRelative)
 		{
 			this.isRelative = isRelative;
-			levels = new string[] { };
+			levels = new string[]
+			{
+			};
 		}
 
 		/// <summary>
@@ -93,7 +74,9 @@ namespace MfGames.HierarchicalPaths
 		/// </summary>
 		/// <param name="path">The path.</param>
 		public HierarchicalPath(string path)
-			: this(path, null, HierarchicalPathOptions.None)
+			: this(path,
+				null,
+				HierarchicalPathOptions.None)
 		{
 		}
 
@@ -107,7 +90,10 @@ namespace MfGames.HierarchicalPaths
 			HierarchicalPathOptions options)
 		{
 			// Create the path components
-			ParsePath(path, null, options);
+			ParsePath(
+				path,
+				null,
+				options);
 		}
 
 		/// <summary>
@@ -154,7 +140,9 @@ namespace MfGames.HierarchicalPaths
 			// Get the subset of those levels.
 			this.levels = new string[parts.Count - startIndex];
 
-			for (int index = startIndex; index < parts.Count; index++)
+			for (int index = startIndex;
+				index < parts.Count;
+				index++)
 			{
 				this.levels[index - startIndex] = parts[index];
 			}
@@ -170,7 +158,9 @@ namespace MfGames.HierarchicalPaths
 		public HierarchicalPath(
 			string path,
 			HierarchicalPath context)
-			: this(path, context, HierarchicalPathOptions.None)
+			: this(path,
+				context,
+				HierarchicalPathOptions.None)
 		{
 		}
 
@@ -186,7 +176,10 @@ namespace MfGames.HierarchicalPaths
 			HierarchicalPathOptions options)
 		{
 			// Create the path components
-			ParsePath(path, context, options);
+			ParsePath(
+				path,
+				context,
+				options);
 		}
 
 		#endregion
@@ -231,8 +224,7 @@ namespace MfGames.HierarchicalPaths
 				// levels, it will throw an exception.
 				if (levels.Count == 0)
 				{
-					throw new InvalidPathException(
-						"Cannot parse .. with sufficient levels.");
+					throw new InvalidPathException("Cannot parse .. with sufficient levels.");
 				}
 
 				levels.RemoveAt(levels.Count - 1);
@@ -270,7 +262,9 @@ namespace MfGames.HierarchicalPaths
 					// We can short-cut the processing of this path since there
 					// is only one element.
 					isRelative = false;
-					levels = new string[] { };
+					levels = new string[]
+					{
+					};
 					return;
 				}
 
@@ -286,7 +280,9 @@ namespace MfGames.HierarchicalPaths
 					else
 					{
 						isRelative = true;
-						levels = new string[] { };
+						levels = new string[]
+						{
+						};
 					}
 
 					return;
@@ -326,7 +322,8 @@ namespace MfGames.HierarchicalPaths
 			// into the individual levels.
 			var currentLevel = new StringBuilder();
 
-			for (; index < path.Length; index++)
+			for (; index < path.Length;
+				index++)
 			{
 				// Check for the next character.
 				switch (path[index])
@@ -339,8 +336,7 @@ namespace MfGames.HierarchicalPaths
 							// We have an escape backslash but we are at the end of
 							// the line.
 							throw new InvalidPathException(
-								"Cannot parse with escape at end of line: " +
-								path);
+								"Cannot parse with escape at end of line: " + path);
 						}
 
 						// Grab the next character after the backslash.
@@ -350,7 +346,9 @@ namespace MfGames.HierarchicalPaths
 						break;
 
 					case '/':
-						AppendLevel(parsedLevels, currentLevel.ToString());
+						AppendLevel(
+							parsedLevels,
+							currentLevel.ToString());
 						currentLevel.Length = 0;
 
 						break;
@@ -365,16 +363,20 @@ namespace MfGames.HierarchicalPaths
 
 			// Outside of the loop, we check to see if there is anything left
 			// in the current level and add it to the list.
-			AppendLevel(parsedLevels, currentLevel.ToString());
+			AppendLevel(
+				parsedLevels,
+				currentLevel.ToString());
 
 			// Saved the parsed levels into the levels property.
 			levels = parsedLevels.ToArray();
 
 			// If we are interning, then intern all the strings.
-			if ((options & HierarchicalPathOptions.InternStrings) ==
-				HierarchicalPathOptions.InternStrings)
+			if ((options & HierarchicalPathOptions.InternStrings)
+				== HierarchicalPathOptions.InternStrings)
 			{
-				for (int i = 0; i < levels.Length; i++)
+				for (int i = 0;
+					i < levels.Length;
+					i++)
 				{
 					levels[i] = String.Intern(levels[i]);
 				}
@@ -411,7 +413,9 @@ namespace MfGames.HierarchicalPaths
 				}
 
 				// We don't have any, so return the root element.
-				return isRelative ? "." : "/";
+				return isRelative
+					? "."
+					: "/";
 			}
 		}
 
@@ -446,7 +450,9 @@ namespace MfGames.HierarchicalPaths
 				}
 
 				// We don't have any, so return the root element.
-				return isRelative ? "." : "/";
+				return isRelative
+					? "."
+					: "/";
 			}
 		}
 
@@ -469,7 +475,9 @@ namespace MfGames.HierarchicalPaths
 				// Check for the simple paths.
 				if (levels.Length == 0)
 				{
-					return isRelative ? "." : "/";
+					return isRelative
+						? "."
+						: "/";
 				}
 
 				// Build up the path including any escaping.
@@ -484,7 +492,11 @@ namespace MfGames.HierarchicalPaths
 				{
 					buffer.Append("/");
 					buffer.Append(
-						level.Replace("\\", "\\\\").Replace("/", "\\/"));
+						level.Replace(
+							"\\",
+							"\\\\").Replace(
+								"/",
+								"\\/"));
 				}
 
 				// Return the resulting string.
@@ -514,13 +526,17 @@ namespace MfGames.HierarchicalPaths
 		public bool Equals(HierarchicalPath other)
 		{
 			// Make sure that the other is not null.
-			if (ReferenceEquals(null, other))
+			if (ReferenceEquals(
+				null,
+				other))
 			{
 				return false;
 			}
 
 			// If we are identical objects, then return true.
-			if (ReferenceEquals(this, other))
+			if (ReferenceEquals(
+				this,
+				other))
 			{
 				return true;
 			}
@@ -535,12 +551,15 @@ namespace MfGames.HierarchicalPaths
 			// compare each string to itself.
 			string[] otherLevels = other.levels;
 
-			if (otherLevels.Length != levels.Length)
+			if (otherLevels.Length
+				!= levels.Length)
 			{
 				return false;
 			}
 
-			for (int i = 0; i < otherLevels.Length; i++)
+			for (int i = 0;
+				i < otherLevels.Length;
+				i++)
 			{
 				if (!otherLevels[i].Equals(levels[i]))
 				{
@@ -562,17 +581,22 @@ namespace MfGames.HierarchicalPaths
 		/// <exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.</exception>
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(null, obj))
+			if (ReferenceEquals(
+				null,
+				obj))
 			{
 				return false;
 			}
 
-			if (ReferenceEquals(this, obj))
+			if (ReferenceEquals(
+				this,
+				obj))
 			{
 				return true;
 			}
 
-			if (obj.GetType() != typeof(HierarchicalPath))
+			if (obj.GetType()
+				!= typeof (HierarchicalPath))
 			{
 				return false;
 			}
@@ -592,7 +616,9 @@ namespace MfGames.HierarchicalPaths
 
 				// We can't use the array itself because it doesn't produce
 				// a consistent hash code for dictionary operations.
-				for (int i = 0; i < levels.Length; i++)
+				for (int i = 0;
+					i < levels.Length;
+					i++)
 				{
 					hashCode ^= levels[i].GetHashCode();
 				}
@@ -621,15 +647,17 @@ namespace MfGames.HierarchicalPaths
 			var newLevels = new string[levels.Length - rootPath.levels.Length];
 
 			for (int index = rootPath.levels.Length;
-				 index < levels.Length;
-				 index++)
+				index < levels.Length;
+				index++)
 			{
 				newLevels[index - rootPath.levels.Length] = levels[index];
 			}
 
 			// Create the new path and return it. This will always be relative
 			// to the given path since it is a subset.
-			return new HierarchicalPath(newLevels, true);
+			return new HierarchicalPath(
+				newLevels,
+				true);
 		}
 
 		/// <summary>
@@ -647,7 +675,8 @@ namespace MfGames.HierarchicalPaths
 			}
 
 			// If the given path is longer than ourselves, then it won't be.
-			if (levels.Length < path.levels.Length)
+			if (levels.Length
+				< path.levels.Length)
 			{
 				return false;
 			}
@@ -660,9 +689,12 @@ namespace MfGames.HierarchicalPaths
 
 			// Loop through the elements in the path and make sure they match
 			// with the elements of this path.
-			for (int index = 0; index < path.levels.Length; index++)
+			for (int index = 0;
+				index < path.levels.Length;
+				index++)
 			{
-				if (levels[index] != path.levels[index])
+				if (levels[index]
+					!= path.levels[index])
 				{
 					return false;
 				}
@@ -679,9 +711,14 @@ namespace MfGames.HierarchicalPaths
 		/// <param name="c2">The c2.</param>
 		/// <returns>The result of the operator.</returns>
 		public static bool operator ==(HierarchicalPath c1,
-									   HierarchicalPath c2)
+			HierarchicalPath c2)
 		{
-			if (ReferenceEquals(null, c1) && ReferenceEquals(null, c2))
+			if (ReferenceEquals(
+				null,
+				c1)
+					&& ReferenceEquals(
+						null,
+						c2))
 			{
 				return true;
 			}
@@ -696,7 +733,7 @@ namespace MfGames.HierarchicalPaths
 		/// <param name="c2">The c2.</param>
 		/// <returns>The result of the operator.</returns>
 		public static bool operator !=(HierarchicalPath c1,
-									   HierarchicalPath c2)
+			HierarchicalPath c2)
 		{
 			return !(c1 == c2);
 		}
@@ -737,7 +774,9 @@ namespace MfGames.HierarchicalPaths
 		{
 			// By the rules, prefixing "./" will also create the desired
 			// results and use this as a context.
-			return new HierarchicalPath("./" + childPath, this);
+			return new HierarchicalPath(
+				"./" + childPath,
+				this);
 		}
 
 		/// <summary>
@@ -747,7 +786,10 @@ namespace MfGames.HierarchicalPaths
 		/// <returns></returns>
 		public HierarchicalPath Splice(int firstIndex)
 		{
-			return new HierarchicalPath(levels, firstIndex, true);
+			return new HierarchicalPath(
+				levels,
+				firstIndex,
+				true);
 		}
 
 		/// <summary>
@@ -757,9 +799,14 @@ namespace MfGames.HierarchicalPaths
 		/// <param name="offset">The offset.</param>
 		/// <param name="count">The count.</param>
 		/// <returns></returns>
-		public HierarchicalPath Splice(int offset, int count)
+		public HierarchicalPath Splice(
+			int offset,
+			int count)
 		{
-			return Splice(offset, count, offset > 0);
+			return Splice(
+				offset,
+				count,
+				offset > 0);
 		}
 
 		/// <summary>
@@ -770,12 +817,18 @@ namespace MfGames.HierarchicalPaths
 		/// <param name="count">The count.</param>
 		/// <param name="makeRelative">if set to <c>true</c> [make relative].</param>
 		/// <returns></returns>
-		public HierarchicalPath Splice(int offset, int count, bool makeRelative)
+		public HierarchicalPath Splice(
+			int offset,
+			int count,
+			bool makeRelative)
 		{
-			string[] newLevels = levels.Splice(offset, count);
-			var hierarchicalPath = new HierarchicalPath(newLevels, makeRelative);
+			string[] newLevels = levels.Splice(
+				offset,
+				count);
+			var hierarchicalPath = new HierarchicalPath(
+				newLevels,
+				makeRelative);
 			return hierarchicalPath;
-
 		}
 
 		#endregion
@@ -799,18 +852,24 @@ namespace MfGames.HierarchicalPaths
 				// If we have exactly one level, then we are just the root.
 				if (levels.Length == 1)
 				{
-					return isRelative ? RelativeRoot : AbsoluteRoot;
+					return isRelative
+						? RelativeRoot
+						: AbsoluteRoot;
 				}
 
 				// Create a new path without the last item in it.
 				var parentLevels = new string[levels.Length - 1];
 
-				for (int index = 0; index < levels.Length - 1; index++)
+				for (int index = 0;
+					index < levels.Length - 1;
+					index++)
 				{
 					parentLevels[index] = levels[index];
 				}
 
-				return new HierarchicalPath(parentLevels, isRelative);
+				return new HierarchicalPath(
+					parentLevels,
+					isRelative);
 			}
 		}
 

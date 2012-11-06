@@ -1,32 +1,11 @@
-#region Copyright and License
-
-// Copyright (C) 2005-2011 by Moonfire Games
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
-#endregion
+// Copyright 2005-2012 Moonfire Games
+// Released under the MIT license
+// http://mfgames.com/mfgames-cil/license
 
 #region Namespaces
 
 using System.Collections.Generic;
 using System.Linq;
-
 using MfGames.HierarchicalPaths;
 
 #endregion
@@ -88,7 +67,12 @@ namespace MfGames.Collections
 		/// </summary>
 		public int Count
 		{
-			get { return (HasItem ? 1 : 0) + nodes.Values.Sum(child => child.Count); }
+			get
+			{
+				return (HasItem
+					? 1
+					: 0) + nodes.Values.Sum(child => child.Count);
+			}
 		}
 
 		/// <summary>
@@ -147,7 +131,9 @@ namespace MfGames.Collections
 		{
 			return
 				new HierarchicalPathTreeCollection<TValue>(
-					new HierarchicalPath(childNodeName, Path));
+					new HierarchicalPath(
+						childNodeName,
+						Path));
 		}
 
 		#endregion
@@ -161,7 +147,9 @@ namespace MfGames.Collections
 			string path,
 			TValue item)
 		{
-			Add(new HierarchicalPath(path), item);
+			Add(
+				new HierarchicalPath(path),
+				item);
 		}
 
 		/// <summary>
@@ -192,9 +180,11 @@ namespace MfGames.Collections
 
 			// Pull out the child tree so we can add it.
 			HierarchicalPathTreeCollection<TValue> child = nodes[topLevel];
-			var childPath = path.Splice(1);
+			HierarchicalPath childPath = path.Splice(1);
 
-			child.Add(childPath, item);
+			child.Add(
+				childPath,
+				item);
 		}
 
 		/// <summary>
