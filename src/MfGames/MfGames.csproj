@@ -106,6 +106,8 @@
     <Compile Include="Settings\SettingSearchOptions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="TranslatorManager.cs" />
+    <Compile Include="Xml\XmlIdentityWriter.cs" />
+    <Compile Include="Xml\XmlProxyWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MfGames.nuspec" />
