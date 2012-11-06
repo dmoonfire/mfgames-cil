@@ -4,6 +4,8 @@
 *.suo
 
 NuGet.exe
+*.nupkg
+*.bat
 
 bin
 obj
