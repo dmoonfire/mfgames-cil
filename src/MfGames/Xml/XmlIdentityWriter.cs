@@ -8,7 +8,7 @@ namespace MfGames.Xml
 {
 	/// <summary>
 	/// An XML writer that takes an XmlReader object and writes out the
-	/// contents to the writer.
+	/// contents to the 
 	/// </summary>
 	public class XmlIdentityWriter: XmlProxyWriter
 	{
@@ -17,7 +17,7 @@ namespace MfGames.Xml
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XmlIdentityWriter"/> class.
 		/// </summary>
-		/// <param name="writer">The XML writer.</param>
+		/// <param name="writer">The XML </param>
 		public XmlIdentityWriter(XmlWriter writer)
 			: base(writer)
 		{
@@ -85,7 +85,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteEndElement(XmlReader reader)
 		{
-			Writer.WriteFullEndElement();
+			WriteFullEndElement();
 		}
 
 		/// <summary>
@@ -94,7 +94,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteComment(XmlReader reader)
 		{
-			Writer.WriteComment(reader.Value);
+			WriteComment(reader.Value);
 		}
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteDocumentType(XmlReader reader)
 		{
-			Writer.WriteDocType(
+			WriteDocType(
 				reader.Name,
 				reader.GetAttribute("PUBLIC"),
 				reader.GetAttribute("SYSTEM"),
@@ -116,7 +116,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteProcessingInstruction(XmlReader reader)
 		{
-			Writer.WriteProcessingInstruction(
+			WriteProcessingInstruction(
 				reader.Name,
 				reader.Value);
 		}
@@ -127,7 +127,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteEntityRef(XmlReader reader)
 		{
-			Writer.WriteEntityRef(reader.Name);
+			WriteEntityRef(reader.Name);
 		}
 
 		/// <summary>
@@ -136,7 +136,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteCData(XmlReader reader)
 		{
-			Writer.WriteCData(reader.Value);
+			WriteCData(reader.Value);
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteWhitespace(XmlReader reader)
 		{
-			Writer.WriteWhitespace(reader.Value);
+			WriteWhitespace(reader.Value);
 		}
 
 		/// <summary>
@@ -154,7 +154,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteText(XmlReader reader)
 		{
-			Writer.WriteString(reader.Value);
+			WriteString(reader.Value);
 		}
 
 		/// <summary>
@@ -164,13 +164,13 @@ namespace MfGames.Xml
 		protected virtual void WriteElement(XmlReader reader)
 		{
 			// Write out the start element using the input prefix and namespace.
-			Writer.WriteStartElement(
+			WriteStartElement(
 				reader.Prefix,
 				reader.LocalName,
 				reader.NamespaceURI);
 
 			// Write out all the attributes.
-			Writer.WriteAttributes(
+			WriteAttributes(
 				reader,
 				true);
 
@@ -179,7 +179,7 @@ namespace MfGames.Xml
 			// which will create an empty node (<a/> instead of <a></a>).
 			if (reader.IsEmptyElement)
 			{
-				Writer.WriteEndElement();
+				WriteEndElement();
 			}
 		}
 
