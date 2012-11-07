@@ -10,8 +10,13 @@ namespace MfGames.Xml
 	public static class XmlConstants
 	{
 		/// <summary>
-		/// Namespace for XInclude elements.
+		/// Namespace for XInclude elements (V1).
 		/// </summary>
-		public const string XIncludeNamespace = "http://www.w3.org/2003/XInclude";
+		public const string XIncludeNamespace2001 = "http://www.w3.org/2001/XInclude";
+
+		/// <summary>
+		/// Namespace for XInclude elements (V2).
+		/// </summary>
+		public const string XIncludeNamespace2003 = "http://www.w3.org/2003/XInclude";
 	}
 }

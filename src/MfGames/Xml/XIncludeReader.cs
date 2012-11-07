@@ -47,24 +47,27 @@ namespace MfGames.Xml
 			}
 
 			// Check to see if we are working with an XInclude reference.
-			if (NamespaceURI == XmlConstants.XIncludeNamespace &&
-				LocalName == "include")
+			if (NamespaceURI == XmlConstants.XIncludeNamespace2003 ||
+				NamespaceURI == XmlConstants.XIncludeNamespace2001)
 			{
-				// Check for the node type.
-				if (NodeType == XmlNodeType.Element)
+				if (LocalName == "include")
 				{
-					// We need to attempt to load in a new element.
-					PushXmlReader();
-				}
+					// Check for the node type.
+					if (NodeType == XmlNodeType.Element)
+					{
+						// We need to attempt to load in a new element.
+						PushXmlReader();
+					}
 
-				if (NodeType == XmlNodeType.EndElement)
-				{
-					PopXmlReader();
+					if (NodeType == XmlNodeType.EndElement)
+					{
+						PopXmlReader();
+					}
+
+					// Simply move to the next node since we already dealt with
+					// both the Element and EndElement.
+					return Read();
 				}
-				
-				// Simply move to the next node since we already dealt with
-				// both the Element and EndElement.
-				return Read();
 			}
 
 			// We were otherwise successful.
