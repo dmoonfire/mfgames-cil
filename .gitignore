@@ -1,14 +1,13 @@
-*.userprefs
-*.user
-*.pidb
-*.suo
-
-NuGet.exe
-*.nupkg
-*.bat
-
+# Directories
+_Re*
 bin
 obj
-test-results
+src/packages
 
-src/packages/*
+# Common Files
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+generate-nupkg.bat
