@@ -43,6 +43,13 @@ namespace MfGames.Xml
 
 			if (!successful)
 			{
+				// See if we have another reader on the stack.
+				if (xmlReaderStack.Count > 0)
+				{
+					ReadEndIncludeElement();
+					return Read();
+				}
+
 				return false;
 			}
 
@@ -56,12 +63,7 @@ namespace MfGames.Xml
 					if (NodeType == XmlNodeType.Element)
 					{
 						// We need to attempt to load in a new element.
-						PushXmlReader();
-					}
-
-					if (NodeType == XmlNodeType.EndElement)
-					{
-						PopXmlReader();
+						ReadStartIncludeElement();
 					}
 
 					// Simply move to the next node since we already dealt with
@@ -72,6 +74,22 @@ namespace MfGames.Xml
 
 			// We were otherwise successful.
 			return true;
+		}
+
+		/// <summary>
+		/// Called when an XInclude element was found.
+		/// </summary>
+		protected virtual void ReadStartIncludeElement()
+		{
+			PushXmlReader();
+		}
+
+		/// <summary>
+		/// Called when an XInclude element was closed.
+		/// </summary>
+		protected virtual void ReadEndIncludeElement()
+		{
+			PopXmlReader();
 		}
 
 		/// <summary>

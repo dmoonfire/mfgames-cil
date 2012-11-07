@@ -2,6 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
+using System;
 using System.IO;
 using System.Xml;
 using MfGames.Xml;
@@ -40,9 +41,14 @@ namespace UnitTests
 			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
 				identityWriter.Load(includeReader);
 
-			// Return the resulting string.
+			// Pull out the resulting string.
 			string results = stringWriter.ToString();
 
+			// Report the input and output.
+			Console.WriteLine(" Input XML: " + xml);
+			Console.WriteLine("Output XML: " + results);
+
+			// Return the results.
 			return results;
 		}
 
@@ -70,7 +76,8 @@ namespace UnitTests
 						xml = "<b />";
 						break;
 					case "c.xml":
-						xml = "<c xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'/></c>";
+						xml =
+							"<c xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'/></c>";
 						break;
 					default:
 						return null;
@@ -93,6 +100,24 @@ namespace UnitTests
 		}
 
 		[Test]
+		public void TestIncludeRecursive()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='c.xml'/></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><c xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /></c></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(
+				expected,
+				results);
+		}
+
+		[Test]
 		public void TestIncludeSimple()
 		{
 			// Arrange
@@ -111,13 +136,31 @@ namespace UnitTests
 		}
 
 		[Test]
-		public void TestIncludeRecursive()
+		public void TestIncludeSimpleWithClosingTag()
 		{
 			// Arrange
 			const string xml =
-				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='c.xml'/></a>";
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'></xi:include></a>";
 			const string expected =
-				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><c xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /></c></a>";
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(
+				expected,
+				results);
+		}
+
+		[Test]
+		public void TestIncludeSimpleWithTrailing()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'/><c /></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /><c /></a>";
 
 			// Act
 			string results = WriteXmlResults(xml);
