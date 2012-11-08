@@ -5,7 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.XPath;
 
 namespace MfGames.Xml
 {
@@ -79,8 +81,8 @@ namespace MfGames.Xml
 
 			// If we are trying to write out the XML declaration with an inner
 			// element, then skip it since that would be an invalid state.
-			if (NodeType == XmlNodeType.XmlDeclaration &&
-				stack.Count > 1)
+			if (NodeType == XmlNodeType.XmlDeclaration
+				&& stack.Count > 1)
 			{
 				successful = Read();
 				return successful;
@@ -114,19 +116,22 @@ namespace MfGames.Xml
 		/// Gets the included XML reader based on the current node.
 		/// </summary>
 		/// <returns></returns>
-		protected virtual XmlReader CreateIncludedReader()
+		protected virtual IEnumerable<XmlReader> CreateIncludedReaders()
 		{
 			// Grab the @href element and make sure we have it.
 			string href = GetAttribute("href");
 
 			if (href == null)
 			{
-				throw new ApplicationException("Cannot locate href attribute from the XInclude tag.");
+				throw new ApplicationException(
+					"Cannot locate href attribute from the XInclude tag.");
 			}
 
 			// Figure out the base URI for the current reader.
 			string baseUriString = String.IsNullOrEmpty(BaseURI)
-				? Path.Combine(Environment.CurrentDirectory, "temporary.xml")
+				? Path.Combine(
+					Environment.CurrentDirectory,
+					"temporary.xml")
 				: BaseURI;
 			var baseUri = new Uri(baseUriString);
 
@@ -135,10 +140,48 @@ namespace MfGames.Xml
 			var newUri = new Uri(
 				baseUri,
 				href);
-			XmlReader reader = XmlReader.Create(newUri.ToString());
+			XmlReader reader = Create(newUri.ToString());
+			var includeReader = new XIncludeReader(reader);
+
+			// Check to see if we have an XPointer element.
+			string xpointerAttribute = GetAttribute("xpointer");
+
+			if (!string.IsNullOrEmpty(xpointerAttribute))
+			{
+				// Parse the XPointer from this.
+				var xpointer = new XPointerInfo(xpointerAttribute);
+
+				if (xpointer.IsValid)
+				{
+					// Wrap the above reader in an XPath document and pull out
+					// the nodes.
+					XPathNodeIterator nodes = xpointer.SelectFrom(includeReader);
+
+					// Create a list of readers from the given nodes.
+					var includedReaders = new List<XmlReader>();
+
+					while (nodes.MoveNext())
+					{
+						XPathNavigator node = nodes.Current;
+
+						if (node != null)
+						{
+							XmlReader nodeReader = node.ReadSubtree();
+
+							includedReaders.Add(nodeReader);
+						}
+					}
+
+					// Return the resulting readers.
+					return includedReaders;
+				}
+			}
 
 			// Return the resulting reader.
-			return reader;
+			return new[]
+			{
+				includeReader
+			};
 		}
 
 		/// <summary>
@@ -164,19 +207,25 @@ namespace MfGames.Xml
 		{
 			// Get the XML reader for the current node. This is a virtual method
 			// to allow an extending class to create an appropriate reader.
-			XmlReader newReader = CreateIncludedReader();
+			IEnumerable<XmlReader> readers = CreateIncludedReaders();
 
-			if (newReader == null)
+			if (readers == null)
 			{
 				return;
 			}
 
-			// Create a new stack item with this reader.
-			var item = new StackItem { Reader = newReader };
+			// Go through all the readers.
+			List<StackItem> items = readers.Select(
+				newReader => new StackItem
+				{
+					Reader = newReader
+				}).ToList();
 
 			// Insert the reader into the first position, as the "head" of
 			// the stack.
-			stack.Insert(0, item);
+			stack.InsertRange(
+				0,
+				items);
 		}
 
 		#endregion

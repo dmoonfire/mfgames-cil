@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MfGames</RootNamespace>
     <AssemblyName>MfGames</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -37,6 +37,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <BuildPackage>true</BuildPackage>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -111,6 +112,7 @@
     <Compile Include="Xml\XmlIdentityWriter.cs" />
     <Compile Include="Xml\XmlProxyReader.cs" />
     <Compile Include="Xml\XmlProxyWriter.cs" />
+    <Compile Include="Xml\XPointerInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MfGames.nuspec" />

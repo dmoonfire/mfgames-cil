@@ -3,6 +3,7 @@
 // http://mfgames.com/mfgames-cil/license
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using MfGames.Xml;
@@ -163,13 +164,13 @@ namespace UnitTests
 		#region File Tests
 
 		[Test]
-		public void TestFileIncludeSimpleWithClosingTag()
+		public void TestFileIncludeRecursive()
 		{
 			// Arrange
 			const string xml =
-				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/bfile.xml'></xi:include></a>";
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml'></xi:include></a>";
 			const string expected =
-				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<b /></a>";
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<c xmlns:xinclude=\"http://www.w3.org/2001/XInclude\">\r\n\t\r\n<b />\r\n</c></a>";
 
 			// Act
 			string results = WriteXmlResults(xml);
@@ -181,13 +182,31 @@ namespace UnitTests
 		}
 
 		[Test]
-		public void TestFileIncludeRecursive()
+		public void TestFileIncludeRecursiveWithXPointer()
 		{
 			// Arrange
 			const string xml =
-				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml'></xi:include></a>";
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml' xpointer='xpointer(/*/*)'></xi:include></a>";
 			const string expected =
-				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<c xmlns:xinclude=\"http://www.w3.org/2001/XInclude\">\r\n\t\r\n<b />\r\n</c></a>";
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(
+				expected,
+				results);
+		}
+
+		[Test]
+		public void TestFileIncludeSimpleWithClosingTag()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/bfile.xml'></xi:include></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<b /></a>";
 
 			// Act
 			string results = WriteXmlResults(xml);
@@ -213,7 +232,7 @@ namespace UnitTests
 			/// Gets the included XML reader based on the current node.
 			/// </summary>
 			/// <returns></returns>
-			protected override XmlReader CreateIncludedReader()
+			protected override IEnumerable<XmlReader> CreateIncludedReaders()
 			{
 				string xml;
 				string href = GetAttribute("href");
@@ -229,14 +248,17 @@ namespace UnitTests
 						break;
 					default:
 						// Use the base implementation for everything else.
-						return base.CreateIncludedReader();
+						return base.CreateIncludedReaders();
 				}
 
 				// Create an XML reader from the string.
 				var stringReader = new StringReader(xml);
 				XmlReader xmlReader = Create(stringReader);
 
-				return xmlReader;
+				return new[]
+				{
+					xmlReader
+				};
 			}
 
 			#endregion
