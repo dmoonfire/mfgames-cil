@@ -13,19 +13,7 @@ namespace MfGames.Xml
 	/// </summary>
 	public class XIncludeReader: XmlProxyReader
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XIncludeReader"/> class.
-		/// </summary>
-		/// <param name="underlyingReader">The underlying reader.</param>
-		public XIncludeReader(XmlReader underlyingReader)
-			: base(underlyingReader)
-		{
-			xmlReaderStack = new List<XmlReader>();
-		}
-
-		#endregion
+		#region Methods
 
 		/// <summary>
 		/// When overridden in a derived class, reads the next node from the stream.
@@ -54,8 +42,8 @@ namespace MfGames.Xml
 			}
 
 			// Check to see if we are working with an XInclude reference.
-			if (NamespaceURI == XmlConstants.XIncludeNamespace2003 ||
-				NamespaceURI == XmlConstants.XIncludeNamespace2001)
+			if (NamespaceURI == XmlConstants.XIncludeNamespace2003
+				|| NamespaceURI == XmlConstants.XIncludeNamespace2001)
 			{
 				if (LocalName == "include")
 				{
@@ -74,41 +62,6 @@ namespace MfGames.Xml
 
 			// We were otherwise successful.
 			return true;
-		}
-
-		/// <summary>
-		/// Called when an XInclude element was found.
-		/// </summary>
-		protected virtual void ReadStartIncludeElement()
-		{
-			PushXmlReader();
-		}
-
-		/// <summary>
-		/// Called when an XInclude element was closed.
-		/// </summary>
-		protected virtual void ReadEndIncludeElement()
-		{
-			PopXmlReader();
-		}
-
-		/// <summary>
-		/// Uses the current node to figure out a new XML reader to use for
-		/// the remaining stream or to use the fallback.
-		/// </summary>
-		private void PushXmlReader()
-		{
-			// Get the XML reader for the current node.
-			XmlReader innerXmlReader = GetIncludedXmlReader();
-
-			if (innerXmlReader != null)
-			{
-				// Push this reader on the stack.
-				xmlReaderStack.Add(UnderlyingReader);
-
-				// Add the 
-				UnderlyingReader = innerXmlReader;
-			}
 		}
 
 		/// <summary>
@@ -132,6 +85,22 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
+		/// Called when an XInclude element was closed.
+		/// </summary>
+		protected virtual void ReadEndIncludeElement()
+		{
+			PopXmlReader();
+		}
+
+		/// <summary>
+		/// Called when an XInclude element was found.
+		/// </summary>
+		protected virtual void ReadStartIncludeElement()
+		{
+			PushXmlReader();
+		}
+
+		/// <summary>
 		/// Pops the XML reader from the stack and moves back to the previous one.
 		/// </summary>
 		private void PopXmlReader()
@@ -148,6 +117,45 @@ namespace MfGames.Xml
 			xmlReaderStack.RemoveAt(index);
 		}
 
-		private List<XmlReader> xmlReaderStack;
+		/// <summary>
+		/// Uses the current node to figure out a new XML reader to use for
+		/// the remaining stream or to use the fallback.
+		/// </summary>
+		private void PushXmlReader()
+		{
+			// Get the XML reader for the current node.
+			XmlReader innerXmlReader = GetIncludedXmlReader();
+
+			if (innerXmlReader != null)
+			{
+				// Push this reader on the stack.
+				xmlReaderStack.Add(UnderlyingReader);
+
+				// Add the 
+				UnderlyingReader = innerXmlReader;
+			}
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XIncludeReader"/> class.
+		/// </summary>
+		/// <param name="underlyingReader">The underlying reader.</param>
+		public XIncludeReader(XmlReader underlyingReader)
+			: base(underlyingReader)
+		{
+			xmlReaderStack = new List<XmlReader>();
+		}
+
+		#endregion
+
+		#region Fields
+
+		private readonly List<XmlReader> xmlReaderStack;
+
+		#endregion
 	}
 }

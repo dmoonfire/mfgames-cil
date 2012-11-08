@@ -19,10 +19,7 @@ namespace MfGames
 	{
 		#region Singleton
 
-		private static Random random;
-
-		[ThreadStatic]
-		private static Random threadRandom;
+		#region Properties
 
 		/// <summary>
 		/// Gets or sets a static random generator.
@@ -65,6 +62,17 @@ namespace MfGames
 
 			set { threadRandom = value; }
 		}
+
+		#endregion
+
+		#region Fields
+
+		private static Random random;
+
+		[ThreadStatic]
+		private static Random threadRandom;
+
+		#endregion
 
 		#endregion
 	}

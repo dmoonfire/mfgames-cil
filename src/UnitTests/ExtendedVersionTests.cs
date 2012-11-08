@@ -20,6 +20,8 @@ namespace UnitTests
 	[TestFixture]
 	public class ExtendedVersionTests
 	{
+		#region Methods
+
 		[Test]
 		public void CompareDouble()
 		{
@@ -412,6 +414,8 @@ namespace UnitTests
 			var v2 = new ExtendedVersion("20071.2.0.0");
 			Assert.IsTrue(v1 <= v2);
 		}
+
+		#endregion
 	}
 }
 

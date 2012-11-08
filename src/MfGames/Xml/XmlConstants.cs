@@ -9,6 +9,8 @@ namespace MfGames.Xml
 	/// </summary>
 	public static class XmlConstants
 	{
+		#region Fields
+
 		/// <summary>
 		/// Namespace for XInclude elements (V1).
 		/// </summary>
@@ -18,5 +20,7 @@ namespace MfGames.Xml
 		/// Namespace for XInclude elements (V2).
 		/// </summary>
 		public const string XIncludeNamespace2003 = "http://www.w3.org/2003/XInclude";
+
+		#endregion
 	}
 }

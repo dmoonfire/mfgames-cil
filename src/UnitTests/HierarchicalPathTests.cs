@@ -20,6 +20,8 @@ namespace UnitTests
 	[TestFixture]
 	public class HierarchicalPathTests
 	{
+		#region Methods
+
 		[Test]
 		public void AreEqual()
 		{
@@ -440,5 +442,7 @@ namespace UnitTests
 				"./d/e",
 				results.ToString());
 		}
+
+		#endregion
 	}
 }

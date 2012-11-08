@@ -21,65 +21,7 @@ namespace UnitTests
 	[TestFixture]
 	public class SettingsManagerTests
 	{
-		[XmlRoot("SettingsA")]
-		public class SettingsA1
-		{
-			#region Constructors
-
-			public SettingsA1()
-			{
-			}
-
-			public SettingsA1(
-				int a,
-				string b)
-			{
-				A = a;
-				B = b;
-			}
-
-			#endregion
-
-			#region Properties
-
-			public int A;
-			public string B;
-
-			#endregion
-		}
-
-		[XmlRoot("SettingsA")]
-		public class SettingsA2
-		{
-			#region Constructors
-
-			public SettingsA2()
-			{
-				A = -123;
-				B = "uninitialized";
-			}
-
-			public SettingsA2(
-				int a,
-				string b)
-			{
-				A = a;
-				B = b;
-			}
-
-			#endregion
-
-			#region Properties
-
-			public int A;
-			public string B;
-
-			#endregion
-		}
-
-		public class SettingsC
-		{
-		}
+		#region Methods
 
 		/// <summary>
 		/// Tests adding one to the manager.
@@ -196,5 +138,79 @@ namespace UnitTests
 				0,
 				settingsManager.Count);
 		}
+
+		#endregion
+
+		#region Nested Type: SettingsA1
+
+		[XmlRoot("SettingsA")]
+		public class SettingsA1
+		{
+			#region Constructors
+
+			public SettingsA1()
+			{
+			}
+
+			public SettingsA1(
+				int a,
+				string b)
+			{
+				A = a;
+				B = b;
+			}
+
+			#endregion
+
+			#region Fields
+
+			public int A;
+			public string B;
+
+			#endregion
+		}
+
+		#endregion
+
+		#region Nested Type: SettingsA2
+
+		[XmlRoot("SettingsA")]
+		public class SettingsA2
+		{
+			#region Constructors
+
+			public SettingsA2()
+			{
+				A = -123;
+				B = "uninitialized";
+			}
+
+			public SettingsA2(
+				int a,
+				string b)
+			{
+				A = a;
+				B = b;
+			}
+
+			#endregion
+
+			#region Fields
+
+			public int A;
+			public string B;
+
+			#endregion
+		}
+
+		#endregion
+
+		#region Nested Type: SettingsC
+
+		public class SettingsC
+		{
+		}
+
+		#endregion
 	}
 }

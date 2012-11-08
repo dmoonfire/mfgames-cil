@@ -16,6 +16,8 @@ namespace MfGames.Extensions.System.Reflection
 	/// </summary>
 	public static class SystemReflectionMemberInfoExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Gets the custom attribute or null if one doesn't exist.
 		/// </summary>
@@ -104,5 +106,7 @@ namespace MfGames.Extensions.System.Reflection
 				attributeType,
 				inherited).Length > 0);
 		}
+
+		#endregion
 	}
 }

@@ -20,6 +20,8 @@ namespace UnitTests
 	[TestFixture]
 	public class SystemCollectionsGenericListExtensionsTests
 	{
+		#region Methods
+
 		/// <summary>
 		/// Tests selection from an empty selector.
 		/// </summary>
@@ -100,5 +102,7 @@ namespace UnitTests
 				list.GetRandom();
 			}
 		}
+
+		#endregion
 	}
 }

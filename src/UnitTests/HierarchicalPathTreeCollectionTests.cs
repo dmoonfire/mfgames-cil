@@ -18,6 +18,8 @@ namespace UnitTests
 	[TestFixture]
 	public class HierarchicalPathTreeCollectionTests
 	{
+		#region Methods
+
 		/// <summary>
 		/// Tests adding item at depth.
 		/// </summary>
@@ -122,5 +124,7 @@ namespace UnitTests
 				234,
 				collection.Item);
 		}
+
+		#endregion
 	}
 }

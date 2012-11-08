@@ -9,6 +9,8 @@ namespace MfGames.Extensions.System
 	/// </summary>
 	public static class SystemArrayExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Splices the specified old array by creating a new array from the given offset
 		/// to the end.
@@ -60,5 +62,7 @@ namespace MfGames.Extensions.System
 			// Return the resulting array.
 			return newArray;
 		}
+
+		#endregion
 	}
 }

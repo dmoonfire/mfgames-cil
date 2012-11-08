@@ -12,18 +12,7 @@ namespace MfGames.Xml
 	/// </summary>
 	public class XmlIdentityWriter: XmlProxyWriter
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XmlIdentityWriter"/> class.
-		/// </summary>
-		/// <param name="writer">The XML </param>
-		public XmlIdentityWriter(XmlWriter writer)
-			: base(writer)
-		{
-		}
-
-		#endregion
+		#region Methods
 
 		/// <summary>
 		/// Parses through the specified XML reader and writes out an
@@ -77,15 +66,13 @@ namespace MfGames.Xml
 			}
 		}
 
-		#region Overridable Writing Methods
-
 		/// <summary>
-		/// Writes the end element.
+		/// Writes the C data.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
-		protected virtual void WriteEndElement(XmlReader reader)
+		protected virtual void WriteCData(XmlReader reader)
 		{
-			WriteFullEndElement();
+			WriteCData(reader.Value);
 		}
 
 		/// <summary>
@@ -108,53 +95,6 @@ namespace MfGames.Xml
 				reader.GetAttribute("PUBLIC"),
 				reader.GetAttribute("SYSTEM"),
 				reader.Value);
-		}
-
-		/// <summary>
-		/// Writes the processing instruction.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteProcessingInstruction(XmlReader reader)
-		{
-			WriteProcessingInstruction(
-				reader.Name,
-				reader.Value);
-		}
-
-		/// <summary>
-		/// Writes the entity ref.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteEntityRef(XmlReader reader)
-		{
-			WriteEntityRef(reader.Name);
-		}
-
-		/// <summary>
-		/// Writes the C data.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteCData(XmlReader reader)
-		{
-			WriteCData(reader.Value);
-		}
-
-		/// <summary>
-		/// Writes the whitespace.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteWhitespace(XmlReader reader)
-		{
-			WriteWhitespace(reader.Value);
-		}
-
-		/// <summary>
-		/// Writes the text.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteText(XmlReader reader)
-		{
-			WriteString(reader.Value);
 		}
 
 		/// <summary>
@@ -181,6 +121,66 @@ namespace MfGames.Xml
 			{
 				WriteEndElement();
 			}
+		}
+
+		/// <summary>
+		/// Writes the end element.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		protected virtual void WriteEndElement(XmlReader reader)
+		{
+			WriteFullEndElement();
+		}
+
+		/// <summary>
+		/// Writes the entity ref.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		protected virtual void WriteEntityRef(XmlReader reader)
+		{
+			WriteEntityRef(reader.Name);
+		}
+
+		/// <summary>
+		/// Writes the processing instruction.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		protected virtual void WriteProcessingInstruction(XmlReader reader)
+		{
+			WriteProcessingInstruction(
+				reader.Name,
+				reader.Value);
+		}
+
+		/// <summary>
+		/// Writes the text.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		protected virtual void WriteText(XmlReader reader)
+		{
+			WriteString(reader.Value);
+		}
+
+		/// <summary>
+		/// Writes the whitespace.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		protected virtual void WriteWhitespace(XmlReader reader)
+		{
+			WriteWhitespace(reader.Value);
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XmlIdentityWriter"/> class.
+		/// </summary>
+		/// <param name="writer">The XML </param>
+		public XmlIdentityWriter(XmlWriter writer)
+			: base(writer)
+		{
 		}
 
 		#endregion

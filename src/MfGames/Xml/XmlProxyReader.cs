@@ -12,33 +12,69 @@ namespace MfGames.Xml
 	/// </summary>
 	public class XmlProxyReader: XmlReader
 	{
-		#region Constructors
+		#region Properties
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="XmlProxyReader"/> class.
-		/// </summary>
-		/// <param name="underlyingReader">The underlying reader.</param>
-		public XmlProxyReader(XmlReader underlyingReader)
-		{
-			UnderlyingReader = underlyingReader;
-		}
-
-		#endregion
-
-		/// <summary>
-		/// Gets the underlying XML reader.
-		/// </summary>
-		protected XmlReader UnderlyingReader { get; set; }
-
-		/// <summary>
-		/// When overridden in a derived class, gets the type of the current node.
+		/// When overridden in a derived class, gets the number of attributes on the current node.
 		/// </summary>
 		/// <returns>
-		/// One of the <see cref="T:System.Xml.XmlNodeType"/> values representing the type of the current node.
+		/// The number of attributes on the current node.
 		///   </returns>
-		public override XmlNodeType NodeType
+		public override int AttributeCount
 		{
-			get { return UnderlyingReader.NodeType; }
+			get { return UnderlyingReader.AttributeCount; }
+		}
+
+		/// <summary>
+		/// When overridden in a derived class, gets the base URI of the current node.
+		/// </summary>
+		/// <returns>
+		/// The base URI of the current node.
+		///   </returns>
+		public override string BaseURI
+		{
+			get { return UnderlyingReader.BaseURI; }
+		}
+
+		/// <summary>
+		/// When overridden in a derived class, gets the depth of the current node in the XML document.
+		/// </summary>
+		/// <returns>
+		/// The depth of the current node in the XML document.
+		///   </returns>
+		public override int Depth
+		{
+			get { return UnderlyingReader.Depth; }
+		}
+
+		/// <summary>
+		/// When overridden in a derived class, gets a value indicating whether the reader is positioned at the end of the stream.
+		/// </summary>
+		/// <returns>true if the reader is positioned at the end of the stream; otherwise, false.
+		///   </returns>
+		public override bool EOF
+		{
+			get { return UnderlyingReader.EOF; }
+		}
+
+		/// <summary>
+		/// When overridden in a derived class, gets a value indicating whether the current node can have a <see cref="P:System.Xml.XmlReader.Value"/>.
+		/// </summary>
+		/// <returns>true if the node on which the reader is currently positioned can have a Value; otherwise, false. If false, the node has a value of String.Empty.
+		///   </returns>
+		public override bool HasValue
+		{
+			get { return UnderlyingReader.HasValue; }
+		}
+
+		/// <summary>
+		/// When overridden in a derived class, gets a value indicating whether the current node is an empty element (for example, &lt;MyElement/&gt;).
+		/// </summary>
+		/// <returns>true if the current node is an element (<see cref="P:System.Xml.XmlReader.NodeType"/> equals XmlNodeType.Element) that ends with /&gt;; otherwise, false.
+		///   </returns>
+		public override bool IsEmptyElement
+		{
+			get { return UnderlyingReader.IsEmptyElement; }
 		}
 
 		/// <summary>
@@ -54,6 +90,17 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
+		/// When overridden in a derived class, gets the <see cref="T:System.Xml.XmlNameTable"/> associated with this implementation.
+		/// </summary>
+		/// <returns>
+		/// The XmlNameTable enabling you to get the atomized version of a string within the node.
+		///   </returns>
+		public override XmlNameTable NameTable
+		{
+			get { return UnderlyingReader.NameTable; }
+		}
+
+		/// <summary>
 		/// When overridden in a derived class, gets the namespace URI (as defined in the W3C Namespace specification) of the node on which the reader is positioned.
 		/// </summary>
 		/// <returns>
@@ -62,6 +109,17 @@ namespace MfGames.Xml
 		public override string NamespaceURI
 		{
 			get { return UnderlyingReader.NamespaceURI; }
+		}
+
+		/// <summary>
+		/// When overridden in a derived class, gets the type of the current node.
+		/// </summary>
+		/// <returns>
+		/// One of the <see cref="T:System.Xml.XmlNodeType"/> values representing the type of the current node.
+		///   </returns>
+		public override XmlNodeType NodeType
+		{
+			get { return UnderlyingReader.NodeType; }
 		}
 
 		/// <summary>
@@ -76,13 +134,14 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
-		/// When overridden in a derived class, gets a value indicating whether the current node can have a <see cref="P:System.Xml.XmlReader.Value"/>.
+		/// When overridden in a derived class, gets the state of the reader.
 		/// </summary>
-		/// <returns>true if the node on which the reader is currently positioned can have a Value; otherwise, false. If false, the node has a value of String.Empty.
+		/// <returns>
+		/// One of the <see cref="T:System.Xml.ReadState"/> values.
 		///   </returns>
-		public override bool HasValue
+		public override ReadState ReadState
 		{
-			get { return UnderlyingReader.HasValue; }
+			get { return UnderlyingReader.ReadState; }
 		}
 
 		/// <summary>
@@ -117,78 +176,20 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
-		/// When overridden in a derived class, gets the depth of the current node in the XML document.
+		/// Gets the underlying XML reader.
 		/// </summary>
-		/// <returns>
-		/// The depth of the current node in the XML document.
-		///   </returns>
-		public override int Depth
-		{
-			get { return UnderlyingReader.Depth; }
-		}
+		protected XmlReader UnderlyingReader { get; set; }
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>
-		/// When overridden in a derived class, gets the base URI of the current node.
+		/// When overridden in a derived class, changes the <see cref="P:System.Xml.XmlReader.ReadState"/> to Closed.
 		/// </summary>
-		/// <returns>
-		/// The base URI of the current node.
-		///   </returns>
-		public override string BaseURI
+		public override void Close()
 		{
-			get { return UnderlyingReader.BaseURI; }
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, gets a value indicating whether the current node is an empty element (for example, &lt;MyElement/&gt;).
-		/// </summary>
-		/// <returns>true if the current node is an element (<see cref="P:System.Xml.XmlReader.NodeType"/> equals XmlNodeType.Element) that ends with /&gt;; otherwise, false.
-		///   </returns>
-		public override bool IsEmptyElement
-		{
-			get { return UnderlyingReader.IsEmptyElement; }
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, gets the number of attributes on the current node.
-		/// </summary>
-		/// <returns>
-		/// The number of attributes on the current node.
-		///   </returns>
-		public override int AttributeCount
-		{
-			get { return UnderlyingReader.AttributeCount; }
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, gets a value indicating whether the reader is positioned at the end of the stream.
-		/// </summary>
-		/// <returns>true if the reader is positioned at the end of the stream; otherwise, false.
-		///   </returns>
-		public override bool EOF
-		{
-			get { return UnderlyingReader.EOF; }
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, gets the state of the reader.
-		/// </summary>
-		/// <returns>
-		/// One of the <see cref="T:System.Xml.ReadState"/> values.
-		///   </returns>
-		public override ReadState ReadState
-		{
-			get { return UnderlyingReader.ReadState; }
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, gets the <see cref="T:System.Xml.XmlNameTable"/> associated with this implementation.
-		/// </summary>
-		/// <returns>
-		/// The XmlNameTable enabling you to get the atomized version of a string within the node.
-		///   </returns>
-		public override XmlNameTable NameTable
-		{
-			get { return UnderlyingReader.NameTable; }
+			UnderlyingReader.Close();
 		}
 
 		/// <summary>
@@ -242,6 +243,18 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
+		/// When overridden in a derived class, resolves a namespace prefix in the current element's scope.
+		/// </summary>
+		/// <param name="prefix">The prefix whose namespace URI you want to resolve. To match the default namespace, pass an empty string.</param>
+		/// <returns>
+		/// The namespace URI to which the prefix maps or null if no matching prefix is found.
+		/// </returns>
+		public override string LookupNamespace(string prefix)
+		{
+			return UnderlyingReader.LookupNamespace(prefix);
+		}
+
+		/// <summary>
 		/// When overridden in a derived class, moves to the attribute with the specified <see cref="P:System.Xml.XmlReader.Name"/>.
 		/// </summary>
 		/// <param name="name">The qualified name of the attribute.</param>
@@ -271,6 +284,17 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
+		/// When overridden in a derived class, moves to the element that contains the current attribute node.
+		/// </summary>
+		/// <returns>
+		/// true if the reader is positioned on an attribute (the reader moves to the element that owns the attribute); false if the reader is not positioned on an attribute (the position of the reader does not change).
+		/// </returns>
+		public override bool MoveToElement()
+		{
+			return UnderlyingReader.MoveToElement();
+		}
+
+		/// <summary>
 		/// When overridden in a derived class, moves to the first attribute.
 		/// </summary>
 		/// <returns>
@@ -293,14 +317,17 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
-		/// When overridden in a derived class, moves to the element that contains the current attribute node.
+		/// When overridden in a derived class, reads the next node from the stream.
 		/// </summary>
 		/// <returns>
-		/// true if the reader is positioned on an attribute (the reader moves to the element that owns the attribute); false if the reader is not positioned on an attribute (the position of the reader does not change).
+		/// true if the next node was read successfully; false if there are no more nodes to read.
 		/// </returns>
-		public override bool MoveToElement()
+		/// <exception cref="T:System.Xml.XmlException">
+		/// An error occurred while parsing the XML.
+		///   </exception>
+		public override bool Read()
 		{
-			return UnderlyingReader.MoveToElement();
+			return UnderlyingReader.Read();
 		}
 
 		/// <summary>
@@ -317,40 +344,6 @@ namespace MfGames.Xml
 		}
 
 		/// <summary>
-		/// When overridden in a derived class, reads the next node from the stream.
-		/// </summary>
-		/// <returns>
-		/// true if the next node was read successfully; false if there are no more nodes to read.
-		/// </returns>
-		/// <exception cref="T:System.Xml.XmlException">
-		/// An error occurred while parsing the XML.
-		///   </exception>
-		public override bool Read()
-		{
-			return UnderlyingReader.Read();
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, changes the <see cref="P:System.Xml.XmlReader.ReadState"/> to Closed.
-		/// </summary>
-		public override void Close()
-		{
-			UnderlyingReader.Close();
-		}
-
-		/// <summary>
-		/// When overridden in a derived class, resolves a namespace prefix in the current element's scope.
-		/// </summary>
-		/// <param name="prefix">The prefix whose namespace URI you want to resolve. To match the default namespace, pass an empty string.</param>
-		/// <returns>
-		/// The namespace URI to which the prefix maps or null if no matching prefix is found.
-		/// </returns>
-		public override string LookupNamespace(string prefix)
-		{
-			return UnderlyingReader.LookupNamespace(prefix);
-		}
-
-		/// <summary>
 		/// When overridden in a derived class, resolves the entity reference for EntityReference nodes.
 		/// </summary>
 		/// <exception cref="T:System.InvalidOperationException">
@@ -360,5 +353,20 @@ namespace MfGames.Xml
 		{
 			UnderlyingReader.ResolveEntity();
 		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XmlProxyReader"/> class.
+		/// </summary>
+		/// <param name="underlyingReader">The underlying reader.</param>
+		public XmlProxyReader(XmlReader underlyingReader)
+		{
+			UnderlyingReader = underlyingReader;
+		}
+
+		#endregion
 	}
 }

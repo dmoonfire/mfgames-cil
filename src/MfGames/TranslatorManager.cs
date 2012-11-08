@@ -28,7 +28,7 @@ namespace MfGames
 
 		#region Translator
 
-		private static Func<string, string> translate;
+		#region Properties
 
 		/// <summary>
 		/// Translate function. Pass in the key of the string and a translated
@@ -40,6 +40,14 @@ namespace MfGames
 			get { return translate; }
 			set { translate = value ?? IdentityTranslate; }
 		}
+
+		#endregion
+
+		#region Fields
+
+		private static Func<string, string> translate;
+
+		#endregion
 
 		#endregion
 

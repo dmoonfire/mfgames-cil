@@ -17,6 +17,25 @@ namespace MfGames.Reporting
 	/// </summary>
 	public class SeverityMessage
 	{
+		#region Properties
+
+		/// <summary>
+		/// Gets when the message was created.
+		/// </summary>
+		public DateTime Created { get; protected set; }
+
+		/// <summary>
+		/// Contains the severity of the message.
+		/// </summary>
+		public Severity Severity { get; protected set; }
+
+		/// <summary>
+		/// Contains the message text.
+		/// </summary>
+		public string Text { get; protected set; }
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>
@@ -48,25 +67,6 @@ namespace MfGames.Reporting
 			Text = text;
 			Created = DateTime.UtcNow;
 		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// Gets when the message was created.
-		/// </summary>
-		public DateTime Created { get; protected set; }
-
-		/// <summary>
-		/// Contains the severity of the message.
-		/// </summary>
-		public Severity Severity { get; protected set; }
-
-		/// <summary>
-		/// Contains the message text.
-		/// </summary>
-		public string Text { get; protected set; }
 
 		#endregion
 	}

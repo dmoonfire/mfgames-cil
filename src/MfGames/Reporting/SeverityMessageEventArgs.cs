@@ -15,6 +15,18 @@ namespace MfGames.Reporting
 	/// </summary>
 	public class SeverityMessageEventArgs: EventArgs
 	{
+		#region Properties
+
+		/// <summary>
+		/// Gets the message associated with this event.
+		/// </summary>
+		/// <value>
+		/// The message.
+		/// </value>
+		public SeverityMessage Message { get; protected set; }
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>
@@ -25,18 +37,6 @@ namespace MfGames.Reporting
 		{
 			Message = message;
 		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// Gets the message associated with this event.
-		/// </summary>
-		/// <value>
-		/// The message.
-		/// </value>
-		public SeverityMessage Message { get; protected set; }
 
 		#endregion
 	}

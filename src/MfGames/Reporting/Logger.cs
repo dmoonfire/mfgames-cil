@@ -39,7 +39,7 @@ namespace MfGames.Reporting
 
 		#region Logging
 
-		private readonly object context;
+		#region Methods
 
 		/// <summary>
 		/// Logs an alert message.
@@ -146,6 +146,14 @@ namespace MfGames.Reporting
 				context,
 				message);
 		}
+
+		#endregion
+
+		#region Fields
+
+		private readonly object context;
+
+		#endregion
 
 		#endregion
 	}

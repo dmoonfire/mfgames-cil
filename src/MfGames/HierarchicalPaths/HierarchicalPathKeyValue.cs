@@ -75,6 +75,8 @@ namespace MfGames.HierarchicalPaths
 
 		#region Equality
 
+		#region Methods
+
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
 		/// </summary>
@@ -145,6 +147,10 @@ namespace MfGames.HierarchicalPaths
 			return HierarchicalPath.GetHashCode();
 		}
 
+		#endregion
+
+		#region Operators
+
 		/// <summary>
 		/// Implements the operator ==.
 		/// </summary>
@@ -176,6 +182,8 @@ namespace MfGames.HierarchicalPaths
 				left,
 				right);
 		}
+
+		#endregion
 
 		#endregion
 

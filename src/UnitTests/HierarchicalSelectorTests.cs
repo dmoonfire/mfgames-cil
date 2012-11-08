@@ -18,6 +18,8 @@ namespace UnitTests
 	[TestFixture]
 	public class HierarchicalSelectorTests
 	{
+		#region Methods
+
 		/// <summary>
 		/// Tests the regex matching for a simple string.
 		/// </summary>
@@ -57,5 +59,7 @@ namespace UnitTests
 			var nr = new HierarchicalSelector("/*/*/*/c");
 			Assert.IsFalse(nr.IsMatch("/a/b/c"));
 		}
+
+		#endregion
 	}
 }

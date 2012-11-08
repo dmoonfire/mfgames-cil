@@ -9,9 +9,13 @@ namespace MfGames.HierarchicalPaths
 	/// </summary>
 	public interface IHierarchicalPathContainer
 	{
+		#region Properties
+
 		/// <summary>
 		/// Gets the hierarchical path associated with the instance.
 		/// </summary>
 		HierarchicalPath HierarchicalPath { get; }
+
+		#endregion
 	}
 }

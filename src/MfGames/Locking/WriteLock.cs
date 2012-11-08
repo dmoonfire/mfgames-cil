@@ -16,21 +16,7 @@ namespace MfGames.Locking
 	/// </summary>
 	public class WriteLock: IDisposable
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="WriteLock"/> class.
-		/// </summary>
-		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
-		public WriteLock(ReaderWriterLockSlim readerWriterLockSlim)
-		{
-			this.readerWriterLockSlim = readerWriterLockSlim;
-			readerWriterLockSlim.EnterWriteLock();
-		}
-
-		#endregion
-
-		#region Destructors
+		#region Methods
 
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -45,6 +31,20 @@ namespace MfGames.Locking
 		#region Locking
 
 		private readonly ReaderWriterLockSlim readerWriterLockSlim;
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="WriteLock"/> class.
+		/// </summary>
+		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
+		public WriteLock(ReaderWriterLockSlim readerWriterLockSlim)
+		{
+			this.readerWriterLockSlim = readerWriterLockSlim;
+			readerWriterLockSlim.EnterWriteLock();
+		}
 
 		#endregion
 	}

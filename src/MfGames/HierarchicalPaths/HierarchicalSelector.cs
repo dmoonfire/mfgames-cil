@@ -89,7 +89,7 @@ namespace MfGames.HierarchicalPaths
 
 		#region Parsing
 
-		private object[] operations;
+		#region Methods
 
 		/// <summary>
 		/// Parses the given path and converts the various ** and * elements into
@@ -147,6 +147,14 @@ namespace MfGames.HierarchicalPaths
 				operations[index] = null;
 			}
 		}
+
+		#endregion
+
+		#region Fields
+
+		private object[] operations;
+
+		#endregion
 
 		#endregion
 

@@ -15,6 +15,8 @@ namespace UnitTests
 	[TestFixture]
 	public class XmlIdentityWriterTests
 	{
+		#region Methods
+
 		[Test]
 		public void FrameworkTest()
 		{
@@ -39,9 +41,7 @@ namespace UnitTests
 				stringWriter,
 				settings))
 			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
-			{
 				identityWriter.Load(xmlReader);
-			}
 
 			// Assert
 			string actual = stringWriter.ToString();
@@ -80,5 +80,7 @@ namespace UnitTests
 				xml,
 				actual);
 		}
+
+		#endregion
 	}
 }

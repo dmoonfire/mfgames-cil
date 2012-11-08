@@ -15,6 +15,8 @@ namespace MfGames.Extensions.System
 	/// </summary>
 	public static class SystemTypeExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Gets the custom attribute or null if one doesn't exist.
 		/// </summary>
@@ -103,5 +105,7 @@ namespace MfGames.Extensions.System
 				attributeType,
 				inherited).Length > 0);
 		}
+
+		#endregion
 	}
 }

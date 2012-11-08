@@ -13,83 +13,7 @@ namespace UnitTests
 	[TestFixture]
 	public class XIncludeReaderTests
 	{
-		/// <summary>
-		/// Writes the XML results.
-		/// </summary>
-		/// <param name="xml">The input XML.</param>
-		/// <returns>The resulting XML from an identity write.</returns>
-		private static string WriteXmlResults(string xml)
-		{
-			// Set up the XML writing to produce consistent results.
-			var writerSettings = new XmlWriterSettings
-			{
-				OmitXmlDeclaration = true,
-			};
-			var stringWriter = new StringWriter();
-
-			// Set up the reader by chaining into the include reader.
-			using (var stringReader = new StringReader(xml))
-			using (XmlReader xmlReader = XmlReader.Create(stringReader))
-			using (var includeReader = new TestXIncludeReader(xmlReader))
-				// Set up the include reader's loading.
-
-				// Set up the identity writer so we can verify the results
-				// using string.
-			using (XmlWriter xmlWriter = XmlWriter.Create(
-				stringWriter,
-				writerSettings))
-			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
-				identityWriter.Load(includeReader);
-
-			// Pull out the resulting string.
-			string results = stringWriter.ToString();
-
-			// Report the input and output.
-			Console.WriteLine(" Input XML: " + xml);
-			Console.WriteLine("Output XML: " + results);
-
-			// Return the results.
-			return results;
-		}
-
-		/// <summary>
-		/// A private class that creates an appropriate XML reader on demand.
-		/// </summary>
-		private class TestXIncludeReader: XIncludeReader
-		{
-			public TestXIncludeReader(XmlReader underlyingReader)
-				: base(underlyingReader)
-			{
-			}
-
-			/// <summary>
-			/// Gets the included XML reader based on the current node.
-			/// </summary>
-			/// <returns></returns>
-			protected override XmlReader GetIncludedXmlReader()
-			{
-				string xml;
-
-				switch (GetAttribute("href"))
-				{
-					case "b.xml":
-						xml = "<b />";
-						break;
-					case "c.xml":
-						xml =
-							"<c xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'/></c>";
-						break;
-					default:
-						return null;
-				}
-
-				// Create an XML reader from the string.
-				var stringReader = new StringReader(xml);
-				XmlReader xmlReader = Create(stringReader);
-
-				return xmlReader;
-			}
-		}
+		#region Methods
 
 		/// <summary>
 		/// Tests the framework.
@@ -186,5 +110,97 @@ namespace UnitTests
 				expected,
 				results);
 		}
+
+		/// <summary>
+		/// Writes the XML results.
+		/// </summary>
+		/// <param name="xml">The input XML.</param>
+		/// <returns>The resulting XML from an identity write.</returns>
+		private static string WriteXmlResults(string xml)
+		{
+			// Set up the XML writing to produce consistent results.
+			var writerSettings = new XmlWriterSettings
+			{
+				OmitXmlDeclaration = true,
+			};
+			var stringWriter = new StringWriter();
+
+			// Set up the reader by chaining into the include reader.
+			using (var stringReader = new StringReader(xml))
+			using (XmlReader xmlReader = XmlReader.Create(stringReader))
+			using (var includeReader = new TestXIncludeReader(xmlReader))
+				// Set up the include reader's loading.
+
+				// Set up the identity writer so we can verify the results
+				// using string.
+			using (XmlWriter xmlWriter = XmlWriter.Create(
+				stringWriter,
+				writerSettings))
+			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
+				identityWriter.Load(includeReader);
+
+			// Pull out the resulting string.
+			string results = stringWriter.ToString();
+
+			// Report the input and output.
+			Console.WriteLine(" Input XML: " + xml);
+			Console.WriteLine("Output XML: " + results);
+
+			// Return the results.
+			return results;
+		}
+
+		#endregion
+
+		#region Nested Type: TestXIncludeReader
+
+		/// <summary>
+		/// A private class that creates an appropriate XML reader on demand.
+		/// </summary>
+		private class TestXIncludeReader: XIncludeReader
+		{
+			#region Methods
+
+			/// <summary>
+			/// Gets the included XML reader based on the current node.
+			/// </summary>
+			/// <returns></returns>
+			protected override XmlReader GetIncludedXmlReader()
+			{
+				string xml;
+
+				switch (GetAttribute("href"))
+				{
+					case "b.xml":
+						xml = "<b />";
+						break;
+					case "c.xml":
+						xml =
+							"<c xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'/></c>";
+						break;
+					default:
+						return null;
+				}
+
+				// Create an XML reader from the string.
+				var stringReader = new StringReader(xml);
+				XmlReader xmlReader = Create(stringReader);
+
+				return xmlReader;
+			}
+
+			#endregion
+
+			#region Constructors
+
+			public TestXIncludeReader(XmlReader underlyingReader)
+				: base(underlyingReader)
+			{
+			}
+
+			#endregion
+		}
+
+		#endregion
 	}
 }

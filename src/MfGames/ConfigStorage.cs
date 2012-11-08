@@ -18,6 +18,8 @@ namespace MfGames
 	/// </summary>
 	public static class ConfigStorage
 	{
+		#region Properties
+
 		/// <summary>
 		/// Contains the configuration directory for the current user.
 		/// </summary>
@@ -33,6 +35,10 @@ namespace MfGames
 		{
 			get { return new DirectoryInfo(ConfigurationDirectory); }
 		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>
 		/// Retrieves, creating if needed, a directory inside the user's configuration area.
@@ -96,5 +102,7 @@ namespace MfGames
 			// Return the resulting directory.
 			return directory;
 		}
+
+		#endregion
 	}
 }

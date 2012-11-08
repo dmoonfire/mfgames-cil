@@ -90,8 +90,7 @@ namespace MfGames.Collections
 
 		#region Nodes
 
-		private readonly Dictionary<string, HierarchicalPathTreeCollection<TValue>>
-			nodes;
+		#region Properties
 
 		/// <summary>
 		/// The number of nodes directly underneath the current tree node.
@@ -116,6 +115,15 @@ namespace MfGames.Collections
 		{
 			get { return 1 + nodes.Values.Sum(child => child.NodeCount); }
 		}
+
+		#endregion
+
+		#region Fields
+
+		private readonly Dictionary<string, HierarchicalPathTreeCollection<TValue>>
+			nodes;
+
+		#endregion
 
 		#endregion
 

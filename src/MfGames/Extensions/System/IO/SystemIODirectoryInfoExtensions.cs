@@ -15,6 +15,8 @@ namespace MfGames.Extensions.System.IO
 	/// </summary>
 	public static class SystemIODirectoryInfoExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Gets the directory info from the directory.
 		/// </summary>
@@ -46,5 +48,7 @@ namespace MfGames.Extensions.System.IO
 					directory.FullName,
 					filename));
 		}
+
+		#endregion
 	}
 }

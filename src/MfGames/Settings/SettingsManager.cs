@@ -61,8 +61,7 @@ namespace MfGames.Settings
 
 		#region Settings
 
-		private readonly Dictionary<HierarchicalPath, object> objectSettings;
-		private readonly Dictionary<HierarchicalPath, string> xmlSettings;
+		#region Properties
 
 		/// <summary>
 		/// Gets the number of settings in the manager.
@@ -88,6 +87,10 @@ namespace MfGames.Settings
 			get { return xmlSettings.Count; }
 		}
 
+		#endregion
+
+		#region Methods
+
 		private bool GetParentSettingsFirst(SettingSearchOptions searchOptions)
 		{
 			return (searchOptions & SettingSearchOptions.ParentSettingsFirst)
@@ -112,6 +115,15 @@ namespace MfGames.Settings
 			return (searchOptions & SettingSearchOptions.SerializeDeserializeMapping)
 				== SettingSearchOptions.SerializeDeserializeMapping;
 		}
+
+		#endregion
+
+		#region Fields
+
+		private readonly Dictionary<HierarchicalPath, object> objectSettings;
+		private readonly Dictionary<HierarchicalPath, string> xmlSettings;
+
+		#endregion
 
 		#endregion
 

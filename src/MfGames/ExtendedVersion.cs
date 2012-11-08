@@ -30,93 +30,7 @@ namespace MfGames
 
 		#endregion
 
-		#region Constructors
-
-		/// <summary>
-		/// Constructs an empty version with a version of zero ("0").
-		/// </summary>
-		public ExtendedVersion()
-			: this("0")
-		{
-		}
-
-		/// <summary>
-		/// Constructs a version using the given string as the
-		/// version. This breaks up the version into version parts (broken
-		/// down by periods (".") and slashes ("-"). A version part
-		/// consists of a number, followed optionally by a string. If the
-		/// version cannot be parsed, it throws an MfGamesException.
-		/// </summary>
-		public ExtendedVersion(string version)
-		{
-			// Check for null and blank
-			if (version == null
-				|| version.Trim() == "")
-			{
-				throw new Exception("Cannot parse a null or blank version");
-			}
-
-			// Save the string version and remove the spaces
-			this.version = version = version.Trim();
-
-			// Check for spaces
-			if (RegexSpace.IsMatch(version))
-			{
-				throw new Exception("Versions cannot have whitespace");
-			}
-
-			// Split the version into parts. We also allocate the space for
-			// everything before parsing.
-			string[] parts = version.Split(
-				'.',
-				'-');
-			numerics = new int[parts.Length];
-			strings = new string[parts.Length];
-
-			for (int i = 0;
-				i < parts.Length;
-				i++)
-			{
-				// Check for match and sanity checking
-				if (!RegexPart.IsMatch(parts[i]))
-				{
-					throw new Exception(
-						"Cannot parse part '" + parts[i] + "' of '" + version + "'");
-				}
-
-				// Pull out the parts
-				Match match = RegexPart.Match(parts[i]);
-				string strNumber = match.Groups[1].Value;
-				strings[i] = match.Groups[2].Value;
-
-				try
-				{
-					// Try to parse the integer
-					numerics[i] = Int32.Parse(strNumber);
-				}
-				catch
-				{
-					throw new Exception("Cannot numerically parse '" + parts[i] + "'");
-				}
-			}
-		}
-
-		#endregion
-
-		#region Properties
-
-		// Contains the string version
-
-		// Contains the numeric parts of the version
-		private readonly int[] numerics;
-
-		// Contains the string parts of the version
-		private readonly string[] strings;
-		private readonly string version;
-
-		#endregion
-
-		#region Operators
+		#region Methods
 
 		/// <summary>
 		/// A Debian-like parsing of version numbers that encodes the
@@ -183,6 +97,44 @@ namespace MfGames
 					throw new Exception("Cannot identify operation: " + op);
 			}
 		}
+
+		/// <summary>
+		/// Determines if the object is equal to the current one. In cases
+		/// where the object is not a ExtendedVersion class, it returns false.
+		/// </summary>
+		public override bool Equals(object obj)
+		{
+			try
+			{
+				var v = obj as ExtendedVersion;
+				return this == v;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Overrides the hash code for the version, which is based on all
+		/// the version parts.
+		/// </summary>
+		public override int GetHashCode()
+		{
+			return ToString().GetHashCode();
+		}
+
+		/// <summary>
+		/// Returns the text version of the string.
+		/// </summary>
+		public override string ToString()
+		{
+			return version;
+		}
+
+		#endregion
+
+		#region Operators
 
 		/// <summary>
 		/// Determines if the two versions are syntactically equal. If all
@@ -305,41 +257,90 @@ namespace MfGames
 
 		#endregion
 
-		#region Common Object Methods
+		#region Constructors
 
 		/// <summary>
-		/// Determines if the object is equal to the current one. In cases
-		/// where the object is not a ExtendedVersion class, it returns false.
+		/// Constructs an empty version with a version of zero ("0").
 		/// </summary>
-		public override bool Equals(object obj)
+		public ExtendedVersion()
+			: this("0")
 		{
-			try
+		}
+
+		/// <summary>
+		/// Constructs a version using the given string as the
+		/// version. This breaks up the version into version parts (broken
+		/// down by periods (".") and slashes ("-"). A version part
+		/// consists of a number, followed optionally by a string. If the
+		/// version cannot be parsed, it throws an MfGamesException.
+		/// </summary>
+		public ExtendedVersion(string version)
+		{
+			// Check for null and blank
+			if (version == null
+				|| version.Trim() == "")
 			{
-				var v = obj as ExtendedVersion;
-				return this == v;
+				throw new Exception("Cannot parse a null or blank version");
 			}
-			catch
+
+			// Save the string version and remove the spaces
+			this.version = version = version.Trim();
+
+			// Check for spaces
+			if (RegexSpace.IsMatch(version))
 			{
-				return false;
+				throw new Exception("Versions cannot have whitespace");
+			}
+
+			// Split the version into parts. We also allocate the space for
+			// everything before parsing.
+			string[] parts = version.Split(
+				'.',
+				'-');
+			numerics = new int[parts.Length];
+			strings = new string[parts.Length];
+
+			for (int i = 0;
+				i < parts.Length;
+				i++)
+			{
+				// Check for match and sanity checking
+				if (!RegexPart.IsMatch(parts[i]))
+				{
+					throw new Exception(
+						"Cannot parse part '" + parts[i] + "' of '" + version + "'");
+				}
+
+				// Pull out the parts
+				Match match = RegexPart.Match(parts[i]);
+				string strNumber = match.Groups[1].Value;
+				strings[i] = match.Groups[2].Value;
+
+				try
+				{
+					// Try to parse the integer
+					numerics[i] = Int32.Parse(strNumber);
+				}
+				catch
+				{
+					throw new Exception("Cannot numerically parse '" + parts[i] + "'");
+				}
 			}
 		}
 
-		/// <summary>
-		/// Overrides the hash code for the version, which is based on all
-		/// the version parts.
-		/// </summary>
-		public override int GetHashCode()
-		{
-			return ToString().GetHashCode();
-		}
+		#endregion
 
-		/// <summary>
-		/// Returns the text version of the string.
-		/// </summary>
-		public override string ToString()
-		{
-			return version;
-		}
+		// Contains the string version
+
+		// Contains the numeric parts of the version
+
+		#region Fields
+
+		private readonly int[] numerics;
+
+		// Contains the string parts of the version
+		private readonly string[] strings;
+		private readonly string version;
 
 		#endregion
 	}

@@ -19,6 +19,8 @@ namespace MfGames.Locking
 	/// </summary>
 	public static class TryGetCreatePattern
 	{
+		#region Methods
+
 		/// <summary>
 		/// Invokes the try/get/create pattern used a condition to test for it
 		/// and a constructor function.
@@ -109,5 +111,7 @@ namespace MfGames.Locking
 					return createHandler(input);
 			}
 		}
+
+		#endregion
 	}
 }

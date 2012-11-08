@@ -16,6 +16,8 @@ namespace MfGames.Extensions.System.Reflection
 	/// </summary>
 	public static class SystemReflectionParameterInfoExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Extends the Type class to return a flag if there is the presence of a custom
 		/// attribute.
@@ -84,5 +86,7 @@ namespace MfGames.Extensions.System.Reflection
 				attributeType,
 				true).Length > 0);
 		}
+
+		#endregion
 	}
 }

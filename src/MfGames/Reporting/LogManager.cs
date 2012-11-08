@@ -32,7 +32,7 @@ namespace MfGames.Reporting
 
 		#region Eventing
 
-		private static readonly ReaderWriterLockSlim threadLock;
+		#region Events
 
 		/// <summary>
 		/// Occurs when a message is logged. The sender can be <see langword="null"/>
@@ -54,6 +54,14 @@ namespace MfGames.Reporting
 		}
 
 		private static event EventHandler<SeverityMessageEventArgs> logged;
+
+		#endregion
+
+		#region Fields
+
+		private static readonly ReaderWriterLockSlim threadLock;
+
+		#endregion
 
 		#endregion
 
