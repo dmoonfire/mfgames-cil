@@ -19,6 +19,24 @@ namespace MfGames.Xml
 		#region Properties
 
 		/// <summary>
+		/// Gets the normalized base URI, which is always set.
+		/// </summary>
+		public Uri NormalizedBaseUri
+		{
+			get
+			{
+				string baseUriString = String.IsNullOrEmpty(BaseURI)
+					? Path.Combine(
+						Environment.CurrentDirectory,
+						"temporary.xml")
+					: BaseURI;
+				var uri = new Uri(baseUriString);
+
+				return uri;
+			}
+		}
+
+		/// <summary>
 		/// Gets the underlying XML reader.
 		/// </summary>
 		protected override XmlReader UnderlyingReader
@@ -128,12 +146,7 @@ namespace MfGames.Xml
 			}
 
 			// Figure out the base URI for the current reader.
-			string baseUriString = String.IsNullOrEmpty(BaseURI)
-				? Path.Combine(
-					Environment.CurrentDirectory,
-					"temporary.xml")
-				: BaseURI;
-			var baseUri = new Uri(baseUriString);
+			Uri baseUri = NormalizedBaseUri;
 
 			// Figure out the URI for the new one and use that to create an
 			// XML stream.
