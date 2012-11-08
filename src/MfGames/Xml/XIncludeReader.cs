@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 namespace MfGames.Xml
@@ -13,6 +14,30 @@ namespace MfGames.Xml
 	/// </summary>
 	public class XIncludeReader: XmlProxyReader
 	{
+		#region Properties
+
+		/// <summary>
+		/// Gets the underlying XML reader.
+		/// </summary>
+		protected override XmlReader UnderlyingReader
+		{
+			get { return CurrentItem.Reader; }
+			set
+			{
+				// Do nothing here.
+			}
+		}
+
+		/// <summary>
+		/// Gets the current item in the stack.
+		/// </summary>
+		private StackItem CurrentItem
+		{
+			get { return stack[0]; }
+		}
+
+		#endregion
+
 		#region Methods
 
 		/// <summary>
@@ -31,14 +56,34 @@ namespace MfGames.Xml
 
 			if (!successful)
 			{
-				// See if we have another reader on the stack.
-				if (xmlReaderStack.Count > 0)
+				// If we aren't successful, check to see if we are at the last
+				// item in the stack. If we are, then we leave it there so any
+				// call into the underlying reader will work on that final (or
+				// outermost) XML.
+				if (stack.Count == 1)
 				{
-					ReadEndIncludeElement();
-					return Read();
+					return false;
 				}
 
-				return false;
+				// Pop the stack and recurse into ourselves because we'll be
+				// picking up the new popped reader instead of the previous
+				// one. There is a slight risk of stack overflow, but we're
+				// hoping that someone isn't finishing up 200+ readers in a
+				// single loop.
+				FinishedCurrentReader();
+
+				// Execute the read on the new event and pass it in.
+				successful = Read();
+				return successful;
+			}
+
+			// If we are trying to write out the XML declaration with an inner
+			// element, then skip it since that would be an invalid state.
+			if (NodeType == XmlNodeType.XmlDeclaration &&
+				stack.Count > 1)
+			{
+				successful = Read();
+				return successful;
 			}
 
 			// Check to see if we are working with an XInclude reference.
@@ -47,11 +92,12 @@ namespace MfGames.Xml
 			{
 				if (LocalName == "include")
 				{
-					// Check for the node type.
+					// We don't worry about the ending tag, but we need to
+					// handle the start tag if we encounter it.
 					if (NodeType == XmlNodeType.Element)
 					{
 						// We need to attempt to load in a new element.
-						ReadStartIncludeElement();
+						StartNewReader();
 					}
 
 					// Simply move to the next node since we already dealt with
@@ -68,72 +114,69 @@ namespace MfGames.Xml
 		/// Gets the included XML reader based on the current node.
 		/// </summary>
 		/// <returns></returns>
-		protected virtual XmlReader GetIncludedXmlReader()
+		protected virtual XmlReader CreateIncludedReader()
 		{
-			// Grab the @href element.
+			// Grab the @href element and make sure we have it.
 			string href = GetAttribute("href");
 
 			if (href == null)
 			{
-				throw new ApplicationException("Cannot include href from the XInclude tag.");
+				throw new ApplicationException("Cannot locate href attribute from the XInclude tag.");
 			}
 
-			// Create the resulting XML reader
-			XmlReader reader = Create(href);
+			// Figure out the base URI for the current reader.
+			string baseUriString = String.IsNullOrEmpty(BaseURI)
+				? Path.Combine(Environment.CurrentDirectory, "temporary.xml")
+				: BaseURI;
+			var baseUri = new Uri(baseUriString);
 
+			// Figure out the URI for the new one and use that to create an
+			// XML stream.
+			var newUri = new Uri(
+				baseUri,
+				href);
+			XmlReader reader = XmlReader.Create(newUri.ToString());
+
+			// Return the resulting reader.
 			return reader;
-		}
-
-		/// <summary>
-		/// Called when an XInclude element was closed.
-		/// </summary>
-		protected virtual void ReadEndIncludeElement()
-		{
-			PopXmlReader();
-		}
-
-		/// <summary>
-		/// Called when an XInclude element was found.
-		/// </summary>
-		protected virtual void ReadStartIncludeElement()
-		{
-			PushXmlReader();
 		}
 
 		/// <summary>
 		/// Pops the XML reader from the stack and moves back to the previous one.
 		/// </summary>
-		private void PopXmlReader()
+		private void FinishedCurrentReader()
 		{
-			// Close the current reader.
-			UnderlyingReader.Close();
+			// Get the current stack item.
+			StackItem item = CurrentItem;
 
-			// Pull out the next reader from the stack.
-			int index = xmlReaderStack.Count - 1;
+			// Close the reader since we're done with it.
+			item.Reader.Close();
 
-			UnderlyingReader = xmlReaderStack[index];
-
-			// Remove the reader from the stack.
-			xmlReaderStack.RemoveAt(index);
+			// Remove the reader from the front of the stack.
+			stack.RemoveAt(0);
 		}
 
 		/// <summary>
 		/// Uses the current node to figure out a new XML reader to use for
 		/// the remaining stream or to use the fallback.
 		/// </summary>
-		private void PushXmlReader()
+		private void StartNewReader()
 		{
-			// Get the XML reader for the current node.
-			XmlReader innerXmlReader = GetIncludedXmlReader();
+			// Get the XML reader for the current node. This is a virtual method
+			// to allow an extending class to create an appropriate reader.
+			XmlReader newReader = CreateIncludedReader();
 
-			if (innerXmlReader != null)
+			if (newReader == null)
 			{
-				// Push this reader on the stack.
-				xmlReaderStack.Add(UnderlyingReader);
-
-				// Add the 
-				UnderlyingReader = innerXmlReader;
+				return;
 			}
+
+			// Create a new stack item with this reader.
+			var item = new StackItem { Reader = newReader };
+
+			// Insert the reader into the first position, as the "head" of
+			// the stack.
+			stack.Insert(0, item);
 		}
 
 		#endregion
@@ -143,18 +186,53 @@ namespace MfGames.Xml
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XIncludeReader"/> class.
 		/// </summary>
+		/// <param name="file">The file.</param>
+		public XIncludeReader(FileInfo file)
+			: this(Create(file.FullName))
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XIncludeReader"/> class.
+		/// </summary>
 		/// <param name="underlyingReader">The underlying reader.</param>
 		public XIncludeReader(XmlReader underlyingReader)
 			: base(underlyingReader)
 		{
-			xmlReaderStack = new List<XmlReader>();
+			// Create the stack we use for handling XInclude elements.
+			stack = new List<StackItem>();
+
+			// Wrap the first reader in the stack.
+			var item = new StackItem
+			{
+				Reader = underlyingReader
+			};
+
+			stack.Add(item);
 		}
 
 		#endregion
 
 		#region Fields
 
-		private readonly List<XmlReader> xmlReaderStack;
+		private readonly List<StackItem> stack;
+
+		#endregion
+
+		#region Nested Type: StackItem
+
+		/// <summary>
+		/// Encapsulates the functionality for handling stacked readers
+		/// including base information and context.
+		/// </summary>
+		private class StackItem
+		{
+			#region Properties
+
+			public XmlReader Reader { get; set; }
+
+			#endregion
+		}
 
 		#endregion
 	}

@@ -127,17 +127,25 @@ namespace UnitTests
 
 			// Set up the reader by chaining into the include reader.
 			using (var stringReader = new StringReader(xml))
-			using (XmlReader xmlReader = XmlReader.Create(stringReader))
-			using (var includeReader = new TestXIncludeReader(xmlReader))
-				// Set up the include reader's loading.
-
-				// Set up the identity writer so we can verify the results
-				// using string.
-			using (XmlWriter xmlWriter = XmlWriter.Create(
-				stringWriter,
-				writerSettings))
-			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
-				identityWriter.Load(includeReader);
+			{
+				using (XmlReader xmlReader = XmlReader.Create(stringReader))
+				{
+					using (var includeReader = new TestXIncludeReader(xmlReader))
+					{
+						// Set up the identity writer so we can verify the results
+						// using string.
+						using (XmlWriter xmlWriter = XmlWriter.Create(
+							stringWriter,
+							writerSettings))
+						{
+							using (var identityWriter = new XmlIdentityWriter(xmlWriter))
+							{
+								identityWriter.Load(includeReader);
+							}
+						}
+					}
+				}
+			}
 
 			// Pull out the resulting string.
 			string results = stringWriter.ToString();
@@ -148,6 +156,46 @@ namespace UnitTests
 
 			// Return the results.
 			return results;
+		}
+
+		#endregion
+
+		#region File Tests
+
+		[Test]
+		public void TestFileIncludeSimpleWithClosingTag()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/bfile.xml'></xi:include></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<b /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(
+				expected,
+				results);
+		}
+
+		[Test]
+		public void TestFileIncludeRecursive()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml'></xi:include></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<c xmlns:xinclude=\"http://www.w3.org/2001/XInclude\">\r\n\t\r\n<b />\r\n</c></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(
+				expected,
+				results);
 		}
 
 		#endregion
@@ -165,21 +213,23 @@ namespace UnitTests
 			/// Gets the included XML reader based on the current node.
 			/// </summary>
 			/// <returns></returns>
-			protected override XmlReader GetIncludedXmlReader()
+			protected override XmlReader CreateIncludedReader()
 			{
 				string xml;
+				string href = GetAttribute("href");
 
-				switch (GetAttribute("href"))
+				switch (href)
 				{
 					case "b.xml":
 						xml = "<b />";
 						break;
 					case "c.xml":
-						xml =
-							"<c xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='b.xml'/></c>";
+						xml = "<c xmlns:xi='http://www.w3.org/2003/XInclude'>"
+							+ "<xi:include href='b.xml'/></c>";
 						break;
 					default:
-						return null;
+						// Use the base implementation for everything else.
+						return base.CreateIncludedReader();
 				}
 
 				// Create an XML reader from the string.

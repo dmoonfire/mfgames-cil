@@ -2,6 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
+using System.IO;
 using System.Xml;
 
 namespace MfGames.Xml
@@ -178,7 +179,7 @@ namespace MfGames.Xml
 		/// <summary>
 		/// Gets the underlying XML reader.
 		/// </summary>
-		protected XmlReader UnderlyingReader { get; set; }
+		protected virtual XmlReader UnderlyingReader { get; set; }
 
 		#endregion
 
@@ -361,10 +362,26 @@ namespace MfGames.Xml
 		/// <summary>
 		/// Initializes a new instance of the <see cref="XmlProxyReader"/> class.
 		/// </summary>
+		/// <param name="file">The file.</param>
+		public XmlProxyReader(FileInfo file)
+			: this(Create(file.FullName))
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XmlProxyReader"/> class.
+		/// </summary>
 		/// <param name="underlyingReader">The underlying reader.</param>
 		public XmlProxyReader(XmlReader underlyingReader)
 		{
 			UnderlyingReader = underlyingReader;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="XmlProxyReader"/> class.
+		/// </summary>
+		protected XmlProxyReader()
+		{
 		}
 
 		#endregion
