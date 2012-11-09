@@ -123,6 +123,10 @@ namespace MfGames.Xml
 						reader.Value);
 				}
 				while (reader.MoveToNextAttribute());
+
+				// We have to move back to the element so the rest of the
+				// processing works properly.
+				reader.MoveToElement();
 			}
 
 			// If we have an empty element, we won't see an EndElement for this

@@ -52,6 +52,35 @@ namespace UnitTests
 		}
 
 		[Test]
+		public void InnerEmptyTag()
+		{
+			// Arrange
+			const string xml = "<a><b /><b /></a>";
+
+			// Act
+			var settings = new XmlWriterSettings
+			{
+				OmitXmlDeclaration = true,
+			};
+			var stringWriter = new StringWriter();
+
+			using (var stringReader = new StringReader(xml))
+			using (XmlReader xmlReader = XmlReader.Create(stringReader))
+			using (XmlWriter xmlWriter = XmlWriter.Create(
+				stringWriter,
+				settings))
+			using (var identityWriter = new XmlIdentityWriter(xmlWriter))
+				identityWriter.Load(xmlReader);
+
+			// Assert
+			string actual = stringWriter.ToString();
+
+			Assert.AreEqual(
+				xml,
+				actual);
+		}
+
+		[Test]
 		public void SingleTag()
 		{
 			// Arrange

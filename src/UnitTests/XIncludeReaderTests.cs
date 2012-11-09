@@ -61,6 +61,22 @@ namespace UnitTests
 		}
 
 		[Test]
+		public void InnerEmptyTags()
+		{
+			// Arrange
+			const string xml = "<a><b c=\"t\" /><c c=\"a\"/></a>";
+			const string expected = "<a><b c=\"t\" /><c c=\"a\" /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(
+				expected,
+				results);
+		}
+
+		[Test]
 		public void TestIncludeSimpleWithClosingTag()
 		{
 			// Arrange
