@@ -110,9 +110,20 @@ namespace MfGames.Xml
 				reader.NamespaceURI);
 
 			// Write out all the attributes.
-			WriteAttributes(
-				reader,
-				true);
+			if (reader.HasAttributes)
+			{
+				reader.MoveToFirstAttribute();
+
+				do
+				{
+					WriteAttributeString(
+						reader.Prefix,
+						reader.LocalName,
+						reader.NamespaceURI,
+						reader.Value);
+				}
+				while (reader.MoveToNextAttribute());
+			}
 
 			// If we have an empty element, we won't see an EndElement for this
 			// node. So, we need to write it out. We use WriteEndElement()
