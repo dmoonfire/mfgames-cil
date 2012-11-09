@@ -80,6 +80,7 @@
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\System\IO\SystemIODirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\System\IO\SystemIOFileInfoExtensions.cs" />
+    <Compile Include="Extensions\System\IO\SystemIOFileSystemInfoExtensions.cs" />
     <Compile Include="Extensions\System\SystemArrayExtensions.cs" />
     <Compile Include="Extensions\System\Reflection\SystemReflectionMemberInfoExtensions.cs" />
     <Compile Include="Extensions\System\Reflection\SystemReflectionParameterInfoExtensions.cs" />
