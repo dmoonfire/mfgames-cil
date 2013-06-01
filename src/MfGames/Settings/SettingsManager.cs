@@ -39,20 +39,20 @@ namespace MfGames.Settings
 		}
 
 		/// <summary>
+		/// Gets or sets the parent settings object, used for searching.
+		/// </summary>
+		/// <value>
+		/// The parent settings manager.
+		/// </value>
+		public SettingsManager Parent { get; set; }
+
+		/// <summary>
 		/// Gets the number of settings that are in serialized form.
 		/// </summary>
 		public int StoredCount
 		{
 			get { return xmlSettings.Count; }
 		}
-
-		/// <summary>
-		/// Gets or sets the parent settings object, used for searching.
-		/// </summary>
-		/// <value>
-		/// The parent settings manager.
-		/// </value>
-		private SettingsManager Parent { get; set; }
 
 		#endregion
 
@@ -276,6 +276,58 @@ namespace MfGames.Settings
 		}
 
 		/// <summary>
+		/// Retrives all the settings of the given path including all the parents.
+		/// The order of the resulting enumerable is from the current one with each
+		/// parent added to the end. If a given SettingsManager doesn't include the
+		/// path, then no item will be included.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <returns></returns>
+		public IList<TSetting> GetAll<TSetting>(string path)
+			where TSetting: class, new()
+		{
+			var hierarchicalPath = new HierarchicalPath(path);
+			IList<TSetting> settings = GetAll<TSetting>(hierarchicalPath);
+			return settings;
+		}
+
+		/// <summary>
+		/// Retrives all the settings of the given path including all the parents.
+		/// The order of the resulting enumerable is from the current one with each
+		/// parent added to the end. If a given SettingsManager doesn't include the
+		/// path, then no item will be included.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <returns></returns>
+		public IList<TSetting> GetAll<TSetting>(HierarchicalPath path)
+			where TSetting: class, new()
+		{
+			// Go through the manager, adding each setting, until we run out of
+			// parent managers.
+			var settings = new List<TSetting>();
+			SettingsManager manager = this;
+
+			while (manager != null)
+			{
+				// See if this manager has that item.
+				TSetting setting;
+
+				if (manager.TryGet(path, SettingSearchOptions.None, out setting))
+				{
+					settings.Add(setting);
+				}
+
+				// Move to the parent setting manager.
+				manager = manager.Parent;
+			}
+
+			// Return the resulting managers.
+			return settings;
+		}
+
+		/// <summary>
 		/// Loads the specified file into the settings.
 		/// </summary>
 		/// <param name="file">The file.</param>
@@ -471,6 +523,21 @@ namespace MfGames.Settings
 		{
 			xmlSettings.Remove(path);
 			objectSettings[path] = setting;
+		}
+
+		/// <summary>
+		/// Sets the setting to the specified path.
+		/// </summary>
+		/// <typeparam name="TSetting">The type of the setting.</typeparam>
+		/// <param name="path">The path.</param>
+		/// <param name="setting">The setting.</param>
+		public void Set<TSetting>(
+			string path,
+			TSetting setting)
+		{
+			var hierarchicalPath = new HierarchicalPath(path);
+
+			Set(hierarchicalPath, setting);
 		}
 
 		/// <summary>

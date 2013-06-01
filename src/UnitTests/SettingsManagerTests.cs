@@ -2,6 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using MfGames.HierarchicalPaths;
@@ -85,6 +86,36 @@ namespace UnitTests
 
 			// Verification
 			Assert.AreEqual(0, settingsManager.Count);
+		}
+
+		[Test]
+		public void GetAllFromParents()
+		{
+			// Arrange
+			var settings1 = new SettingsManager();
+			var settings2 = new SettingsManager();
+			var settings3 = new SettingsManager();
+
+			settings1.Set("/a", new SettingsA1(99, "settings1"));
+			settings1.Flush();
+			settings1.Parent = settings2;
+
+			settings2.Parent = settings3;
+
+			settings3.Set("/a", new SettingsA2(11, "settings3"));
+			settings3.Flush();
+
+			// Act
+			IList<SettingsA1> settings = settings1.GetAll<SettingsA1>("/a");
+
+			// Assert
+			Assert.AreEqual(2, settings.Count);
+
+			Assert.AreEqual(99, settings[0].A);
+			Assert.AreEqual("settings1", settings[0].B);
+
+			Assert.AreEqual(11, settings[1].A);
+			Assert.AreEqual("settings3", settings[1].B);
 		}
 
 		/// <summary>
