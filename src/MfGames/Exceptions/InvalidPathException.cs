@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
-
-#endregion
 
 namespace MfGames.Exceptions
 {
@@ -36,8 +32,7 @@ namespace MfGames.Exceptions
 		public InvalidPathException(
 			string msg,
 			Exception e)
-			: base(msg,
-				e)
+			: base(msg, e)
 		{
 		}
 

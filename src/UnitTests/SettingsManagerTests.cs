@@ -2,16 +2,12 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System.IO;
 using System.Xml.Serialization;
 using MfGames.HierarchicalPaths;
 using MfGames.Settings;
 using MfGames.Settings.Enumerations;
 using NUnit.Framework;
-
-#endregion
 
 namespace UnitTests
 {
@@ -33,16 +29,10 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Operation
-			settingsManager.Set(
-				new HierarchicalPath("/a"),
-				new SettingsA1(
-					2,
-					"two"));
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA1(2, "two"));
 
 			// Verification
-			Assert.AreEqual(
-				1,
-				settingsManager.Count);
+			Assert.AreEqual(1, settingsManager.Count);
 		}
 
 		/// <summary>
@@ -55,17 +45,11 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Operation
-			settingsManager.Set(
-				new HierarchicalPath("/a"),
-				new SettingsA1(
-					3,
-					"three"));
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA1(3, "three"));
 			settingsManager.Flush();
 
 			// Verification
-			Assert.AreEqual(
-				1,
-				settingsManager.Count);
+			Assert.AreEqual(1, settingsManager.Count);
 		}
 
 		/// <summary>
@@ -76,27 +60,16 @@ namespace UnitTests
 		{
 			// Setup
 			var settingsManager = new SettingsManager();
-			settingsManager.Set(
-				new HierarchicalPath("/a"),
-				new SettingsA1(
-					1,
-					"one"));
+			settingsManager.Set(new HierarchicalPath("/a"), new SettingsA1(1, "one"));
 
 			// Operation
 			var b = settingsManager.Get<SettingsA2>(
-				"/a",
-				SettingSearchOptions.SerializeDeserializeMapping);
+				"/a", SettingSearchOptions.SerializeDeserializeMapping);
 
 			// Verification
-			Assert.AreEqual(
-				1,
-				settingsManager.Count);
-			Assert.AreEqual(
-				1,
-				b.A);
-			Assert.AreEqual(
-				"one",
-				b.B);
+			Assert.AreEqual(1, settingsManager.Count);
+			Assert.AreEqual(1, b.A);
+			Assert.AreEqual("one", b.B);
 		}
 
 		/// <summary>
@@ -111,9 +84,7 @@ namespace UnitTests
 			var settingsManager = new SettingsManager();
 
 			// Verification
-			Assert.AreEqual(
-				0,
-				settingsManager.Count);
+			Assert.AreEqual(0, settingsManager.Count);
 		}
 
 		/// <summary>
@@ -134,9 +105,7 @@ namespace UnitTests
 			settingsManager.Load(reader);
 
 			// Verification
-			Assert.AreEqual(
-				0,
-				settingsManager.Count);
+			Assert.AreEqual(0, settingsManager.Count);
 		}
 
 		#endregion

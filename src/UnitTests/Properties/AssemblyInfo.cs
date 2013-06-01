@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System.Reflection;
 using System.Runtime.InteropServices;
-
-#endregion
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information

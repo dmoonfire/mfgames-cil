@@ -2,13 +2,9 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
-#endregion
 
 // General assembly information.
 

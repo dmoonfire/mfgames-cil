@@ -54,21 +54,14 @@ namespace MfGames.Xml
 				string function;
 				string argument;
 
-				if (TryParseFunction(
-					ref xpointer,
-					out function,
-					out argument))
+				if (TryParseFunction(ref xpointer, out function, out argument))
 				{
 					// We parsed a function, so figure out what to do from there.
 					switch (function)
 					{
 						case "xmlns":
-							int equalIndex = argument.IndexOf(
-								"=",
-								StringComparison.Ordinal);
-							string prefix = argument.Substring(
-								0,
-								equalIndex);
+							int equalIndex = argument.IndexOf("=", StringComparison.Ordinal);
+							string prefix = argument.Substring(0, equalIndex);
 							string ns = argument.Substring(equalIndex + 1);
 
 							namespaces[prefix] = ns;
@@ -145,9 +138,7 @@ namespace MfGames.Xml
 						// We get the function from the regular expression and
 						// the argument from the length we just figured out.
 						function = match.Groups[1].Value;
-						argument = xpointer.Substring(
-							0,
-							i);
+						argument = xpointer.Substring(0, i);
 
 						// Strip off the function including the trailing ")".
 						xpointer = xpointer.Substring(i + 1);

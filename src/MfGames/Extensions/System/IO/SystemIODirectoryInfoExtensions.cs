@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System.IO;
-
-#endregion
 
 namespace MfGames.Extensions.System.IO
 {
@@ -27,10 +23,7 @@ namespace MfGames.Extensions.System.IO
 			this DirectoryInfo directory,
 			string dirname)
 		{
-			return new DirectoryInfo(
-				Path.Combine(
-					directory.FullName,
-					dirname));
+			return new DirectoryInfo(Path.Combine(directory.FullName, dirname));
 		}
 
 		/// <summary>
@@ -43,10 +36,7 @@ namespace MfGames.Extensions.System.IO
 			this DirectoryInfo directory,
 			string filename)
 		{
-			return new FileInfo(
-				Path.Combine(
-					directory.FullName,
-					filename));
+			return new FileInfo(Path.Combine(directory.FullName, filename));
 		}
 
 		#endregion

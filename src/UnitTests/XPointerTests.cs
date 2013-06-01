@@ -10,10 +10,7 @@ namespace UnitTests
 	[TestFixture]
 	public class XPointerTests
 	{
-		[Test]
-		public void TestFramework()
-		{
-		}
+		#region Methods
 
 		[Test]
 		public void ParseXPointer()
@@ -24,5 +21,12 @@ namespace UnitTests
 			// Act
 			var xpointer = new XPointerInfo(input);
 		}
+
+		[Test]
+		public void TestFramework()
+		{
+		}
+
+		#endregion
 	}
 }

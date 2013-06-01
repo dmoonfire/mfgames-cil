@@ -2,13 +2,9 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-
-#endregion
 
 namespace MfGames.HierarchicalPaths
 {
@@ -18,147 +14,7 @@ namespace MfGames.HierarchicalPaths
 	/// </summary>
 	public class HierarchicalSelector: HierarchicalPath
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
-		/// </summary>
-		/// <param name="isRelative"></param>
-		public HierarchicalSelector(bool isRelative)
-			: base(isRelative)
-		{
-			ParseSelectors();
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		public HierarchicalSelector(string path)
-			: base(path)
-		{
-			ParseSelectors();
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
-		/// </summary>
-		/// <param name="levels">The levels.</param>
-		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
-		public HierarchicalSelector(
-			IEnumerable<string> levels,
-			bool isRelative)
-			: base(levels,
-				isRelative)
-		{
-			ParseSelectors();
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
-		/// </summary>
-		/// <param name="levels">The levels.</param>
-		/// <param name="startIndex">The start I ndex.</param>
-		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
-		public HierarchicalSelector(
-			IEnumerable<string> levels,
-			int startIndex,
-			bool isRelative)
-			: base(levels,
-				startIndex,
-				isRelative)
-		{
-			ParseSelectors();
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		/// <param name="context">The context.</param>
-		public HierarchicalSelector(
-			string path,
-			HierarchicalPath context)
-			: base(path,
-				context)
-		{
-			ParseSelectors();
-		}
-
-		#endregion
-
-		#region Parsing
-
 		#region Methods
-
-		/// <summary>
-		/// Parses the given path and converts the various ** and * elements into
-		/// regular expressions for selection.
-		/// </summary>
-		private void ParseSelectors()
-		{
-			// Create a selector regex that matches the length.
-			operations = new object[Levels.Count];
-
-			for (int index = 0;
-				index < Levels.Count;
-				index++)
-			{
-				// Check for "**" by itself which means zero or more levels.
-				string level = Levels[index];
-
-				if (level == "**")
-				{
-					// Create a sub-tree of the selector and put it into this
-					// object.
-					operations[index] = new HierarchicalSelector(
-						Levels,
-						index + 1,
-						true);
-					continue;
-				}
-
-				// Check for globbing operators ("*") which become ".*?" regex.
-				if (level.Contains("*"))
-				{
-					// Go through the string and convert all the "*" into regex.
-					var buffer = new StringBuilder();
-
-					for (int c = 0;
-						c < level.Length;
-						c++)
-					{
-						if (level[c] == '*')
-						{
-							buffer.Append(".*?");
-						}
-						else
-						{
-							buffer.Append(level[c]);
-						}
-					}
-
-					operations[index] = new Regex(buffer.ToString());
-					continue;
-				}
-
-				// For everything else, leave it null to indicate that a strict
-				// string is required.
-				operations[index] = null;
-			}
-		}
-
-		#endregion
-
-		#region Fields
-
-		private object[] operations;
-
-		#endregion
-
-		#endregion
-
-		#region Matching
 
 		/// <summary>
 		/// Determines whether the specified path is match for the selector.
@@ -169,9 +25,7 @@ namespace MfGames.HierarchicalPaths
 		/// </returns>
 		public bool IsMatch(HierarchicalPath path)
 		{
-			return IsMatch(
-				path,
-				0);
+			return IsMatch(path, 0);
 		}
 
 		/// <summary>
@@ -188,8 +42,7 @@ namespace MfGames.HierarchicalPaths
 		{
 			// If the selector is longer than the given path, it will never
 			// match the path.
-			if (Levels.Count
-				> path.Levels.Count)
+			if (Levels.Count > path.Levels.Count)
 			{
 				return false;
 			}
@@ -247,9 +100,7 @@ namespace MfGames.HierarchicalPaths
 					starIndex++)
 				{
 					// If this is a match, use it.
-					if (subSelector.IsMatch(
-						path,
-						starIndex))
+					if (subSelector.IsMatch(path, starIndex))
 					{
 						return true;
 					}
@@ -298,6 +149,131 @@ namespace MfGames.HierarchicalPaths
 			// Return the list of selected paths.
 			return selected;
 		}
+
+		/// <summary>
+		/// Parses the given path and converts the various ** and * elements into
+		/// regular expressions for selection.
+		/// </summary>
+		private void ParseSelectors()
+		{
+			// Create a selector regex that matches the length.
+			operations = new object[Levels.Count];
+
+			for (int index = 0;
+				index < Levels.Count;
+				index++)
+			{
+				// Check for "**" by itself which means zero or more levels.
+				string level = Levels[index];
+
+				if (level == "**")
+				{
+					// Create a sub-tree of the selector and put it into this
+					// object.
+					operations[index] = new HierarchicalSelector(Levels, index + 1, true);
+					continue;
+				}
+
+				// Check for globbing operators ("*") which become ".*?" regex.
+				if (level.Contains("*"))
+				{
+					// Go through the string and convert all the "*" into regex.
+					var buffer = new StringBuilder();
+
+					for (int c = 0;
+						c < level.Length;
+						c++)
+					{
+						if (level[c] == '*')
+						{
+							buffer.Append(".*?");
+						}
+						else
+						{
+							buffer.Append(level[c]);
+						}
+					}
+
+					operations[index] = new Regex(buffer.ToString());
+					continue;
+				}
+
+				// For everything else, leave it null to indicate that a strict
+				// string is required.
+				operations[index] = null;
+			}
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
+		/// </summary>
+		/// <param name="isRelative"></param>
+		public HierarchicalSelector(bool isRelative)
+			: base(isRelative)
+		{
+			ParseSelectors();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		public HierarchicalSelector(string path)
+			: base(path)
+		{
+			ParseSelectors();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
+		public HierarchicalSelector(
+			IEnumerable<string> levels,
+			bool isRelative)
+			: base(levels, isRelative)
+		{
+			ParseSelectors();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="startIndex">The start I ndex.</param>
+		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
+		public HierarchicalSelector(
+			IEnumerable<string> levels,
+			int startIndex,
+			bool isRelative)
+			: base(levels, startIndex, isRelative)
+		{
+			ParseSelectors();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalSelector"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="context">The context.</param>
+		public HierarchicalSelector(
+			string path,
+			HierarchicalPath context)
+			: base(path, context)
+		{
+			ParseSelectors();
+		}
+
+		#endregion
+
+		#region Fields
+
+		private object[] operations;
 
 		#endregion
 	}

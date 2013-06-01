@@ -14,6 +14,8 @@ namespace UnitTests
 	[TestFixture]
 	public class SystemIOFileSystemInfoExtensionsTests
 	{
+		#region Methods
+
 		[Test]
 		public void TestFramework()
 		{
@@ -23,22 +25,16 @@ namespace UnitTests
 		public void TestRelativePath()
 		{
 			// Arrange
-			var file1 = new FileInfo(
-				Path.Combine(
-					"Temp",
-					"bob.jpg"));
-			var file2 = new FileInfo(
-				Path.Combine(
-					"Program Files",
-					"gary.jpg"));
+			var file1 = new FileInfo(Path.Combine("Temp", "bob.jpg"));
+			var file2 = new FileInfo(Path.Combine("Program Files", "gary.jpg"));
 
 			// Act
 			string relative = file1.GetRelativePathTo(file2);
 
 			// Assert
-			Assert.AreEqual(
-				@"..\..\Temp\bob.jpg",
-				relative);
+			Assert.AreEqual(@"..\..\Temp\bob.jpg", relative);
 		}
+
+		#endregion
 	}
 }

@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.IO;
-
-#endregion
 
 namespace MfGames
 {
@@ -45,9 +41,7 @@ namespace MfGames
 		/// </summary>
 		public static string GetDirectory(params string[] relativeDirectories)
 		{
-			return GetDirectoryInfo(
-				true,
-				relativeDirectories).FullName;
+			return GetDirectoryInfo(true, relativeDirectories).FullName;
 		}
 
 		/// <summary>
@@ -57,9 +51,7 @@ namespace MfGames
 			bool create,
 			params string[] relativeDirectories)
 		{
-			return GetDirectoryInfo(
-				create,
-				relativeDirectories).FullName;
+			return GetDirectoryInfo(create, relativeDirectories).FullName;
 		}
 
 		/// <summary>
@@ -68,9 +60,7 @@ namespace MfGames
 		public static DirectoryInfo GetDirectoryInfo(
 			params string[] relativeDirectories)
 		{
-			return GetDirectoryInfo(
-				true,
-				relativeDirectories);
+			return GetDirectoryInfo(true, relativeDirectories);
 		}
 
 		/// <summary>
@@ -87,10 +77,8 @@ namespace MfGames
 			foreach (string relativeDirectory in relativeDirectories)
 			{
 				// Create the new child directory.
-				directory = new DirectoryInfo(
-					Path.Combine(
-						directory.FullName,
-						relativeDirectory));
+				directory =
+					new DirectoryInfo(Path.Combine(directory.FullName, relativeDirectory));
 
 				// Create the directory if we were requested to create it and it doesn't exist.
 				if (create && !directory.Exists)

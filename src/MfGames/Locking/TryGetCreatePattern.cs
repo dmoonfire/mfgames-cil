@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Threading;
-
-#endregion
 
 namespace MfGames.Locking
 {
@@ -55,7 +51,9 @@ namespace MfGames.Locking
 
 				// We failed to get it in the lock. Upgrade the lock to a write and create it.
 				using (new WriteLock(readerWriterLockSlim))
+				{
 					createHandler();
+				}
 			}
 		}
 
@@ -82,9 +80,7 @@ namespace MfGames.Locking
 			using (new ReadLock(readerWriterLockSlim))
 			{
 				// Try to get the item using the try/get handler.
-				if (tryGetHandler(
-					input,
-					out output))
+				if (tryGetHandler(input, out output))
 				{
 					// We successful got the item in the read-only cache, so just return it.
 					return output;
@@ -97,9 +93,7 @@ namespace MfGames.Locking
 			using (new UpgradableLock(readerWriterLockSlim))
 			{
 				// Try to get the item using the try/get handler.
-				if (tryGetHandler(
-					input,
-					out output))
+				if (tryGetHandler(input, out output))
 				{
 					// We successful got the item in this lock, so return it without
 					// upgrading the lock.
@@ -108,7 +102,9 @@ namespace MfGames.Locking
 
 				// We failed to get it in the lock. Upgrade the lock to a write and create it.
 				using (new WriteLock(readerWriterLockSlim))
+				{
 					return createHandler(input);
+				}
 			}
 		}
 

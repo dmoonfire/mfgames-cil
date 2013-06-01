@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using MfGames.HierarchicalPaths;
 using NUnit.Framework;
-
-#endregion
 
 namespace UnitTests
 {

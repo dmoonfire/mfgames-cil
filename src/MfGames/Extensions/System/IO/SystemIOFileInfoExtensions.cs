@@ -12,6 +12,8 @@ namespace MfGames.Extensions.System.IO
 	/// </summary>
 	public static class SystemIOFileInfoExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Gets the basename.
 		/// </summary>
@@ -19,9 +21,7 @@ namespace MfGames.Extensions.System.IO
 		/// <returns></returns>
 		public static string GetBasename(this FileInfo file)
 		{
-			string name = file.Name.Replace(
-				file.Extension,
-				"");
+			string name = file.Name.Replace(file.Extension, "");
 			return name;
 		}
 
@@ -36,19 +36,25 @@ namespace MfGames.Extensions.System.IO
 			// If it doesn't exist, throw an exception.
 			if (!file.Exists)
 			{
-				throw new FileNotFoundException(
-					"Cannot find file to hash.",
-					file.FullName);
+				throw new FileNotFoundException("Cannot find file to hash.", file.FullName);
 			}
 
 			// Open up a stream in a way that lets others also read it.
-			using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
-			using (var buffered = new BufferedStream(stream))
-			using (var hasher = new SHA256Managed())
+			using (
+				FileStream stream = file.Open(
+					FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
-				byte[] results = hasher.ComputeHash(buffered);
-				return results;
+				using (var buffered = new BufferedStream(stream))
+				{
+					using (var hasher = new SHA256Managed())
+					{
+						byte[] results = hasher.ComputeHash(buffered);
+						return results;
+					}
+				}
 			}
 		}
+
+		#endregion
 	}
 }

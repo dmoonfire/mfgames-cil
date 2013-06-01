@@ -16,6 +16,68 @@ namespace UnitTests
 	{
 		#region Methods
 
+		[Test]
+		public void InnerEmptyTags()
+		{
+			// Arrange
+			const string xml = "<a><b c=\"t\" /><c c=\"a\"/></a>";
+			const string expected = "<a><b c=\"t\" /><c c=\"a\" /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(expected, results);
+		}
+
+		[Test]
+		public void TestFileIncludeRecursive()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml'></xi:include></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<c xmlns:xinclude=\"http://www.w3.org/2001/XInclude\">\r\n\t\r\n<b />\r\n</c></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(expected, results);
+		}
+
+		[Test]
+		public void TestFileIncludeRecursiveWithXPointer()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml' xpointer='xpointer(/*/*)'></xi:include></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(expected, results);
+		}
+
+		[Test]
+		public void TestFileIncludeSimpleWithClosingTag()
+		{
+			// Arrange
+			const string xml =
+				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/bfile.xml'></xi:include></a>";
+			const string expected =
+				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<b /></a>";
+
+			// Act
+			string results = WriteXmlResults(xml);
+
+			// Assert
+			Assert.AreEqual(expected, results);
+		}
+
 		/// <summary>
 		/// Tests the framework.
 		/// </summary>
@@ -37,9 +99,7 @@ namespace UnitTests
 			string results = WriteXmlResults(xml);
 
 			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
+			Assert.AreEqual(expected, results);
 		}
 
 		[Test]
@@ -55,25 +115,7 @@ namespace UnitTests
 			string results = WriteXmlResults(xml);
 
 			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
-		}
-
-		[Test]
-		public void InnerEmptyTags()
-		{
-			// Arrange
-			const string xml = "<a><b c=\"t\" /><c c=\"a\"/></a>";
-			const string expected = "<a><b c=\"t\" /><c c=\"a\" /></a>";
-
-			// Act
-			string results = WriteXmlResults(xml);
-
-			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
+			Assert.AreEqual(expected, results);
 		}
 
 		[Test]
@@ -89,9 +131,7 @@ namespace UnitTests
 			string results = WriteXmlResults(xml);
 
 			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
+			Assert.AreEqual(expected, results);
 		}
 
 		[Test]
@@ -107,9 +147,7 @@ namespace UnitTests
 			string results = WriteXmlResults(xml);
 
 			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
+			Assert.AreEqual(expected, results);
 		}
 
 		[Test]
@@ -123,9 +161,7 @@ namespace UnitTests
 			string results = WriteXmlResults(xml);
 
 			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
+			Assert.AreEqual(expected, results);
 		}
 
 		/// <summary>
@@ -151,9 +187,8 @@ namespace UnitTests
 					{
 						// Set up the identity writer so we can verify the results
 						// using string.
-						using (XmlWriter xmlWriter = XmlWriter.Create(
-							stringWriter,
-							writerSettings))
+						using (
+							XmlWriter xmlWriter = XmlWriter.Create(stringWriter, writerSettings))
 						{
 							using (var identityWriter = new XmlIdentityWriter(xmlWriter))
 							{
@@ -173,64 +208,6 @@ namespace UnitTests
 
 			// Return the results.
 			return results;
-		}
-
-		#endregion
-
-		#region File Tests
-
-		[Test]
-		public void TestFileIncludeRecursive()
-		{
-			// Arrange
-			const string xml =
-				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml'></xi:include></a>";
-			const string expected =
-				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<c xmlns:xinclude=\"http://www.w3.org/2001/XInclude\">\r\n\t\r\n<b />\r\n</c></a>";
-
-			// Act
-			string results = WriteXmlResults(xml);
-
-			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
-		}
-
-		[Test]
-		public void TestFileIncludeRecursiveWithXPointer()
-		{
-			// Arrange
-			const string xml =
-				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/cfile.xml' xpointer='xpointer(/*/*)'></xi:include></a>";
-			const string expected =
-				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\"><b /></a>";
-
-			// Act
-			string results = WriteXmlResults(xml);
-
-			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
-		}
-
-		[Test]
-		public void TestFileIncludeSimpleWithClosingTag()
-		{
-			// Arrange
-			const string xml =
-				"<a xmlns:xi='http://www.w3.org/2003/XInclude'><xi:include href='XInclude/bfile.xml'></xi:include></a>";
-			const string expected =
-				"<a xmlns:xi=\"http://www.w3.org/2003/XInclude\">\r\n<b /></a>";
-
-			// Act
-			string results = WriteXmlResults(xml);
-
-			// Assert
-			Assert.AreEqual(
-				expected,
-				results);
 		}
 
 		#endregion

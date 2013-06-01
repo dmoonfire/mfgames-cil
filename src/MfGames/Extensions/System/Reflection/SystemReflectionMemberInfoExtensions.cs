@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Reflection;
-
-#endregion
 
 namespace MfGames.Extensions.System.Reflection
 {
@@ -28,8 +24,7 @@ namespace MfGames.Extensions.System.Reflection
 			this MemberInfo memberInfo) where TAttribute: Attribute
 		{
 			object[] attributes = memberInfo.GetCustomAttributes(
-				typeof (TAttribute),
-				true);
+				typeof (TAttribute), true);
 
 			if (attributes.Length == 0)
 			{
@@ -56,9 +51,7 @@ namespace MfGames.Extensions.System.Reflection
 			this MemberInfo memberInfo,
 			bool inherited)
 		{
-			return memberInfo.HasCustomAttribute(
-				typeof (TAttribute),
-				inherited);
+			return memberInfo.HasCustomAttribute(typeof (TAttribute), inherited);
 		}
 
 		/// <summary>
@@ -74,10 +67,7 @@ namespace MfGames.Extensions.System.Reflection
 			this MemberInfo memberInfo,
 			Type attributeType)
 		{
-			return HasCustomAttribute(
-				memberInfo,
-				attributeType,
-				true);
+			return HasCustomAttribute(memberInfo, attributeType, true);
 		}
 
 		/// <summary>
@@ -102,9 +92,7 @@ namespace MfGames.Extensions.System.Reflection
 			}
 
 			// Go through the attributes of the member type and look for at least one.
-			return (memberInfo.GetCustomAttributes(
-				attributeType,
-				inherited).Length > 0);
+			return (memberInfo.GetCustomAttributes(attributeType, inherited).Length > 0);
 		}
 
 		#endregion

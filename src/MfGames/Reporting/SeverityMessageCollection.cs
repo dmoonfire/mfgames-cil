@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Collections.Generic;
-
-#endregion
 
 namespace MfGames.Reporting
 {
@@ -17,7 +13,7 @@ namespace MfGames.Reporting
 	/// </summary>
 	public class SeverityMessageCollection: HashSet<SeverityMessage>
 	{
-		#region Severity
+		#region Properties
 
 		/// <summary>
 		/// Gets the highest severity in the collection. If there are no elements
@@ -38,9 +34,7 @@ namespace MfGames.Reporting
 
 				foreach (SeverityMessage message in this)
 				{
-					highest = Math.Max(
-						(int) message.Severity,
-						highest);
+					highest = Math.Max((int) message.Severity, highest);
 				}
 
 				// Return the resulting severity.

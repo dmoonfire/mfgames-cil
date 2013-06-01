@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Threading;
-
-#endregion
 
 namespace MfGames.Locking
 {
@@ -28,12 +24,6 @@ namespace MfGames.Locking
 
 		#endregion
 
-		#region Locking
-
-		private readonly ReaderWriterLockSlim readerWriterLockSlim;
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>
@@ -45,6 +35,12 @@ namespace MfGames.Locking
 			this.readerWriterLockSlim = readerWriterLockSlim;
 			readerWriterLockSlim.EnterUpgradeableReadLock();
 		}
+
+		#endregion
+
+		#region Fields
+
+		private readonly ReaderWriterLockSlim readerWriterLockSlim;
 
 		#endregion
 	}

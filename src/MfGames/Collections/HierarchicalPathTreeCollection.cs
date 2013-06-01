@@ -2,13 +2,9 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System.Collections.Generic;
 using System.Linq;
 using MfGames.HierarchicalPaths;
-
-#endregion
 
 namespace MfGames.Collections
 {
@@ -30,37 +26,7 @@ namespace MfGames.Collections
 	/// </summary>
 	public class HierarchicalPathTreeCollection<TValue>
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathTreeCollection&lt;TValue&gt;"/> class.
-		/// </summary>
-		public HierarchicalPathTreeCollection()
-			: this(HierarchicalPath.AbsoluteRoot)
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the class with a given path.
-		/// </summary>
-		private HierarchicalPathTreeCollection(HierarchicalPath path)
-		{
-			Path = path;
-			nodes = new Dictionary<string, HierarchicalPathTreeCollection<TValue>>();
-		}
-
-		#endregion
-
-		#region Context
-
-		/// <summary>
-		/// Gets the path of the tree collection, relative to the root.
-		/// </summary>
-		public HierarchicalPath Path { get; private set; }
-
-		#endregion
-
-		#region Items
+		#region Properties
 
 		/// <summary>
 		/// Gets the count of items, recursively going through the child elements.
@@ -74,23 +40,6 @@ namespace MfGames.Collections
 					: 0) + nodes.Values.Sum(child => child.Count);
 			}
 		}
-
-		/// <summary>
-		/// Internal flag to determine if the item is populated.
-		/// </summary>
-		public bool HasItem { get; private set; }
-
-		/// <summary>
-		/// Gets or sets the item at this level. This is the equivelant of
-		/// setting or getting the path "/".
-		/// </summary>
-		public TValue Item { get; set; }
-
-		#endregion
-
-		#region Nodes
-
-		#region Properties
 
 		/// <summary>
 		/// The number of nodes directly underneath the current tree node.
@@ -109,6 +58,17 @@ namespace MfGames.Collections
 		}
 
 		/// <summary>
+		/// Internal flag to determine if the item is populated.
+		/// </summary>
+		public bool HasItem { get; private set; }
+
+		/// <summary>
+		/// Gets or sets the item at this level. This is the equivelant of
+		/// setting or getting the path "/".
+		/// </summary>
+		public TValue Item { get; set; }
+
+		/// <summary>
 		/// Contains the number of nodes in the tree, calculated recursively.
 		/// </summary>
 		public int NodeCount
@@ -116,37 +76,14 @@ namespace MfGames.Collections
 			get { return 1 + nodes.Values.Sum(child => child.NodeCount); }
 		}
 
-		#endregion
-
-		#region Fields
-
-		private readonly Dictionary<string, HierarchicalPathTreeCollection<TValue>>
-			nodes;
-
-		#endregion
-
-		#endregion
-
-		#region Factory
-
 		/// <summary>
-		/// Creates the child collection. This is called when the tree needs to
-		/// create a child tree.
+		/// Gets the path of the tree collection, relative to the root.
 		/// </summary>
-		/// <returns></returns>
-		protected virtual HierarchicalPathTreeCollection<TValue> CreateChild(
-			string childNodeName)
-		{
-			return
-				new HierarchicalPathTreeCollection<TValue>(
-					new HierarchicalPath(
-						childNodeName,
-						Path));
-		}
+		public HierarchicalPath Path { get; private set; }
 
 		#endregion
 
-		#region Collection
+		#region Methods
 
 		/// <summary>
 		/// Adds an item at the specified path.
@@ -155,9 +92,7 @@ namespace MfGames.Collections
 			string path,
 			TValue item)
 		{
-			Add(
-				new HierarchicalPath(path),
-				item);
+			Add(new HierarchicalPath(path), item);
 		}
 
 		/// <summary>
@@ -190,9 +125,7 @@ namespace MfGames.Collections
 			HierarchicalPathTreeCollection<TValue> child = nodes[topLevel];
 			HierarchicalPath childPath = path.Splice(1);
 
-			child.Add(
-				childPath,
-				item);
+			child.Add(childPath, item);
 		}
 
 		/// <summary>
@@ -285,6 +218,47 @@ namespace MfGames.Collections
 
 			return child.GetChild(path.Splice(1));
 		}
+
+		/// <summary>
+		/// Creates the child collection. This is called when the tree needs to
+		/// create a child tree.
+		/// </summary>
+		/// <returns></returns>
+		protected virtual HierarchicalPathTreeCollection<TValue> CreateChild(
+			string childNodeName)
+		{
+			return
+				new HierarchicalPathTreeCollection<TValue>(
+					new HierarchicalPath(childNodeName, Path));
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPathTreeCollection&lt;TValue&gt;"/> class.
+		/// </summary>
+		public HierarchicalPathTreeCollection()
+			: this(HierarchicalPath.AbsoluteRoot)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the class with a given path.
+		/// </summary>
+		private HierarchicalPathTreeCollection(HierarchicalPath path)
+		{
+			Path = path;
+			nodes = new Dictionary<string, HierarchicalPathTreeCollection<TValue>>();
+		}
+
+		#endregion
+
+		#region Fields
+
+		private readonly Dictionary<string, HierarchicalPathTreeCollection<TValue>>
+			nodes;
 
 		#endregion
 	}

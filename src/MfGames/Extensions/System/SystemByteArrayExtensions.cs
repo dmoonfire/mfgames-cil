@@ -11,6 +11,8 @@ namespace MfGames.Extensions.System
 	/// </summary>
 	public static class SystemByteArrayExtensions
 	{
+		#region Methods
+
 		/// <summary>
 		/// Converts a byte array into a hex string.
 		/// </summary>
@@ -28,5 +30,7 @@ namespace MfGames.Extensions.System
 			string hex = BitConverter.ToString(array).Replace("-", "");
 			return hex;
 		}
+
+		#endregion
 	}
 }

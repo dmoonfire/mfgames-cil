@@ -223,9 +223,7 @@ namespace MfGames.Xml
 			string name,
 			string namespaceURI)
 		{
-			return UnderlyingReader.GetAttribute(
-				name,
-				namespaceURI);
+			return UnderlyingReader.GetAttribute(name, namespaceURI);
 		}
 
 		/// <summary>
@@ -279,9 +277,7 @@ namespace MfGames.Xml
 			string name,
 			string ns)
 		{
-			return UnderlyingReader.MoveToAttribute(
-				name,
-				ns);
+			return UnderlyingReader.MoveToAttribute(name, ns);
 		}
 
 		/// <summary>

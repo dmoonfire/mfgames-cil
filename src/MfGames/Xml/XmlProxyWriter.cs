@@ -90,10 +90,7 @@ namespace MfGames.Xml
 			int index,
 			int count)
 		{
-			UnderlyingWriter.WriteBase64(
-				buffer,
-				index,
-				count);
+			UnderlyingWriter.WriteBase64(buffer, index, count);
 		}
 
 		/// <summary>
@@ -144,10 +141,7 @@ namespace MfGames.Xml
 			int index,
 			int count)
 		{
-			UnderlyingWriter.WriteChars(
-				buffer,
-				index,
-				count);
+			UnderlyingWriter.WriteChars(buffer, index, count);
 		}
 
 		/// <summary>
@@ -182,11 +176,7 @@ namespace MfGames.Xml
 			string sysid,
 			string subset)
 		{
-			UnderlyingWriter.WriteDocType(
-				name,
-				pubid,
-				sysid,
-				subset);
+			UnderlyingWriter.WriteDocType(name, pubid, sysid, subset);
 		}
 
 		/// <summary>
@@ -253,9 +243,7 @@ namespace MfGames.Xml
 			string name,
 			string text)
 		{
-			UnderlyingWriter.WriteProcessingInstruction(
-				name,
-				text);
+			UnderlyingWriter.WriteProcessingInstruction(name, text);
 		}
 
 		/// <summary>
@@ -278,10 +266,7 @@ namespace MfGames.Xml
 			int index,
 			int count)
 		{
-			UnderlyingWriter.WriteRaw(
-				buffer,
-				index,
-				count);
+			UnderlyingWriter.WriteRaw(buffer, index, count);
 		}
 
 		/// <summary>
@@ -307,10 +292,7 @@ namespace MfGames.Xml
 			string localName,
 			string ns)
 		{
-			UnderlyingWriter.WriteStartAttribute(
-				prefix,
-				localName,
-				ns);
+			UnderlyingWriter.WriteStartAttribute(prefix, localName, ns);
 		}
 
 		/// <summary>
@@ -350,10 +332,7 @@ namespace MfGames.Xml
 			string localName,
 			string ns)
 		{
-			UnderlyingWriter.WriteStartElement(
-				prefix,
-				localName,
-				ns);
+			UnderlyingWriter.WriteStartElement(prefix, localName, ns);
 		}
 
 		/// <summary>
@@ -380,9 +359,7 @@ namespace MfGames.Xml
 			char lowChar,
 			char highChar)
 		{
-			UnderlyingWriter.WriteSurrogateCharEntity(
-				lowChar,
-				highChar);
+			UnderlyingWriter.WriteSurrogateCharEntity(lowChar, highChar);
 		}
 
 		/// <summary>

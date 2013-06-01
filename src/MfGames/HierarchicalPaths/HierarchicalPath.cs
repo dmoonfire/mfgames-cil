@@ -2,15 +2,11 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using MfGames.Exceptions;
 using MfGames.Extensions.System;
-
-#endregion
 
 namespace MfGames.HierarchicalPaths
 {
@@ -38,22 +34,6 @@ namespace MfGames.HierarchicalPaths
 	[Serializable]
 	public class HierarchicalPath: IComparable<HierarchicalPath>
 	{
-		#region Constants
-
-		/// <summary>
-		/// Contains static instance for an absolute root path (i.e., "/").
-		/// </summary>
-		public static readonly HierarchicalPath AbsoluteRoot =
-			new HierarchicalPath(false);
-
-		/// <summary>
-		/// Contains a static instance of a relative root path (i.e., ".").
-		/// </summary>
-		public static readonly HierarchicalPath RelativeRoot =
-			new HierarchicalPath(true);
-
-		#endregion
-
 		#region Properties
 
 		/// <summary>
@@ -62,6 +42,18 @@ namespace MfGames.HierarchicalPaths
 		public string this[int index]
 		{
 			get { return levels[index]; }
+		}
+
+		/// <summary>
+		/// A simple accessor that allows retrieval of a child path
+		/// from this one. This, in effect, calls Append(). The
+		/// exception is if the path is given as ".." which then returns
+		/// the parent object as appropriate (this will already return
+		/// something, unlike ParentPath or Parent.
+		/// </summary>
+		public HierarchicalPath this[string childPath]
+		{
+			get { return Append(childPath); }
 		}
 
 		/// <summary>
@@ -131,6 +123,42 @@ namespace MfGames.HierarchicalPaths
 		}
 
 		/// <summary>
+		/// Returns the node reference for a parent. If this is already
+		/// the root, it will automatically return null on this object.
+		/// </summary>
+		public HierarchicalPath Parent
+		{
+			get
+			{
+				// If we have no parts, we don't have a parent.
+				if (levels.Length == 0)
+				{
+					return null;
+				}
+
+				// If we have exactly one level, then we are just the root.
+				if (levels.Length == 1)
+				{
+					return isRelative
+						? RelativeRoot
+						: AbsoluteRoot;
+				}
+
+				// Create a new path without the last item in it.
+				var parentLevels = new string[levels.Length - 1];
+
+				for (int index = 0;
+					index < levels.Length - 1;
+					index++)
+				{
+					parentLevels[index] = levels[index];
+				}
+
+				return new HierarchicalPath(parentLevels, isRelative);
+			}
+		}
+
+		/// <summary>
 		/// Returns the string version of the path including escaping for
 		/// the special characters.
 		/// </summary>
@@ -157,12 +185,7 @@ namespace MfGames.HierarchicalPaths
 				foreach (string level in levels)
 				{
 					buffer.Append("/");
-					buffer.Append(
-						level.Replace(
-							"\\",
-							"\\\\").Replace(
-								"/",
-								"\\/"));
+					buffer.Append(level.Replace("\\", "\\\\").Replace("/", "\\/"));
 				}
 
 				// Return the resulting string.
@@ -172,9 +195,18 @@ namespace MfGames.HierarchicalPaths
 
 		#endregion
 
-		#region Comparison
-
 		#region Methods
+
+		/// <summary>
+		/// Creates a child from this node, by creating the path that uses
+		/// this object as a context.
+		/// </summary>
+		public HierarchicalPath Append(string childPath)
+		{
+			// By the rules, prefixing "./" will also create the desired
+			// results and use this as a context.
+			return new HierarchicalPath("./" + childPath, this);
+		}
 
 		/// <summary>
 		/// Compares the path to another path.
@@ -194,17 +226,13 @@ namespace MfGames.HierarchicalPaths
 		public bool Equals(HierarchicalPath other)
 		{
 			// Make sure that the other is not null.
-			if (ReferenceEquals(
-				null,
-				other))
+			if (ReferenceEquals(null, other))
 			{
 				return false;
 			}
 
 			// If we are identical objects, then return true.
-			if (ReferenceEquals(
-				this,
-				other))
+			if (ReferenceEquals(this, other))
 			{
 				return true;
 			}
@@ -219,8 +247,7 @@ namespace MfGames.HierarchicalPaths
 			// compare each string to itself.
 			string[] otherLevels = other.levels;
 
-			if (otherLevels.Length
-				!= levels.Length)
+			if (otherLevels.Length != levels.Length)
 			{
 				return false;
 			}
@@ -249,22 +276,17 @@ namespace MfGames.HierarchicalPaths
 		/// <exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.</exception>
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(
-				null,
-				obj))
+			if (ReferenceEquals(null, obj))
 			{
 				return false;
 			}
 
-			if (ReferenceEquals(
-				this,
-				obj))
+			if (ReferenceEquals(this, obj))
 			{
 				return true;
 			}
 
-			if (obj.GetType()
-				!= typeof (HierarchicalPath))
+			if (obj.GetType() != typeof (HierarchicalPath))
 			{
 				return false;
 			}
@@ -323,9 +345,49 @@ namespace MfGames.HierarchicalPaths
 
 			// Create the new path and return it. This will always be relative
 			// to the given path since it is a subset.
-			return new HierarchicalPath(
-				newLevels,
-				true);
+			return new HierarchicalPath(newLevels, true);
+		}
+
+		/// <summary>
+		/// Gets the subpath starting with the given index.
+		/// </summary>
+		/// <param name="firstIndex">The first index.</param>
+		/// <returns></returns>
+		public HierarchicalPath Splice(int firstIndex)
+		{
+			return new HierarchicalPath(levels, firstIndex, true);
+		}
+
+		/// <summary>
+		/// Splices the path into a subset of the path, creating a
+		/// new path.
+		/// </summary>
+		/// <param name="offset">The offset.</param>
+		/// <param name="count">The count.</param>
+		/// <returns></returns>
+		public HierarchicalPath Splice(
+			int offset,
+			int count)
+		{
+			return Splice(offset, count, offset > 0);
+		}
+
+		/// <summary>
+		/// Splices the path into a subset of the path, creating a
+		/// new path.
+		/// </summary>
+		/// <param name="offset">The offset.</param>
+		/// <param name="count">The count.</param>
+		/// <param name="makeRelative">if set to <c>true</c> [make relative].</param>
+		/// <returns></returns>
+		public HierarchicalPath Splice(
+			int offset,
+			int count,
+			bool makeRelative)
+		{
+			string[] newLevels = levels.Splice(offset, count);
+			var hierarchicalPath = new HierarchicalPath(newLevels, makeRelative);
+			return hierarchicalPath;
 		}
 
 		/// <summary>
@@ -343,8 +405,7 @@ namespace MfGames.HierarchicalPaths
 			}
 
 			// If the given path is longer than ourselves, then it won't be.
-			if (levels.Length
-				< path.levels.Length)
+			if (levels.Length < path.levels.Length)
 			{
 				return false;
 			}
@@ -361,8 +422,7 @@ namespace MfGames.HierarchicalPaths
 				index < path.levels.Length;
 				index++)
 			{
-				if (levels[index]
-					!= path.levels[index])
+				if (levels[index] != path.levels[index])
 				{
 					return false;
 				}
@@ -372,50 +432,6 @@ namespace MfGames.HierarchicalPaths
 			return true;
 		}
 
-		#endregion
-
-		#region Operators
-
-		/// <summary>
-		/// Implements the operator ==.
-		/// </summary>
-		/// <param name="c1">The c1.</param>
-		/// <param name="c2">The c2.</param>
-		/// <returns>The result of the operator.</returns>
-		public static bool operator ==(HierarchicalPath c1,
-			HierarchicalPath c2)
-		{
-			if (ReferenceEquals(
-				null,
-				c1)
-					&& ReferenceEquals(
-						null,
-						c2))
-			{
-				return true;
-			}
-
-			return c1.Equals(c2);
-		}
-
-		/// <summary>
-		/// Implements the operator !=.
-		/// </summary>
-		/// <param name="c1">The c1.</param>
-		/// <param name="c2">The c2.</param>
-		/// <returns>The result of the operator.</returns>
-		public static bool operator !=(HierarchicalPath c1,
-			HierarchicalPath c2)
-		{
-			return !(c1 == c2);
-		}
-
-		#endregion
-
-		#endregion
-
-		#region Conversion
-
 		/// <summary>
 		/// Returns the path when requested as a string.
 		/// </summary>
@@ -423,271 +439,6 @@ namespace MfGames.HierarchicalPaths
 		{
 			return Path;
 		}
-
-		#endregion
-
-		#region Child Path Operations
-
-		#region Properties
-
-		/// <summary>
-		/// A simple accessor that allows retrieval of a child path
-		/// from this one. This, in effect, calls Append(). The
-		/// exception is if the path is given as ".." which then returns
-		/// the parent object as appropriate (this will already return
-		/// something, unlike ParentPath or Parent.
-		/// </summary>
-		public HierarchicalPath this[string childPath]
-		{
-			get { return Append(childPath); }
-		}
-
-		#endregion
-
-		#region Methods
-
-		/// <summary>
-		/// Creates a child from this node, by creating the path that uses
-		/// this object as a context.
-		/// </summary>
-		public HierarchicalPath Append(string childPath)
-		{
-			// By the rules, prefixing "./" will also create the desired
-			// results and use this as a context.
-			return new HierarchicalPath(
-				"./" + childPath,
-				this);
-		}
-
-		/// <summary>
-		/// Gets the subpath starting with the given index.
-		/// </summary>
-		/// <param name="firstIndex">The first index.</param>
-		/// <returns></returns>
-		public HierarchicalPath Splice(int firstIndex)
-		{
-			return new HierarchicalPath(
-				levels,
-				firstIndex,
-				true);
-		}
-
-		/// <summary>
-		/// Splices the path into a subset of the path, creating a
-		/// new path.
-		/// </summary>
-		/// <param name="offset">The offset.</param>
-		/// <param name="count">The count.</param>
-		/// <returns></returns>
-		public HierarchicalPath Splice(
-			int offset,
-			int count)
-		{
-			return Splice(
-				offset,
-				count,
-				offset > 0);
-		}
-
-		/// <summary>
-		/// Splices the path into a subset of the path, creating a
-		/// new path.
-		/// </summary>
-		/// <param name="offset">The offset.</param>
-		/// <param name="count">The count.</param>
-		/// <param name="makeRelative">if set to <c>true</c> [make relative].</param>
-		/// <returns></returns>
-		public HierarchicalPath Splice(
-			int offset,
-			int count,
-			bool makeRelative)
-		{
-			string[] newLevels = levels.Splice(
-				offset,
-				count);
-			var hierarchicalPath = new HierarchicalPath(
-				newLevels,
-				makeRelative);
-			return hierarchicalPath;
-		}
-
-		#endregion
-
-		#endregion
-
-		#region Parent Path Operations
-
-		/// <summary>
-		/// Returns the node reference for a parent. If this is already
-		/// the root, it will automatically return null on this object.
-		/// </summary>
-		public HierarchicalPath Parent
-		{
-			get
-			{
-				// If we have no parts, we don't have a parent.
-				if (levels.Length == 0)
-				{
-					return null;
-				}
-
-				// If we have exactly one level, then we are just the root.
-				if (levels.Length == 1)
-				{
-					return isRelative
-						? RelativeRoot
-						: AbsoluteRoot;
-				}
-
-				// Create a new path without the last item in it.
-				var parentLevels = new string[levels.Length - 1];
-
-				for (int index = 0;
-					index < levels.Length - 1;
-					index++)
-				{
-					parentLevels[index] = levels[index];
-				}
-
-				return new HierarchicalPath(
-					parentLevels,
-					isRelative);
-			}
-		}
-
-		#endregion
-
-		#region Constructors
-
-		/// <summary>
-		/// Creates an empty path that is either absolute or relative based
-		/// </summary>
-		public HierarchicalPath(bool isRelative)
-		{
-			this.isRelative = isRelative;
-			levels = new string[]
-			{
-			};
-		}
-
-		/// <summary>
-		/// Constructs a node reference using only the given path. If the
-		/// path is invalid in any manner, including not being absolute,
-		/// an exception is thrown.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		public HierarchicalPath(string path)
-			: this(path,
-				null,
-				HierarchicalPathOptions.None)
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		/// <param name="options">The options.</param>
-		public HierarchicalPath(
-			string path,
-			HierarchicalPathOptions options)
-		{
-			// Create the path components
-			ParsePath(
-				path,
-				null,
-				options);
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
-		/// </summary>
-		/// <param name="levels">The levels.</param>
-		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
-		public HierarchicalPath(
-			IEnumerable<string> levels,
-			bool isRelative)
-		{
-			// Create a sub-array version of the path.
-			var parts = new List<string>();
-
-			foreach (string level in levels)
-			{
-				parts.Add(level);
-			}
-
-			// Save the components.
-			this.levels = parts.ToArray();
-			this.isRelative = isRelative;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
-		/// </summary>
-		/// <param name="levels">The levels.</param>
-		/// <param name="startIndex">The start index.</param>
-		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
-		public HierarchicalPath(
-			IEnumerable<string> levels,
-			int startIndex,
-			bool isRelative)
-		{
-			// Create a sub-array version of the path.
-			var parts = new List<string>();
-
-			foreach (string level in levels)
-			{
-				parts.Add(level);
-			}
-
-			// Get the subset of those levels.
-			this.levels = new string[parts.Count - startIndex];
-
-			for (int index = startIndex;
-				index < parts.Count;
-				index++)
-			{
-				this.levels[index - startIndex] = parts[index];
-			}
-
-			this.isRelative = isRelative;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		/// <param name="context">The context.</param>
-		public HierarchicalPath(
-			string path,
-			HierarchicalPath context)
-			: this(path,
-				context,
-				HierarchicalPathOptions.None)
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
-		/// </summary>
-		/// <param name="path">The path.</param>
-		/// <param name="context">The context.</param>
-		/// <param name="options">The options.</param>
-		public HierarchicalPath(
-			string path,
-			HierarchicalPath context,
-			HierarchicalPathOptions options)
-		{
-			// Create the path components
-			ParsePath(
-				path,
-				context,
-				options);
-		}
-
-		#endregion
-
-		#region Path Construction
 
 		/// <summary>
 		/// Appends the level to the list, processing the "." and ".." elements
@@ -849,9 +600,7 @@ namespace MfGames.HierarchicalPaths
 						break;
 
 					case '/':
-						AppendLevel(
-							parsedLevels,
-							currentLevel.ToString());
+						AppendLevel(parsedLevels, currentLevel.ToString());
 						currentLevel.Length = 0;
 
 						break;
@@ -866,9 +615,7 @@ namespace MfGames.HierarchicalPaths
 
 			// Outside of the loop, we check to see if there is anything left
 			// in the current level and add it to the list.
-			AppendLevel(
-				parsedLevels,
-				currentLevel.ToString());
+			AppendLevel(parsedLevels, currentLevel.ToString());
 
 			// Saved the parsed levels into the levels property.
 			levels = parsedLevels.ToArray();
@@ -888,7 +635,173 @@ namespace MfGames.HierarchicalPaths
 
 		#endregion
 
+		#region Operators
+
+		/// <summary>
+		/// Implements the operator ==.
+		/// </summary>
+		/// <param name="c1">The c1.</param>
+		/// <param name="c2">The c2.</param>
+		/// <returns>The result of the operator.</returns>
+		public static bool operator ==(HierarchicalPath c1,
+			HierarchicalPath c2)
+		{
+			if (ReferenceEquals(null, c1)
+				&& ReferenceEquals(null, c2))
+			{
+				return true;
+			}
+
+			return c1.Equals(c2);
+		}
+
+		/// <summary>
+		/// Implements the operator !=.
+		/// </summary>
+		/// <param name="c1">The c1.</param>
+		/// <param name="c2">The c2.</param>
+		/// <returns>The result of the operator.</returns>
+		public static bool operator !=(HierarchicalPath c1,
+			HierarchicalPath c2)
+		{
+			return !(c1 == c2);
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Creates an empty path that is either absolute or relative based
+		/// </summary>
+		public HierarchicalPath(bool isRelative)
+		{
+			this.isRelative = isRelative;
+			levels = new string[]
+			{
+			};
+		}
+
+		/// <summary>
+		/// Constructs a node reference using only the given path. If the
+		/// path is invalid in any manner, including not being absolute,
+		/// an exception is thrown.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		public HierarchicalPath(string path)
+			: this(path, null, HierarchicalPathOptions.None)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="options">The options.</param>
+		public HierarchicalPath(
+			string path,
+			HierarchicalPathOptions options)
+		{
+			// Create the path components
+			ParsePath(path, null, options);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
+		public HierarchicalPath(
+			IEnumerable<string> levels,
+			bool isRelative)
+		{
+			// Create a sub-array version of the path.
+			var parts = new List<string>();
+
+			foreach (string level in levels)
+			{
+				parts.Add(level);
+			}
+
+			// Save the components.
+			this.levels = parts.ToArray();
+			this.isRelative = isRelative;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="levels">The levels.</param>
+		/// <param name="startIndex">The start index.</param>
+		/// <param name="isRelative">if set to <c>true</c> [is relative].</param>
+		public HierarchicalPath(
+			IEnumerable<string> levels,
+			int startIndex,
+			bool isRelative)
+		{
+			// Create a sub-array version of the path.
+			var parts = new List<string>();
+
+			foreach (string level in levels)
+			{
+				parts.Add(level);
+			}
+
+			// Get the subset of those levels.
+			this.levels = new string[parts.Count - startIndex];
+
+			for (int index = startIndex;
+				index < parts.Count;
+				index++)
+			{
+				this.levels[index - startIndex] = parts[index];
+			}
+
+			this.isRelative = isRelative;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="context">The context.</param>
+		public HierarchicalPath(
+			string path,
+			HierarchicalPath context)
+			: this(path, context, HierarchicalPathOptions.None)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPath"/> class.
+		/// </summary>
+		/// <param name="path">The path.</param>
+		/// <param name="context">The context.</param>
+		/// <param name="options">The options.</param>
+		public HierarchicalPath(
+			string path,
+			HierarchicalPath context,
+			HierarchicalPathOptions options)
+		{
+			// Create the path components
+			ParsePath(path, context, options);
+		}
+
+		#endregion
+
 		#region Fields
+
+		/// <summary>
+		/// Contains static instance for an absolute root path (i.e., "/").
+		/// </summary>
+		public static readonly HierarchicalPath AbsoluteRoot =
+			new HierarchicalPath(false);
+
+		/// <summary>
+		/// Contains a static instance of a relative root path (i.e., ".").
+		/// </summary>
+		public static readonly HierarchicalPath RelativeRoot =
+			new HierarchicalPath(true);
 
 		private bool isRelative;
 		private string[] levels;

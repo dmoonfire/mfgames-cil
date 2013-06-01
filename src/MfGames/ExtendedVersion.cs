@@ -2,12 +2,8 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Text.RegularExpressions;
-
-#endregion
 
 namespace MfGames
 {
@@ -19,16 +15,10 @@ namespace MfGames
 	[Serializable]
 	public class ExtendedVersion
 	{
-		#region Constants
-
 		// Contains the regex for whitespace matching
 
 		// Contains the simple matcher for string (number, followed
 		// by... stuff)
-		private static readonly Regex RegexPart = new Regex(@"(\d+)([\d\w]*)");
-		private static readonly Regex RegexSpace = new Regex(@"\s");
-
-		#endregion
 
 		#region Methods
 
@@ -190,8 +180,7 @@ namespace MfGames
 			// Make sure v1 has the less parts, for simplicicity.
 			bool swapped = false;
 
-			if (v1.numerics.Length
-				> v2.numerics.Length)
+			if (v1.numerics.Length > v2.numerics.Length)
 			{
 				ExtendedVersion v3 = v2;
 				v2 = v1;
@@ -294,9 +283,7 @@ namespace MfGames
 
 			// Split the version into parts. We also allocate the space for
 			// everything before parsing.
-			string[] parts = version.Split(
-				'.',
-				'-');
+			string[] parts = version.Split('.', '-');
 			numerics = new int[parts.Length];
 			strings = new string[parts.Length];
 
@@ -330,11 +317,14 @@ namespace MfGames
 
 		#endregion
 
+		#region Fields
+
+		private static readonly Regex RegexPart = new Regex(@"(\d+)([\d\w]*)");
+		private static readonly Regex RegexSpace = new Regex(@"\s");
+
 		// Contains the string version
 
 		// Contains the numeric parts of the version
-
-		#region Fields
 
 		private readonly int[] numerics;
 

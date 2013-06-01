@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
-
-#endregion
 
 namespace MfGames
 {
@@ -17,17 +13,6 @@ namespace MfGames
 	/// </summary>
 	public class TranslatorManager
 	{
-		#region Constructors
-
-		static TranslatorManager()
-		{
-			translate = IdentityTranslate;
-		}
-
-		#endregion
-
-		#region Translator
-
 		#region Properties
 
 		/// <summary>
@@ -43,15 +28,7 @@ namespace MfGames
 
 		#endregion
 
-		#region Fields
-
-		private static Func<string, string> translate;
-
-		#endregion
-
-		#endregion
-
-		#region Identity Translation
+		#region Methods
 
 		/// <summary>
 		/// The identity translate return the input as the output, in effect
@@ -63,6 +40,21 @@ namespace MfGames
 		{
 			return input;
 		}
+
+		#endregion
+
+		#region Constructors
+
+		static TranslatorManager()
+		{
+			translate = IdentityTranslate;
+		}
+
+		#endregion
+
+		#region Fields
+
+		private static Func<string, string> translate;
 
 		#endregion
 	}

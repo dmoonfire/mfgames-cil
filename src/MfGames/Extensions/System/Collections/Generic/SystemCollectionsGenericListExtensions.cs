@@ -2,13 +2,9 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Collections.Generic;
 using MfGames.HierarchicalPaths;
-
-#endregion
 
 namespace MfGames.Extensions.System.Collections.Generic
 {
@@ -17,7 +13,49 @@ namespace MfGames.Extensions.System.Collections.Generic
 	/// </summary>
 	public static class SystemCollectionsGenericListExtensions
 	{
-		#region Ordering/Sorting
+		#region Methods
+
+		/// <summary>
+		/// Gets the last item in the list.
+		/// </summary>
+		/// <param name="list">The list.</param>
+		/// <returns></returns>
+		public static TItem GetLast<TItem>(this IList<TItem> list)
+		{
+			if (list.Count == 0)
+			{
+				return default(TItem);
+			}
+
+			return list[list.Count - 1];
+		}
+
+		/// <summary>
+		/// Chooses a random item from the list using the random from RandomManager.
+		/// </summary>
+		public static TItem GetRandom<TItem>(this IList<TItem> list)
+		{
+			return GetRandom(list, RandomManager.Random);
+		}
+
+		/// <summary>
+		/// Chooses a random item from the list using the given random.
+		/// </summary>
+		public static TItem GetRandom<TItem>(
+			this IList<TItem> list,
+			Random random)
+		{
+			// If we have an empty list, then we can't return anything.
+			if (list.Count == 0)
+			{
+				throw new InvalidOperationException(
+					"Cannot randomly select if there are no items in the list.");
+			}
+
+			// Pick a random item from the list.
+			int index = random.Next(0, list.Count);
+			return list[index];
+		}
 
 		/// <summary>
 		/// Shuffles the contents of the list so that each HierarchicalPath is
@@ -62,8 +100,7 @@ namespace MfGames.Extensions.System.Collections.Generic
 
 					// Check for equal levels since we don't swap equal-level
 					// elements.
-					if (startPath.Count
-						== testPath.Count)
+					if (startPath.Count == testPath.Count)
 					{
 						continue;
 					}
@@ -76,9 +113,7 @@ namespace MfGames.Extensions.System.Collections.Generic
 						// index, then start processing again.
 						TItem item = list[testIndex];
 						list.RemoveAt(testIndex);
-						list.Insert(
-							startIndex,
-							item);
+						list.Insert(startIndex, item);
 
 						// Decrement the start index to start again.
 						startOver = true;
@@ -132,9 +167,7 @@ namespace MfGames.Extensions.System.Collections.Generic
 							// it into the updated child index.
 							TItem item = list[testIndex];
 							list.RemoveAt(testIndex);
-							list.Insert(
-								lastChildIndex,
-								item);
+							list.Insert(lastChildIndex, item);
 
 							// Move the index back to it (and a bit more to
 							// handle the for() loop incrementer.
@@ -158,25 +191,6 @@ namespace MfGames.Extensions.System.Collections.Generic
 			}
 		}
 
-		#endregion
-
-		#region Positional
-
-		/// <summary>
-		/// Gets the last item in the list.
-		/// </summary>
-		/// <param name="list">The list.</param>
-		/// <returns></returns>
-		public static TItem GetLast<TItem>(this IList<TItem> list)
-		{
-			if (list.Count == 0)
-			{
-				return default(TItem);
-			}
-
-			return list[list.Count - 1];
-		}
-
 		/// <summary>
 		/// Removes the last item in the list.
 		/// </summary>
@@ -193,41 +207,6 @@ namespace MfGames.Extensions.System.Collections.Generic
 			TItem last = list[list.Count - 1];
 			list.RemoveAt(list.Count - 1);
 			return last;
-		}
-
-		#endregion
-
-		#region Selection
-
-		/// <summary>
-		/// Chooses a random item from the list using the random from RandomManager.
-		/// </summary>
-		public static TItem GetRandom<TItem>(this IList<TItem> list)
-		{
-			return GetRandom(
-				list,
-				RandomManager.Random);
-		}
-
-		/// <summary>
-		/// Chooses a random item from the list using the given random.
-		/// </summary>
-		public static TItem GetRandom<TItem>(
-			this IList<TItem> list,
-			Random random)
-		{
-			// If we have an empty list, then we can't return anything.
-			if (list.Count == 0)
-			{
-				throw new InvalidOperationException(
-					"Cannot randomly select if there are no items in the list.");
-			}
-
-			// Pick a random item from the list.
-			int index = random.Next(
-				0,
-				list.Count);
-			return list[index];
 		}
 
 		#endregion

@@ -23,10 +23,7 @@ namespace MfGames.Extensions.System
 			this TItem[] oldArray,
 			int offset)
 		{
-			return Splice(
-				oldArray,
-				offset,
-				oldArray.Length - offset);
+			return Splice(oldArray, offset, oldArray.Length - offset);
 		}
 
 		/// <summary>

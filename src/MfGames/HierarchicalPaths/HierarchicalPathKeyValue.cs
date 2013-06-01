@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
-
-#endregion
 
 namespace MfGames.HierarchicalPaths
 {
@@ -20,51 +16,12 @@ namespace MfGames.HierarchicalPaths
 		IComparable<IHierarchicalPathContainer>,
 		IEquatable<HierarchicalPathKeyValue<TValue>>
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathKeyValue&lt;TValue&gt;"/> class.
-		/// </summary>
-		/// <param name="hierarchialPath">The hierarchial path.</param>
-		/// <param name="value">The value.</param>
-		public HierarchicalPathKeyValue(
-			string hierarchialPath,
-			TValue value)
-			: this(new HierarchicalPath(hierarchialPath),
-				value)
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathKeyValue&lt;TValue&gt;"/> class.
-		/// </summary>
-		/// <param name="hierarchicalPath">The hierarchical path.</param>
-		/// <param name="value">The value.</param>
-		public HierarchicalPathKeyValue(
-			HierarchicalPath hierarchicalPath,
-			TValue value)
-		{
-			if (hierarchicalPath == null)
-			{
-				throw new ArgumentNullException("hierarchicalPath");
-			}
-
-			HierarchicalPath = hierarchicalPath;
-			Value = value;
-		}
-
-		#endregion
-
-		#region Hierarchical Path
+		#region Properties
 
 		/// <summary>
 		/// Gets the hierarchical path associated with the instance.
 		/// </summary>
 		public HierarchicalPath HierarchicalPath { get; private set; }
-
-		#endregion
-
-		#region Value
 
 		/// <summary>
 		/// Gets the value associated with this key/value pair.
@@ -73,123 +30,7 @@ namespace MfGames.HierarchicalPaths
 
 		#endregion
 
-		#region Equality
-
 		#region Methods
-
-		/// <summary>
-		/// Indicates whether the current object is equal to another object of the same type.
-		/// </summary>
-		/// <returns>
-		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
-		/// </returns>
-		/// <param name="other">An object to compare with this object.
-		///                 </param>
-		public bool Equals(HierarchicalPathKeyValue<TValue> other)
-		{
-			if (ReferenceEquals(
-				null,
-				other))
-			{
-				return false;
-			}
-			if (ReferenceEquals(
-				this,
-				other))
-			{
-				return true;
-			}
-			return Equals(
-				other.HierarchicalPath,
-				HierarchicalPath);
-		}
-
-		/// <summary>
-		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
-		/// </summary>
-		/// <returns>
-		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
-		/// </returns>
-		/// <param name="obj">The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>. 
-		///                 </param><exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.
-		///                 </exception><filterpriority>2</filterpriority>
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(
-				null,
-				obj))
-			{
-				return false;
-			}
-			if (ReferenceEquals(
-				this,
-				obj))
-			{
-				return true;
-			}
-			if (obj.GetType()
-				!= typeof (HierarchicalPathKeyValue<TValue>))
-			{
-				return false;
-			}
-			return Equals((HierarchicalPathKeyValue<TValue>) obj);
-		}
-
-		/// <summary>
-		/// Serves as a hash function for a particular type. 
-		/// </summary>
-		/// <returns>
-		/// A hash code for the current <see cref="T:System.Object"/>.
-		/// </returns>
-		/// <filterpriority>2</filterpriority>
-		public override int GetHashCode()
-		{
-			return HierarchicalPath.GetHashCode();
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>
-		/// Implements the operator ==.
-		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns>
-		/// The result of the operator.
-		/// </returns>
-		public static bool operator ==(HierarchicalPathKeyValue<TValue> left,
-			HierarchicalPathKeyValue<TValue> right)
-		{
-			return Equals(
-				left,
-				right);
-		}
-
-		/// <summary>
-		/// Implements the operator !=.
-		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns>
-		/// The result of the operator.
-		/// </returns>
-		public static bool operator !=(HierarchicalPathKeyValue<TValue> left,
-			HierarchicalPathKeyValue<TValue> right)
-		{
-			return !Equals(
-				left,
-				right);
-		}
-
-		#endregion
-
-		#endregion
-
-		#region Comparison
-
-		#region IComparable<HierarchicalPath> Members
 
 		/// <summary>
 		/// Compares the current object with another object of the same type.
@@ -211,10 +52,6 @@ namespace MfGames.HierarchicalPaths
 			return HierarchicalPath.CompareTo(other);
 		}
 
-		#endregion
-
-		#region IComparable<IHierarchicalPathContainer> Members
-
 		/// <summary>
 		/// Compares the current object with another object of the same type.
 		/// </summary>
@@ -235,11 +72,64 @@ namespace MfGames.HierarchicalPaths
 			return HierarchicalPath.CompareTo(other.HierarchicalPath);
 		}
 
-		#endregion
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+		/// </returns>
+		/// <param name="other">An object to compare with this object.
+		///                 </param>
+		public bool Equals(HierarchicalPathKeyValue<TValue> other)
+		{
+			if (ReferenceEquals(null, other))
+			{
+				return false;
+			}
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+			return Equals(other.HierarchicalPath, HierarchicalPath);
+		}
 
-		#endregion
+		/// <summary>
+		/// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
+		/// </summary>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>; otherwise, false.
+		/// </returns>
+		/// <param name="obj">The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>. 
+		///                 </param><exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.
+		///                 </exception><filterpriority>2</filterpriority>
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+			{
+				return false;
+			}
+			if (ReferenceEquals(this, obj))
+			{
+				return true;
+			}
+			if (obj.GetType() != typeof (HierarchicalPathKeyValue<TValue>))
+			{
+				return false;
+			}
+			return Equals((HierarchicalPathKeyValue<TValue>) obj);
+		}
 
-		#region Conversion
+		/// <summary>
+		/// Serves as a hash function for a particular type. 
+		/// </summary>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object"/>.
+		/// </returns>
+		/// <filterpriority>2</filterpriority>
+		public override int GetHashCode()
+		{
+			return HierarchicalPath.GetHashCode();
+		}
 
 		/// <summary>
 		/// Returns a <see cref="System.String"/> that represents this instance.
@@ -249,10 +139,73 @@ namespace MfGames.HierarchicalPaths
 		/// </returns>
 		public override string ToString()
 		{
-			return String.Format(
-				"{0} => {1}",
-				HierarchicalPath,
-				Value);
+			return String.Format("{0} => {1}", HierarchicalPath, Value);
+		}
+
+		#endregion
+
+		#region Operators
+
+		/// <summary>
+		/// Implements the operator ==.
+		/// </summary>
+		/// <param name="left">The left.</param>
+		/// <param name="right">The right.</param>
+		/// <returns>
+		/// The result of the operator.
+		/// </returns>
+		public static bool operator ==(HierarchicalPathKeyValue<TValue> left,
+			HierarchicalPathKeyValue<TValue> right)
+		{
+			return Equals(left, right);
+		}
+
+		/// <summary>
+		/// Implements the operator !=.
+		/// </summary>
+		/// <param name="left">The left.</param>
+		/// <param name="right">The right.</param>
+		/// <returns>
+		/// The result of the operator.
+		/// </returns>
+		public static bool operator !=(HierarchicalPathKeyValue<TValue> left,
+			HierarchicalPathKeyValue<TValue> right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPathKeyValue&lt;TValue&gt;"/> class.
+		/// </summary>
+		/// <param name="hierarchialPath">The hierarchial path.</param>
+		/// <param name="value">The value.</param>
+		public HierarchicalPathKeyValue(
+			string hierarchialPath,
+			TValue value)
+			: this(new HierarchicalPath(hierarchialPath), value)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HierarchicalPathKeyValue&lt;TValue&gt;"/> class.
+		/// </summary>
+		/// <param name="hierarchicalPath">The hierarchical path.</param>
+		/// <param name="value">The value.</param>
+		public HierarchicalPathKeyValue(
+			HierarchicalPath hierarchicalPath,
+			TValue value)
+		{
+			if (hierarchicalPath == null)
+			{
+				throw new ArgumentNullException("hierarchicalPath");
+			}
+
+			HierarchicalPath = hierarchicalPath;
+			Value = value;
 		}
 
 		#endregion

@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
-
-#endregion
 
 namespace MfGames.Reporting
 {
@@ -44,8 +40,7 @@ namespace MfGames.Reporting
 		/// </summary>
 		/// <param name="text">The message text.</param>
 		public SeverityMessage(string text)
-			: this(Severity.Info,
-				text)
+			: this(Severity.Info, text)
 		{
 		}
 

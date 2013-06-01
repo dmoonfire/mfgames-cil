@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
-
-#endregion
 
 namespace MfGames
 {
@@ -17,8 +13,6 @@ namespace MfGames
 	/// </summary>
 	public static class RandomManager
 	{
-		#region Singleton
-
 		#region Properties
 
 		/// <summary>
@@ -71,8 +65,6 @@ namespace MfGames
 
 		[ThreadStatic]
 		private static Random threadRandom;
-
-		#endregion
 
 		#endregion
 	}

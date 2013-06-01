@@ -26,9 +26,7 @@ namespace MfGames.Xml
 			get
 			{
 				string baseUriString = String.IsNullOrEmpty(BaseURI)
-					? Path.Combine(
-						Environment.CurrentDirectory,
-						"temporary.xml")
+					? Path.Combine(Environment.CurrentDirectory, "temporary.xml")
 					: BaseURI;
 				var uri = new Uri(baseUriString);
 
@@ -150,9 +148,7 @@ namespace MfGames.Xml
 
 			// Figure out the URI for the new one and use that to create an
 			// XML stream.
-			var newUri = new Uri(
-				baseUri,
-				href);
+			var newUri = new Uri(baseUri, href);
 			XmlReader reader = Create(newUri.ToString());
 			var includeReader = new XIncludeReader(reader);
 
@@ -236,9 +232,7 @@ namespace MfGames.Xml
 
 			// Insert the reader into the first position, as the "head" of
 			// the stack.
-			stack.InsertRange(
-				0,
-				items);
+			stack.InsertRange(0, items);
 		}
 
 		#endregion

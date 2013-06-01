@@ -2,11 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
-
-#endregion
 
 namespace MfGames.Extensions.System
 {
@@ -26,9 +22,7 @@ namespace MfGames.Extensions.System
 		public static TAttribute GetCustomAttribute<TAttribute>(this Type type)
 			where TAttribute: Attribute
 		{
-			object[] attributes = type.GetCustomAttributes(
-				typeof (TAttribute),
-				true);
+			object[] attributes = type.GetCustomAttributes(typeof (TAttribute), true);
 
 			if (attributes.Length == 0)
 			{
@@ -51,10 +45,7 @@ namespace MfGames.Extensions.System
 			this Type type,
 			Type attributeType)
 		{
-			return HasCustomAttribute(
-				type,
-				attributeType,
-				true);
+			return HasCustomAttribute(type, attributeType, true);
 		}
 
 		/// <summary>
@@ -74,9 +65,7 @@ namespace MfGames.Extensions.System
 			this Type type,
 			bool inherited)
 		{
-			return type.HasCustomAttribute(
-				typeof (TAttribute),
-				inherited);
+			return type.HasCustomAttribute(typeof (TAttribute), inherited);
 		}
 
 		/// <summary>
@@ -101,9 +90,7 @@ namespace MfGames.Extensions.System
 			}
 
 			// Go through the attributes of the member type and look for at least one.
-			return (type.GetCustomAttributes(
-				attributeType,
-				inherited).Length > 0);
+			return (type.GetCustomAttributes(attributeType, inherited).Length > 0);
 		}
 
 		#endregion

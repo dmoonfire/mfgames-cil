@@ -2,13 +2,9 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-#region Namespaces
-
 using System;
 using System.Threading;
 using MfGames.Locking;
-
-#endregion
 
 namespace MfGames.Reporting
 {
@@ -18,20 +14,6 @@ namespace MfGames.Reporting
 	/// </summary>
 	public static class LogManager
 	{
-		#region Constructors
-
-		/// <summary>
-		/// Initializes the <see cref="LogManager"/> class.
-		/// </summary>
-		static LogManager()
-		{
-			threadLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
-		}
-
-		#endregion
-
-		#region Eventing
-
 		#region Events
 
 		/// <summary>
@@ -43,13 +25,17 @@ namespace MfGames.Reporting
 			add
 			{
 				using (new WriteLock(threadLock))
+				{
 					logged += value;
+				}
 			}
 
 			remove
 			{
 				using (new WriteLock(threadLock))
+				{
 					logged -= value;
+				}
 			}
 		}
 
@@ -57,15 +43,7 @@ namespace MfGames.Reporting
 
 		#endregion
 
-		#region Fields
-
-		private static readonly ReaderWriterLockSlim threadLock;
-
-		#endregion
-
-		#endregion
-
-		#region Logging
+		#region Methods
 
 		/// <summary>
 		/// Logs the message to any class listening to the manager.
@@ -73,9 +51,7 @@ namespace MfGames.Reporting
 		/// <param name="message">The message.</param>
 		public static void Log(SeverityMessage message)
 		{
-			Log(
-				null,
-				message);
+			Log(null, message);
 		}
 
 		/// <summary>
@@ -98,7 +74,9 @@ namespace MfGames.Reporting
 			EventHandler<SeverityMessageEventArgs> listeners;
 
 			using (new ReadLock(threadLock))
+			{
 				listeners = logged;
+			}
 
 			// If we don't have listeners, then just break out.
 			if (listeners == null)
@@ -108,10 +86,26 @@ namespace MfGames.Reporting
 
 			// Create an event handler and invoke it.
 			var args = new SeverityMessageEventArgs(message);
-			listeners(
-				sender,
-				args);
+			listeners(sender, args);
 		}
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes the <see cref="LogManager"/> class.
+		/// </summary>
+		static LogManager()
+		{
+			threadLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
+		}
+
+		#endregion
+
+		#region Fields
+
+		private static readonly ReaderWriterLockSlim threadLock;
 
 		#endregion
 	}

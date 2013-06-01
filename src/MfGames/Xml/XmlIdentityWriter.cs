@@ -104,10 +104,7 @@ namespace MfGames.Xml
 		protected virtual void WriteElement(XmlReader reader)
 		{
 			// Write out the start element using the input prefix and namespace.
-			WriteStartElement(
-				reader.Prefix,
-				reader.LocalName,
-				reader.NamespaceURI);
+			WriteStartElement(reader.Prefix, reader.LocalName, reader.NamespaceURI);
 
 			// Write out all the attributes.
 			if (reader.HasAttributes)
@@ -117,10 +114,7 @@ namespace MfGames.Xml
 				do
 				{
 					WriteAttributeString(
-						reader.Prefix,
-						reader.LocalName,
-						reader.NamespaceURI,
-						reader.Value);
+						reader.Prefix, reader.LocalName, reader.NamespaceURI, reader.Value);
 				}
 				while (reader.MoveToNextAttribute());
 
@@ -162,9 +156,7 @@ namespace MfGames.Xml
 		/// <param name="reader">The reader.</param>
 		protected virtual void WriteProcessingInstruction(XmlReader reader)
 		{
-			WriteProcessingInstruction(
-				reader.Name,
-				reader.Value);
+			WriteProcessingInstruction(reader.Name, reader.Value);
 		}
 
 		/// <summary>
