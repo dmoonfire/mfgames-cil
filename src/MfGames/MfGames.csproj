@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\HierarchicalPathTreeCollection.cs" />
+    <Compile Include="Enumerations\Importance .cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\System\IO\SystemIODirectoryInfoExtensions.cs" />
@@ -103,13 +104,14 @@
     <Compile Include="Exceptions\InvalidPathException.cs" />
     <Compile Include="Reporting\Logger.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalPath.cs" />
-    <Compile Include="Reporting\Severity.cs" />
+    <Compile Include="Enumerations\Severity.cs" />
     <Compile Include="ExtendedVersion.cs" />
     <Compile Include="Locking\WriteLock.cs" />
     <Compile Include="Locking\UpgradableLock.cs" />
     <Compile Include="Locking\TryGetHandler.cs" />
     <Compile Include="Locking\TryGetCreatePattern.cs" />
     <Compile Include="Reporting\LogManager.cs" />
+    <Compile Include="SemanticVersion.cs" />
     <Compile Include="Settings\SettingSearchOptions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="TranslatorManager.cs" />

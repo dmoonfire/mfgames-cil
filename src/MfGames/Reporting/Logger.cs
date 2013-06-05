@@ -3,6 +3,7 @@
 // http://mfgames.com/mfgames-cil/license
 
 using System;
+using MfGames.Enumerations;
 
 namespace MfGames.Reporting
 {

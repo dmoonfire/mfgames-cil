@@ -2,7 +2,7 @@
 // Released under the MIT license
 // http://mfgames.com/mfgames-cil/license
 
-namespace MfGames.Reporting
+namespace MfGames.Enumerations
 {
 	/// <summary>
 	/// Defines the standard levels of severity used by
