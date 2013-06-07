@@ -16,6 +16,33 @@ namespace MfGames.Extensions.System.IO
 		#region Methods
 
 		/// <summary>
+		/// Ensures that the parent directory exists for the given object.
+		/// </summary>
+		/// <param name="info">The info.</param>
+		public static void EnsureParentExists(this FileSystemInfo info)
+		{
+			// If we have a null, then don't bother doing anything.
+			if (info == null)
+			{
+				return;
+			}
+
+			// Grab the parent item for this info.
+			DirectoryInfo parent = Directory.GetParent(info.FullName);
+
+			if (parent == null)
+			{
+				return;
+			}
+
+			// Check to see if the parent exists, if it doesn't, then make it.
+			if (!parent.Exists)
+			{
+				parent.Create();
+			}
+		}
+
+		/// <summary>
 		/// Gets a string that represents the relative path between two items.
 		/// </summary>
 		/// <returns></returns>
