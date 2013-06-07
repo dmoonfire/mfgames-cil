@@ -87,6 +87,7 @@
     <Compile Include="Extensions\System\Reflection\SystemReflectionParameterInfoExtensions.cs" />
     <Compile Include="Extensions\System\SystemByteArrayExtensions.cs" />
     <Compile Include="Extensions\System\SystemTypeExtensions.cs" />
+    <Compile Include="Extensions\System\Xml\SystemXmlWriterExtensions.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalPathKeyValue.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalPathOptions.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalSelector.cs" />

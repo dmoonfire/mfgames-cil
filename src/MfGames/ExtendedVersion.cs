@@ -15,11 +15,6 @@ namespace MfGames
 	[Serializable]
 	public class ExtendedVersion
 	{
-		// Contains the regex for whitespace matching
-
-		// Contains the simple matcher for string (number, followed
-		// by... stuff)
-
 		#region Methods
 
 		/// <summary>
@@ -203,9 +198,7 @@ namespace MfGames
 				// will never match.
 				if (str1 != str2)
 				{
-					return swapped
-						? true
-						: false;
+					return swapped;
 				}
 
 				// Compare the numbers. If num1 is less than num2, then the
@@ -213,24 +206,18 @@ namespace MfGames
 				// return it.
 				if (num1 < num2)
 				{
-					return swapped
-						? false
-						: true;
+					return !swapped;
 				}
 
 				if (num1 > num2)
 				{
-					return swapped
-						? true
-						: false;
+					return swapped;
 				}
 			}
 
 			// We never got something that explicitly was less or invalid,
 			// so assume false (equals).
-			return swapped
-				? true
-				: false;
+			return swapped;
 		}
 
 		/// <summary>
@@ -319,17 +306,30 @@ namespace MfGames
 
 		#region Fields
 
+		/// <summary>
+		/// Contains the simple matcher for string (number, followed
+		/// by... stuff)
+		/// </summary>
 		private static readonly Regex RegexPart = new Regex(@"(\d+)([\d\w]*)");
+
+		/// <summary>
+		/// Contains the regex for whitespace matching.
+		/// </summary>
 		private static readonly Regex RegexSpace = new Regex(@"\s");
 
-		// Contains the string version
-
-		// Contains the numeric parts of the version
-
+		/// <summary>
+		/// Contains the numeric parts of the version
+		/// </summary>
 		private readonly int[] numerics;
 
-		// Contains the string parts of the version
+		/// <summary>
+		/// Contains the string parts of the version.
+		/// </summary>
 		private readonly string[] strings;
+
+		/// <summary>
+		/// Contains the string version.
+		/// </summary>
 		private readonly string version;
 
 		#endregion
