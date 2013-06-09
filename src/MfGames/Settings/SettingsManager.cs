@@ -383,11 +383,19 @@ namespace MfGames.Settings
 		public void Load(XmlReader reader)
 		{
 			// Read until we find the close tag for the settings.
-			while (reader.Read())
+			while (true)
 			{
 				// If we aren't in the right namespace, just skip it.
 				if (reader.NamespaceURI != SettingsNamespace)
 				{
+					// Advance the reader, breaking out if we hit the end of the
+					// XML.
+					if (!reader.Read())
+					{
+						break;
+					}
+
+					// Loop again to process the next read.
 					continue;
 				}
 
@@ -418,6 +426,10 @@ namespace MfGames.Settings
 
 					// Put them into the settings.
 					xmlSettings[path] = xml;
+
+					// Because we used the ReadInnerXml(), we don't want to advance
+					// the path.
+					continue;
 				}
 
 				// Read the next node.

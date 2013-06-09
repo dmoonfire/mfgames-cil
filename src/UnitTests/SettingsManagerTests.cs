@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 using MfGames.HierarchicalPaths;
 using MfGames.Settings;
@@ -139,6 +140,66 @@ namespace UnitTests
 			Assert.AreEqual(0, settingsManager.Count);
 		}
 
+		[Test]
+		public void SerializeWrappedEmptyManager()
+		{
+			// Arrange
+			var settingsManager = new SettingsManager();
+			var stringWriter = new StringWriter();
+
+			using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter))
+			{
+				xmlWriter.WriteStartElement("wrapper");
+				settingsManager.Save(xmlWriter);
+				xmlWriter.WriteStartElement("guard");
+				xmlWriter.WriteEndElement();
+				xmlWriter.WriteEndElement();
+			}
+
+			// Act
+			var stringReader = new StringReader(stringWriter.ToString());
+			var xmlReader = XmlReader.Create(stringReader);
+			settingsManager = new SettingsManager();
+			settingsManager.Load(xmlReader);
+
+			// Assert
+			Assert.AreEqual(SettingsManager.SettingsNamespace, xmlReader.NamespaceURI);
+			Assert.AreEqual("settings", xmlReader.LocalName);
+			Assert.AreEqual(XmlNodeType.Element, xmlReader.NodeType);
+			Assert.IsTrue(xmlReader.IsEmptyElement);
+		}
+
+		[Test]
+		public void SerializeWrappedManager()
+		{
+			// Arrange: Set up the settings manager.
+			var settingsManager = new SettingsManager();
+
+			settingsManager.Set("/a",new SettingsA1(99,"settings1"));
+
+			// Arrange: Write out a wrapper, the settings, and a guard element.
+			var stringWriter = new StringWriter();
+
+			using(XmlWriter xmlWriter = XmlWriter.Create(stringWriter))
+			{
+				xmlWriter.WriteStartElement("wrapper");
+				settingsManager.Save(xmlWriter);
+				xmlWriter.WriteStartElement("guard");
+				xmlWriter.WriteEndElement();
+				xmlWriter.WriteEndElement();
+			}
+
+			// Act
+			var stringReader = new StringReader(stringWriter.ToString());
+			var xmlReader = XmlReader.Create(stringReader);
+			settingsManager = new SettingsManager();
+			settingsManager.Load(xmlReader);
+
+			// Assert
+			Assert.AreEqual(SettingsManager.SettingsNamespace,xmlReader.NamespaceURI);
+			Assert.AreEqual("settings",xmlReader.LocalName);
+			Assert.AreEqual(XmlNodeType.EndElement,xmlReader.NodeType);
+		}
 		#endregion
 
 		#region Nested Type: SettingsA1
