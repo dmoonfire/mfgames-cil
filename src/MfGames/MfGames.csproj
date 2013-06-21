@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\HierarchicalPathTreeCollection.cs" />
+    <Compile Include="Conversion\ExtendableConvert.cs" />
     <Compile Include="Enumerations\Importance .cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
