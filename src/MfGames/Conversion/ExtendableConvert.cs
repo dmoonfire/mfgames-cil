@@ -6,6 +6,7 @@ using SystemConvert = System.Convert;
 
 namespace MfGames.Conversion
 {
+#if DISABLED
 	/// <summary>
 	/// Defines a plugable conversion system. This functions much like System
 	/// </summary>
@@ -51,4 +52,5 @@ namespace MfGames.Conversion
 
 		#endregion
 	}
+#endif
 }
