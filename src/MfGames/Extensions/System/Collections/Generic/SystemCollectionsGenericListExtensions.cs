@@ -192,6 +192,32 @@ namespace MfGames.Extensions.System.Collections.Generic
 		}
 
 		/// <summary>
+		/// Pops the first item off the specified list.
+		/// </summary>
+		/// <typeparam name="TItem">The type of the item.</typeparam>
+		/// <param name="list">The list.</param>
+		/// <returns>The first item in the list.</returns>
+		public static TItem Pop<TItem>(this IList<TItem> list)
+		{
+			TItem first = list[0];
+			list.RemoveAt(0);
+			return first;
+		}
+
+		/// <summary>
+		/// Pushes the specified item into the beginning of the list.
+		/// </summary>
+		/// <typeparam name="TItem">The type of the item.</typeparam>
+		/// <param name="list">The list.</param>
+		/// <param name="item">The item.</param>
+		public static void Push<TItem>(
+			this IList<TItem> list,
+			TItem item)
+		{
+			list.Insert(0, item);
+		}
+
+		/// <summary>
 		/// Removes the last item in the list.
 		/// </summary>
 		/// <typeparam name="TItem">The type of the item.</typeparam>
