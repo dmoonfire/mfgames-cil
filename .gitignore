@@ -1,0 +1,13 @@
+# Directories
+_Re*
+bin
+obj
+src/packages
+
+# Common Files
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+generate-nupkg.bat
