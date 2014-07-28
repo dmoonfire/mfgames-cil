@@ -1,39 +1,43 @@
-// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-
+// <copyright file="HierarchicalPathException.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Exceptions
 {
-	/// <summary>
-	/// Represents an exception while processing HierarchialPath objects.
-	/// </summary>
-	public class HierarchicalPathException: ApplicationException
-	{
-		#region Constructors
+    using System;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		public HierarchicalPathException(string message)
-			: base(message)
-		{
-		}
+    /// <summary>
+    /// Represents an exception while processing HierarchialPath objects.
+    /// </summary>
+    public class HierarchicalPathException : ApplicationException
+    {
+        #region Constructors and Destructors
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		/// <param name="exception">The exception.</param>
-		public HierarchicalPathException(
-			string message,
-			Exception exception)
-			: base(message, exception)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public HierarchicalPathException(string message)
+            : base(message)
+        {
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HierarchicalPathException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
+        public HierarchicalPathException(string message, Exception exception)
+            : base(message, exception)
+        {
+        }
+
+        #endregion
+    }
 }

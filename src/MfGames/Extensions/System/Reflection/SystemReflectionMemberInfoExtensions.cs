@@ -1,100 +1,125 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-using System.Reflection;
-
+﻿// <copyright file="SystemReflectionMemberInfoExtensions.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Extensions.System.Reflection
 {
-	/// <summary>
-	/// Extends the MemberInfo class with additional methods.
-	/// </summary>
-	public static class SystemReflectionMemberInfoExtensions
-	{
-		#region Methods
+    using global::System;
 
-		/// <summary>
-		/// Gets the custom attribute or null if one doesn't exist.
-		/// </summary>
-		/// <typeparam name="TAttribute">The type of the attribute.</typeparam>
-		/// <param name="memberInfo">The member info.</param>
-		/// <returns></returns>
-		public static TAttribute GetCustomAttribute<TAttribute>(
-			this MemberInfo memberInfo) where TAttribute: Attribute
-		{
-			object[] attributes = memberInfo.GetCustomAttributes(
-				typeof (TAttribute), true);
+    using global::System.Reflection;
 
-			if (attributes.Length == 0)
-			{
-				return null;
-			}
+    /// <summary>
+    /// Extends the MemberInfo class with additional methods.
+    /// </summary>
+    public static class SystemReflectionMemberInfoExtensions
+    {
+        #region Public Methods and Operators
 
-			return (TAttribute) attributes[0];
-		}
+        /// <summary>
+        /// Gets the custom attribute or null if one doesn't exist.
+        /// </summary>
+        /// <typeparam name="TAttribute">
+        /// The type of the attribute.
+        /// </typeparam>
+        /// <param name="memberInfo">
+        /// The member info.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static TAttribute GetCustomAttribute<TAttribute>(
+            this MemberInfo memberInfo) where TAttribute : Attribute
+        {
+            object[] attributes =
+                memberInfo.GetCustomAttributes(typeof(TAttribute), true);
 
-		/// <summary>
-		/// Extends the MemberInfo class to return a flag if there is the presence of a custom
-		/// attribute.
-		/// </summary>
-		public static bool HasCustomAttribute<TAttribute>(this MemberInfo memberInfo)
-		{
-			return memberInfo.HasCustomAttribute(typeof (TAttribute));
-		}
+            if (attributes.Length == 0)
+            {
+                return null;
+            }
 
-		/// <summary>
-		/// Extends the MemberInfo class to return a flag if there is the presence of a custom
-		/// attribute.
-		/// </summary>
-		public static bool HasCustomAttribute<TAttribute>(
-			this MemberInfo memberInfo,
-			bool inherited)
-		{
-			return memberInfo.HasCustomAttribute(typeof (TAttribute), inherited);
-		}
+            return (TAttribute)attributes[0];
+        }
 
-		/// <summary>
-		/// Extends the Type class to return a flag if there is the presence of a custom
-		/// attribute.
-		/// </summary>
-		/// <param name="memberInfo">The member info.</param>
-		/// <param name="attributeType">Type of the attribute.</param>
-		/// <returns>
-		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
-		/// </returns>
-		public static bool HasCustomAttribute(
-			this MemberInfo memberInfo,
-			Type attributeType)
-		{
-			return HasCustomAttribute(memberInfo, attributeType, true);
-		}
+        /// <summary>
+        /// Extends the MemberInfo class to return a flag if there is the presence of a custom
+        /// attribute.
+        /// </summary>
+        /// <param name="memberInfo">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static bool HasCustomAttribute<TAttribute>(
+            this MemberInfo memberInfo)
+        {
+            return memberInfo.HasCustomAttribute(typeof(TAttribute));
+        }
 
-		/// <summary>
-		/// Extends the Type class to return a flag if there is the presence of a custom
-		/// attribute.
-		/// </summary>
-		/// <param name="memberInfo">The member info.</param>
-		/// <param name="attributeType">Type of the attribute.</param>
-		/// <param name="inherited">if set to <c>true</c> [inherited].</param>
-		/// <returns>
-		/// 	<c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
-		/// </returns>
-		public static bool HasCustomAttribute(
-			this MemberInfo memberInfo,
-			Type attributeType,
-			bool inherited)
-		{
-			// Check for null parameters.
-			if (attributeType == null)
-			{
-				throw new ArgumentNullException("attributeType");
-			}
+        /// <summary>
+        /// Extends the MemberInfo class to return a flag if there is the presence of a custom
+        /// attribute.
+        /// </summary>
+        /// <param name="memberInfo">
+        /// </param>
+        /// <param name="inherited">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static bool HasCustomAttribute<TAttribute>(
+            this MemberInfo memberInfo, bool inherited)
+        {
+            return memberInfo.HasCustomAttribute(typeof(TAttribute), inherited);
+        }
 
-			// Go through the attributes of the member type and look for at least one.
-			return (memberInfo.GetCustomAttributes(attributeType, inherited).Length > 0);
-		}
+        /// <summary>
+        /// Extends the Type class to return a flag if there is the presence of a custom
+        /// attribute.
+        /// </summary>
+        /// <param name="memberInfo">
+        /// The member info.
+        /// </param>
+        /// <param name="attributeType">
+        /// Type of the attribute.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool HasCustomAttribute(
+            this MemberInfo memberInfo, Type attributeType)
+        {
+            return HasCustomAttribute(memberInfo, attributeType, true);
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// Extends the Type class to return a flag if there is the presence of a custom
+        /// attribute.
+        /// </summary>
+        /// <param name="memberInfo">
+        /// The member info.
+        /// </param>
+        /// <param name="attributeType">
+        /// Type of the attribute.
+        /// </param>
+        /// <param name="inherited">
+        /// if set to <c>true</c> [inherited].
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool HasCustomAttribute(
+            this MemberInfo memberInfo, Type attributeType, bool inherited)
+        {
+            // Check for null parameters.
+            if (attributeType == null)
+            {
+                throw new ArgumentNullException("attributeType");
+            }
+
+            // Go through the attributes of the member type and look for at least one.
+            return
+                memberInfo.GetCustomAttributes(attributeType, inherited).Length
+                    > 0;
+        }
+
+        #endregion
+    }
 }

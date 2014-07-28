@@ -1,32 +1,39 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using MfGames.Xml;
-using NUnit.Framework;
-
+﻿// <copyright file="XPointerTests.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace UnitTests
 {
-	[TestFixture]
-	public class XPointerTests
-	{
-		#region Methods
+    using MfGames.Xml;
 
-		[Test]
-		public void ParseXPointer()
-		{
-			// Arrange
-			const string input = "xpointer(//bob)";
+    using NUnit.Framework;
 
-			// Act
-			var xpointer = new XPointerInfo(input);
-		}
+    /// <summary>
+    /// </summary>
+    [TestFixture]
+    public class XPointerTests
+    {
+        #region Public Methods and Operators
 
-		[Test]
-		public void TestFramework()
-		{
-		}
+        /// <summary>
+        /// </summary>
+        [Test]
+        public void ParseXPointer()
+        {
+            // Arrange
+            const string input = "xpointer(//bob)";
 
-		#endregion
-	}
+            // Act
+            var xpointer = new XPointerInfo(input);
+        }
+
+        /// <summary>
+        /// </summary>
+        [Test]
+        public void TestFramework()
+        {
+        }
+
+        #endregion
+    }
 }

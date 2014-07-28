@@ -1,61 +1,76 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-
+﻿// <copyright file="TranslatorManager.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames
 {
-	/// <summary>
-	/// A static singleton class used to coordinate various translation
-	/// methodologies. To change how translation works, just change the Translate
-	/// property to an appropriate Action.
-	/// </summary>
-	public class TranslatorManager
-	{
-		#region Properties
+    using System;
 
-		/// <summary>
-		/// Translate function. Pass in the key of the string and a translated
-		/// value will be returned as part of the function. Setting this to null
-		/// will use the TranslatorManager.IdentityTranslate method.
-		/// </summary>
-		public static Func<string, string> Translate
-		{
-			get { return translate; }
-			set { translate = value ?? IdentityTranslate; }
-		}
+    /// <summary>
+    /// A static singleton class used to coordinate various translation
+    /// methodologies. To change how translation works, just change the Translate
+    /// property to an appropriate Action.
+    /// </summary>
+    public class TranslatorManager
+    {
+        #region Static Fields
 
-		#endregion
+        /// <summary>
+        /// </summary>
+        private static Func<string, string> translate;
 
-		#region Methods
+        #endregion
 
-		/// <summary>
-		/// The identity translate return the input as the output, in effect
-		/// performing no translations.
-		/// </summary>
-		/// <param name="input">The input string or translation key.</param>
-		/// <returns>The input parameter.</returns>
-		public static string IdentityTranslate(string input)
-		{
-			return input;
-		}
+        #region Constructors and Destructors
 
-		#endregion
+        /// <summary>
+        /// </summary>
+        static TranslatorManager()
+        {
+            translate = IdentityTranslate;
+        }
 
-		#region Constructors
+        #endregion
 
-		static TranslatorManager()
-		{
-			translate = IdentityTranslate;
-		}
+        #region Public Properties
 
-		#endregion
+        /// <summary>
+        /// Translate function. Pass in the key of the string and a translated
+        /// value will be returned as part of the function. Setting this to null
+        /// will use the TranslatorManager.IdentityTranslate method.
+        /// </summary>
+        public static Func<string, string> Translate
+        {
+            get
+            {
+                return translate;
+            }
 
-		#region Fields
+            set
+            {
+                translate = value ?? IdentityTranslate;
+            }
+        }
 
-		private static Func<string, string> translate;
+        #endregion
 
-		#endregion
-	}
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The identity translate return the input as the output, in effect
+        /// performing no translations.
+        /// </summary>
+        /// <param name="input">
+        /// The input string or translation key.
+        /// </param>
+        /// <returns>
+        /// The input parameter.
+        /// </returns>
+        public static string IdentityTranslate(string input)
+        {
+            return input;
+        }
+
+        #endregion
+    }
 }

@@ -1,127 +1,140 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System.IO;
-using System.Xml;
-using MfGames.Xml;
-using NUnit.Framework;
-
+﻿// <copyright file="XmlIdentityWriterTests.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace UnitTests
 {
-	/// <summary>
-	/// Implements tests that excercise the XmlIdentityWriter.
-	/// </summary>
-	[TestFixture]
-	public class XmlIdentityWriterTests
-	{
-		#region Methods
+    using System.IO;
+    using System.Xml;
 
-		[Test]
-		public void FrameworkTest()
-		{
-		}
+    using MfGames.Xml;
 
-		[Test]
-		public void InnerEmptyTag()
-		{
-			// Arrange
-			const string xml = "<a><b /><b /></a>";
+    using NUnit.Framework;
 
-			// Act
-			var settings = new XmlWriterSettings
-			{
-				OmitXmlDeclaration = true,
-			};
-			var stringWriter = new StringWriter();
+    /// <summary>
+    /// Implements tests that excercise the XmlIdentityWriter.
+    /// </summary>
+    [TestFixture]
+    public class XmlIdentityWriterTests
+    {
+        #region Public Methods and Operators
 
-			using (var stringReader = new StringReader(xml))
-			{
-				using (XmlReader xmlReader = XmlReader.Create(stringReader))
-				{
-					using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings))
-					{
-						using (var identityWriter = new XmlIdentityWriter(xmlWriter))
-						{
-							identityWriter.Load(xmlReader);
-						}
-					}
-				}
-			}
+        /// <summary>
+        /// </summary>
+        [Test]
+        public void FrameworkTest()
+        {
+        }
 
-			// Assert
-			string actual = stringWriter.ToString();
+        /// <summary>
+        /// </summary>
+        [Test]
+        public void InnerEmptyTag()
+        {
+            // Arrange
+            const string xml = "<a><b /><b /></a>";
 
-			Assert.AreEqual(xml, actual);
-		}
+            // Act
+            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, };
+            var stringWriter = new StringWriter();
 
-		[Test]
-		public void SingleFullTag()
-		{
-			// Arrange
-			const string xml = "<a>a</a>";
+            using (var stringReader = new StringReader(xml))
+            {
+                using (XmlReader xmlReader = XmlReader.Create(stringReader))
+                {
+                    using (
+                        XmlWriter xmlWriter = XmlWriter.Create(
+                            stringWriter, settings))
+                    {
+                        using (
+                            var identityWriter = new XmlIdentityWriter(
+                                xmlWriter))
+                        {
+                            identityWriter.Load(xmlReader);
+                        }
+                    }
+                }
+            }
 
-			// Act
-			var settings = new XmlWriterSettings
-			{
-				OmitXmlDeclaration = true,
-			};
-			var stringWriter = new StringWriter();
+            // Assert
+            string actual = stringWriter.ToString();
 
-			using (var stringReader = new StringReader(xml))
-			{
-				using (XmlReader xmlReader = XmlReader.Create(stringReader))
-				{
-					using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings))
-					{
-						using (var identityWriter = new XmlIdentityWriter(xmlWriter))
-						{
-							identityWriter.Load(xmlReader);
-						}
-					}
-				}
-			}
+            Assert.AreEqual(xml, actual);
+        }
 
-			// Assert
-			string actual = stringWriter.ToString();
+        /// <summary>
+        /// </summary>
+        [Test]
+        public void SingleFullTag()
+        {
+            // Arrange
+            const string xml = "<a>a</a>";
 
-			Assert.AreEqual(xml, actual);
-		}
+            // Act
+            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, };
+            var stringWriter = new StringWriter();
 
-		[Test]
-		public void SingleTag()
-		{
-			// Arrange
-			const string xml = "<a />";
+            using (var stringReader = new StringReader(xml))
+            {
+                using (XmlReader xmlReader = XmlReader.Create(stringReader))
+                {
+                    using (
+                        XmlWriter xmlWriter = XmlWriter.Create(
+                            stringWriter, settings))
+                    {
+                        using (
+                            var identityWriter = new XmlIdentityWriter(
+                                xmlWriter))
+                        {
+                            identityWriter.Load(xmlReader);
+                        }
+                    }
+                }
+            }
 
-			// Act
-			var settings = new XmlWriterSettings
-			{
-				OmitXmlDeclaration = true,
-			};
+            // Assert
+            string actual = stringWriter.ToString();
 
-			var stringWriter = new StringWriter();
+            Assert.AreEqual(xml, actual);
+        }
 
-			using (var stringReader = new StringReader(xml))
-			{
-				using (XmlReader xmlReader = XmlReader.Create(stringReader))
-				{
-					using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings))
-					{
-						using (var identityWriter = new XmlIdentityWriter(xmlWriter))
-						{
-							identityWriter.Load(xmlReader);
-						}
-					}
-				}
-			}
+        /// <summary>
+        /// </summary>
+        [Test]
+        public void SingleTag()
+        {
+            // Arrange
+            const string xml = "<a />";
 
-			// Assert
-			string actual = stringWriter.ToString();
+            // Act
+            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, };
 
-			Assert.AreEqual(xml, actual);
-		}
+            var stringWriter = new StringWriter();
 
-		#endregion
-	}
+            using (var stringReader = new StringReader(xml))
+            {
+                using (XmlReader xmlReader = XmlReader.Create(stringReader))
+                {
+                    using (
+                        XmlWriter xmlWriter = XmlWriter.Create(
+                            stringWriter, settings))
+                    {
+                        using (
+                            var identityWriter = new XmlIdentityWriter(
+                                xmlWriter))
+                        {
+                            identityWriter.Load(xmlReader);
+                        }
+                    }
+                }
+            }
+
+            // Assert
+            string actual = stringWriter.ToString();
+
+            Assert.AreEqual(xml, actual);
+        }
+
+        #endregion
+    }
 }

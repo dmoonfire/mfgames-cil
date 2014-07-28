@@ -1,64 +1,71 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-using System.Threading;
-
+﻿// <copyright file="NestableReadLock.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Locking
 {
-	/// <summary>
-	/// Defines a ReaderWriterLockSlim read-only lock.
-	/// </summary>
-	public class NestableReadLock: IDisposable
-	{
-		#region Methods
+    using System;
+    using System.Threading;
 
-		/// <summary>
-		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-		/// </summary>
-		public void Dispose()
-		{
-			if (lockAcquired)
-			{
-				readerWriterLockSlim.ExitReadLock();
-			}
-		}
+    /// <summary>
+    /// Defines a ReaderWriterLockSlim read-only lock.
+    /// </summary>
+    public class NestableReadLock : IDisposable
+    {
+        #region Fields
 
-		#endregion
+        /// <summary>
+        /// </summary>
+        private readonly bool lockAcquired;
 
-		#region Constructors
+        /// <summary>
+        /// </summary>
+        private readonly ReaderWriterLockSlim readerWriterLockSlim;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ReadLock"/> class.
-		/// </summary>
-		/// <param name="readerWriterLockSlim">The reader writer lock slim.</param>
-		public NestableReadLock(ReaderWriterLockSlim readerWriterLockSlim)
-		{
-			// Keep track of the lock since we'll need it to release the lock.
-			this.readerWriterLockSlim = readerWriterLockSlim;
+        #endregion
 
-			// If we already have a read or write lock, we don't do anything.
-			if (readerWriterLockSlim.IsReadLockHeld
-				|| readerWriterLockSlim.IsUpgradeableReadLockHeld
-				|| readerWriterLockSlim.IsWriteLockHeld)
-			{
-				lockAcquired = false;
-			}
-			else
-			{
-				readerWriterLockSlim.EnterReadLock();
-				lockAcquired = true;
-			}
-		}
+        #region Constructors and Destructors
 
-		#endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadLock"/> class.
+        /// </summary>
+        /// <param name="readerWriterLockSlim">
+        /// The reader writer lock slim.
+        /// </param>
+        public NestableReadLock(ReaderWriterLockSlim readerWriterLockSlim)
+        {
+            // Keep track of the lock since we'll need it to release the lock.
+            this.readerWriterLockSlim = readerWriterLockSlim;
 
-		#region Fields
+            // If we already have a read or write lock, we don't do anything.
+            if (readerWriterLockSlim.IsReadLockHeld
+                || readerWriterLockSlim.IsUpgradeableReadLockHeld
+                || readerWriterLockSlim.IsWriteLockHeld)
+            {
+                this.lockAcquired = false;
+            }
+            else
+            {
+                readerWriterLockSlim.EnterReadLock();
+                this.lockAcquired = true;
+            }
+        }
 
-		private readonly bool lockAcquired;
-		private readonly ReaderWriterLockSlim readerWriterLockSlim;
+        #endregion
 
-		#endregion
-	}
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            if (this.lockAcquired)
+            {
+                this.readerWriterLockSlim.ExitReadLock();
+            }
+        }
+
+        #endregion
+    }
 }

@@ -1,48 +1,49 @@
-// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-using System.Collections.Generic;
-using MfGames.Enumerations;
-
+// <copyright file="SeverityMessageCollection.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Reporting
 {
-	/// <summary>
-	/// Contains an unordered collection of messages along with various query
-	/// methods for determining the contents of the collection
-	/// </summary>
-	public class SeverityMessageCollection: HashSet<SeverityMessage>
-	{
-		#region Properties
+    using System;
+    using System.Collections.Generic;
 
-		/// <summary>
-		/// Gets the highest severity in the collection. If there are no elements
-		/// in the collection, this returns Severity.Debug.
-		/// </summary>
-		public Severity? HighestSeverity
-		{
-			get
-			{
-				// Check for an empty collection.
-				if (Count == 0)
-				{
-					return null;
-				}
+    using MfGames.Enumerations;
 
-				// Go through and gather the severity from the collection.
-				var highest = (int) Severity.Debug;
+    /// <summary>
+    /// Contains an unordered collection of messages along with various query
+    /// methods for determining the contents of the collection
+    /// </summary>
+    public class SeverityMessageCollection : HashSet<SeverityMessage>
+    {
+        #region Public Properties
 
-				foreach (SeverityMessage message in this)
-				{
-					highest = Math.Max((int) message.Severity, highest);
-				}
+        /// <summary>
+        /// Gets the highest severity in the collection. If there are no elements
+        /// in the collection, this returns Severity.Debug.
+        /// </summary>
+        public Severity? HighestSeverity
+        {
+            get
+            {
+                // Check for an empty collection.
+                if (this.Count == 0)
+                {
+                    return null;
+                }
 
-				// Return the resulting severity.
-				return (Severity) highest;
-			}
-		}
+                // Go through and gather the severity from the collection.
+                var highest = (int)Severity.Debug;
 
-		#endregion
-	}
+                foreach (SeverityMessage message in this)
+                {
+                    highest = Math.Max((int)message.Severity, highest);
+                }
+
+                // Return the resulting severity.
+                return (Severity)highest;
+            }
+        }
+
+        #endregion
+    }
 }

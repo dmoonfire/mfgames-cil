@@ -1,132 +1,154 @@
-// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-using MfGames.Enumerations;
-
+// <copyright file="Logger.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Reporting
 {
-	/// <summary>
-	/// A formatter class that creates severity messages from logs and reports
-	/// them.
-	/// </summary>
-	public class Logger
-	{
-		#region Methods
+    using System;
 
-		/// <summary>
-		/// Logs an alert message.
-		/// </summary>
-		/// <param name="format">The format.</param>
-		/// <param name="arguments">The arguments.</param>
-		public void Alert(
-			string format,
-			params object[] arguments)
-		{
-			Log(Severity.Alert, format, arguments);
-		}
+    using MfGames.Enumerations;
 
-		/// <summary>
-		/// Logs a debug message.
-		/// </summary>
-		/// <param name="format">The format.</param>
-		/// <param name="arguments">The arguments.</param>
-		public void Debug(
-			string format,
-			params object[] arguments)
-		{
-			Log(Severity.Debug, format, arguments);
-		}
+    /// <summary>
+    /// A formatter class that creates severity messages from logs and reports
+    /// them.
+    /// </summary>
+    public class Logger
+    {
+        #region Fields
 
-		/// <summary>
-		/// Logs an error message.
-		/// </summary>
-		/// <param name="format">The format.</param>
-		/// <param name="arguments">The arguments.</param>
-		public void Error(
-			string format,
-			params object[] arguments)
-		{
-			Log(Severity.Error, format, arguments);
-		}
+        /// <summary>
+        /// </summary>
+        private readonly object context;
 
-		/// <summary>
-		/// Logs a fatal message.
-		/// </summary>
-		/// <param name="format">The format.</param>
-		/// <param name="arguments">The arguments.</param>
-		public void Fatal(
-			string format,
-			params object[] arguments)
-		{
-			Log(Severity.Fatal, format, arguments);
-		}
+        #endregion
 
-		/// <summary>
-		/// Logs an info message.
-		/// </summary>
-		/// <param name="format">The format.</param>
-		/// <param name="arguments">The arguments.</param>
-		public void Info(
-			string format,
-			params object[] arguments)
-		{
-			Log(Severity.Info, format, arguments);
-		}
+        #region Constructors and Destructors
 
-		/// <summary>
-		/// Creates a severity message with a given message and logs it using
-		/// the instance's context.
-		/// </summary>
-		/// <param name="severity">The severity.</param>
-		/// <param name="format">The format.</param>
-		/// <param name="arguments">The arguments.</param>
-		public void Log(
-			Severity severity,
-			string format,
-			params object[] arguments)
-		{
-			var message = new SeverityMessage(severity, String.Format(format, arguments));
-			Log(message);
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Logger"/> class.
+        /// </summary>
+        public Logger()
+            : this(null)
+        {
+        }
 
-		/// <summary>
-		/// Logs the specified message to the logging subsystem.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		public void Log(SeverityMessage message)
-		{
-			LogManager.Log(context, message);
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Logger"/> class.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        public Logger(object context)
+        {
+            this.context = context;
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructors
+        #region Public Methods and Operators
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Logger"/> class.
-		/// </summary>
-		public Logger()
-			: this(null)
-		{
-		}
+        /// <summary>
+        /// Logs an alert message.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public void Alert(string format, params object[] arguments)
+        {
+            this.Log(Severity.Alert, format, arguments);
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Logger"/> class.
-		/// </summary>
-		/// <param name="context">The context.</param>
-		public Logger(object context)
-		{
-			this.context = context;
-		}
+        /// <summary>
+        /// Logs a debug message.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public void Debug(string format, params object[] arguments)
+        {
+            this.Log(Severity.Debug, format, arguments);
+        }
 
-		#endregion
+        /// <summary>
+        /// Logs an error message.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public void Error(string format, params object[] arguments)
+        {
+            this.Log(Severity.Error, format, arguments);
+        }
 
-		#region Fields
+        /// <summary>
+        /// Logs a fatal message.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public void Fatal(string format, params object[] arguments)
+        {
+            this.Log(Severity.Fatal, format, arguments);
+        }
 
-		private readonly object context;
+        /// <summary>
+        /// Logs an info message.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public void Info(string format, params object[] arguments)
+        {
+            this.Log(Severity.Info, format, arguments);
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// Creates a severity message with a given message and logs it using
+        /// the instance's context.
+        /// </summary>
+        /// <param name="severity">
+        /// The severity.
+        /// </param>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        public void Log(
+            Severity severity, string format, params object[] arguments)
+        {
+            var message = new SeverityMessage(
+                severity, string.Format(format, arguments));
+            this.Log(message);
+        }
+
+        /// <summary>
+        /// Logs the specified message to the logging subsystem.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void Log(SeverityMessage message)
+        {
+            LogManager.Log(this.context, message);
+        }
+
+        #endregion
+    }
 }

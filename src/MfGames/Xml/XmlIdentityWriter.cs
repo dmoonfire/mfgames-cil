@@ -1,195 +1,225 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System.Xml;
-
+﻿// <copyright file="XmlIdentityWriter.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Xml
 {
-	/// <summary>
-	/// An XML writer that takes an XmlReader object and writes out the
-	/// contents to the 
-	/// </summary>
-	public class XmlIdentityWriter: XmlProxyWriter
-	{
-		#region Methods
+    using System.Xml;
 
-		/// <summary>
-		/// Parses through the specified XML reader and writes out an
-		/// identity XML representing the contents.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		public void Load(XmlReader reader)
-		{
-			while (reader.Read())
-			{
-				switch (reader.NodeType)
-				{
-					case XmlNodeType.Element:
-						WriteElement(reader);
-						break;
+    /// <summary>
+    /// An XML writer that takes an XmlReader object and writes out the
+    /// contents to the 
+    /// </summary>
+    public class XmlIdentityWriter : XmlProxyWriter
+    {
+        #region Constructors and Destructors
 
-					case XmlNodeType.Text:
-						WriteText(reader);
-						break;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmlIdentityWriter"/> class.
+        /// </summary>
+        /// <param name="writer">
+        /// The XML 
+        /// </param>
+        public XmlIdentityWriter(XmlWriter writer)
+            : base(writer)
+        {
+        }
 
-					case XmlNodeType.Whitespace:
-					case XmlNodeType.SignificantWhitespace:
-						WriteWhitespace(reader);
-						break;
+        #endregion
 
-					case XmlNodeType.CDATA:
-						WriteCData(reader);
-						break;
+        #region Public Methods and Operators
 
-					case XmlNodeType.EntityReference:
-						WriteEntityRef(reader);
-						break;
+        /// <summary>
+        /// Parses through the specified XML reader and writes out an
+        /// identity XML representing the contents.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        public void Load(XmlReader reader)
+        {
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element:
+                        this.WriteElement(reader);
+                        break;
 
-					case XmlNodeType.XmlDeclaration:
-					case XmlNodeType.ProcessingInstruction:
-						WriteProcessingInstruction(reader);
-						break;
+                    case XmlNodeType.Text:
+                        this.WriteText(reader);
+                        break;
 
-					case XmlNodeType.DocumentType:
-						WriteDocumentType(reader);
-						break;
+                    case XmlNodeType.Whitespace:
+                    case XmlNodeType.SignificantWhitespace:
+                        WriteWhitespace(reader);
+                        break;
 
-					case XmlNodeType.Comment:
-						WriteComment(reader);
-						break;
+                    case XmlNodeType.CDATA:
+                        WriteCData(reader);
+                        break;
 
-					case XmlNodeType.EndElement:
-						WriteEndElement();
-						break;
-				}
-			}
-		}
+                    case XmlNodeType.EntityReference:
+                        WriteEntityRef(reader);
+                        break;
 
-		/// <summary>
-		/// Writes the C data.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteCData(XmlReader reader)
-		{
-			WriteCData(reader.Value);
-		}
+                    case XmlNodeType.XmlDeclaration:
+                    case XmlNodeType.ProcessingInstruction:
+                        this.WriteProcessingInstruction(reader);
+                        break;
 
-		/// <summary>
-		/// Writes the comment.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteComment(XmlReader reader)
-		{
-			WriteComment(reader.Value);
-		}
+                    case XmlNodeType.DocumentType:
+                        this.WriteDocumentType(reader);
+                        break;
 
-		/// <summary>
-		/// Writes the type of the document.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteDocumentType(XmlReader reader)
-		{
-			WriteDocType(
-				reader.Name,
-				reader.GetAttribute("PUBLIC"),
-				reader.GetAttribute("SYSTEM"),
-				reader.Value);
-		}
+                    case XmlNodeType.Comment:
+                        WriteComment(reader);
+                        break;
 
-		/// <summary>
-		/// Writes the element.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteElement(XmlReader reader)
-		{
-			// Write out the start element using the input prefix and namespace.
-			WriteStartElement(reader.Prefix, reader.LocalName, reader.NamespaceURI);
+                    case XmlNodeType.EndElement:
+                        this.WriteEndElement();
+                        break;
+                }
+            }
+        }
 
-			// Write out all the attributes.
-			if (reader.HasAttributes)
-			{
-				reader.MoveToFirstAttribute();
+        #endregion
 
-				do
-				{
-					WriteAttributeString(
-						reader.Prefix, reader.LocalName, reader.NamespaceURI, reader.Value);
-				}
-				while (reader.MoveToNextAttribute());
+        #region Methods
 
-				// We have to move back to the element so the rest of the
-				// processing works properly.
-				reader.MoveToElement();
-			}
+        /// <summary>
+        /// Writes the C data.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteCData(XmlReader reader)
+        {
+            WriteCData(reader.Value);
+        }
 
-			// If we have an empty element, we won't see an EndElement for this
-			// node. So, we need to write it out. We use WriteEndElement()
-			// which will create an empty node (<a/> instead of <a></a>).
-			if (reader.IsEmptyElement)
-			{
-				WriteEndElement();
-			}
-		}
+        /// <summary>
+        /// Writes the comment.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteComment(XmlReader reader)
+        {
+            WriteComment(reader.Value);
+        }
 
-		/// <summary>
-		/// Writes the end element.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteEndElement(XmlReader reader)
-		{
-			WriteFullEndElement();
-		}
+        /// <summary>
+        /// Writes the type of the document.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteDocumentType(XmlReader reader)
+        {
+            this.WriteDocType(
+                reader.Name, 
+                reader.GetAttribute("PUBLIC"), 
+                reader.GetAttribute("SYSTEM"), 
+                reader.Value);
+        }
 
-		/// <summary>
-		/// Writes the entity ref.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteEntityRef(XmlReader reader)
-		{
-			WriteEntityRef(reader.Name);
-		}
+        /// <summary>
+        /// Writes the element.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteElement(XmlReader reader)
+        {
+            // Write out the start element using the input prefix and namespace.
+            this.WriteStartElement(
+                reader.Prefix, reader.LocalName, reader.NamespaceURI);
 
-		/// <summary>
-		/// Writes the processing instruction.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteProcessingInstruction(XmlReader reader)
-		{
-			WriteProcessingInstruction(reader.Name, reader.Value);
-		}
+            // Write out all the attributes.
+            if (reader.HasAttributes)
+            {
+                reader.MoveToFirstAttribute();
 
-		/// <summary>
-		/// Writes the text.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteText(XmlReader reader)
-		{
-			WriteString(reader.Value);
-		}
+                do
+                {
+                    this.WriteAttributeString(
+                        reader.Prefix, 
+                        reader.LocalName, 
+                        reader.NamespaceURI, 
+                        reader.Value);
+                }
+                while (reader.MoveToNextAttribute());
 
-		/// <summary>
-		/// Writes the whitespace.
-		/// </summary>
-		/// <param name="reader">The reader.</param>
-		protected virtual void WriteWhitespace(XmlReader reader)
-		{
-			WriteWhitespace(reader.Value);
-		}
+                // We have to move back to the element so the rest of the
+                // processing works properly.
+                reader.MoveToElement();
+            }
 
-		#endregion
+            // If we have an empty element, we won't see an EndElement for this
+            // node. So, we need to write it out. We use WriteEndElement()
+            // which will create an empty node (<a/> instead of <a></a>).
+            if (reader.IsEmptyElement)
+            {
+                this.WriteEndElement();
+            }
+        }
 
-		#region Constructors
+        /// <summary>
+        /// Writes the end element.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteEndElement(XmlReader reader)
+        {
+            this.WriteFullEndElement();
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XmlIdentityWriter"/> class.
-		/// </summary>
-		/// <param name="writer">The XML </param>
-		public XmlIdentityWriter(XmlWriter writer)
-			: base(writer)
-		{
-		}
+        /// <summary>
+        /// Writes the entity ref.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteEntityRef(XmlReader reader)
+        {
+            WriteEntityRef(reader.Name);
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// Writes the processing instruction.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteProcessingInstruction(XmlReader reader)
+        {
+            this.WriteProcessingInstruction(reader.Name, reader.Value);
+        }
+
+        /// <summary>
+        /// Writes the text.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteText(XmlReader reader)
+        {
+            this.WriteString(reader.Value);
+        }
+
+        /// <summary>
+        /// Writes the whitespace.
+        /// </summary>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
+        protected virtual void WriteWhitespace(XmlReader reader)
+        {
+            WriteWhitespace(reader.Value);
+        }
+
+        #endregion
+    }
 }

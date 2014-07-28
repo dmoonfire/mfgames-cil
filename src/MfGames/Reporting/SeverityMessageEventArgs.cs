@@ -1,39 +1,41 @@
-// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-
+// <copyright file="SeverityMessageEventArgs.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Reporting
 {
-	/// <summary>
-	/// Wraps a severity message in an event argument class.
-	/// </summary>
-	public class SeverityMessageEventArgs: EventArgs
-	{
-		#region Properties
+    using System;
 
-		/// <summary>
-		/// Gets the message associated with this event.
-		/// </summary>
-		/// <value>
-		/// The message.
-		/// </value>
-		public SeverityMessage Message { get; protected set; }
+    /// <summary>
+    /// Wraps a severity message in an event argument class.
+    /// </summary>
+    public class SeverityMessageEventArgs : EventArgs
+    {
+        #region Constructors and Destructors
 
-		#endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public SeverityMessageEventArgs(SeverityMessage message)
+        {
+            this.Message = message;
+        }
 
-		#region Constructors
+        #endregion
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
-		/// </summary>
-		/// <param name="message">The message.</param>
-		public SeverityMessageEventArgs(SeverityMessage message)
-		{
-			Message = message;
-		}
+        #region Public Properties
 
-		#endregion
-	}
+        /// <summary>
+        /// Gets the message associated with this event.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
+        public SeverityMessage Message { get; protected set; }
+
+        #endregion
+    }
 }

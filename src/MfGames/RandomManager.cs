@@ -1,71 +1,81 @@
-// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-
+// <copyright file="RandomManager.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames
 {
-	/// <summary>
-	/// Set of utility functions for creating a singleton instance of
-	/// a random number generator that may be used anywhere. This
-	/// takes any System.Random derived class as the singleton.
-	/// </summary>
-	public static class RandomManager
-	{
-		#region Properties
+    using System;
 
-		/// <summary>
-		/// Gets or sets a static random generator.
-		/// </summary>
-		/// <value>The random.</value>
-		public static Random Random
-		{
-			get
-			{
-				// Create a new random if it hasn't been set
-				if (random == null)
-				{
-					random = new Random();
-				}
+    /// <summary>
+    /// Set of utility functions for creating a singleton instance of
+    /// a random number generator that may be used anywhere. This
+    /// takes any System.Random derived class as the singleton.
+    /// </summary>
+    public static class RandomManager
+    {
+        #region Static Fields
 
-				// Return the results
-				return random;
-			}
+        /// <summary>
+        /// </summary>
+        private static Random random;
 
-			set { random = value; }
-		}
+        /// <summary>
+        /// </summary>
+        [ThreadStatic]
+        private static Random threadRandom;
 
-		/// <summary>
-		/// Gets or sets a thread-specific, static random generator.
-		/// </summary>
-		/// <value>The random.</value>
-		public static Random ThreadRandom
-		{
-			get
-			{
-				// Create a new random if it hasn't been set
-				if (threadRandom == null)
-				{
-					threadRandom = new Random();
-				}
+        #endregion
 
-				// Return the results
-				return threadRandom;
-			}
+        #region Public Properties
 
-			set { threadRandom = value; }
-		}
+        /// <summary>
+        /// Gets or sets a static random generator.
+        /// </summary>
+        /// <value>The random.</value>
+        public static Random Random
+        {
+            get
+            {
+                // Create a new random if it hasn't been set
+                if (random == null)
+                {
+                    random = new Random();
+                }
 
-		#endregion
+                // Return the results
+                return random;
+            }
 
-		#region Fields
+            set
+            {
+                random = value;
+            }
+        }
 
-		private static Random random;
+        /// <summary>
+        /// Gets or sets a thread-specific, static random generator.
+        /// </summary>
+        /// <value>The random.</value>
+        public static Random ThreadRandom
+        {
+            get
+            {
+                // Create a new random if it hasn't been set
+                if (threadRandom == null)
+                {
+                    threadRandom = new Random();
+                }
 
-		[ThreadStatic]
-		private static Random threadRandom;
+                // Return the results
+                return threadRandom;
+            }
 
-		#endregion
-	}
+            set
+            {
+                threadRandom = value;
+            }
+        }
+
+        #endregion
+    }
 }

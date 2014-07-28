@@ -1,192 +1,215 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Xml;
-using System.Xml.XPath;
-
+﻿// <copyright file="XPointerInfo.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Xml
 {
-	/// <summary>
-	/// Information class that parses the XPointer and creates a representation
-	/// of the framework. This is an immutable class once parsed.
-	/// </summary>
-	public class XPointerInfo
-	{
-		#region Properties
+    using System;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using System.Xml;
+    using System.Xml.XPath;
 
-		/// <summary>
-		/// Gets a value indicating whether this is a valid XPointer.
-		/// </summary>
-		public bool IsValid { get; private set; }
+    /// <summary>
+    /// Information class that parses the XPointer and creates a representation
+    /// of the framework. This is an immutable class once parsed.
+    /// </summary>
+    public class XPointerInfo
+    {
+        #region Fields
 
-		#endregion
+        /// <summary>
+        /// </summary>
+        private readonly Dictionary<string, string> namespaces;
 
-		#region Methods
+        /// <summary>
+        /// </summary>
+        private readonly List<string> xpointers;
 
-		/// <summary>
-		/// Uses the parsed XPointer to select from the given reader.
-		/// </summary>
-		/// <param name="xmlReader">The XML reader.</param>
-		/// <returns></returns>
-		public XPathNodeIterator SelectFrom(XmlReader xmlReader)
-		{
-			// Start by creating an XPath navigator.
-			var xpathDocument = new XPathDocument(xmlReader);
-			XPathNavigator navigator = xpathDocument.CreateNavigator();
+        #endregion
 
-			// Select and return the nodes.
-			XPathNodeIterator nodes = navigator.Select(xpointers[0]);
-			return nodes;
-		}
+        #region Constructors and Destructors
 
-		private void Parse(string xpointer)
-		{
-			// Go through the input string and loop through it.
-			for (int i = 0;
-				i < xpointer.Length;
-				i++)
-			{
-				// Look for a function definition.
-				string function;
-				string argument;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XPointerInfo"/> class.
+        /// </summary>
+        /// <param name="xpointer">
+        /// The xpointer.
+        /// </param>
+        public XPointerInfo(string xpointer)
+        {
+            // Allocate the internal specifications.
+            this.namespaces = new Dictionary<string, string>();
+            this.xpointers = new List<string>();
 
-				if (TryParseFunction(ref xpointer, out function, out argument))
-				{
-					// We parsed a function, so figure out what to do from there.
-					switch (function)
-					{
-						case "xmlns":
-							int equalIndex = argument.IndexOf("=", StringComparison.Ordinal);
-							string prefix = argument.Substring(0, equalIndex);
-							string ns = argument.Substring(equalIndex + 1);
+            // If we have a blank string, we aren't valid.
+            if (string.IsNullOrEmpty(xpointer))
+            {
+                this.IsValid = false;
+                return;
+            }
 
-							namespaces[prefix] = ns;
+            // Parse the contents of the XPointer.
+            this.Parse(xpointer);
+        }
 
-							break;
+        #endregion
 
-						case "xpointer":
-							// Add in an xpointer() function.
-							xpointers.Add(argument);
-							break;
-					}
-				}
-			}
+        #region Public Properties
 
-			// Mark ourselves as valid.
-			IsValid = true;
-		}
+        /// <summary>
+        /// Gets a value indicating whether this is a valid XPointer.
+        /// </summary>
+        public bool IsValid { get; private set; }
 
-		/// <summary>
-		/// Tries to parse a function from the beginning of the xpointer string.
-		/// </summary>
-		/// <param name="xpointer">The xpointer string to parse.</param>
-		/// <param name="function">The resulting function, if found.</param>
-		/// <param name="argument">The argument for the function, if found.</param>
-		/// <returns>True if a function was found, otherwise false.</returns>
-		private bool TryParseFunction(
-			ref string xpointer,
-			out string function,
-			out string argument)
-		{
-			// If we have a null or blank string, skip it.
-			if (string.IsNullOrEmpty(xpointer))
-			{
-				function = null;
-				argument = null;
-				return false;
-			}
+        #endregion
 
-			// Look for a parser function at the beginning of the string.
-			var regex = new Regex("^(\\w+)\\(");
-			Match match = regex.Match(xpointer);
+        #region Public Methods and Operators
 
-			if (!match.Success)
-			{
-				function = null;
-				argument = null;
-				return false;
-			}
+        /// <summary>
+        /// Uses the parsed XPointer to select from the given reader.
+        /// </summary>
+        /// <param name="xmlReader">
+        /// The XML reader.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public XPathNodeIterator SelectFrom(XmlReader xmlReader)
+        {
+            // Start by creating an XPath navigator.
+            var xpathDocument = new XPathDocument(xmlReader);
+            XPathNavigator navigator = xpathDocument.CreateNavigator();
 
-			// Remove the function from the xpointer.
-			xpointer = xpointer.Substring(match.Groups[0].Length);
+            // Select and return the nodes.
+            XPathNodeIterator nodes = navigator.Select(this.xpointers[0]);
+            return nodes;
+        }
 
-			// Pull out the arguments which is the first unbalanced close paren.
-			int parentCount = 1;
+        #endregion
 
-			for (int i = 0;
-				i < xpointer.Length;
-				i++)
-			{
-				if (xpointer[i] == '(')
-				{
-					// If we get a "(" we need one additional ")" before we're
-					// done.
-					parentCount++;
-				}
+        #region Methods
 
-				if (xpointer[i] == ')')
-				{
-					// We decrement the counter when we encounter a ")". If this
-					// is the last one, then we set the argument, trim it off
-					// the pointer, and finish up.
-					if (--parentCount == 0)
-					{
-						// We get the function from the regular expression and
-						// the argument from the length we just figured out.
-						function = match.Groups[1].Value;
-						argument = xpointer.Substring(0, i);
+        /// <summary>
+        /// </summary>
+        /// <param name="xpointer">
+        /// </param>
+        private void Parse(string xpointer)
+        {
+            // Go through the input string and loop through it.
+            for (int i = 0; i < xpointer.Length; i++)
+            {
+                // Look for a function definition.
+                string function;
+                string argument;
 
-						// Strip off the function including the trailing ")".
-						xpointer = xpointer.Substring(i + 1);
+                if (this.TryParseFunction(
+                    ref xpointer, out function, out argument))
+                {
+                    // We parsed a function, so figure out what to do from there.
+                    switch (function)
+                    {
+                        case "xmlns":
+                            int equalIndex = argument.IndexOf(
+                                "=", StringComparison.Ordinal);
+                            string prefix = argument.Substring(0, equalIndex);
+                            string ns = argument.Substring(equalIndex + 1);
 
-						// Return true to indicate we found the function.
-						return true;
-					}
-				}
-			}
+                            this.namespaces[prefix] = ns;
 
-			// Populate the fields and return it.
-			function = null;
-			argument = null;
-			return true;
-		}
+                            break;
 
-		#endregion
+                        case "xpointer":
 
-		#region Constructors
+                            // Add in an xpointer() function.
+                            this.xpointers.Add(argument);
+                            break;
+                    }
+                }
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XPointerInfo"/> class.
-		/// </summary>
-		/// <param name="xpointer">The xpointer.</param>
-		public XPointerInfo(string xpointer)
-		{
-			// Allocate the internal specifications.
-			namespaces = new Dictionary<string, string>();
-			xpointers = new List<string>();
+            // Mark ourselves as valid.
+            this.IsValid = true;
+        }
 
-			// If we have a blank string, we aren't valid.
-			if (string.IsNullOrEmpty(xpointer))
-			{
-				IsValid = false;
-				return;
-			}
+        /// <summary>
+        /// Tries to parse a function from the beginning of the xpointer string.
+        /// </summary>
+        /// <param name="xpointer">
+        /// The xpointer string to parse.
+        /// </param>
+        /// <param name="function">
+        /// The resulting function, if found.
+        /// </param>
+        /// <param name="argument">
+        /// The argument for the function, if found.
+        /// </param>
+        /// <returns>
+        /// True if a function was found, otherwise false.
+        /// </returns>
+        private bool TryParseFunction(
+            ref string xpointer, out string function, out string argument)
+        {
+            // If we have a null or blank string, skip it.
+            if (string.IsNullOrEmpty(xpointer))
+            {
+                function = null;
+                argument = null;
+                return false;
+            }
 
-			// Parse the contents of the XPointer.
-			Parse(xpointer);
-		}
+            // Look for a parser function at the beginning of the string.
+            var regex = new Regex("^(\\w+)\\(");
+            Match match = regex.Match(xpointer);
 
-		#endregion
+            if (!match.Success)
+            {
+                function = null;
+                argument = null;
+                return false;
+            }
 
-		#region Fields
+            // Remove the function from the xpointer.
+            xpointer = xpointer.Substring(match.Groups[0].Length);
 
-		private readonly Dictionary<string, string> namespaces;
-		private readonly List<string> xpointers;
+            // Pull out the arguments which is the first unbalanced close paren.
+            int parentCount = 1;
 
-		#endregion
-	}
+            for (int i = 0; i < xpointer.Length; i++)
+            {
+                if (xpointer[i] == '(')
+                {
+                    // If we get a "(" we need one additional ")" before we're
+                    // done.
+                    parentCount++;
+                }
+
+                if (xpointer[i] == ')')
+                {
+                    // We decrement the counter when we encounter a ")". If this
+                    // is the last one, then we set the argument, trim it off
+                    // the pointer, and finish up.
+                    if (--parentCount == 0)
+                    {
+                        // We get the function from the regular expression and
+                        // the argument from the length we just figured out.
+                        function = match.Groups[1].Value;
+                        argument = xpointer.Substring(0, i);
+
+                        // Strip off the function including the trailing ")".
+                        xpointer = xpointer.Substring(i + 1);
+
+                        // Return true to indicate we found the function.
+                        return true;
+                    }
+                }
+            }
+
+            // Populate the fields and return it.
+            function = null;
+            argument = null;
+            return true;
+        }
+
+        #endregion
+    }
 }

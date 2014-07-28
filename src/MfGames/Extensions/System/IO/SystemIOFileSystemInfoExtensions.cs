@@ -1,117 +1,127 @@
-﻿// Copyright 2005-2012 Moonfire Games
-// Released under the MIT license
-// http://mfgames.com/mfgames-cil/license
-
-using System;
-using System.IO;
-using System.Text;
-
+﻿// <copyright file="SystemIOFileSystemInfoExtensions.cs" company="Moonfire Games">
+//     Copyright (c) Moonfire Games. Some Rights Reserved.
+// </copyright>
+// MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Extensions.System.IO
 {
-	/// <summary>
-	/// Common extension methods for System.IO.FileSystemInfo objects.
-	/// </summary>
-	public static class SystemIOFileSystemInfoExtensions
-	{
-		#region Methods
+    using global::System;
 
-		/// <summary>
-		/// Ensures that the parent directory exists for the given object.
-		/// </summary>
-		/// <param name="info">The info.</param>
-		public static void EnsureParentExists(this FileSystemInfo info)
-		{
-			// If we have a null, then don't bother doing anything.
-			if (info == null)
-			{
-				return;
-			}
+    using global::System.IO;
 
-			// Grab the parent item for this info.
-			DirectoryInfo parent = Directory.GetParent(info.FullName);
+    using global::System.Text;
 
-			if (parent == null)
-			{
-				return;
-			}
+    /// <summary>
+    /// Common extension methods for System.IO.FileSystemInfo objects.
+    /// </summary>
+    public static class SystemIOFileSystemInfoExtensions
+    {
+        #region Public Methods and Operators
 
-			// Check to see if the parent exists, if it doesn't, then make it.
-			if (!parent.Exists)
-			{
-				parent.Create();
-			}
-		}
+        /// <summary>
+        /// Ensures that the parent directory exists for the given object.
+        /// </summary>
+        /// <param name="info">
+        /// The info.
+        /// </param>
+        public static void EnsureParentExists(this FileSystemInfo info)
+        {
+            // If we have a null, then don't bother doing anything.
+            if (info == null)
+            {
+                return;
+            }
 
-		/// <summary>
-		/// Gets a string that represents the relative path between two items.
-		/// </summary>
-		/// <returns></returns>
-		public static string GetRelativePathTo(
-			this FileSystemInfo targetInfo,
-			FileSystemInfo relatedInfo)
-		{
-			string targetPath = relatedInfo.FullName;
-			string relatedPath = targetInfo.FullName;
-			string[] absoluteDirectories = targetPath.Split(Path.DirectorySeparatorChar);
-			string[] relativeDirectories = relatedPath.Split(Path.DirectorySeparatorChar);
+            // Grab the parent item for this info.
+            DirectoryInfo parent = Directory.GetParent(info.FullName);
 
-			//Get the shortest of the two paths
-			int length = absoluteDirectories.Length < relativeDirectories.Length
-				? absoluteDirectories.Length
-				: relativeDirectories.Length;
+            if (parent == null)
+            {
+                return;
+            }
 
-			//Use to determine where in the loop we exited
-			int lastCommonRoot = -1;
-			int index;
+            // Check to see if the parent exists, if it doesn't, then make it.
+            if (!parent.Exists)
+            {
+                parent.Create();
+            }
+        }
 
-			//Find common root
-			for (index = 0;
-				index < length;
-				index++)
-			{
-				if (absoluteDirectories[index] == relativeDirectories[index])
-				{
-					lastCommonRoot = index;
-				}
-				else
-				{
-					break;
-				}
-			}
+        /// <summary>
+        /// Gets a string that represents the relative path between two items.
+        /// </summary>
+        /// <param name="targetInfo">
+        /// </param>
+        /// <param name="relatedInfo">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static string GetRelativePathTo(
+            this FileSystemInfo targetInfo, FileSystemInfo relatedInfo)
+        {
+            string targetPath = relatedInfo.FullName;
+            string relatedPath = targetInfo.FullName;
+            string[] absoluteDirectories =
+                targetPath.Split(Path.DirectorySeparatorChar);
+            string[] relativeDirectories =
+                relatedPath.Split(Path.DirectorySeparatorChar);
 
-			//If we didn't find a common prefix then throw
-			if (lastCommonRoot == -1)
-			{
-				throw new ArgumentException("Paths do not have a common base");
-			}
+            // Get the shortest of the two paths
+            int length = absoluteDirectories.Length < relativeDirectories.Length
+                ? absoluteDirectories.Length
+                : relativeDirectories.Length;
 
-			//Build up the relative path
-			var relativePath = new StringBuilder();
+            // Use to determine where in the loop we exited
+            int lastCommonRoot = -1;
+            int index;
 
-			//Add on the ..
-			for (index = lastCommonRoot + 1;
-				index < absoluteDirectories.Length;
-				index++)
-			{
-				if (absoluteDirectories[index].Length > 0)
-				{
-					relativePath.Append(".." + Path.DirectorySeparatorChar);
-				}
-			}
+            // Find common root
+            for (index = 0; index < length; index++)
+            {
+                if (absoluteDirectories[index] == relativeDirectories[index])
+                {
+                    lastCommonRoot = index;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
-			//Add on the folders
-			for (index = lastCommonRoot + 1;
-				index < relativeDirectories.Length - 1;
-				index++)
-			{
-				relativePath.Append(
-					relativeDirectories[index] + Path.DirectorySeparatorChar);
-			}
-			relativePath.Append(relativeDirectories[relativeDirectories.Length - 1]);
+            // If we didn't find a common prefix then throw
+            if (lastCommonRoot == -1)
+            {
+                throw new ArgumentException("Paths do not have a common base");
+            }
 
-			return relativePath.ToString();
-		}
+            // Build up the relative path
+            var relativePath = new StringBuilder();
 
-		#endregion
-	}
+            // Add on the ..
+            for (index = lastCommonRoot + 1;
+                index < absoluteDirectories.Length;
+                index++)
+            {
+                if (absoluteDirectories[index].Length > 0)
+                {
+                    relativePath.Append(".." + Path.DirectorySeparatorChar);
+                }
+            }
+
+            // Add on the folders
+            for (index = lastCommonRoot + 1;
+                index < relativeDirectories.Length - 1;
+                index++)
+            {
+                relativePath.Append(
+                    relativeDirectories[index] + Path.DirectorySeparatorChar);
+            }
+
+            relativePath.Append(
+                relativeDirectories[relativeDirectories.Length - 1]);
+
+            return relativePath.ToString();
+        }
+
+        #endregion
+    }
 }
