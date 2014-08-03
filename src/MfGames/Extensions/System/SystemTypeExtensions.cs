@@ -112,8 +112,7 @@ namespace MfGames.Extensions.System
             }
 
             // Go through the attributes of the member type and look for at least one.
-            return type.GetCustomAttributes(attributeType, inherited).Length
-                > 0;
+            return type.GetCustomAttributes(attributeType, inherited).Length > 0;
         }
 
         #endregion

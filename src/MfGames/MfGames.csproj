@@ -79,6 +79,7 @@
     <Compile Include="Conversion\ExtendableConvert.cs" />
     <Compile Include="Enumerations\Importance .cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
+    <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericEnumerableExtensions.cs" />
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
     <Compile Include="Extensions\System\IO\SystemIODirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\System\IO\SystemIOFileInfoExtensions.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="SemanticVersion.cs" />
     <Compile Include="Settings\SettingSearchOptions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Text\MacroExpansion.cs" />
     <Compile Include="TranslatorManager.cs" />
     <Compile Include="Xml\XIncludeReader.cs" />
     <Compile Include="Xml\XmlConstants.cs" />

@@ -4,8 +4,6 @@
 // MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Reporting
 {
-    using System;
-
     using MfGames.Enumerations;
 
     /// <summary>
