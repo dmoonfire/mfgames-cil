@@ -56,8 +56,11 @@ namespace MfGames.HierarchicalPaths
         /// <param name="isRelative">
         /// if set to <c>true</c> [is relative].
         /// </param>
-        public HierarchicalSelector(IEnumerable<string> levels, bool isRelative)
-            : base(levels, isRelative)
+        public HierarchicalSelector(
+            IEnumerable<string> levels, 
+            bool isRelative)
+            : base(levels, 
+                isRelative)
         {
             this.ParseSelectors();
         }
@@ -75,8 +78,12 @@ namespace MfGames.HierarchicalPaths
         /// if set to <c>true</c> [is relative].
         /// </param>
         public HierarchicalSelector(
-            IEnumerable<string> levels, int startIndex, bool isRelative)
-            : base(levels, startIndex, isRelative)
+            IEnumerable<string> levels, 
+            int startIndex, 
+            bool isRelative)
+            : base(levels, 
+                startIndex, 
+                isRelative)
         {
             this.ParseSelectors();
         }
@@ -90,8 +97,11 @@ namespace MfGames.HierarchicalPaths
         /// <param name="context">
         /// The context.
         /// </param>
-        public HierarchicalSelector(string path, HierarchicalPath context)
-            : base(path, context)
+        public HierarchicalSelector(
+            string path, 
+            HierarchicalPath context)
+            : base(path, 
+                context)
         {
             this.ParseSelectors();
         }
@@ -111,7 +121,9 @@ namespace MfGames.HierarchicalPaths
         /// </returns>
         public bool IsMatch(HierarchicalPath path)
         {
-            return this.IsMatch(path, 0);
+            return this.IsMatch(
+                path, 
+                0);
         }
 
         /// <summary>
@@ -126,7 +138,9 @@ namespace MfGames.HierarchicalPaths
         /// <returns>
         /// <c>true</c> if the specified path is match; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsMatch(HierarchicalPath path, int startIndex)
+        public bool IsMatch(
+            HierarchicalPath path, 
+            int startIndex)
         {
             // If the selector is longer than the given path, it will never
             // match the path.
@@ -187,7 +201,9 @@ namespace MfGames.HierarchicalPaths
                     starIndex++)
                 {
                     // If this is a match, use it.
-                    if (subSelector.IsMatch(path, starIndex))
+                    if (subSelector.IsMatch(
+                        path, 
+                        starIndex))
                     {
                         return true;
                     }
@@ -266,7 +282,10 @@ namespace MfGames.HierarchicalPaths
                     // Create a sub-tree of the selector and put it into this
                     // object.
                     this.operations[index] =
-                        new HierarchicalSelector(this.Levels, index + 1, true);
+                        new HierarchicalSelector(
+                            this.Levels, 
+                            index + 1, 
+                            true);
                     continue;
                 }
 

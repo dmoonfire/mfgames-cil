@@ -136,9 +136,13 @@ namespace MfGames.Collections
         /// </param>
         /// <param name="item">
         /// </param>
-        public void Add(string path, TValue item)
+        public void Add(
+            string path, 
+            TValue item)
         {
-            this.Add(new HierarchicalPath(path), item);
+            this.Add(
+                new HierarchicalPath(path), 
+                item);
         }
 
         /// <summary>
@@ -150,7 +154,9 @@ namespace MfGames.Collections
         /// <param name="item">
         /// The item.
         /// </param>
-        public void Add(HierarchicalPath path, TValue item)
+        public void Add(
+            HierarchicalPath path, 
+            TValue item)
         {
             // If are the top-level path, set the item.
             if (path.Count == 0)
@@ -173,7 +179,9 @@ namespace MfGames.Collections
             HierarchicalPathTreeCollection<TValue> child = this.nodes[topLevel];
             HierarchicalPath childPath = path.Splice(1);
 
-            child.Add(childPath, item);
+            child.Add(
+                childPath, 
+                item);
         }
 
         /// <summary>
@@ -294,7 +302,9 @@ namespace MfGames.Collections
         {
             return
                 new HierarchicalPathTreeCollection<TValue>(
-                    new HierarchicalPath(childNodeName, this.Path));
+                    new HierarchicalPath(
+                        childNodeName, 
+                        this.Path));
         }
 
         #endregion

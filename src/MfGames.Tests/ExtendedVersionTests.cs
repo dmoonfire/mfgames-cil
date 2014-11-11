@@ -97,7 +97,9 @@ namespace UnitTests
         public void CompareOpEqual()
         {
             var v1 = new ExtendedVersion("1.2.3");
-            Assert.IsTrue(v1.Compare("= 1.2.3"), "With space");
+            Assert.IsTrue(
+                v1.Compare("= 1.2.3"), 
+                "With space");
         }
 
         /// <summary>
@@ -106,7 +108,9 @@ namespace UnitTests
         public void CompareOpEqual2()
         {
             var v1 = new ExtendedVersion("1.2.3");
-            Assert.IsTrue(v1.Compare("=1.2.3"), "Without space");
+            Assert.IsTrue(
+                v1.Compare("=1.2.3"), 
+                "Without space");
         }
 
         /// <summary>
@@ -115,7 +119,9 @@ namespace UnitTests
         public void CompareOpEqual3()
         {
             var v1 = new ExtendedVersion("1.2.3");
-            Assert.IsTrue(v1.Compare("=   1.2.3"), "With too many spaces");
+            Assert.IsTrue(
+                v1.Compare("=   1.2.3"), 
+                "With too many spaces");
         }
 
         /// <summary>
@@ -385,7 +391,9 @@ namespace UnitTests
         public void ParseBlank()
         {
             var v = new ExtendedVersion(string.Empty);
-            Assert.IsTrue(v == null, "Never get here");
+            Assert.IsTrue(
+                v == null, 
+                "Never get here");
         }
 
         /// <summary>
@@ -394,7 +402,9 @@ namespace UnitTests
         public void ParseDebianVersion()
         {
             var v = new ExtendedVersion("1.2.3-4");
-            Assert.AreEqual("1.2.3-4", v.ToString());
+            Assert.AreEqual(
+                "1.2.3-4", 
+                v.ToString());
         }
 
         /// <summary>
@@ -403,7 +413,9 @@ namespace UnitTests
         public void ParseDebianVersion2()
         {
             var v = new ExtendedVersion("1.2-3.4d");
-            Assert.AreEqual("1.2-3.4d", v.ToString());
+            Assert.AreEqual(
+                "1.2-3.4d", 
+                v.ToString());
         }
 
         /// <summary>
@@ -413,7 +425,9 @@ namespace UnitTests
         public void ParseInnerSpace()
         {
             var v = new ExtendedVersion("1 2.3");
-            Assert.IsTrue(v == null, "Never get here");
+            Assert.IsTrue(
+                v == null, 
+                "Never get here");
         }
 
         /// <summary>
@@ -423,7 +437,9 @@ namespace UnitTests
         public void ParseNull()
         {
             var v = new ExtendedVersion(null);
-            Assert.IsTrue(v == null, "Never get here");
+            Assert.IsTrue(
+                v == null, 
+                "Never get here");
         }
 
         /// <summary>
@@ -432,7 +448,9 @@ namespace UnitTests
         public void ParseSingleNumber()
         {
             var v = new ExtendedVersion("1");
-            Assert.AreEqual("1", v.ToString());
+            Assert.AreEqual(
+                "1", 
+                v.ToString());
         }
 
         /// <summary>
@@ -442,7 +460,9 @@ namespace UnitTests
         public void ParseSpace()
         {
             var v = new ExtendedVersion(" ");
-            Assert.IsTrue(v == null, "Never get here");
+            Assert.IsTrue(
+                v == null, 
+                "Never get here");
         }
 
         /// <summary>
@@ -451,7 +471,9 @@ namespace UnitTests
         public void ParseTextVersion()
         {
             var v = new ExtendedVersion("1.2b3");
-            Assert.AreEqual("1.2b3", v.ToString());
+            Assert.AreEqual(
+                "1.2b3", 
+                v.ToString());
         }
 
         /// <summary>
@@ -460,7 +482,9 @@ namespace UnitTests
         public void ParseThreeNumbers()
         {
             var v = new ExtendedVersion("1.2.3");
-            Assert.AreEqual("1.2.3", v.ToString());
+            Assert.AreEqual(
+                "1.2.3", 
+                v.ToString());
         }
 
         /// <summary>
@@ -469,7 +493,9 @@ namespace UnitTests
         public void ParseTwoNumbers()
         {
             var v = new ExtendedVersion("1.2");
-            Assert.AreEqual("1.2", v.ToString());
+            Assert.AreEqual(
+                "1.2", 
+                v.ToString());
         }
 
         /// <summary>

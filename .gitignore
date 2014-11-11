@@ -8,6 +8,9 @@ src/packages
 *.user
 *.suo
 
+# StyleCopy
+StyleCop.cache
+
 # NuGet
 *.nupkg
 generate-nupkg.bat

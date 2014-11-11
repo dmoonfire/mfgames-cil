@@ -26,9 +26,14 @@ namespace MfGames.Extensions.System
         /// </param>
         /// <returns>
         /// </returns>
-        public static TItem[] Splice<TItem>(this TItem[] oldArray, int offset)
+        public static TItem[] Splice<TItem>(
+            this TItem[] oldArray, 
+            int offset)
         {
-            return Splice(oldArray, offset, oldArray.Length - offset);
+            return Splice(
+                oldArray, 
+                offset, 
+                oldArray.Length - offset);
         }
 
         /// <summary>
@@ -50,7 +55,9 @@ namespace MfGames.Extensions.System
         /// <returns>
         /// </returns>
         public static TItem[] Splice<TItem>(
-            this TItem[] oldArray, int offset, int count)
+            this TItem[] oldArray, 
+            int offset, 
+            int count)
         {
             // Check for nulls and blanks.
             if (oldArray == null)

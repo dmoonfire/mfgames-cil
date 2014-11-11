@@ -30,7 +30,9 @@ namespace MfGames.Extensions.System.Reflection
             this MemberInfo memberInfo) where TAttribute : Attribute
         {
             object[] attributes =
-                memberInfo.GetCustomAttributes(typeof(TAttribute), true);
+                memberInfo.GetCustomAttributes(
+                    typeof(TAttribute), 
+                    true);
 
             if (attributes.Length == 0)
             {
@@ -65,9 +67,12 @@ namespace MfGames.Extensions.System.Reflection
         /// <returns>
         /// </returns>
         public static bool HasCustomAttribute<TAttribute>(
-            this MemberInfo memberInfo, bool inherited)
+            this MemberInfo memberInfo, 
+            bool inherited)
         {
-            return memberInfo.HasCustomAttribute(typeof(TAttribute), inherited);
+            return memberInfo.HasCustomAttribute(
+                typeof(TAttribute), 
+                inherited);
         }
 
         /// <summary>
@@ -84,9 +89,13 @@ namespace MfGames.Extensions.System.Reflection
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this MemberInfo memberInfo, Type attributeType)
+            this MemberInfo memberInfo, 
+            Type attributeType)
         {
-            return HasCustomAttribute(memberInfo, attributeType, true);
+            return HasCustomAttribute(
+                memberInfo, 
+                attributeType, 
+                true);
         }
 
         /// <summary>
@@ -106,7 +115,9 @@ namespace MfGames.Extensions.System.Reflection
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this MemberInfo memberInfo, Type attributeType, bool inherited)
+            this MemberInfo memberInfo, 
+            Type attributeType, 
+            bool inherited)
         {
             // Check for null parameters.
             if (attributeType == null)
@@ -115,9 +126,10 @@ namespace MfGames.Extensions.System.Reflection
             }
 
             // Go through the attributes of the member type and look for at least one.
-            return
-                memberInfo.GetCustomAttributes(attributeType, inherited).Length
-                    > 0;
+            return memberInfo.GetCustomAttributes(
+                attributeType, 
+                inherited)
+                .Length > 0;
         }
 
         #endregion

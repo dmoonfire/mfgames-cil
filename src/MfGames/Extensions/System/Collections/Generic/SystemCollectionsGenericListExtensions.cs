@@ -44,7 +44,9 @@ namespace MfGames.Extensions.System.Collections.Generic
         /// </returns>
         public static TItem GetRandom<TItem>(this IList<TItem> list)
         {
-            return GetRandom(list, RandomManager.Random);
+            return GetRandom(
+                list, 
+                RandomManager.Random);
         }
 
         /// <summary>
@@ -57,7 +59,8 @@ namespace MfGames.Extensions.System.Collections.Generic
         /// <returns>
         /// </returns>
         public static TItem GetRandom<TItem>(
-            this IList<TItem> list, Random random)
+            this IList<TItem> list, 
+            Random random)
         {
             // If we have an empty list, then we can't return anything.
             if (list.Count == 0)
@@ -67,7 +70,9 @@ namespace MfGames.Extensions.System.Collections.Generic
             }
 
             // Pick a random item from the list.
-            int index = random.Next(0, list.Count);
+            int index = random.Next(
+                0, 
+                list.Count);
             return list[index];
         }
 
@@ -129,7 +134,9 @@ namespace MfGames.Extensions.System.Collections.Generic
                         // index, then start processing again.
                         TItem item = list[testIndex];
                         list.RemoveAt(testIndex);
-                        list.Insert(startIndex, item);
+                        list.Insert(
+                            startIndex, 
+                            item);
 
                         // Decrement the start index to start again.
                         startOver = true;
@@ -181,7 +188,9 @@ namespace MfGames.Extensions.System.Collections.Generic
                             // it into the updated child index.
                             TItem item = list[testIndex];
                             list.RemoveAt(testIndex);
-                            list.Insert(lastChildIndex, item);
+                            list.Insert(
+                                lastChildIndex, 
+                                item);
 
                             // Move the index back to it (and a bit more to
                             // handle the for() loop incrementer.
@@ -236,9 +245,13 @@ namespace MfGames.Extensions.System.Collections.Generic
         /// <param name="item">
         /// The item.
         /// </param>
-        public static void Push<TItem>(this IList<TItem> list, TItem item)
+        public static void Push<TItem>(
+            this IList<TItem> list, 
+            TItem item)
         {
-            list.Insert(0, item);
+            list.Insert(
+                0, 
+                item);
         }
 
         /// <summary>

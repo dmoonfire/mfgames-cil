@@ -35,16 +35,19 @@ namespace UnitTests
             const string xml = "<a><b /><b /></a>";
 
             // Act
-            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, };
+            var settings = new XmlWriterSettings
+                {
+                    OmitXmlDeclaration = true, 
+                };
             var stringWriter = new StringWriter();
 
             using (var stringReader = new StringReader(xml))
             {
                 using (XmlReader xmlReader = XmlReader.Create(stringReader))
                 {
-                    using (
-                        XmlWriter xmlWriter = XmlWriter.Create(
-                            stringWriter, settings))
+                    using (XmlWriter xmlWriter = XmlWriter.Create(
+                        stringWriter, 
+                        settings))
                     {
                         using (
                             var identityWriter = new XmlIdentityWriter(
@@ -59,7 +62,9 @@ namespace UnitTests
             // Assert
             string actual = stringWriter.ToString();
 
-            Assert.AreEqual(xml, actual);
+            Assert.AreEqual(
+                xml, 
+                actual);
         }
 
         /// <summary>
@@ -71,16 +76,19 @@ namespace UnitTests
             const string xml = "<a>a</a>";
 
             // Act
-            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, };
+            var settings = new XmlWriterSettings
+                {
+                    OmitXmlDeclaration = true, 
+                };
             var stringWriter = new StringWriter();
 
             using (var stringReader = new StringReader(xml))
             {
                 using (XmlReader xmlReader = XmlReader.Create(stringReader))
                 {
-                    using (
-                        XmlWriter xmlWriter = XmlWriter.Create(
-                            stringWriter, settings))
+                    using (XmlWriter xmlWriter = XmlWriter.Create(
+                        stringWriter, 
+                        settings))
                     {
                         using (
                             var identityWriter = new XmlIdentityWriter(
@@ -95,7 +103,9 @@ namespace UnitTests
             // Assert
             string actual = stringWriter.ToString();
 
-            Assert.AreEqual(xml, actual);
+            Assert.AreEqual(
+                xml, 
+                actual);
         }
 
         /// <summary>
@@ -107,7 +117,10 @@ namespace UnitTests
             const string xml = "<a />";
 
             // Act
-            var settings = new XmlWriterSettings { OmitXmlDeclaration = true, };
+            var settings = new XmlWriterSettings
+                {
+                    OmitXmlDeclaration = true, 
+                };
 
             var stringWriter = new StringWriter();
 
@@ -115,9 +128,9 @@ namespace UnitTests
             {
                 using (XmlReader xmlReader = XmlReader.Create(stringReader))
                 {
-                    using (
-                        XmlWriter xmlWriter = XmlWriter.Create(
-                            stringWriter, settings))
+                    using (XmlWriter xmlWriter = XmlWriter.Create(
+                        stringWriter, 
+                        settings))
                     {
                         using (
                             var identityWriter = new XmlIdentityWriter(
@@ -132,7 +145,9 @@ namespace UnitTests
             // Assert
             string actual = stringWriter.ToString();
 
-            Assert.AreEqual(xml, actual);
+            Assert.AreEqual(
+                xml, 
+                actual);
         }
 
         #endregion

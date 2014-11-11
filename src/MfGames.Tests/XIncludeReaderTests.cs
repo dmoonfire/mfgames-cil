@@ -33,7 +33,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -52,7 +54,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -70,7 +74,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -89,7 +95,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -115,7 +123,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -133,7 +143,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -151,7 +163,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -169,7 +183,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         /// <summary>
@@ -185,7 +201,9 @@ namespace UnitTests
             string results = WriteXmlResults(xml);
 
             // Assert
-            Assert.AreEqual(expected, results);
+            Assert.AreEqual(
+                expected, 
+                results);
         }
 
         #endregion
@@ -222,7 +240,8 @@ namespace UnitTests
                         // using string.
                         using (
                             XmlWriter xmlWriter = XmlWriter.Create(
-                                stringWriter, writerSettings))
+                                stringWriter, 
+                                writerSettings))
                         {
                             using (
                                 var identityWriter =

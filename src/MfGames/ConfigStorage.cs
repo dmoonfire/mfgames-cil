@@ -53,7 +53,10 @@ namespace MfGames
         /// </returns>
         public static string GetDirectory(params string[] relativeDirectories)
         {
-            return GetDirectoryInfo(true, relativeDirectories).FullName;
+            return GetDirectoryInfo(
+                true, 
+                relativeDirectories)
+                .FullName;
         }
 
         /// <summary>
@@ -66,9 +69,13 @@ namespace MfGames
         /// <returns>
         /// </returns>
         public static string GetDirectory(
-            bool create, params string[] relativeDirectories)
+            bool create, 
+            params string[] relativeDirectories)
         {
-            return GetDirectoryInfo(create, relativeDirectories).FullName;
+            return GetDirectoryInfo(
+                create, 
+                relativeDirectories)
+                .FullName;
         }
 
         /// <summary>
@@ -81,7 +88,9 @@ namespace MfGames
         public static DirectoryInfo GetDirectoryInfo(
             params string[] relativeDirectories)
         {
-            return GetDirectoryInfo(true, relativeDirectories);
+            return GetDirectoryInfo(
+                true, 
+                relativeDirectories);
         }
 
         /// <summary>
@@ -94,7 +103,8 @@ namespace MfGames
         /// <returns>
         /// </returns>
         public static DirectoryInfo GetDirectoryInfo(
-            bool create, params string[] relativeDirectories)
+            bool create, 
+            params string[] relativeDirectories)
         {
             // Start at the top-level configuration directory and create all the relative
             // directories before returning the inner-mode directory.
@@ -103,9 +113,10 @@ namespace MfGames
             foreach (string relativeDirectory in relativeDirectories)
             {
                 // Create the new child directory.
-                directory =
-                    new DirectoryInfo(
-                        Path.Combine(directory.FullName, relativeDirectory));
+                directory = new DirectoryInfo(
+                    Path.Combine(
+                        directory.FullName, 
+                        relativeDirectory));
 
                 // Create the directory if we were requested to create it and it doesn't exist.
                 if (create && !directory.Exists)

@@ -27,11 +27,15 @@ namespace MfGames.Extensions.System.Xml
         /// The value of the element.
         /// </param>
         public static void WriteNonNullElementString(
-            this XmlWriter writer, string localName, string value)
+            this XmlWriter writer, 
+            string localName, 
+            string value)
         {
             if (value != null)
             {
-                writer.WriteElementString(localName, value);
+                writer.WriteElementString(
+                    localName, 
+                    value);
             }
         }
 
@@ -52,11 +56,17 @@ namespace MfGames.Extensions.System.Xml
         /// The value of the element.
         /// </param>
         public static void WriteNonNullElementString(
-            this XmlWriter writer, string localName, string ns, string value)
+            this XmlWriter writer, 
+            string localName, 
+            string ns, 
+            string value)
         {
             if (value != null)
             {
-                writer.WriteElementString(localName, ns, value);
+                writer.WriteElementString(
+                    localName, 
+                    ns, 
+                    value);
             }
         }
 
@@ -88,7 +98,11 @@ namespace MfGames.Extensions.System.Xml
         {
             if (value != null)
             {
-                writer.WriteElementString(prefix, localName, ns, value);
+                writer.WriteElementString(
+                    prefix, 
+                    localName, 
+                    ns, 
+                    value);
             }
         }
 

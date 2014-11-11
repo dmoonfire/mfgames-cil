@@ -33,8 +33,11 @@ namespace MfGames.Exceptions
         /// <param name="exception">
         /// The exception.
         /// </param>
-        public HierarchicalPathException(string message, Exception exception)
-            : base(message, exception)
+        public HierarchicalPathException(
+            string message, 
+            Exception exception)
+            : base(message, 
+                exception)
         {
         }
 

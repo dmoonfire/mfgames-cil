@@ -54,9 +54,14 @@ namespace MfGames.Reporting
         /// <param name="arguments">
         /// The arguments.
         /// </param>
-        public void Alert(string format, params object[] arguments)
+        public void Alert(
+            string format, 
+            params object[] arguments)
         {
-            this.Log(Severity.Alert, format, arguments);
+            this.Log(
+                Severity.Alert, 
+                format, 
+                arguments);
         }
 
         /// <summary>
@@ -68,9 +73,14 @@ namespace MfGames.Reporting
         /// <param name="arguments">
         /// The arguments.
         /// </param>
-        public void Debug(string format, params object[] arguments)
+        public void Debug(
+            string format, 
+            params object[] arguments)
         {
-            this.Log(Severity.Debug, format, arguments);
+            this.Log(
+                Severity.Debug, 
+                format, 
+                arguments);
         }
 
         /// <summary>
@@ -82,9 +92,14 @@ namespace MfGames.Reporting
         /// <param name="arguments">
         /// The arguments.
         /// </param>
-        public void Error(string format, params object[] arguments)
+        public void Error(
+            string format, 
+            params object[] arguments)
         {
-            this.Log(Severity.Error, format, arguments);
+            this.Log(
+                Severity.Error, 
+                format, 
+                arguments);
         }
 
         /// <summary>
@@ -96,9 +111,14 @@ namespace MfGames.Reporting
         /// <param name="arguments">
         /// The arguments.
         /// </param>
-        public void Fatal(string format, params object[] arguments)
+        public void Fatal(
+            string format, 
+            params object[] arguments)
         {
-            this.Log(Severity.Fatal, format, arguments);
+            this.Log(
+                Severity.Fatal, 
+                format, 
+                arguments);
         }
 
         /// <summary>
@@ -110,9 +130,14 @@ namespace MfGames.Reporting
         /// <param name="arguments">
         /// The arguments.
         /// </param>
-        public void Info(string format, params object[] arguments)
+        public void Info(
+            string format, 
+            params object[] arguments)
         {
-            this.Log(Severity.Info, format, arguments);
+            this.Log(
+                Severity.Info, 
+                format, 
+                arguments);
         }
 
         /// <summary>
@@ -129,10 +154,15 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Log(
-            Severity severity, string format, params object[] arguments)
+            Severity severity, 
+            string format, 
+            params object[] arguments)
         {
             var message = new SeverityMessage(
-                severity, string.Format(format, arguments));
+                severity, 
+                string.Format(
+                    format, 
+                    arguments));
             this.Log(message);
         }
 
@@ -144,7 +174,9 @@ namespace MfGames.Reporting
         /// </param>
         public void Log(SeverityMessage message)
         {
-            LogManager.Log(this.context, message);
+            LogManager.Log(
+                this.context, 
+                message);
         }
 
         #endregion

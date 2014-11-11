@@ -25,7 +25,8 @@ namespace MfGames.Reporting
         /// The message text.
         /// </param>
         public SeverityMessage(string text)
-            : this(Severity.Info, text)
+            : this(Severity.Info, 
+                text)
         {
         }
 
@@ -38,7 +39,9 @@ namespace MfGames.Reporting
         /// <param name="text">
         /// The message text.
         /// </param>
-        public SeverityMessage(Severity severity, string text)
+        public SeverityMessage(
+            Severity severity, 
+            string text)
         {
             if (string.IsNullOrEmpty(text))
             {

@@ -29,8 +29,11 @@ namespace MfGames.HierarchicalPaths
         /// <param name="value">
         /// The value.
         /// </param>
-        public HierarchicalPathKeyValue(string hierarchialPath, TValue value)
-            : this(new HierarchicalPath(hierarchialPath), value)
+        public HierarchicalPathKeyValue(
+            string hierarchialPath, 
+            TValue value)
+            : this(new HierarchicalPath(hierarchialPath), 
+                value)
         {
         }
 
@@ -44,7 +47,8 @@ namespace MfGames.HierarchicalPaths
         /// The value.
         /// </param>
         public HierarchicalPathKeyValue(
-            HierarchicalPath hierarchicalPath, TValue value)
+            HierarchicalPath hierarchicalPath, 
+            TValue value)
         {
             if (hierarchicalPath == null)
             {
@@ -81,11 +85,12 @@ namespace MfGames.HierarchicalPaths
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(
-            HierarchicalPathKeyValue<TValue> left, 
+        public static bool operator ==(HierarchicalPathKeyValue<TValue> left, 
             HierarchicalPathKeyValue<TValue> right)
         {
-            return Equals(left, right);
+            return Equals(
+                left, 
+                right);
         }
 
         /// <summary>
@@ -96,11 +101,12 @@ namespace MfGames.HierarchicalPaths
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(
-            HierarchicalPathKeyValue<TValue> left, 
+        public static bool operator !=(HierarchicalPathKeyValue<TValue> left, 
             HierarchicalPathKeyValue<TValue> right)
         {
-            return !Equals(left, right);
+            return !Equals(
+                left, 
+                right);
         }
 
         /// <summary>
@@ -158,17 +164,23 @@ namespace MfGames.HierarchicalPaths
         ///                 </param>
         public bool Equals(HierarchicalPathKeyValue<TValue> other)
         {
-            if (ReferenceEquals(null, other))
+            if (ReferenceEquals(
+                null, 
+                other))
             {
                 return false;
             }
 
-            if (ReferenceEquals(this, other))
+            if (ReferenceEquals(
+                this, 
+                other))
             {
                 return true;
             }
 
-            return Equals(other.HierarchicalPath, this.HierarchicalPath);
+            return Equals(
+                other.HierarchicalPath, 
+                this.HierarchicalPath);
         }
 
         /// <summary>
@@ -186,12 +198,16 @@ namespace MfGames.HierarchicalPaths
         /// <filterpriority>2</filterpriority>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (ReferenceEquals(
+                null, 
+                obj))
             {
                 return false;
             }
 
-            if (ReferenceEquals(this, obj))
+            if (ReferenceEquals(
+                this, 
+                obj))
             {
                 return true;
             }
@@ -225,7 +241,9 @@ namespace MfGames.HierarchicalPaths
         public override string ToString()
         {
             return string.Format(
-                "{0} => {1}", this.HierarchicalPath, this.Value);
+                "{0} => {1}", 
+                this.HierarchicalPath, 
+                this.Value);
         }
 
         #endregion

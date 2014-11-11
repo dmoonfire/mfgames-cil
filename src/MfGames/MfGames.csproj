@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="Collections\HierarchicalPathTreeCollection.cs" />
     <Compile Include="Conversion\ExtendableConvert.cs" />
-    <Compile Include="Enumerations\Importance .cs" />
+    <Compile Include="Enumerations\Importance.cs" />
     <Compile Include="Exceptions\HierarchicalPathException.cs" />
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericEnumerableExtensions.cs" />
     <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
@@ -94,6 +94,8 @@
     <Compile Include="HierarchicalPaths\HierarchicalPathOptions.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalSelector.cs" />
     <Compile Include="HierarchicalPaths\IHierarchicalPathContainer.cs" />
+    <Compile Include="IO\CalbackStreamEventArgs.cs" />
+    <Compile Include="IO\CallbackStream.cs" />
     <Compile Include="Locking\NestableReadLock.cs" />
     <Compile Include="Locking\NestableUpgradableReadLock.cs" />
     <Compile Include="Locking\NestableWriteLock.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Settings\SettingSearchOptions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Text\MacroExpansion.cs" />
+    <Compile Include="Text\MacroExpansionRegexOptions.cs" />
     <Compile Include="TranslatorManager.cs" />
     <Compile Include="Xml\XIncludeReader.cs" />
     <Compile Include="Xml\XmlConstants.cs" />
@@ -129,6 +132,12 @@
   <ItemGroup>
     <None Include="MfGames.nuspec" />
     <None Include="MfGames.snk" />
+    <None Include="packages.config" />
+    <None Include="_CreateNewNuGetPackage\Config.ps1" />
+    <None Include="_CreateNewNuGetPackage\DoNotModify\CreateNuGetPackage.ps1" />
+    <None Include="_CreateNewNuGetPackage\DoNotModify\New-NuGetPackage.ps1" />
+    <None Include="_CreateNewNuGetPackage\DoNotModify\UploadNuGetPackage.ps1" />
+    <None Include="_CreateNewNuGetPackage\RunMeToUploadNuGetPackage.cmd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -146,6 +155,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_CreateNewNuGetPackage\DoNotModify\NuGet.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
@@ -166,4 +178,10 @@
     </MonoDevelop>
     <VisualStudio />
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>REM Create a NuGet package for this project and place the .nupkg file in the project's output directory.
+REM If you see this in Visual Studio's Error List window, check the Output window's Build tab for the actual error.
+ECHO Creating NuGet package in Post-Build event...
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "&amp; '$(ProjectDir)_CreateNewNuGetPackage\DoNotModify\CreateNuGetPackage.ps1' -ProjectFilePath '$(ProjectPath)' -OutputDirectory '$(TargetDir)' -BuildConfiguration '$(ConfigurationName)' -BuildPlatform '$(PlatformName)'"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

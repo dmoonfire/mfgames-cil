@@ -57,7 +57,9 @@ namespace MfGames.Conversion
             // 		input,
             // 		typeof (TInput),
             // 		typeof (TOutput)));
-            return (TOutput)SystemConvert.ChangeType(input, typeof(TOutput));
+            return (TOutput)SystemConvert.ChangeType(
+                input, 
+                typeof(TOutput));
         }
 
         #endregion

@@ -26,7 +26,9 @@ namespace MfGames.Extensions.System.Collections.Generic
         /// </returns>
         public static string Join(this IEnumerable<string> input)
         {
-            return string.Join(Environment.NewLine, input);
+            return string.Join(
+                Environment.NewLine, 
+                input);
         }
 
         #endregion

@@ -41,21 +41,46 @@ namespace UnitTests
         {
             // Setup
             var list = new List<IHierarchicalPathContainer>();
-            list.Add(new HierarchicalPathKeyValue<int>("/z/b/d", 1));
-            list.Add(new HierarchicalPathKeyValue<int>("/z/b", 2));
-            list.Add(new HierarchicalPathKeyValue<int>("/z/a", 3));
-            list.Add(new HierarchicalPathKeyValue<int>("/b", 4));
-            list.Add(new HierarchicalPathKeyValue<int>("/z/b/c", 5));
+            list.Add(
+                new HierarchicalPathKeyValue<int>(
+                    "/z/b/d", 
+                    1));
+            list.Add(
+                new HierarchicalPathKeyValue<int>(
+                    "/z/b", 
+                    2));
+            list.Add(
+                new HierarchicalPathKeyValue<int>(
+                    "/z/a", 
+                    3));
+            list.Add(
+                new HierarchicalPathKeyValue<int>(
+                    "/b", 
+                    4));
+            list.Add(
+                new HierarchicalPathKeyValue<int>(
+                    "/z/b/c", 
+                    5));
 
             // Operation
             list.OrderByHierarchicalPath();
 
             // Verification
-            Assert.AreEqual("/z/b", list[0].HierarchicalPath.ToString());
-            Assert.AreEqual("/z/b/d", list[1].HierarchicalPath.ToString());
-            Assert.AreEqual("/z/b/c", list[2].HierarchicalPath.ToString());
-            Assert.AreEqual("/z/a", list[3].HierarchicalPath.ToString());
-            Assert.AreEqual("/b", list[4].HierarchicalPath.ToString());
+            Assert.AreEqual(
+                "/z/b", 
+                list[0].HierarchicalPath.ToString());
+            Assert.AreEqual(
+                "/z/b/d", 
+                list[1].HierarchicalPath.ToString());
+            Assert.AreEqual(
+                "/z/b/c", 
+                list[2].HierarchicalPath.ToString());
+            Assert.AreEqual(
+                "/z/a", 
+                list[3].HierarchicalPath.ToString());
+            Assert.AreEqual(
+                "/b", 
+                list[4].HierarchicalPath.ToString());
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 //     Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
 // MIT Licensed (http://opensource.org/licenses/MIT)
-namespace MfGames.Settings.Enumerations
+namespace MfGames.Settings
 {
     using System;
 

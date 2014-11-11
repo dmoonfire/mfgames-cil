@@ -56,7 +56,8 @@ namespace MfGames.Extensions.System.IO
         /// <returns>
         /// </returns>
         public static string GetRelativePathTo(
-            this FileSystemInfo targetInfo, FileSystemInfo relatedInfo)
+            this FileSystemInfo targetInfo, 
+            FileSystemInfo relatedInfo)
         {
             string targetPath = relatedInfo.FullName;
             string relatedPath = targetInfo.FullName;

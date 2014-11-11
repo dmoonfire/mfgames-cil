@@ -87,7 +87,9 @@ namespace MfGames
 
             // Split the version into parts. We also allocate the space for
             // everything before parsing.
-            string[] parts = version.Split('.', '-');
+            string[] parts = version.Split(
+                '.', 
+                '-');
             this.numerics = new int[parts.Length];
             this.strings = new string[parts.Length];
 
@@ -127,7 +129,8 @@ namespace MfGames
         /// Determines if the two versions are syntactically equal. If all
         /// the version parts are identical, then so is the entire version.
         /// </summary>
-        public static bool operator ==(ExtendedVersion v1, ExtendedVersion v2)
+        public static bool operator ==(ExtendedVersion v1, 
+            ExtendedVersion v2)
         {
             return v1.ToString() == v2.ToString();
         }
@@ -136,7 +139,8 @@ namespace MfGames
         /// Determines if the first version is greater than the second
         /// version. See the &lt; operator for more conditions.
         /// </summary>
-        public static bool operator >(ExtendedVersion v1, ExtendedVersion v2)
+        public static bool operator >(ExtendedVersion v1, 
+            ExtendedVersion v2)
         {
             // Just do the reverse, its easier
             return v2 < v1;
@@ -146,7 +150,8 @@ namespace MfGames
         /// Determines if the first version is greater than or equal to
         /// the second version. See the &lt; operator for more conditions.
         /// </summary>
-        public static bool operator >=(ExtendedVersion v1, ExtendedVersion v2)
+        public static bool operator >=(ExtendedVersion v1, 
+            ExtendedVersion v2)
         {
             // Just do the reverse, its easier
             return v1 == v2 || v2 < v1;
@@ -156,7 +161,8 @@ namespace MfGames
         /// Determines if the two versions are syntactically equal. If all
         /// the version parts are identical, then so is the entire version.
         /// </summary>
-        public static bool operator !=(ExtendedVersion v1, ExtendedVersion v2)
+        public static bool operator !=(ExtendedVersion v1, 
+            ExtendedVersion v2)
         {
             return v1.ToString() != v2.ToString();
         }
@@ -167,7 +173,8 @@ namespace MfGames
         /// than another version, specifcally with version parts that have
         /// text in it.
         /// </summary>
-        public static bool operator <(ExtendedVersion v1, ExtendedVersion v2)
+        public static bool operator <(ExtendedVersion v1, 
+            ExtendedVersion v2)
         {
             // Make sure v1 has the less parts, for simplicicity.
             bool swapped = false;
@@ -219,7 +226,8 @@ namespace MfGames
         /// Determines if the first version is less than or equal to
         /// the second version. See the &lt; operator for more conditions.
         /// </summary>
-        public static bool operator <=(ExtendedVersion v1, ExtendedVersion v2)
+        public static bool operator <=(ExtendedVersion v1, 
+            ExtendedVersion v2)
         {
             // Just do the reverse, its easier
             return v1 == v2 || v1 < v2;
@@ -248,27 +256,32 @@ namespace MfGames
             if (operation.StartsWith(">="))
             {
                 op = ">=";
-                ver = operation.Substring(2).Trim();
+                ver = operation.Substring(2)
+                    .Trim();
             }
             else if (operation.StartsWith("<="))
             {
                 op = "<=";
-                ver = operation.Substring(2).Trim();
+                ver = operation.Substring(2)
+                    .Trim();
             }
             else if (operation.StartsWith("<"))
             {
                 op = "<";
-                ver = operation.Substring(1).Trim();
+                ver = operation.Substring(1)
+                    .Trim();
             }
             else if (operation.StartsWith(">"))
             {
                 op = ">";
-                ver = operation.Substring(1).Trim();
+                ver = operation.Substring(1)
+                    .Trim();
             }
             else if (operation.StartsWith("="))
             {
                 op = "=";
-                ver = operation.Substring(1).Trim();
+                ver = operation.Substring(1)
+                    .Trim();
             }
             else
             {
@@ -324,7 +337,8 @@ namespace MfGames
         /// </returns>
         public override int GetHashCode()
         {
-            return this.ToString().GetHashCode();
+            return this.ToString()
+                .GetHashCode();
         }
 
         /// <summary>

@@ -81,7 +81,9 @@ namespace MfGames.Reporting
         /// </param>
         public static void Log(SeverityMessage message)
         {
-            Log(null, message);
+            Log(
+                null, 
+                message);
         }
 
         /// <summary>
@@ -93,7 +95,9 @@ namespace MfGames.Reporting
         /// <param name="message">
         /// The message.
         /// </param>
-        public static void Log(object sender, SeverityMessage message)
+        public static void Log(
+            object sender, 
+            SeverityMessage message)
         {
             // Check the listeners outside of a lock. If we have anything, then
             // return as fast as we can.
@@ -118,7 +122,9 @@ namespace MfGames.Reporting
 
             // Create an event handler and invoke it.
             var args = new SeverityMessageEventArgs(message);
-            listeners(sender, args);
+            listeners(
+                sender, 
+                args);
         }
 
         #endregion

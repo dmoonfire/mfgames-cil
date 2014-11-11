@@ -25,9 +25,13 @@ namespace MfGames.Extensions.System.IO
         /// <returns>
         /// </returns>
         public static DirectoryInfo GetDirectoryInfo(
-            this DirectoryInfo directory, string dirname)
+            this DirectoryInfo directory, 
+            string dirname)
         {
-            return new DirectoryInfo(Path.Combine(directory.FullName, dirname));
+            return new DirectoryInfo(
+                Path.Combine(
+                    directory.FullName, 
+                    dirname));
         }
 
         /// <summary>
@@ -42,9 +46,13 @@ namespace MfGames.Extensions.System.IO
         /// <returns>
         /// </returns>
         public static FileInfo GetFileInfo(
-            this DirectoryInfo directory, string filename)
+            this DirectoryInfo directory, 
+            string filename)
         {
-            return new FileInfo(Path.Combine(directory.FullName, filename));
+            return new FileInfo(
+                Path.Combine(
+                    directory.FullName, 
+                    filename));
         }
 
         #endregion

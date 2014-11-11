@@ -35,8 +35,11 @@ namespace MfGames.Exceptions
         /// <param name="e">
         /// The e.
         /// </param>
-        public InvalidPathException(string msg, Exception e)
-            : base(msg, e)
+        public InvalidPathException(
+            string msg, 
+            Exception e)
+            : base(msg, 
+                e)
         {
         }
 

@@ -50,7 +50,10 @@ namespace MfGames.Xml
             this.stack = new List<StackItem>();
 
             // Wrap the first reader in the stack.
-            var item = new StackItem { Reader = underlyingReader };
+            var item = new StackItem
+                {
+                    Reader = underlyingReader
+                };
 
             this.stack.Add(item);
         }
@@ -68,7 +71,8 @@ namespace MfGames.Xml
             {
                 string baseUriString = string.IsNullOrEmpty(this.BaseURI)
                     ? Path.Combine(
-                        Environment.CurrentDirectory, "temporary.xml")
+                        Environment.CurrentDirectory, 
+                        "temporary.xml")
                     : this.BaseURI;
                 var uri = new Uri(baseUriString);
 
@@ -206,7 +210,9 @@ namespace MfGames.Xml
 
             // Figure out the URI for the new one and use that to create an
             // XML stream.
-            var newUri = new Uri(baseUri, href);
+            var newUri = new Uri(
+                baseUri, 
+                href);
             XmlReader reader = Create(newUri.ToString());
             var includeReader = new XIncludeReader(reader);
 
@@ -279,13 +285,18 @@ namespace MfGames.Xml
             }
 
             // Go through all the readers.
-            List<StackItem> items =
-                readers.Select(
-                    newReader => new StackItem { Reader = newReader }).ToList();
+            List<StackItem> items = readers.Select(
+                newReader => new StackItem
+                    {
+                        Reader = newReader
+                    })
+                .ToList();
 
             // Insert the reader into the first position, as the "head" of
             // the stack.
-            this.stack.InsertRange(0, items);
+            this.stack.InsertRange(
+                0, 
+                items);
         }
 
         #endregion

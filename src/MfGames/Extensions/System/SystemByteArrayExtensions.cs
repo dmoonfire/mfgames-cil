@@ -31,7 +31,10 @@ namespace MfGames.Extensions.System
             }
 
             // This is a very inefficent method, but works for the time being.
-            string hex = BitConverter.ToString(array).Replace("-", string.Empty);
+            string hex = BitConverter.ToString(array)
+                .Replace(
+                    "-", 
+                    string.Empty);
             return hex;
         }
 

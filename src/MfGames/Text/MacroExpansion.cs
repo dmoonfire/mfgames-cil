@@ -7,6 +7,8 @@ namespace MfGames.Text
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.Text;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Utility class for expanding macros from a format string and a collection of
@@ -25,7 +27,8 @@ namespace MfGames.Text
         /// Initializes a new instance of the <see cref="MacroExpansion"/> class.
         /// </summary>
         public MacroExpansion()
-            : this("$(", ")")
+            : this("$(", 
+                ")")
         {
         }
 
@@ -38,7 +41,9 @@ namespace MfGames.Text
         /// <param name="endDelimiter">
         /// The end delimiter.
         /// </param>
-        public MacroExpansion(string beginDelimiter, string endDelimiter)
+        public MacroExpansion(
+            string beginDelimiter, 
+            string endDelimiter)
         {
             // Establish our contracts.
             Contract.Requires(beginDelimiter != null);
@@ -78,6 +83,31 @@ namespace MfGames.Text
         #region Public Methods and Operators
 
         /// <summary>
+        /// Escapes the given text so it can be put inside a regular expression.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public string EscapeRegex(string text)
+        {
+            text = text.Replace(
+                @"\", 
+                @"\\");
+            text = text.Replace(
+                ".", 
+                @"\.");
+            text = text.Replace(
+                "(", 
+                @"\(");
+            text = text.Replace(
+                ")", 
+                @"\)");
+            return text;
+        }
+
+        /// <summary>
         /// Expands the specified format with the given macros.
         /// </summary>
         /// <remarks>
@@ -91,7 +121,9 @@ namespace MfGames.Text
         /// </param>
         /// <returns>
         /// </returns>
-        public string Expand(string format, IDictionary<string, object> macros)
+        public string Expand(
+            string format, 
+            IDictionary<string, object> macros)
         {
             // If we have a null or blank string, return it immediately.
             if (string.IsNullOrWhiteSpace(format))
@@ -111,7 +143,9 @@ namespace MfGames.Text
                     return format;
                 }
 
-                int endIndex = format.IndexOf(this.EndDelimiter, beginIndex);
+                int endIndex = format.IndexOf(
+                    this.EndDelimiter, 
+                    beginIndex);
 
                 if (endIndex < 0)
                 {
@@ -125,8 +159,12 @@ namespace MfGames.Text
                 int macroStart = beginIndex + this.BeginDelimiter.Length;
                 int macroEnd = endIndex + this.EndDelimiter.Length;
 
-                string before = format.Substring(0, beginIndex);
-                string macro = format.Substring(macroStart, macroLength);
+                string before = format.Substring(
+                    0, 
+                    beginIndex);
+                string macro = format.Substring(
+                    macroStart, 
+                    macroLength);
                 string after = format.Substring(macroEnd);
 
                 // Pull out the formatting string for the macro.
@@ -136,13 +174,17 @@ namespace MfGames.Text
                 if (formatIndex > 0)
                 {
                     macroFormat = macro.Substring(formatIndex + 1);
-                    macro = macro.Substring(0, formatIndex);
+                    macro = macro.Substring(
+                        0, 
+                        formatIndex);
                 }
 
                 // Attempt to resolve the macro.
                 object value;
 
-                if (!macros.TryGetValue(macro, out value))
+                if (!macros.TryGetValue(
+                    macro, 
+                    out value))
                 {
                     // We couldn't find it.
                     throw new InvalidOperationException(
@@ -157,13 +199,282 @@ namespace MfGames.Text
                 // Format the value if we have one.
                 if (macroFormat != null)
                 {
-                    value = string.Format("{0:" + macroFormat + "}", value);
+                    value = string.Format(
+                        "{0:" + macroFormat + "}", 
+                        value);
                 }
 
                 // Replace the value in the string.
                 format = string.Join(
-                    string.Empty, before, value.ToString(), after);
+                    string.Empty, 
+                    before, 
+                    value.ToString(), 
+                    after);
             }
+        }
+
+        /// <summary>
+        /// Builds a regular expression that can scan the output of a macro and produce
+        /// the reverse operation.
+        /// </summary>
+        /// <param name="macro">
+        /// The macro to parse.
+        /// </param>
+        /// <returns>
+        /// A regular expression for the macro.
+        /// </returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// Cannot build a regular expression from a macro that doesn't have a format for every substitution.
+        /// </exception>
+        public Regex GetRegex(string macro)
+        {
+            var additionalExpressions = new Dictionary<string, string>();
+
+            return this.GetRegex(
+                macro, 
+                additionalExpressions, 
+                MacroExpansionRegexOptions.Default);
+        }
+
+        /// <summary>
+        /// Gets the regex.
+        /// </summary>
+        /// <param name="macro">
+        /// The macro.
+        /// </param>
+        /// <param name="additionalExpressions">
+        /// The additional expressions.
+        /// </param>
+        /// <param name="options">
+        /// The options.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public Regex GetRegex(
+            string macro, 
+            Dictionary<string, string> additionalExpressions, 
+            MacroExpansionRegexOptions options)
+        {
+            // Parse the macro and get the regular expression patterns.
+            string pattern;
+            List<string> groups;
+
+            this.Parse(
+                macro, 
+                additionalExpressions, 
+                options, 
+                out pattern, 
+                out groups);
+
+            // Create a regular expression from it and return the results.
+            var regex = new Regex(pattern);
+
+            return regex;
+        }
+
+        /// <summary>
+        /// Gets the regular expression pattern for a given format.
+        /// </summary>
+        /// <param name="format">
+        /// The format.
+        /// </param>
+        /// <returns>
+        /// A regular expression that represents the given format.
+        /// </returns>
+        public string GetRegexPattern(string format)
+        {
+            format = format.Replace(
+                "0", 
+                @"\d");
+            return format;
+        }
+
+        /// <summary>
+        /// Parses a given format and input and returns a dictionary of the results.
+        /// </summary>
+        /// <param name="macro">
+        /// The macro to parse.
+        /// </param>
+        /// <param name="input">
+        /// The input to parse.
+        /// </param>
+        /// <returns>
+        /// A dictionary of results.
+        /// </returns>
+        public Dictionary<string, string> Parse(
+            string macro, 
+            string input)
+        {
+            // Parse the macro and get the regular expression patterns.
+            string pattern;
+            List<string> groups;
+
+            this.Parse(
+                macro, 
+                new Dictionary<string, string>(), 
+                MacroExpansionRegexOptions.Default, 
+                out pattern, 
+                out groups);
+
+            // Create a regular expression from it and see if we can parse it.
+            var regex = new Regex(pattern);
+            Match match = regex.Match(input);
+
+            if (!match.Success)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        "Cannot parse '{0}' from format '{1}'.", 
+                        input, 
+                        macro));
+            }
+
+            // Go through the groups and populate them.
+            var results = new Dictionary<string, string>();
+
+            for (int index = 0; index < groups.Count; index++)
+            {
+                string macroName = groups[index];
+                results[macroName] = match.Groups[index + 1].Value;
+            }
+
+            return results;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Parses a given macro and produces a regular expression to parse it and
+        /// a list of macros in the same order.
+        /// </summary>
+        /// <param name="macro">
+        /// The macro to parse.
+        /// </param>
+        /// <param name="additionalExpressions">
+        /// The additional expressions.
+        /// </param>
+        /// <param name="options">
+        /// The options.
+        /// </param>
+        /// <param name="pattern">
+        /// The resulting regex pattern.
+        /// </param>
+        /// <param name="groups">
+        /// The resulting groups.
+        /// </param>
+        /// <exception cref="System.InvalidOperationException">
+        /// Cannot build a regular expression from a macro that doesn't have a format for every substitution.
+        /// </exception>
+        private void Parse(
+            string macro, 
+            Dictionary<string, string> additionalExpressions, 
+            MacroExpansionRegexOptions options, 
+            out string pattern, 
+            out List<string> groups)
+        {
+            // Go through the string and start building up a regular expression. This
+            // expression is always anchored at the beginning and end.
+            bool isNonCapturing =
+                options.HasFlag(MacroExpansionRegexOptions.NonCapturing);
+            var buffer = new StringBuilder();
+
+            if (!isNonCapturing)
+            {
+                buffer.Append("^");
+            }
+
+            // Loop through the macro and pull out the fields.
+            groups = new List<string>();
+
+            while (!string.IsNullOrWhiteSpace(macro))
+            {
+                // Look for the next macro.
+                int start = macro.IndexOf(this.BeginDelimiter);
+
+                if (start < 0)
+                {
+                    // There are no more macros.
+                    buffer.Append(this.EscapeRegex(macro));
+                    break;
+                }
+
+                // Make sure we have an end macro.
+                int end = macro.IndexOf(
+                    this.EndDelimiter, 
+                    start);
+
+                if (end < 0)
+                {
+                    // This is an unterminated macro.
+                    buffer.Append(this.EscapeRegex(macro));
+                    break;
+                }
+
+                // If there is anything before the line, then add it to the buffer.
+                if (start > 0)
+                {
+                    string before = macro.Substring(
+                        0, 
+                        start);
+                    buffer.Append(this.EscapeRegex(before));
+                }
+
+                // Pull out the substitution element and trim the macro down to the
+                // text to the right of the macro.
+                string sub = macro.Substring(
+                    start + this.BeginDelimiter.Length, 
+                    end - start - this.BeginDelimiter.Length);
+                string newMacro = macro.Substring(
+                    end + this.EndDelimiter.Length);
+                macro = newMacro;
+
+                // If we don't have a colon format in the macro, then we have an invalid
+                // state.
+                string[] parts = sub.Split(
+                    new[] { ':' }, 
+                    2);
+
+                if (parts.Length != 2)
+                {
+                    // Check to see if we have the variable in the additional expressions.
+                    string additional;
+
+                    if (additionalExpressions.TryGetValue(
+                        parts[0], 
+                        out additional))
+                    {
+                        parts = new[] { parts[0], additional };
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException(
+                            "Cannot build a regular expression from a macro that doesn't have "
+                                + "a format for every substitution.");
+                    }
+                }
+
+                // Convert the format into a regular expression.
+                string subPattern = this.GetRegexPattern(parts[1]);
+
+                buffer.AppendFormat(
+                    "{1}{0})", 
+                    subPattern, 
+                    isNonCapturing ? "(?:" : "(");
+
+                // Add the group to the list.
+                groups.Add(parts[0]);
+            }
+
+            // Anchor the end of the string.
+            if (!isNonCapturing)
+            {
+                buffer.Append("$");
+            }
+
+            // Return the resulting regular expression.
+            pattern = buffer.ToString();
         }
 
         #endregion

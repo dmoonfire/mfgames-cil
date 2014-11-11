@@ -28,7 +28,8 @@ namespace MfGames.Extensions.System
             where TAttribute : Attribute
         {
             object[] attributes = type.GetCustomAttributes(
-                typeof(TAttribute), true);
+                typeof(TAttribute), 
+                true);
 
             if (attributes.Length == 0)
             {
@@ -52,9 +53,13 @@ namespace MfGames.Extensions.System
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this Type type, Type attributeType)
+            this Type type, 
+            Type attributeType)
         {
-            return HasCustomAttribute(type, attributeType, true);
+            return HasCustomAttribute(
+                type, 
+                attributeType, 
+                true);
         }
 
         /// <summary>
@@ -81,9 +86,12 @@ namespace MfGames.Extensions.System
         /// <returns>
         /// </returns>
         public static bool HasCustomAttribute<TAttribute>(
-            this Type type, bool inherited)
+            this Type type, 
+            bool inherited)
         {
-            return type.HasCustomAttribute(typeof(TAttribute), inherited);
+            return type.HasCustomAttribute(
+                typeof(TAttribute), 
+                inherited);
         }
 
         /// <summary>
@@ -103,7 +111,9 @@ namespace MfGames.Extensions.System
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this Type type, Type attributeType, bool inherited)
+            this Type type, 
+            Type attributeType, 
+            bool inherited)
         {
             // Check for null parameters.
             if (attributeType == null)
@@ -112,7 +122,10 @@ namespace MfGames.Extensions.System
             }
 
             // Go through the attributes of the member type and look for at least one.
-            return type.GetCustomAttributes(attributeType, inherited).Length > 0;
+            return type.GetCustomAttributes(
+                attributeType, 
+                inherited)
+                .Length > 0;
         }
 
         #endregion

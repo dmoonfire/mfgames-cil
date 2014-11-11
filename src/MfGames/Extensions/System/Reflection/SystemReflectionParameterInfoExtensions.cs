@@ -29,9 +29,13 @@ namespace MfGames.Extensions.System.Reflection
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this ParameterInfo memberInfo, Type attributeType)
+            this ParameterInfo memberInfo, 
+            Type attributeType)
         {
-            return HasCustomAttribute(memberInfo, attributeType, true);
+            return HasCustomAttribute(
+                memberInfo, 
+                attributeType, 
+                true);
         }
 
         /// <summary>
@@ -59,10 +63,12 @@ namespace MfGames.Extensions.System.Reflection
         /// <returns>
         /// </returns>
         public static bool HasCustomAttribute<TAttribute>(
-            this PropertyInfo propertyInfo, bool inherited)
+            this PropertyInfo propertyInfo, 
+            bool inherited)
         {
             return propertyInfo.HasCustomAttribute(
-                typeof(TAttribute), inherited);
+                typeof(TAttribute), 
+                inherited);
         }
 
         /// <summary>
@@ -82,7 +88,9 @@ namespace MfGames.Extensions.System.Reflection
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this ParameterInfo memberInfo, Type attributeType, bool inherited)
+            this ParameterInfo memberInfo, 
+            Type attributeType, 
+            bool inherited)
         {
             // Check for null parameters.
             if (attributeType == null)
@@ -91,8 +99,10 @@ namespace MfGames.Extensions.System.Reflection
             }
 
             // Go through the attributes of the member type and look for at least one.
-            return memberInfo.GetCustomAttributes(attributeType, true).Length
-                > 0;
+            return memberInfo.GetCustomAttributes(
+                attributeType, 
+                true)
+                .Length > 0;
         }
 
         #endregion

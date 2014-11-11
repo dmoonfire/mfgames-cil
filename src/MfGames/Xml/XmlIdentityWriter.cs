@@ -134,7 +134,9 @@ namespace MfGames.Xml
         {
             // Write out the start element using the input prefix and namespace.
             this.WriteStartElement(
-                reader.Prefix, reader.LocalName, reader.NamespaceURI);
+                reader.Prefix, 
+                reader.LocalName, 
+                reader.NamespaceURI);
 
             // Write out all the attributes.
             if (reader.HasAttributes)
@@ -195,7 +197,9 @@ namespace MfGames.Xml
         /// </param>
         protected virtual void WriteProcessingInstruction(XmlReader reader)
         {
-            this.WriteProcessingInstruction(reader.Name, reader.Value);
+            this.WriteProcessingInstruction(
+                reader.Name, 
+                reader.Value);
         }
 
         /// <summary>

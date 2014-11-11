@@ -85,7 +85,9 @@ namespace MfGames.HierarchicalPaths
         /// The path.
         /// </param>
         public HierarchicalPath(string path)
-            : this(path, null, HierarchicalPathOptions.None)
+            : this(path, 
+                null, 
+                HierarchicalPathOptions.None)
         {
         }
 
@@ -98,10 +100,15 @@ namespace MfGames.HierarchicalPaths
         /// <param name="options">
         /// The options.
         /// </param>
-        public HierarchicalPath(string path, HierarchicalPathOptions options)
+        public HierarchicalPath(
+            string path, 
+            HierarchicalPathOptions options)
         {
             // Create the path components
-            this.ParsePath(path, null, options);
+            this.ParsePath(
+                path, 
+                null, 
+                options);
         }
 
         /// <summary>
@@ -113,7 +120,9 @@ namespace MfGames.HierarchicalPaths
         /// <param name="isRelative">
         /// if set to <c>true</c> [is relative].
         /// </param>
-        public HierarchicalPath(IEnumerable<string> levels, bool isRelative)
+        public HierarchicalPath(
+            IEnumerable<string> levels, 
+            bool isRelative)
         {
             // Create a sub-array version of the path.
             var parts = new List<string>();
@@ -141,7 +150,9 @@ namespace MfGames.HierarchicalPaths
         /// if set to <c>true</c> [is relative].
         /// </param>
         public HierarchicalPath(
-            IEnumerable<string> levels, int startIndex, bool isRelative)
+            IEnumerable<string> levels, 
+            int startIndex, 
+            bool isRelative)
         {
             // Create a sub-array version of the path.
             var parts = new List<string>();
@@ -171,8 +182,12 @@ namespace MfGames.HierarchicalPaths
         /// <param name="context">
         /// The context.
         /// </param>
-        public HierarchicalPath(string path, HierarchicalPath context)
-            : this(path, context, HierarchicalPathOptions.None)
+        public HierarchicalPath(
+            string path, 
+            HierarchicalPath context)
+            : this(path, 
+                context, 
+                HierarchicalPathOptions.None)
         {
         }
 
@@ -194,7 +209,10 @@ namespace MfGames.HierarchicalPaths
             HierarchicalPathOptions options)
         {
             // Create the path components
-            this.ParsePath(path, context, options);
+            this.ParsePath(
+                path, 
+                context, 
+                options);
         }
 
         #endregion
@@ -300,7 +318,9 @@ namespace MfGames.HierarchicalPaths
                     parentLevels[index] = this.levels[index];
                 }
 
-                return new HierarchicalPath(parentLevels, this.isRelative);
+                return new HierarchicalPath(
+                    parentLevels, 
+                    this.isRelative);
             }
         }
 
@@ -330,7 +350,12 @@ namespace MfGames.HierarchicalPaths
                 {
                     buffer.Append("/");
                     buffer.Append(
-                        level.Replace("\\", "\\\\").Replace("/", "\\/"));
+                        level.Replace(
+                            "\\", 
+                            "\\\\")
+                            .Replace(
+                                "/", 
+                                "\\/"));
                 }
 
                 // Return the resulting string.
@@ -386,9 +411,14 @@ namespace MfGames.HierarchicalPaths
         /// <param name="c1">The c1.</param>
         /// <param name="c2">The c2.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(HierarchicalPath c1, HierarchicalPath c2)
+        public static bool operator ==(HierarchicalPath c1, 
+            HierarchicalPath c2)
         {
-            if (ReferenceEquals(null, c1) && ReferenceEquals(null, c2))
+            if (ReferenceEquals(
+                null, 
+                c1) && ReferenceEquals(
+                    null, 
+                    c2))
             {
                 return true;
             }
@@ -402,7 +432,8 @@ namespace MfGames.HierarchicalPaths
         /// <param name="c1">The c1.</param>
         /// <param name="c2">The c2.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator !=(HierarchicalPath c1, HierarchicalPath c2)
+        public static bool operator !=(HierarchicalPath c1, 
+            HierarchicalPath c2)
         {
             return !(c1 == c2);
         }
@@ -419,7 +450,9 @@ namespace MfGames.HierarchicalPaths
         {
             // By the rules, prefixing "./" will also create the desired
             // results and use this as a context.
-            return new HierarchicalPath("./" + childPath, this);
+            return new HierarchicalPath(
+                "./" + childPath, 
+                this);
         }
 
         /// <summary>
@@ -431,7 +464,8 @@ namespace MfGames.HierarchicalPaths
         /// </returns>
         public int CompareTo(HierarchicalPath other)
         {
-            return this.ToString().CompareTo(other.ToString());
+            return this.ToString()
+                .CompareTo(other.ToString());
         }
 
         /// <summary>
@@ -445,13 +479,17 @@ namespace MfGames.HierarchicalPaths
         public bool Equals(HierarchicalPath other)
         {
             // Make sure that the other is not null.
-            if (ReferenceEquals(null, other))
+            if (ReferenceEquals(
+                null, 
+                other))
             {
                 return false;
             }
 
             // If we are identical objects, then return true.
-            if (ReferenceEquals(this, other))
+            if (ReferenceEquals(
+                this, 
+                other))
             {
                 return true;
             }
@@ -497,12 +535,16 @@ namespace MfGames.HierarchicalPaths
         /// </exception>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (ReferenceEquals(
+                null, 
+                obj))
             {
                 return false;
             }
 
-            if (ReferenceEquals(this, obj))
+            if (ReferenceEquals(
+                this, 
+                obj))
             {
                 return true;
             }
@@ -570,7 +612,9 @@ namespace MfGames.HierarchicalPaths
 
             // Create the new path and return it. This will always be relative
             // to the given path since it is a subset.
-            return new HierarchicalPath(newLevels, true);
+            return new HierarchicalPath(
+                newLevels, 
+                true);
         }
 
         /// <summary>
@@ -583,7 +627,10 @@ namespace MfGames.HierarchicalPaths
         /// </returns>
         public HierarchicalPath Splice(int firstIndex)
         {
-            return new HierarchicalPath(this.levels, firstIndex, true);
+            return new HierarchicalPath(
+                this.levels, 
+                firstIndex, 
+                true);
         }
 
         /// <summary>
@@ -598,9 +645,14 @@ namespace MfGames.HierarchicalPaths
         /// </param>
         /// <returns>
         /// </returns>
-        public HierarchicalPath Splice(int offset, int count)
+        public HierarchicalPath Splice(
+            int offset, 
+            int count)
         {
-            return this.Splice(offset, count, offset > 0);
+            return this.Splice(
+                offset, 
+                count, 
+                offset > 0);
         }
 
         /// <summary>
@@ -618,10 +670,17 @@ namespace MfGames.HierarchicalPaths
         /// </param>
         /// <returns>
         /// </returns>
-        public HierarchicalPath Splice(int offset, int count, bool makeRelative)
+        public HierarchicalPath Splice(
+            int offset, 
+            int count, 
+            bool makeRelative)
         {
-            string[] newLevels = this.levels.Splice(offset, count);
-            var hierarchicalPath = new HierarchicalPath(newLevels, makeRelative);
+            string[] newLevels = this.levels.Splice(
+                offset, 
+                count);
+            var hierarchicalPath = new HierarchicalPath(
+                newLevels, 
+                makeRelative);
             return hierarchicalPath;
         }
 
@@ -692,7 +751,9 @@ namespace MfGames.HierarchicalPaths
         /// <param name="level">
         /// The level.
         /// </param>
-        private static void AppendLevel(List<string> levels, string level)
+        private static void AppendLevel(
+            List<string> levels, 
+            string level)
         {
             // Levels cannot be blank, so throw an exception if we get it.
             if (levels == null)
@@ -848,7 +909,9 @@ namespace MfGames.HierarchicalPaths
                         break;
 
                     case '/':
-                        AppendLevel(parsedLevels, currentLevel.ToString());
+                        AppendLevel(
+                            parsedLevels, 
+                            currentLevel.ToString());
                         currentLevel.Length = 0;
 
                         break;
@@ -864,7 +927,9 @@ namespace MfGames.HierarchicalPaths
 
             // Outside of the loop, we check to see if there is anything left
             // in the current level and add it to the list.
-            AppendLevel(parsedLevels, currentLevel.ToString());
+            AppendLevel(
+                parsedLevels, 
+                currentLevel.ToString());
 
             // Saved the parsed levels into the levels property.
             this.levels = parsedLevels.ToArray();

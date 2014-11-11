@@ -4,7 +4,9 @@
 // MIT Licensed (http://opensource.org/licenses/MIT)
 namespace UnitTests.Text
 {
+    using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
 
     using MfGames.Text;
 
@@ -34,10 +36,14 @@ namespace UnitTests.Text
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual(string.Empty, results);
+            Assert.AreEqual(
+                string.Empty, 
+                results);
         }
 
         /// <summary>
@@ -54,12 +60,18 @@ namespace UnitTests.Text
                 };
 
             // Perform the expansion.
-            var expansion = new MacroExpansion("{", "}");
+            var expansion = new MacroExpansion(
+                "{", 
+                "}");
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("Value A", results);
+            Assert.AreEqual(
+                "Value A", 
+                results);
         }
 
         /// <summary>
@@ -76,12 +88,18 @@ namespace UnitTests.Text
                 };
 
             // Perform the expansion.
-            var expansion = new MacroExpansion("{", "}");
+            var expansion = new MacroExpansion(
+                "{", 
+                "}");
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("$(MacroA)", results);
+            Assert.AreEqual(
+                "$(MacroA)", 
+                results);
         }
 
         /// <summary>
@@ -92,15 +110,90 @@ namespace UnitTests.Text
         {
             // Set up the input.
             string format = "$(MacroA:0000)";
-            var macros = new Dictionary<string, object> { { "MacroA", 13 } };
+            var macros = new Dictionary<string, object>
+                {
+                    { "MacroA", 13 }
+                };
 
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("0013", results);
+            Assert.AreEqual(
+                "0013", 
+                results);
+        }
+
+        /// <summary>
+        /// Tests that a macro with an integer format will parse correctly.
+        /// </summary>
+        [Test]
+        public void GetRegexForComplexPattern()
+        {
+            // Pull out the regular expression for a given format.
+            string format = "/test/section-$(MacroA:0000)/$(MacroB:00).txt";
+            var expansion = new MacroExpansion();
+
+            Regex regex = expansion.GetRegex(format);
+
+            // Verify the results.
+            Assert.AreEqual(
+                @"^/test/section-(\d\d\d\d)/(\d\d)\.txt$", 
+                regex.ToString());
+        }
+
+        /// <summary>
+        /// Tests that a macro with an integer format will parse correctly.
+        /// </summary>
+        [Test]
+        public void GetRegexForSimplePaddedInteger()
+        {
+            // Pull out the regular expression for a given format.
+            string format = "$(MacroA:0000)";
+            var expansion = new MacroExpansion();
+
+            Regex regex = expansion.GetRegex(format);
+
+            // Verify the results.
+            Assert.AreEqual(
+                @"^(\d\d\d\d)$", 
+                regex.ToString());
+        }
+
+        /// <summary>
+        /// Tests that giving a macro without any formatting information throws
+        /// an exception.
+        /// </summary>
+        [Test]
+        public void GetRegexThrowsWithOneSubstitionWithoutFormatting()
+        {
+            // Pull out the regular expression for a given format.
+            string format = "$(MacroA:00) $(MacroA)";
+            var expansion = new MacroExpansion();
+
+            // Verify that it throws an exception.
+            Assert.Throws<InvalidOperationException>(
+                () => expansion.GetRegex(format));
+        }
+
+        /// <summary>
+        /// Tests that giving a macro without any formatting information throws
+        /// an exception.
+        /// </summary>
+        [Test]
+        public void GetRegexThrowsWithoutFormatting()
+        {
+            // Pull out the regular expression for a given format.
+            string format = "$(MacroA)";
+            var expansion = new MacroExpansion();
+
+            // Verify that it throws an exception.
+            Assert.Throws<InvalidOperationException>(
+                () => expansion.GetRegex(format));
         }
 
         /// <summary>
@@ -119,10 +212,14 @@ namespace UnitTests.Text
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("aValue Ab", results);
+            Assert.AreEqual(
+                "aValue Ab", 
+                results);
         }
 
         /// <summary>
@@ -141,10 +238,14 @@ namespace UnitTests.Text
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("Value A", results);
+            Assert.AreEqual(
+                "Value A", 
+                results);
         }
 
         /// <summary>
@@ -163,10 +264,14 @@ namespace UnitTests.Text
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual(null, results);
+            Assert.AreEqual(
+                null, 
+                results);
         }
 
         /// <summary>
@@ -177,15 +282,51 @@ namespace UnitTests.Text
         {
             // Set up the input.
             string format = "$(MacroA)";
-            var macros = new Dictionary<string, object> { { "MacroA", 17 } };
+            var macros = new Dictionary<string, object>
+                {
+                    { "MacroA", 17 }
+                };
 
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("17", results);
+            Assert.AreEqual(
+                "17", 
+                results);
+        }
+
+        /// <summary>
+        /// Parses a simple format and returns the result.
+        /// </summary>
+        [Test]
+        public void ParseSimpleInteger()
+        {
+            // Pull out the regular expression for a given format.
+            string format = "$(MacroA:0000)";
+            string input = "0123";
+            var expansion = new MacroExpansion();
+
+            Dictionary<string, string> results = expansion.Parse(
+                format, 
+                input);
+
+            // Verify the results.
+            Assert.AreEqual(
+                1, 
+                results.Count, 
+                "Number of macro results is unexpected.");
+            Assert.IsTrue(
+                results.ContainsKey("MacroA"), 
+                "Results don't contain MacroA.");
+            Assert.AreEqual(
+                "0123", 
+                results["MacroA"], 
+                "The macro value is unexpected.");
         }
 
         /// <summary>
@@ -206,10 +347,14 @@ namespace UnitTests.Text
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("Value A", results);
+            Assert.AreEqual(
+                "Value A", 
+                results);
         }
 
         /// <summary>
@@ -228,10 +373,14 @@ namespace UnitTests.Text
             // Perform the expansion.
             var expansion = new MacroExpansion();
 
-            string results = expansion.Expand(format, macros);
+            string results = expansion.Expand(
+                format, 
+                macros);
 
             // Verify the results.
-            Assert.AreEqual("Value A", results);
+            Assert.AreEqual(
+                "Value A", 
+                results);
         }
 
         #endregion

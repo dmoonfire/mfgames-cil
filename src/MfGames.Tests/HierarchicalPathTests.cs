@@ -32,7 +32,9 @@ namespace UnitTests
             var path = new HierarchicalPath("/Application/Quit");
 
             // Verification
-            Assert.AreEqual(expected, path);
+            Assert.AreEqual(
+                expected, 
+                path);
             Assert.IsTrue(expected == path);
         }
 
@@ -44,7 +46,9 @@ namespace UnitTests
         {
             var up = new HierarchicalPath("/dir1/sub1");
             HierarchicalPath c1 = up["sub2/sub3"];
-            Assert.AreEqual("/dir1/sub1/sub2/sub3", c1.Path);
+            Assert.AreEqual(
+                "/dir1/sub1/sub2/sub3", 
+                c1.Path);
         }
 
         /// <summary>
@@ -54,7 +58,9 @@ namespace UnitTests
         public void Count1()
         {
             var nr = new HierarchicalPath("/a/b/c");
-            Assert.AreEqual(3, nr.Count);
+            Assert.AreEqual(
+                3, 
+                nr.Count);
         }
 
         /// <summary>
@@ -64,7 +70,9 @@ namespace UnitTests
         public void Count2()
         {
             var nr = new HierarchicalPath("/a");
-            Assert.AreEqual(1, nr.Count);
+            Assert.AreEqual(
+                1, 
+                nr.Count);
         }
 
         /// <summary>
@@ -74,7 +82,9 @@ namespace UnitTests
         public void Count3()
         {
             var nr = new HierarchicalPath("/");
-            Assert.AreEqual(0, nr.Count);
+            Assert.AreEqual(
+                0, 
+                nr.Count);
         }
 
         /// <summary>
@@ -84,7 +94,9 @@ namespace UnitTests
         public void DoubleDot()
         {
             var nr = new HierarchicalPath("/a/b/../c");
-            Assert.AreEqual("/a/c", nr.Path);
+            Assert.AreEqual(
+                "/a/c", 
+                nr.Path);
         }
 
         /// <summary>
@@ -94,7 +106,9 @@ namespace UnitTests
         public void DoubleDotTop()
         {
             var nr = new HierarchicalPath("/a/..");
-            Assert.AreEqual("/", nr.Path);
+            Assert.AreEqual(
+                "/", 
+                nr.Path);
         }
 
         /// <summary>
@@ -112,7 +126,9 @@ namespace UnitTests
 
             // Verification
             Assert.IsTrue(dictionary.ContainsKey(key));
-            Assert.AreEqual("yes", value);
+            Assert.AreEqual(
+                "yes", 
+                value);
         }
 
         /// <summary>
@@ -123,7 +139,9 @@ namespace UnitTests
         public void InvalidDoubleDot2()
         {
             var nr = new HierarchicalPath("/../..");
-            Assert.AreEqual("/", nr.Path);
+            Assert.AreEqual(
+                "/", 
+                nr.Path);
         }
 
         /// <summary>
@@ -133,8 +151,12 @@ namespace UnitTests
         public void LeadingDot()
         {
             var context = new HierarchicalPath("/");
-            var path = new HierarchicalPath(".", context);
-            Assert.AreEqual("/", path.Path);
+            var path = new HierarchicalPath(
+                ".", 
+                context);
+            Assert.AreEqual(
+                "/", 
+                path.Path);
         }
 
         /// <summary>
@@ -144,8 +166,12 @@ namespace UnitTests
         public void LeadingDotSlash()
         {
             var context = new HierarchicalPath("/");
-            var nr = new HierarchicalPath("./", context);
-            Assert.AreEqual("/", nr.Path);
+            var nr = new HierarchicalPath(
+                "./", 
+                context);
+            Assert.AreEqual(
+                "/", 
+                nr.Path);
         }
 
         /// <summary>
@@ -155,7 +181,9 @@ namespace UnitTests
         public void Name()
         {
             var nr = new HierarchicalPath("/a/b/c");
-            Assert.AreEqual("c", nr.Last);
+            Assert.AreEqual(
+                "c", 
+                nr.Last);
         }
 
         /// <summary>
@@ -166,7 +194,9 @@ namespace UnitTests
         {
             var path = new HierarchicalPath("foo");
             Assert.IsTrue(path.IsRelative);
-            Assert.AreEqual("./foo", path.Path);
+            Assert.AreEqual(
+                "./foo", 
+                path.Path);
         }
 
         /// <summary>
@@ -177,7 +207,9 @@ namespace UnitTests
         {
             var up = new HierarchicalPath("/dir1/sub1");
             string up1 = up.Parent.Path;
-            Assert.AreEqual("/dir1", up1);
+            Assert.AreEqual(
+                "/dir1", 
+                up1);
         }
 
         /// <summary>
@@ -188,7 +220,9 @@ namespace UnitTests
         {
             var up = new HierarchicalPath("/dir1/sub1");
             HierarchicalPath up1 = up.Parent;
-            Assert.AreEqual("/dir1", up1.Path);
+            Assert.AreEqual(
+                "/dir1", 
+                up1.Path);
         }
 
         /// <summary>
@@ -198,8 +232,12 @@ namespace UnitTests
         public void ParsePluses()
         {
             var nr = new HierarchicalPath("/Test/Test +1/Test +2");
-            Assert.AreEqual("/Test/Test +1/Test +2", nr.ToString());
-            Assert.AreEqual("Test +2", nr.Last);
+            Assert.AreEqual(
+                "/Test/Test +1/Test +2", 
+                nr.ToString());
+            Assert.AreEqual(
+                "Test +2", 
+                nr.Last);
         }
 
         /// <summary>
@@ -209,7 +247,9 @@ namespace UnitTests
         public void Simple()
         {
             var up = new HierarchicalPath("/dir1/sub1");
-            Assert.AreEqual("/dir1/sub1", up.Path);
+            Assert.AreEqual(
+                "/dir1/sub1", 
+                up.Path);
         }
 
         /// <summary>
@@ -220,7 +260,9 @@ namespace UnitTests
         {
             var nr = new HierarchicalPath("/this/is");
             var sr = new HierarchicalPath("/this/is/a/path");
-            Assert.AreEqual(false, nr.StartsWith(sr));
+            Assert.AreEqual(
+                false, 
+                nr.StartsWith(sr));
         }
 
         /// <summary>
@@ -231,7 +273,9 @@ namespace UnitTests
         {
             var nr = new HierarchicalPath("/this/is");
             var sr = new HierarchicalPath("/not/in/is/a/path");
-            Assert.AreEqual(false, nr.StartsWith(sr));
+            Assert.AreEqual(
+                false, 
+                nr.StartsWith(sr));
         }
 
         /// <summary>
@@ -242,7 +286,9 @@ namespace UnitTests
         {
             var nr = new HierarchicalPath("/this/is");
             var sr = new HierarchicalPath("/this/is");
-            Assert.AreEqual(true, nr.StartsWith(sr));
+            Assert.AreEqual(
+                true, 
+                nr.StartsWith(sr));
         }
 
         /// <summary>
@@ -253,7 +299,9 @@ namespace UnitTests
         {
             var nr = new HierarchicalPath("/this/is");
             var sr = new HierarchicalPath("/this");
-            Assert.AreEqual(true, nr.StartsWith(sr));
+            Assert.AreEqual(
+                true, 
+                nr.StartsWith(sr));
         }
 
         /// <summary>
@@ -264,7 +312,10 @@ namespace UnitTests
         {
             var nr = new HierarchicalPath("/this/is");
             var sr = new HierarchicalPath("/this/is/a/path");
-            Assert.AreEqual("./a/path", sr.GetPathAfter(nr).Path);
+            Assert.AreEqual(
+                "./a/path", 
+                sr.GetPathAfter(nr)
+                    .Path);
         }
 
         /// <summary>
@@ -275,7 +326,10 @@ namespace UnitTests
         {
             var nr = new HierarchicalPath("/this/is");
             var sr = new HierarchicalPath("/this/is");
-            Assert.AreEqual(".", nr.GetPathAfter(sr).Path);
+            Assert.AreEqual(
+                ".", 
+                nr.GetPathAfter(sr)
+                    .Path);
         }
 
         /// <summary>
@@ -311,7 +365,9 @@ namespace UnitTests
             var nr = new HierarchicalPath("/Test +1/A");
             var nr2 = new HierarchicalPath("/Test +1");
             HierarchicalPath nr3 = nr.GetPathAfter(nr2);
-            Assert.AreEqual("./A", nr3.ToString());
+            Assert.AreEqual(
+                "./A", 
+                nr3.ToString());
         }
 
         /// <summary>
@@ -321,7 +377,10 @@ namespace UnitTests
         public void TestEscapedNone()
         {
             var nr = new HierarchicalPath("/a/b/c");
-            Assert.AreEqual("/a/b/c", nr.ToString(), "String comparison");
+            Assert.AreEqual(
+                "/a/b/c", 
+                nr.ToString(), 
+                "String comparison");
         }
 
         /// <summary>
@@ -332,7 +391,9 @@ namespace UnitTests
         {
             var up = new HierarchicalPath("/dir1/sub1");
             HierarchicalPath c1 = up.Append("sub2");
-            Assert.AreEqual("/dir1/sub1/sub2", c1.Path);
+            Assert.AreEqual(
+                "/dir1/sub1/sub2", 
+                c1.Path);
         }
 
         /// <summary>
@@ -344,10 +405,14 @@ namespace UnitTests
             var path = new HierarchicalPath("/a/b/c/d/e");
 
             // Operation
-            HierarchicalPath results = path.Splice(0, 2);
+            HierarchicalPath results = path.Splice(
+                0, 
+                2);
 
             // Verification
-            Assert.AreEqual("/a/b", results.ToString());
+            Assert.AreEqual(
+                "/a/b", 
+                results.ToString());
         }
 
         /// <summary>
@@ -359,10 +424,14 @@ namespace UnitTests
             var path = new HierarchicalPath("/a/b/c/d/e");
 
             // Operation
-            HierarchicalPath results = path.Splice(2, 2);
+            HierarchicalPath results = path.Splice(
+                2, 
+                2);
 
             // Verification
-            Assert.AreEqual("./c/d", results.ToString());
+            Assert.AreEqual(
+                "./c/d", 
+                results.ToString());
         }
 
         /// <summary>
@@ -374,10 +443,14 @@ namespace UnitTests
             var path = new HierarchicalPath("/a/b/c/d/e");
 
             // Operation
-            HierarchicalPath results = path.Splice(3, 2);
+            HierarchicalPath results = path.Splice(
+                3, 
+                2);
 
             // Verification
-            Assert.AreEqual("./d/e", results.ToString());
+            Assert.AreEqual(
+                "./d/e", 
+                results.ToString());
         }
 
         #endregion

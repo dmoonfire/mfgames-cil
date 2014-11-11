@@ -11,7 +11,6 @@ namespace UnitTests
 
     using MfGames.HierarchicalPaths;
     using MfGames.Settings;
-    using MfGames.Settings.Enumerations;
 
     using NUnit.Framework;
 
@@ -34,10 +33,15 @@ namespace UnitTests
 
             // Operation
             settingsManager.Set(
-                new HierarchicalPath("/a"), new SettingsA1(2, "two"));
+                new HierarchicalPath("/a"), 
+                new SettingsA1(
+                    2, 
+                    "two"));
 
             // Verification
-            Assert.AreEqual(1, settingsManager.Count);
+            Assert.AreEqual(
+                1, 
+                settingsManager.Count);
         }
 
         /// <summary>
@@ -51,11 +55,16 @@ namespace UnitTests
 
             // Operation
             settingsManager.Set(
-                new HierarchicalPath("/a"), new SettingsA1(3, "three"));
+                new HierarchicalPath("/a"), 
+                new SettingsA1(
+                    3, 
+                    "three"));
             settingsManager.Flush();
 
             // Verification
-            Assert.AreEqual(1, settingsManager.Count);
+            Assert.AreEqual(
+                1, 
+                settingsManager.Count);
         }
 
         /// <summary>
@@ -67,16 +76,26 @@ namespace UnitTests
             // Setup
             var settingsManager = new SettingsManager();
             settingsManager.Set(
-                new HierarchicalPath("/a"), new SettingsA1(1, "one"));
+                new HierarchicalPath("/a"), 
+                new SettingsA1(
+                    1, 
+                    "one"));
 
             // Operation
             var b = settingsManager.Get<SettingsA2>(
-                "/a", SettingSearchOptions.SerializeDeserializeMapping);
+                "/a", 
+                SettingSearchOptions.SerializeDeserializeMapping);
 
             // Verification
-            Assert.AreEqual(1, settingsManager.Count);
-            Assert.AreEqual(1, b.A);
-            Assert.AreEqual("one", b.B);
+            Assert.AreEqual(
+                1, 
+                settingsManager.Count);
+            Assert.AreEqual(
+                1, 
+                b.A);
+            Assert.AreEqual(
+                "one", 
+                b.B);
         }
 
         /// <summary>
@@ -91,7 +110,9 @@ namespace UnitTests
             var settingsManager = new SettingsManager();
 
             // Verification
-            Assert.AreEqual(0, settingsManager.Count);
+            Assert.AreEqual(
+                0, 
+                settingsManager.Count);
         }
 
         /// <summary>
@@ -104,26 +125,44 @@ namespace UnitTests
             var settings2 = new SettingsManager();
             var settings3 = new SettingsManager();
 
-            settings1.Set("/a", new SettingsA1(99, "settings1"));
+            settings1.Set(
+                "/a", 
+                new SettingsA1(
+                    99, 
+                    "settings1"));
             settings1.Flush();
             settings1.Parent = settings2;
 
             settings2.Parent = settings3;
 
-            settings3.Set("/a", new SettingsA2(11, "settings3"));
+            settings3.Set(
+                "/a", 
+                new SettingsA2(
+                    11, 
+                    "settings3"));
             settings3.Flush();
 
             // Act
             IList<SettingsA1> settings = settings1.GetAll<SettingsA1>("/a");
 
             // Assert
-            Assert.AreEqual(2, settings.Count);
+            Assert.AreEqual(
+                2, 
+                settings.Count);
 
-            Assert.AreEqual(99, settings[0].A);
-            Assert.AreEqual("settings1", settings[0].B);
+            Assert.AreEqual(
+                99, 
+                settings[0].A);
+            Assert.AreEqual(
+                "settings1", 
+                settings[0].B);
 
-            Assert.AreEqual(11, settings[1].A);
-            Assert.AreEqual("settings3", settings[1].B);
+            Assert.AreEqual(
+                11, 
+                settings[1].A);
+            Assert.AreEqual(
+                "settings3", 
+                settings[1].B);
         }
 
         /// <summary>
@@ -144,7 +183,9 @@ namespace UnitTests
             settingsManager.Load(reader);
 
             // Verification
-            Assert.AreEqual(0, settingsManager.Count);
+            Assert.AreEqual(
+                0, 
+                settingsManager.Count);
         }
 
         /// <summary>
@@ -173,9 +214,14 @@ namespace UnitTests
 
             // Assert
             Assert.AreEqual(
-                SettingsManager.SettingsNamespace, xmlReader.NamespaceURI);
-            Assert.AreEqual("settings", xmlReader.LocalName);
-            Assert.AreEqual(XmlNodeType.Element, xmlReader.NodeType);
+                SettingsManager.SettingsNamespace, 
+                xmlReader.NamespaceURI);
+            Assert.AreEqual(
+                "settings", 
+                xmlReader.LocalName);
+            Assert.AreEqual(
+                XmlNodeType.Element, 
+                xmlReader.NodeType);
             Assert.IsTrue(xmlReader.IsEmptyElement);
         }
 
@@ -187,7 +233,11 @@ namespace UnitTests
             // Arrange: Set up the settings manager.
             var settingsManager = new SettingsManager();
 
-            settingsManager.Set("/a", new SettingsA1(99, "settings1"));
+            settingsManager.Set(
+                "/a", 
+                new SettingsA1(
+                    99, 
+                    "settings1"));
 
             // Arrange: Write out a wrapper, the settings, and a guard element.
             var stringWriter = new StringWriter();
@@ -209,9 +259,14 @@ namespace UnitTests
 
             // Assert
             Assert.AreEqual(
-                SettingsManager.SettingsNamespace, xmlReader.NamespaceURI);
-            Assert.AreEqual("settings", xmlReader.LocalName);
-            Assert.AreEqual(XmlNodeType.EndElement, xmlReader.NodeType);
+                SettingsManager.SettingsNamespace, 
+                xmlReader.NamespaceURI);
+            Assert.AreEqual(
+                "settings", 
+                xmlReader.LocalName);
+            Assert.AreEqual(
+                XmlNodeType.EndElement, 
+                xmlReader.NodeType);
         }
 
         #endregion
@@ -247,7 +302,9 @@ namespace UnitTests
             /// </param>
             /// <param name="b">
             /// </param>
-            public SettingsA1(int a, string b)
+            public SettingsA1(
+                int a, 
+                string b)
             {
                 this.A = a;
                 this.B = b;
@@ -289,7 +346,9 @@ namespace UnitTests
             /// </param>
             /// <param name="b">
             /// </param>
-            public SettingsA2(int a, string b)
+            public SettingsA2(
+                int a, 
+                string b)
             {
                 this.A = a;
                 this.B = b;

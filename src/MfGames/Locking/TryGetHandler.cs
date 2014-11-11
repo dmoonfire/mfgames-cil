@@ -11,6 +11,6 @@ namespace MfGames.Locking
     /// </typeparam>
     /// <typeparam name="TOutput">
     /// </typeparam>
-    public delegate bool TryGetHandler<TInput, TOutput>(
-        TInput input, out TOutput output);
+    public delegate bool TryGetHandler<TInput, TOutput>(TInput input, 
+        out TOutput output);
 }

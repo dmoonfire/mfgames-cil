@@ -301,9 +301,13 @@ namespace MfGames.Xml
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="name"/> is null.
         ///   </exception>
-        public override string GetAttribute(string name, string namespaceURI)
+        public override string GetAttribute(
+            string name, 
+            string namespaceURI)
         {
-            return this.UnderlyingReader.GetAttribute(name, namespaceURI);
+            return this.UnderlyingReader.GetAttribute(
+                name, 
+                namespaceURI);
         }
 
         /// <summary>
@@ -363,9 +367,13 @@ namespace MfGames.Xml
         /// <returns>
         /// true if the attribute is found; otherwise, false. If false, the reader's position does not change.
         /// </returns>
-        public override bool MoveToAttribute(string name, string ns)
+        public override bool MoveToAttribute(
+            string name, 
+            string ns)
         {
-            return this.UnderlyingReader.MoveToAttribute(name, ns);
+            return this.UnderlyingReader.MoveToAttribute(
+                name, 
+                ns);
         }
 
         /// <summary>

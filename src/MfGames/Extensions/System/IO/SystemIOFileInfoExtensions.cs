@@ -25,7 +25,9 @@ namespace MfGames.Extensions.System.IO
         /// </returns>
         public static string GetBasename(this FileInfo file)
         {
-            string name = file.Name.Replace(file.Extension, string.Empty);
+            string name = file.Name.Replace(
+                file.Extension, 
+                string.Empty);
             return name;
         }
 
@@ -44,13 +46,15 @@ namespace MfGames.Extensions.System.IO
             if (!file.Exists)
             {
                 throw new FileNotFoundException(
-                    "Cannot find file to hash.", file.FullName);
+                    "Cannot find file to hash.", 
+                    file.FullName);
             }
 
             // Open up a stream in a way that lets others also read it.
-            using (
-                FileStream stream = file.Open(
-                    FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream stream = file.Open(
+                FileMode.Open, 
+                FileAccess.Read, 
+                FileShare.Read))
             {
                 using (var buffered = new BufferedStream(stream))
                 {

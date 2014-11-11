@@ -36,7 +36,9 @@ namespace MfGames.Reporting
 
                 foreach (SeverityMessage message in this)
                 {
-                    highest = Math.Max((int)message.Severity, highest);
+                    highest = Math.Max(
+                        (int)message.Severity, 
+                        highest);
                 }
 
                 // Return the resulting severity.
