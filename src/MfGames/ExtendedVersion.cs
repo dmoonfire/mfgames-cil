@@ -12,7 +12,6 @@ namespace MfGames
     /// <see cref="string">String</see> is an immutable class. Any methods that would 
     /// somehow change a field instead return a new ExtendedVersion object.
     /// </summary>
-    [Serializable]
     public class ExtendedVersion
     {
         #region Static Fields

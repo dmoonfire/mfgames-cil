@@ -13,7 +13,7 @@ namespace MfGames.Reporting
     /// Contains an unordered collection of messages along with various query
     /// methods for determining the contents of the collection
     /// </summary>
-    public class SeverityMessageCollection : HashSet<SeverityMessage>
+    public class SeverityMessageCollection : List<SeverityMessage>
     {
         #region Public Properties
 

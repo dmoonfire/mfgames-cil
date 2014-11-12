@@ -19,11 +19,6 @@ namespace MfGames
         /// </summary>
         private static Random random;
 
-        /// <summary>
-        /// </summary>
-        [ThreadStatic]
-        private static Random threadRandom;
-
         #endregion
 
         #region Public Properties
@@ -49,30 +44,6 @@ namespace MfGames
             set
             {
                 random = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a thread-specific, static random generator.
-        /// </summary>
-        /// <value>The random.</value>
-        public static Random ThreadRandom
-        {
-            get
-            {
-                // Create a new random if it hasn't been set
-                if (threadRandom == null)
-                {
-                    threadRandom = new Random();
-                }
-
-                // Return the results
-                return threadRandom;
-            }
-
-            set
-            {
-                threadRandom = value;
             }
         }
 

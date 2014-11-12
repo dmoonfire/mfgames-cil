@@ -8,6 +8,8 @@ namespace MfGames.Extensions.System.Collections.Generic
 
     using global::System.Collections.Generic;
 
+    using global::System.Linq;
+
     /// <summary>
     /// Extension methods for IEnumerable&lt;string&gt;.
     /// </summary>
@@ -28,7 +30,7 @@ namespace MfGames.Extensions.System.Collections.Generic
         {
             return string.Join(
                 Environment.NewLine, 
-                input);
+                input.ToArray());
         }
 
         #endregion

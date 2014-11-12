@@ -7,9 +7,9 @@ namespace MfGames.Exceptions
     using System;
 
     /// <summary>
-    /// Represents an exception while processing HierarchialPath objects.
+    /// Represents an exception while processing HierarchicalPath objects.
     /// </summary>
-    public class HierarchicalPathException : ApplicationException
+    public class HierarchicalPathException : Exception
     {
         #region Constructors and Destructors
 

@@ -32,7 +32,6 @@ namespace MfGames.HierarchicalPaths
     /// HierarchicalPath is a read-only object. Once created, no methods directly
     /// alter the object. Instead, they return a new modified path.
     /// </summary>
-    [Serializable]
     public class HierarchicalPath : IComparable<HierarchicalPath>
     {
         #region Static Fields
@@ -49,6 +48,10 @@ namespace MfGames.HierarchicalPaths
         public static readonly HierarchicalPath RelativeRoot =
             new HierarchicalPath(true);
 
+        /// <summary>
+        /// </summary>
+        private static Func<string, string> stringInterner;
+
         #endregion
 
         #region Fields
@@ -64,6 +67,14 @@ namespace MfGames.HierarchicalPaths
         #endregion
 
         #region Constructors and Destructors
+
+        /// <summary>
+        /// </summary>
+        static HierarchicalPath()
+        {
+            // The default is to have an identity interning.
+            stringInterner = a => a;
+        }
 
         /// <summary>
         /// Creates an empty path that is either absolute or relative based
@@ -218,6 +229,22 @@ namespace MfGames.HierarchicalPaths
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        /// Contains the function to intern strings, if available.
+        /// </summary>
+        public static Func<string, string> StringInterner
+        {
+            get
+            {
+                return stringInterner;
+            }
+
+            set
+            {
+                stringInterner = value ?? (a => a);
+            }
+        }
 
         /// <summary>
         /// Returns the number of components in the path.
@@ -940,7 +967,7 @@ namespace MfGames.HierarchicalPaths
             {
                 for (int i = 0; i < this.levels.Length; i++)
                 {
-                    this.levels[i] = string.Intern(this.levels[i]);
+                    this.levels[i] = StringInterner(this.levels[i]);
                 }
             }
         }

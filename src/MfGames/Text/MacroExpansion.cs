@@ -6,7 +6,6 @@ namespace MfGames.Text
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
     using System.Text;
     using System.Text.RegularExpressions;
 
@@ -46,10 +45,11 @@ namespace MfGames.Text
             string endDelimiter)
         {
             // Establish our contracts.
-            Contract.Requires(beginDelimiter != null);
-            Contract.Requires(beginDelimiter.Length > 0);
-            Contract.Requires(endDelimiter != null);
-            Contract.Requires(endDelimiter.Length > 0);
+            if (string.IsNullOrEmpty(beginDelimiter)
+                || string.IsNullOrEmpty(endDelimiter))
+            {
+                throw new Exception("beginDelimiter and endDelimiter must be valid.");
+            }
 
             // Save the member variables.
             this.BeginDelimiter = beginDelimiter;
@@ -126,7 +126,7 @@ namespace MfGames.Text
             IDictionary<string, object> macros)
         {
             // If we have a null or blank string, return it immediately.
-            if (string.IsNullOrWhiteSpace(format))
+            if (format == null || format.Trim().Length == 0)
             {
                 return format;
             }
@@ -376,8 +376,8 @@ namespace MfGames.Text
         {
             // Go through the string and start building up a regular expression. This
             // expression is always anchored at the beginning and end.
-            bool isNonCapturing =
-                options.HasFlag(MacroExpansionRegexOptions.NonCapturing);
+            bool isNonCapturing = (options
+                & MacroExpansionRegexOptions.NonCapturing) != 0;
             var buffer = new StringBuilder();
 
             if (!isNonCapturing)
@@ -388,7 +388,7 @@ namespace MfGames.Text
             // Loop through the macro and pull out the fields.
             groups = new List<string>();
 
-            while (!string.IsNullOrWhiteSpace(macro))
+            while (!(macro == null || macro.Trim().Length == 0))
             {
                 // Look for the next macro.
                 int start = macro.IndexOf(this.BeginDelimiter);
@@ -432,20 +432,27 @@ namespace MfGames.Text
 
                 // If we don't have a colon format in the macro, then we have an invalid
                 // state.
-                string[] parts = sub.Split(
-                    new[] { ':' }, 
-                    2);
+                int colonIndex = sub.IndexOf(":", StringComparison.Ordinal);
+                string[] parts;
 
-                if (parts.Length != 2)
+                if (colonIndex > 0)
+                {
+                    parts = new string[]
+                        {
+                            sub.Substring(0, colonIndex),
+                            sub.Substring(colonIndex + 1)
+                        };
+                }
+                else
                 {
                     // Check to see if we have the variable in the additional expressions.
                     string additional;
 
                     if (additionalExpressions.TryGetValue(
-                        parts[0], 
+                        sub, 
                         out additional))
                     {
-                        parts = new[] { parts[0], additional };
+                        parts = new[] { sub, additional };
                     }
                     else
                     {

@@ -5,9 +5,6 @@
 namespace MfGames.Reporting
 {
     using System;
-    using System.Threading;
-
-    using MfGames.Locking;
 
     /// <summary>
     /// Implements a low-profile logging sender for the MfGames and related libraries. To
@@ -15,27 +12,6 @@ namespace MfGames.Reporting
     /// </summary>
     public static class LogManager
     {
-        #region Static Fields
-
-        /// <summary>
-        /// </summary>
-        private static readonly ReaderWriterLockSlim threadLock;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes the <see cref="LogManager"/> class.
-        /// </summary>
-        static LogManager()
-        {
-            threadLock =
-                new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
-        }
-
-        #endregion
-
         #region Public Events
 
         /// <summary>
@@ -46,18 +22,12 @@ namespace MfGames.Reporting
         {
             add
             {
-                using (new WriteLock(threadLock))
-                {
-                    logged += value;
-                }
+                logged += value;
             }
 
             remove
             {
-                using (new WriteLock(threadLock))
-                {
-                    logged -= value;
-                }
+                logged -= value;
             }
         }
 
@@ -107,12 +77,7 @@ namespace MfGames.Reporting
             }
 
             // Get the listeners at the point of reading the log.
-            EventHandler<SeverityMessageEventArgs> listeners;
-
-            using (new ReadLock(threadLock))
-            {
-                listeners = logged;
-            }
+            EventHandler<SeverityMessageEventArgs> listeners = logged;
 
             // If we don't have listeners, then just break out.
             if (listeners == null)
@@ -123,7 +88,7 @@ namespace MfGames.Reporting
             // Create an event handler and invoke it.
             var args = new SeverityMessageEventArgs(message);
             listeners(
-                sender, 
+                sender,
                 args);
         }
 

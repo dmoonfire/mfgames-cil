@@ -7,6 +7,8 @@ using SystemConvert = System.Convert;
 
 namespace MfGames.Conversion
 {
+    using System.Globalization;
+
     /// <summary>
     /// Defines a plugable conversion system. This functions much like System
     /// </summary>
@@ -51,15 +53,10 @@ namespace MfGames.Conversion
         /// </returns>
         public TOutput Convert<TInput, TOutput>(TInput input)
         {
-            // throw new FormatException(
-            // 	string.Format(
-            // 		"Cannot convert '{0}' from {1} to {2}.",
-            // 		input,
-            // 		typeof (TInput),
-            // 		typeof (TOutput)));
             return (TOutput)SystemConvert.ChangeType(
                 input, 
-                typeof(TOutput));
+                typeof(TOutput),
+                CultureInfo.InvariantCulture);
         }
 
         #endregion
