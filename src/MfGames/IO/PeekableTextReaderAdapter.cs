@@ -103,17 +103,6 @@ namespace MfGames.IO
         /// </returns>
         public string PeekLine(int linesOffset)
         {
-            return this.peekBuffer[linesOffset];
-        }
-
-        /// <summary>
-        /// Reads the line.
-        /// </summary>
-        /// <returns>
-        /// The next line or null if the end of buffer has been reached.
-        /// </returns>
-        public string ReadLine()
-        {
             // If we don't have a buffer, then populate the entire buffer. This takes
             // advantage of ReadLine() returning null repeatedly even after the end
             // of buffer.
@@ -126,6 +115,21 @@ namespace MfGames.IO
                     this.peekBuffer[i] = this.UnderlyingReader.ReadLine();
                 }
             }
+
+            // If we haven't loaded the buffer, then do it.
+            return this.peekBuffer[linesOffset];
+        }
+
+        /// <summary>
+        /// Reads the line.
+        /// </summary>
+        /// <returns>
+        /// The next line or null if the end of buffer has been reached.
+        /// </returns>
+        public string ReadLine()
+        {
+            // Load the buffer, if we need it.
+            this.PeekLine(0);
 
             // Reading lines is fairly simple. We return the first index, then shift
             // everything down the buffer list.
