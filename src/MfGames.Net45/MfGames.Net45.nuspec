@@ -1,15 +1,18 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>MfGames.Net45</id>
+    <version>4.1.0.0</version>
+    <title>MfGames CIL (Net45)</title>
+    <authors>Dylan R. E. Moonfire</authors>
+    <owners>Dylan R. E. Moonfire</owners>
     <licenseUrl>http://mfgames.com/mfgames-cil/license</licenseUrl>
     <projectUrl>http://mfgames.com/mfgames-cil</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>A common library for .NET functionality that requires .NET 4.5.</description>
     <copyright>Copyright 2009-2014</copyright>
+    <dependencies>
+      <dependency id="MfGames" version="4.1.0.0" />
+    </dependencies>
   </metadata>
 </package>
