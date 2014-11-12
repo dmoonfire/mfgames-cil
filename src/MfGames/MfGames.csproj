@@ -53,6 +53,7 @@
     <Compile Include="HierarchicalPaths\HierarchicalPathOptions.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalSelector.cs" />
     <Compile Include="HierarchicalPaths\IHierarchicalPathContainer.cs" />
+    <Compile Include="IO\PeekableTextReaderAdapter.cs" />
     <Compile Include="Reporting\SeverityMessage.cs" />
     <Compile Include="Reporting\SeverityMessageCollection.cs" />
     <Compile Include="Reporting\SeverityMessageEventArgs.cs" />

@@ -46,7 +46,6 @@
     <Compile Include="IO\CalbackStreamEventArgs.cs" />
     <Compile Include="IO\CallbackStream.cs" />
     <Compile Include="IO\ConfigStorage.cs" />
-    <Compile Include="IO\PeekableTextReaderAdapter.cs" />
     <Compile Include="Locking\NestableReadLock.cs" />
     <Compile Include="Locking\NestableUpgradableReadLock.cs" />
     <Compile Include="Locking\NestableWriteLock.cs" />

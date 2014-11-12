@@ -6,17 +6,17 @@ namespace MfGames.IO
 {
     using System;
     using System.IO;
-    using System.Runtime.Remoting;
 
     /// <summary>
     /// An adapter that allows for peeking a number of lines ahead of the underlying
     /// text reader.
     /// </summary>
-    public class PeekableTextReaderAdapter
+    public class PeekableTextReaderAdapter : IDisposable
     {
         #region Fields
 
         /// <summary>
+        /// Contain the underlying reader for this adapter.
         /// </summary>
         private readonly TextReader underlyingReader;
 
@@ -85,27 +85,6 @@ namespace MfGames.IO
         #region Public Methods and Operators
 
         /// <summary>
-        /// Closes this instance.
-        /// </summary>
-        public void Close()
-        {
-            this.underlyingReader.Close();
-        }
-
-        /// <summary>
-        /// Creates the object reference.
-        /// </summary>
-        /// <param name="requestedType">
-        /// Type of the requested.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public ObjRef CreateObjRef(Type requestedType)
-        {
-            return this.underlyingReader.CreateObjRef(requestedType);
-        }
-
-        /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         public void Dispose()
@@ -114,39 +93,10 @@ namespace MfGames.IO
         }
 
         /// <summary>
-        /// Gets the lifetime service.
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public object GetLifetimeService()
-        {
-            return this.underlyingReader.GetLifetimeService();
-        }
-
-        /// <summary>
-        /// Initializes the lifetime service.
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public object InitializeLifetimeService()
-        {
-            return this.underlyingReader.InitializeLifetimeService();
-        }
-
-        /// <summary>
-        /// Peeks this instance.
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public int Peek()
-        {
-            return this.underlyingReader.Peek();
-        }
-
-        /// <summary>
         /// Returns the line in the buffer, with one line ahead being lineOffset 0.
         /// </summary>
         /// <param name="linesOffset">
+        /// The zero-based offset of the peeked lines.
         /// </param>
         /// <returns>
         /// The resulting line.
@@ -157,69 +107,10 @@ namespace MfGames.IO
         }
 
         /// <summary>
-        /// Reads this instance.
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public int Read()
-        {
-            return this.underlyingReader.Read();
-        }
-
-        /// <summary>
-        /// Reads the specified buffer.
-        /// </summary>
-        /// <param name="buffer">
-        /// The buffer.
-        /// </param>
-        /// <param name="index">
-        /// The index.
-        /// </param>
-        /// <param name="count">
-        /// The count.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public int Read(
-            char[] buffer, 
-            int index, 
-            int count)
-        {
-            return this.underlyingReader.Read(
-                buffer, 
-                index, 
-                count);
-        }
-
-        /// <summary>
-        /// Reads the block.
-        /// </summary>
-        /// <param name="buffer">
-        /// The buffer.
-        /// </param>
-        /// <param name="index">
-        /// The index.
-        /// </param>
-        /// <param name="count">
-        /// The count.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public int ReadBlock(
-            char[] buffer, 
-            int index, 
-            int count)
-        {
-            return this.underlyingReader.ReadBlock(
-                buffer, 
-                index, 
-                count);
-        }
-
-        /// <summary>
         /// Reads the line.
         /// </summary>
         /// <returns>
+        /// The next line or null if the end of buffer has been reached.
         /// </returns>
         public string ReadLine()
         {
@@ -252,16 +143,6 @@ namespace MfGames.IO
 
             // Return the resulting line.
             return results;
-        }
-
-        /// <summary>
-        /// Reads to end.
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public string ReadToEnd()
-        {
-            return this.underlyingReader.ReadToEnd();
         }
 
         #endregion
