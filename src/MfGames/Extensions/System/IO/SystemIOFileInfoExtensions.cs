@@ -4,6 +4,7 @@
 // MIT Licensed (http://opensource.org/licenses/MIT)
 namespace MfGames.Extensions.System.IO
 {
+#if NET45
     using global::System.IO;
 
     using global::System.Security.Cryptography;
@@ -69,4 +70,5 @@ namespace MfGames.Extensions.System.IO
 
         #endregion
     }
+#endif
 }
