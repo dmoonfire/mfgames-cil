@@ -157,8 +157,8 @@ namespace MfGames.Xml
             }
 
             // Check to see if we are working with an XInclude reference.
-            if (this.NamespaceURI == XmlConstants.XIncludeNamespace2003
-                || this.NamespaceURI == XmlConstants.XIncludeNamespace2001)
+            if (this.NamespaceURI == XmlNamespaces.XInclude2003
+                || this.NamespaceURI == XmlNamespaces.XInclude2001)
             {
                 if (this.LocalName == "include")
                 {
