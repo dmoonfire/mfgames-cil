@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C31D262-6DA6-4FE4-BD24-11ACBAD53443}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MfGames</RootNamespace>
+    <AssemblyName>MfGames</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\net45\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\HierarchicalPathTreeCollection.cs" />
+    <Compile Include="Conversion\ExtendableConvert.cs" />
+    <Compile Include="Enumerations\Importance.cs" />
+    <Compile Include="Enumerations\Severity.cs" />
+    <Compile Include="Exceptions\HierarchicalPathException.cs" />
+    <Compile Include="Exceptions\InvalidPathException.cs" />
+    <Compile Include="ExtendedVersion.cs" />
+    <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericEnumerableExtensions.cs" />
+    <Compile Include="Extensions\System\Collections\Generic\SystemCollectionsGenericListExtensions.cs" />
+    <Compile Include="Extensions\System\IO\SystemIODirectoryInfoExtensions.cs" />
+    <Compile Include="Extensions\System\IO\SystemIOFileInfoExtensions.cs" />
+    <Compile Include="Extensions\System\IO\SystemIOFileSystemInfoExtensions.cs" />
+    <Compile Include="Extensions\System\Reflection\SystemReflectionMemberInfoExtensions.cs" />
+    <Compile Include="Extensions\System\Reflection\SystemReflectionParameterInfoExtensions.cs" />
+    <Compile Include="Extensions\System\SystemArrayExtensions.cs" />
+    <Compile Include="Extensions\System\SystemByteArrayExtensions.cs" />
+    <Compile Include="Extensions\System\SystemTypeExtensions.cs" />
+    <Compile Include="Extensions\System\Xml\SystemXmlWriterExtensions.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalPath.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalPathKeyValue.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalPathOptions.cs" />
+    <Compile Include="HierarchicalPaths\HierarchicalSelector.cs" />
+    <Compile Include="HierarchicalPaths\IHierarchicalPathContainer.cs" />
+    <Compile Include="IO\CalbackStreamEventArgs.cs" />
+    <Compile Include="IO\CallbackStream.cs" />
+    <Compile Include="IO\ConfigStorage.cs" />
+    <Compile Include="IO\PeekableTextReaderAdapter.cs" />
+    <Compile Include="Locking\NestableReadLock.cs" />
+    <Compile Include="Locking\NestableUpgradableReadLock.cs" />
+    <Compile Include="Locking\NestableWriteLock.cs" />
+    <Compile Include="Locking\ReadLock.cs" />
+    <Compile Include="Locking\TryGetCreatePattern.cs" />
+    <Compile Include="Locking\TryGetHandler.cs" />
+    <Compile Include="Locking\UpgradableLock.cs" />
+    <Compile Include="Locking\WriteLock.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomManager.cs" />
+    <Compile Include="Reporting\Logger.cs" />
+    <Compile Include="Reporting\LogManager.cs" />
+    <Compile Include="Reporting\SeverityMessage.cs" />
+    <Compile Include="Reporting\SeverityMessageCollection.cs" />
+    <Compile Include="Reporting\SeverityMessageEventArgs.cs" />
+    <Compile Include="SemanticVersion.cs" />
+    <Compile Include="Settings\SettingSearchOptions.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Text\MacroExpansion.cs" />
+    <Compile Include="Text\MacroExpansionRegexOptions.cs" />
+    <Compile Include="TranslatorManager.cs" />
+    <Compile Include="Xml\XIncludeReader.cs" />
+    <Compile Include="Xml\XmlIdentityWriter.cs" />
+    <Compile Include="Xml\XmlNamespaces.cs" />
+    <Compile Include="Xml\XmlProxyReader.cs" />
+    <Compile Include="Xml\XmlProxyWriter.cs" />
+    <Compile Include="Xml\XPointerInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MfGames.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
