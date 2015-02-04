@@ -2,14 +2,22 @@
 <package >
   <metadata>
     <id>MfGames</id>
-    <version>4.1.0.0</version>
-    <title>MfGames CIL (PCL)</title>
+    <version>4.1.1.0</version>
+    <title>MfGames CIL</title>
     <authors>Dylan R. E. Moonfire</authors>
     <owners>Dylan R. E. Moonfire</owners>
     <licenseUrl>http://mfgames.com/mfgames-cil/license</licenseUrl>
     <projectUrl>http://mfgames.com/mfgames-cil</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A common library for .NET functionality.</description>
-    <copyright>Copyright 2009-2014</copyright>
+    <copyright>Copyright 2009-2015</copyright>
   </metadata>
+  
+  <files>
+	<file src="bin\net40\MfGames.dll" target="lib\net40\MfGames.dll" />
+	<file src="bin\net40\MfGames.pdb" target="lib\net40\MfGames.pdb" />
+
+	<file src="bin\net45\MfGames.dll" target="lib\net45\MfGames.dll" />
+	<file src="bin\net45\MfGames.pdb" target="lib\net45\MfGames.pdb" />
+  </files>
 </package>

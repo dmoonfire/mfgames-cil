@@ -23,5 +23,5 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 
 // File and assembly versions.
-[assembly: AssemblyVersion("4.1.0.0")]
-[assembly: AssemblyFileVersion("4.1.0.0")]
+[assembly: AssemblyVersion("4.1.1.0")]
+[assembly: AssemblyFileVersion("4.1.1.0")]
