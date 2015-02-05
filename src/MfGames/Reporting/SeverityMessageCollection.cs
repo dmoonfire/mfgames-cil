@@ -1,7 +1,10 @@
 // <copyright file="SeverityMessageCollection.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Reporting
 {
     using System;
@@ -37,7 +40,7 @@ namespace MfGames.Reporting
                 foreach (SeverityMessage message in this)
                 {
                     highest = Math.Max(
-                        (int)message.Severity, 
+                        (int)message.Severity,
                         highest);
                 }
 

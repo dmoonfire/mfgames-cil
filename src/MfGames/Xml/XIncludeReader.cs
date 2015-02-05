@@ -1,7 +1,10 @@
 ﻿// <copyright file="XIncludeReader.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Xml
 {
     using System;
@@ -51,9 +54,9 @@ namespace MfGames.Xml
 
             // Wrap the first reader in the stack.
             var item = new StackItem
-                {
-                    Reader = underlyingReader
-                };
+            {
+                Reader = underlyingReader
+            };
 
             this.stack.Add(item);
         }
@@ -71,7 +74,7 @@ namespace MfGames.Xml
             {
                 string baseUriString = string.IsNullOrEmpty(this.BaseURI)
                     ? Path.Combine(
-                        Environment.CurrentDirectory, 
+                        Environment.CurrentDirectory,
                         "temporary.xml")
                     : this.BaseURI;
                 var uri = new Uri(baseUriString);
@@ -206,7 +209,7 @@ namespace MfGames.Xml
             // Figure out the URI for the new one and use that to create an
             // XML stream.
             var newUri = new Uri(
-                baseUri, 
+                baseUri,
                 href);
             XmlReader reader = Create(newUri.ToString());
             var includeReader = new XIncludeReader(reader);
@@ -282,15 +285,15 @@ namespace MfGames.Xml
             // Go through all the readers.
             List<StackItem> items = readers.Select(
                 newReader => new StackItem
-                    {
-                        Reader = newReader
-                    })
+                {
+                    Reader = newReader
+                })
                 .ToList();
 
             // Insert the reader into the first position, as the "head" of
             // the stack.
             this.stack.InsertRange(
-                0, 
+                0,
                 items);
         }
 

@@ -1,7 +1,10 @@
 // <copyright file="SettingsManager.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Settings
 {
     using System;
@@ -129,7 +132,7 @@ namespace MfGames.Settings
         public bool Contains(HierarchicalPath path)
         {
             return this.Contains(
-                path, 
+                path,
                 SettingSearchOptions.None);
         }
 
@@ -146,7 +149,7 @@ namespace MfGames.Settings
         /// <c>true</c> if [contains] [the specified path]; otherwise, <c>false</c>.
         /// </returns>
         public bool Contains(
-            HierarchicalPath path, 
+            HierarchicalPath path,
             SettingSearchOptions searchOptions)
         {
             // If this settings has a setting for this specific path, then
@@ -159,14 +162,16 @@ namespace MfGames.Settings
             // We aren't in the exact path of this item, so we need to search
             // for the parent paths or up the HierarchicalPath reference.
             bool searchParent = (searchOptions
-                & SettingSearchOptions.SearchParentSettings)
-                == SettingSearchOptions.SearchParentSettings;
+                                 & SettingSearchOptions.SearchParentSettings)
+                                == SettingSearchOptions.SearchParentSettings;
             bool searchPaths = (searchOptions
-                & SettingSearchOptions.SearchHierarchicalParents)
-                == SettingSearchOptions.SearchHierarchicalParents;
+                                & SettingSearchOptions.SearchHierarchicalParents)
+                               == SettingSearchOptions.SearchHierarchicalParents;
             bool parentSettingsFirst = (searchOptions
-                & SettingSearchOptions.ParentSettingsFirst)
-                == SettingSearchOptions.ParentSettingsFirst;
+                                        & SettingSearchOptions
+                                            .ParentSettingsFirst)
+                                       == SettingSearchOptions
+                                           .ParentSettingsFirst;
 
             // If we are searching neither, then we couldn't find it.
             if (!searchParent && !searchPaths)
@@ -181,7 +186,7 @@ namespace MfGames.Settings
                 // its parents since we'll be searching the path in the next
                 // step.
                 if (this.Parent.Contains(
-                    path, 
+                    path,
                     SettingSearchOptions.SearchParentSettings))
                 {
                     return true;
@@ -198,7 +203,7 @@ namespace MfGames.Settings
                 {
                     // Try to retrieve the object.
                     if (this.Contains(
-                        currentPath, 
+                        currentPath,
                         searchOptions))
                     {
                         // We found it through recursion.
@@ -223,7 +228,7 @@ namespace MfGames.Settings
                 // its parents since we'll be searching the path in the next
                 // step.
                 if (this.Contains(
-                    path, 
+                    path,
                     SettingSearchOptions.SearchParentSettings))
                 {
                     return true;
@@ -280,7 +285,7 @@ namespace MfGames.Settings
             where TSetting : class, new()
         {
             return Get<TSetting>(
-                path, 
+                path,
                 SettingSearchOptions.None);
         }
 
@@ -299,12 +304,12 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         public TSetting Get<TSetting>(
-            string path, 
+            string path,
             SettingSearchOptions searchOptions) where TSetting : class, new()
         {
             var hierarchicalPath = new HierarchicalPath(path);
             return Get<TSetting>(
-                hierarchicalPath, 
+                hierarchicalPath,
                 searchOptions);
         }
 
@@ -318,13 +323,13 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         public TSetting Get<TSetting>(
-            HierarchicalPath path, 
+            HierarchicalPath path,
             SettingSearchOptions searchOptions) where TSetting : class, new()
         {
             SettingsManager containingManager;
             return this.Get<TSetting>(
-                path, 
-                searchOptions, 
+                path,
+                searchOptions,
                 out containingManager);
         }
 
@@ -346,20 +351,21 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         public TSetting Get<TSetting>(
-            HierarchicalPath path, 
-            SettingSearchOptions searchOptions, 
+            HierarchicalPath path,
+            SettingSearchOptions searchOptions,
             out SettingsManager containingManager) where TSetting : class, new()
         {
             // Attempt to retrieve the item from the collection.
             SettingSearchOptions newSearchOptions = searchOptions
-                | SettingSearchOptions.SerializeDeserializeMapping;
+                                                    | SettingSearchOptions
+                                                        .SerializeDeserializeMapping;
 
             TSetting output;
 
             if (this.TryGet(
-                path, 
-                newSearchOptions, 
-                out output, 
+                path,
+                newSearchOptions,
+                out output,
                 out containingManager))
             {
                 return output;
@@ -423,8 +429,8 @@ namespace MfGames.Settings
                 TSetting setting;
 
                 if (manager.TryGet(
-                    path, 
-                    SettingSearchOptions.None, 
+                    path,
+                    SettingSearchOptions.None,
                     out setting))
                 {
                     settings.Add(setting);
@@ -455,14 +461,14 @@ namespace MfGames.Settings
             if (!file.Exists)
             {
                 throw new FileNotFoundException(
-                    "Cannot find settings file.", 
+                    "Cannot find settings file.",
                     file.Name);
             }
 
             // Open the file as a stream and load it.
             using (Stream stream = file.Open(
-                FileMode.Open, 
-                FileAccess.Read, 
+                FileMode.Open,
+                FileAccess.Read,
                 FileShare.Read))
             {
                 Load(stream);
@@ -583,7 +589,7 @@ namespace MfGames.Settings
         public void Save(FileInfo file)
         {
             using (Stream stream = file.Open(
-                FileMode.Create, 
+                FileMode.Create,
                 FileAccess.Write))
             {
                 Save(stream);
@@ -629,8 +635,8 @@ namespace MfGames.Settings
 
             // Write out the starting XML tag.
             writer.WriteStartElement(
-                "settings", 
-                "settings", 
+                "settings",
+                "settings",
                 SettingsNamespace);
 
             // Go through all the paths in the settings.
@@ -638,11 +644,11 @@ namespace MfGames.Settings
             {
                 // Write out the setting object.
                 writer.WriteStartElement(
-                    "settings", 
-                    "setting", 
+                    "settings",
+                    "setting",
                     SettingsNamespace);
                 writer.WriteAttributeString(
-                    "path", 
+                    "path",
                     path.ToString());
 
                 // Read in the XML into a document.
@@ -676,7 +682,7 @@ namespace MfGames.Settings
         /// The setting.
         /// </param>
         public void Set<TSetting>(
-            HierarchicalPath path, 
+            HierarchicalPath path,
             TSetting setting)
         {
             this.xmlSettings.Remove(path);
@@ -696,13 +702,13 @@ namespace MfGames.Settings
         /// The setting.
         /// </param>
         public void Set<TSetting>(
-            string path, 
+            string path,
             TSetting setting)
         {
             var hierarchicalPath = new HierarchicalPath(path);
 
             Set(
-                hierarchicalPath, 
+                hierarchicalPath,
                 setting);
         }
 
@@ -725,15 +731,15 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         public bool TryGet<TSetting>(
-            HierarchicalPath path, 
-            SettingSearchOptions searchOptions, 
+            HierarchicalPath path,
+            SettingSearchOptions searchOptions,
             out SettingsManager containingManager) where TSetting : class, new()
         {
             TSetting output;
             return this.TryGet(
-                path, 
-                searchOptions, 
-                out output, 
+                path,
+                searchOptions,
+                out output,
                 out containingManager);
         }
 
@@ -756,15 +762,15 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         public bool TryGet<TSetting>(
-            HierarchicalPath path, 
-            SettingSearchOptions searchOptions, 
+            HierarchicalPath path,
+            SettingSearchOptions searchOptions,
             out TSetting output) where TSetting : class, new()
         {
             SettingsManager manager;
             return this.TryGet(
-                path, 
-                searchOptions, 
-                out output, 
+                path,
+                searchOptions,
+                out output,
                 out manager);
         }
 
@@ -789,9 +795,9 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         public bool TryGet<TSetting>(
-            HierarchicalPath path, 
-            SettingSearchOptions searchOptions, 
-            out TSetting output, 
+            HierarchicalPath path,
+            SettingSearchOptions searchOptions,
+            out TSetting output,
             out SettingsManager containingManager) where TSetting : class, new()
         {
             // Try the current settings for the key.
@@ -801,8 +807,8 @@ namespace MfGames.Settings
                 // settings, this will serialize/deserialize objects that don't
                 // match.
                 if (this.TryMap(
-                    path, 
-                    searchOptions, 
+                    path,
+                    searchOptions,
                     out output))
                 {
                     containingManager = this;
@@ -837,9 +843,9 @@ namespace MfGames.Settings
                 // its parents since we'll be searching the path in the next
                 // step.
                 if (this.Parent.TryGet(
-                    path, 
-                    SettingSearchOptions.SearchParentSettings, 
-                    out output, 
+                    path,
+                    SettingSearchOptions.SearchParentSettings,
+                    out output,
                     out containingManager))
                 {
                     return true;
@@ -856,9 +862,9 @@ namespace MfGames.Settings
                 {
                     // Try to retrieve the object.
                     if (this.TryGet(
-                        currentPath, 
-                        searchOptions, 
-                        out output, 
+                        currentPath,
+                        searchOptions,
+                        out output,
                         out containingManager))
                     {
                         // We found it through recursion.
@@ -883,9 +889,9 @@ namespace MfGames.Settings
                 // its parents since we'll be searching the path in the next
                 // step.
                 if (this.Parent.TryGet(
-                    path, 
-                    SettingSearchOptions.SearchParentSettings, 
-                    out output, 
+                    path,
+                    SettingSearchOptions.SearchParentSettings,
+                    out output,
                     out containingManager))
                 {
                     return true;
@@ -912,7 +918,7 @@ namespace MfGames.Settings
         private static bool GetSearchParent(SettingSearchOptions searchOptions)
         {
             return (searchOptions & SettingSearchOptions.SearchParentSettings)
-                == SettingSearchOptions.SearchParentSettings;
+                   == SettingSearchOptions.SearchParentSettings;
         }
 
         /// <summary>
@@ -925,8 +931,8 @@ namespace MfGames.Settings
             SettingSearchOptions searchOptions)
         {
             return (searchOptions
-                & SettingSearchOptions.SerializeDeserializeMapping)
-                == SettingSearchOptions.SerializeDeserializeMapping;
+                    & SettingSearchOptions.SerializeDeserializeMapping)
+                   == SettingSearchOptions.SerializeDeserializeMapping;
         }
 
         /// <summary>
@@ -942,7 +948,7 @@ namespace MfGames.Settings
         private bool ContainsInternal(HierarchicalPath path)
         {
             return this.xmlSettings.ContainsKey(path)
-                || this.objectSettings.ContainsKey(path);
+                   || this.objectSettings.ContainsKey(path);
         }
 
         /// <summary>
@@ -965,7 +971,7 @@ namespace MfGames.Settings
             var writer = new StringWriter();
 
             inputSerializer.Serialize(
-                writer, 
+                writer,
                 input);
 
             // Put it into the XML settings and remove it from the object.
@@ -982,7 +988,7 @@ namespace MfGames.Settings
         private bool GetParentSettingsFirst(SettingSearchOptions searchOptions)
         {
             return (searchOptions & SettingSearchOptions.ParentSettingsFirst)
-                == SettingSearchOptions.ParentSettingsFirst;
+                   == SettingSearchOptions.ParentSettingsFirst;
         }
 
         /// <summary>
@@ -994,8 +1000,8 @@ namespace MfGames.Settings
         private bool GetSearchPaths(SettingSearchOptions searchOptions)
         {
             return (searchOptions
-                & SettingSearchOptions.SearchHierarchicalParents)
-                == SettingSearchOptions.SearchHierarchicalParents;
+                    & SettingSearchOptions.SearchHierarchicalParents)
+                   == SettingSearchOptions.SearchHierarchicalParents;
         }
 
         /// <summary>
@@ -1016,8 +1022,8 @@ namespace MfGames.Settings
         /// <returns>
         /// </returns>
         private bool TryMap<TSetting>(
-            HierarchicalPath path, 
-            SettingSearchOptions searchOptions, 
+            HierarchicalPath path,
+            SettingSearchOptions searchOptions,
             out TSetting output) where TSetting : class, new()
         {
             // Check to see if we have an object already deserialized.

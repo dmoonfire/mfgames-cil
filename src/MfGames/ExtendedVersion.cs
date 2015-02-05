@@ -1,7 +1,10 @@
 // <copyright file="ExtendedVersion.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames
 {
     using System;
@@ -87,7 +90,7 @@ namespace MfGames
             // Split the version into parts. We also allocate the space for
             // everything before parsing.
             string[] parts = version.Split(
-                '.', 
+                '.',
                 '-');
             this.numerics = new int[parts.Length];
             this.strings = new string[parts.Length];
@@ -99,7 +102,7 @@ namespace MfGames
                 {
                     throw new Exception(
                         "Cannot parse part '" + parts[i] + "' of '" + version
-                            + "'");
+                        + "'");
                 }
 
                 // Pull out the parts
@@ -128,7 +131,7 @@ namespace MfGames
         /// Determines if the two versions are syntactically equal. If all
         /// the version parts are identical, then so is the entire version.
         /// </summary>
-        public static bool operator ==(ExtendedVersion v1, 
+        public static bool operator ==(ExtendedVersion v1,
             ExtendedVersion v2)
         {
             return v1.ToString() == v2.ToString();
@@ -138,7 +141,7 @@ namespace MfGames
         /// Determines if the first version is greater than the second
         /// version. See the &lt; operator for more conditions.
         /// </summary>
-        public static bool operator >(ExtendedVersion v1, 
+        public static bool operator >(ExtendedVersion v1,
             ExtendedVersion v2)
         {
             // Just do the reverse, its easier
@@ -149,7 +152,7 @@ namespace MfGames
         /// Determines if the first version is greater than or equal to
         /// the second version. See the &lt; operator for more conditions.
         /// </summary>
-        public static bool operator >=(ExtendedVersion v1, 
+        public static bool operator >=(ExtendedVersion v1,
             ExtendedVersion v2)
         {
             // Just do the reverse, its easier
@@ -160,7 +163,7 @@ namespace MfGames
         /// Determines if the two versions are syntactically equal. If all
         /// the version parts are identical, then so is the entire version.
         /// </summary>
-        public static bool operator !=(ExtendedVersion v1, 
+        public static bool operator !=(ExtendedVersion v1,
             ExtendedVersion v2)
         {
             return v1.ToString() != v2.ToString();
@@ -172,7 +175,7 @@ namespace MfGames
         /// than another version, specifcally with version parts that have
         /// text in it.
         /// </summary>
-        public static bool operator <(ExtendedVersion v1, 
+        public static bool operator <(ExtendedVersion v1,
             ExtendedVersion v2)
         {
             // Make sure v1 has the less parts, for simplicicity.
@@ -225,7 +228,7 @@ namespace MfGames
         /// Determines if the first version is less than or equal to
         /// the second version. See the &lt; operator for more conditions.
         /// </summary>
-        public static bool operator <=(ExtendedVersion v1, 
+        public static bool operator <=(ExtendedVersion v1,
             ExtendedVersion v2)
         {
             // Just do the reverse, its easier

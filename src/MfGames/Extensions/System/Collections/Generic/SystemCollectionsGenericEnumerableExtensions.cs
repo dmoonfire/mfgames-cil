@@ -1,13 +1,14 @@
 ﻿// <copyright file="SystemCollectionsGenericEnumerableExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System.Collections.Generic
 {
     using global::System;
-
     using global::System.Collections.Generic;
-
     using global::System.Linq;
 
     /// <summary>
@@ -29,7 +30,7 @@ namespace MfGames.Extensions.System.Collections.Generic
         public static string Join(this IEnumerable<string> input)
         {
             return string.Join(
-                Environment.NewLine, 
+                Environment.NewLine,
                 input.ToArray());
         }
 

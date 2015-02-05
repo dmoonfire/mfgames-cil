@@ -1,7 +1,10 @@
 // <copyright file="HierarchicalPathTreeCollection.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Collections
 {
     using System.Collections.Generic;
@@ -72,7 +75,7 @@ namespace MfGames.Collections
             get
             {
                 return (this.HasItem ? 1 : 0)
-                    + this.nodes.Values.Sum(child => child.Count);
+                       + this.nodes.Values.Sum(child => child.Count);
             }
         }
 
@@ -137,11 +140,11 @@ namespace MfGames.Collections
         /// <param name="item">
         /// </param>
         public void Add(
-            string path, 
+            string path,
             TValue item)
         {
             this.Add(
-                new HierarchicalPath(path), 
+                new HierarchicalPath(path),
                 item);
         }
 
@@ -155,7 +158,7 @@ namespace MfGames.Collections
         /// The item.
         /// </param>
         public void Add(
-            HierarchicalPath path, 
+            HierarchicalPath path,
             TValue item)
         {
             // If are the top-level path, set the item.
@@ -180,7 +183,7 @@ namespace MfGames.Collections
             HierarchicalPath childPath = path.Splice(1);
 
             child.Add(
-                childPath, 
+                childPath,
                 item);
         }
 
@@ -303,7 +306,7 @@ namespace MfGames.Collections
             return
                 new HierarchicalPathTreeCollection<TValue>(
                     new HierarchicalPath(
-                        childNodeName, 
+                        childNodeName,
                         this.Path));
         }
 

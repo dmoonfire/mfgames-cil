@@ -1,7 +1,10 @@
 // <copyright file="SystemIODirectoryInfoExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System.IO
 {
     using global::System.IO;
@@ -25,12 +28,12 @@ namespace MfGames.Extensions.System.IO
         /// <returns>
         /// </returns>
         public static DirectoryInfo GetDirectoryInfo(
-            this DirectoryInfo directory, 
+            this DirectoryInfo directory,
             string dirname)
         {
             return new DirectoryInfo(
                 Path.Combine(
-                    directory.FullName, 
+                    directory.FullName,
                     dirname));
         }
 
@@ -46,12 +49,12 @@ namespace MfGames.Extensions.System.IO
         /// <returns>
         /// </returns>
         public static FileInfo GetFileInfo(
-            this DirectoryInfo directory, 
+            this DirectoryInfo directory,
             string filename)
         {
             return new FileInfo(
                 Path.Combine(
-                    directory.FullName, 
+                    directory.FullName,
                     filename));
         }
 

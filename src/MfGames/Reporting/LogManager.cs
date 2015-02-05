@@ -1,7 +1,10 @@
 // <copyright file="LogManager.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Reporting
 {
     using System;
@@ -52,7 +55,7 @@ namespace MfGames.Reporting
         public static void Log(SeverityMessage message)
         {
             Log(
-                null, 
+                null,
                 message);
         }
 
@@ -66,7 +69,7 @@ namespace MfGames.Reporting
         /// The message.
         /// </param>
         public static void Log(
-            object sender, 
+            object sender,
             SeverityMessage message)
         {
             // Check the listeners outside of a lock. If we have anything, then

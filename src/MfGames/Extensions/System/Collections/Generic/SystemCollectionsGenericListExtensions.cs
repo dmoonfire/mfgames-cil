@@ -1,11 +1,13 @@
 // <copyright file="SystemCollectionsGenericListExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System.Collections.Generic
 {
     using global::System;
-
     using global::System.Collections.Generic;
 
     using MfGames.HierarchicalPaths;
@@ -45,7 +47,7 @@ namespace MfGames.Extensions.System.Collections.Generic
         public static TItem GetRandom<TItem>(this IList<TItem> list)
         {
             return GetRandom(
-                list, 
+                list,
                 RandomManager.Random);
         }
 
@@ -59,7 +61,7 @@ namespace MfGames.Extensions.System.Collections.Generic
         /// <returns>
         /// </returns>
         public static TItem GetRandom<TItem>(
-            this IList<TItem> list, 
+            this IList<TItem> list,
             Random random)
         {
             // If we have an empty list, then we can't return anything.
@@ -71,7 +73,7 @@ namespace MfGames.Extensions.System.Collections.Generic
 
             // Pick a random item from the list.
             int index = random.Next(
-                0, 
+                0,
                 list.Count);
             return list[index];
         }
@@ -135,7 +137,7 @@ namespace MfGames.Extensions.System.Collections.Generic
                         TItem item = list[testIndex];
                         list.RemoveAt(testIndex);
                         list.Insert(
-                            startIndex, 
+                            startIndex,
                             item);
 
                         // Decrement the start index to start again.
@@ -189,7 +191,7 @@ namespace MfGames.Extensions.System.Collections.Generic
                             TItem item = list[testIndex];
                             list.RemoveAt(testIndex);
                             list.Insert(
-                                lastChildIndex, 
+                                lastChildIndex,
                                 item);
 
                             // Move the index back to it (and a bit more to
@@ -246,11 +248,11 @@ namespace MfGames.Extensions.System.Collections.Generic
         /// The item.
         /// </param>
         public static void Push<TItem>(
-            this IList<TItem> list, 
+            this IList<TItem> list,
             TItem item)
         {
             list.Insert(
-                0, 
+                0,
                 item);
         }
 

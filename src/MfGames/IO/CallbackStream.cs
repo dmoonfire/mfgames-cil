@@ -1,7 +1,10 @@
 ﻿// <copyright file="CallbackStream.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.IO
 {
     using System;
@@ -203,17 +206,17 @@ namespace MfGames.IO
         /// An <see cref="T:System.IAsyncResult"/> that represents the asynchronous read, which could still be pending.
         /// </returns>
         public override IAsyncResult BeginRead(
-            byte[] buffer, 
-            int offset, 
-            int count, 
-            AsyncCallback callback, 
+            byte[] buffer,
+            int offset,
+            int count,
+            AsyncCallback callback,
             object state)
         {
             return this.underlyingStream.BeginRead(
-                buffer, 
-                offset, 
-                count, 
-                callback, 
+                buffer,
+                offset,
+                count,
+                callback,
                 state);
         }
 
@@ -239,17 +242,17 @@ namespace MfGames.IO
         /// An IAsyncResult that represents the asynchronous write, which could still be pending.
         /// </returns>
         public override IAsyncResult BeginWrite(
-            byte[] buffer, 
-            int offset, 
-            int count, 
-            AsyncCallback callback, 
+            byte[] buffer,
+            int offset,
+            int count,
+            AsyncCallback callback,
             object state)
         {
             return this.underlyingStream.BeginWrite(
-                buffer, 
-                offset, 
-                count, 
-                callback, 
+                buffer,
+                offset,
+                count,
+                callback,
                 state);
         }
 
@@ -266,7 +269,7 @@ namespace MfGames.IO
             if (listeners != null)
             {
                 listeners(
-                    this, 
+                    this,
                     new CalbackStreamEventArgs<TStream>(this));
             }
         }
@@ -351,13 +354,13 @@ namespace MfGames.IO
         /// The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.
         /// </returns>
         public override int Read(
-            byte[] buffer, 
-            int offset, 
+            byte[] buffer,
+            int offset,
             int count)
         {
             return this.underlyingStream.Read(
-                buffer, 
-                offset, 
+                buffer,
+                offset,
                 count);
         }
 
@@ -385,11 +388,11 @@ namespace MfGames.IO
         /// The new position within the current stream.
         /// </returns>
         public override long Seek(
-            long offset, 
+            long offset,
             SeekOrigin origin)
         {
             return this.underlyingStream.Seek(
-                offset, 
+                offset,
                 origin);
         }
 
@@ -417,13 +420,13 @@ namespace MfGames.IO
         /// The number of bytes to be written to the current stream.
         /// </param>
         public override void Write(
-            byte[] buffer, 
-            int offset, 
+            byte[] buffer,
+            int offset,
             int count)
         {
             this.underlyingStream.Write(
-                buffer, 
-                offset, 
+                buffer,
+                offset,
                 count);
         }
 

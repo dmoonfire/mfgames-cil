@@ -1,7 +1,10 @@
 ﻿// <copyright file="XmlProxyWriter.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Xml
 {
     using System.Xml;
@@ -114,13 +117,13 @@ namespace MfGames.Xml
         /// <paramref name="index"/> or <paramref name="count"/> is less than zero.
         ///   </exception>
         public override void WriteBase64(
-            byte[] buffer, 
-            int index, 
+            byte[] buffer,
+            int index,
             int count)
         {
             this.UnderlyingWriter.WriteBase64(
-                buffer, 
-                index, 
+                buffer,
+                index,
                 count);
         }
 
@@ -176,13 +179,13 @@ namespace MfGames.Xml
         /// The <paramref name="buffer"/> parameter value is not valid.
         ///   </exception>
         public override void WriteChars(
-            char[] buffer, 
-            int index, 
+            char[] buffer,
+            int index,
             int count)
         {
             this.UnderlyingWriter.WriteChars(
-                buffer, 
-                index, 
+                buffer,
+                index,
                 count);
         }
 
@@ -222,15 +225,15 @@ namespace MfGames.Xml
         /// The value for <paramref name="name"/> would result in invalid XML.
         ///   </exception>
         public override void WriteDocType(
-            string name, 
-            string pubid, 
-            string sysid, 
+            string name,
+            string pubid,
+            string sysid,
             string subset)
         {
             this.UnderlyingWriter.WriteDocType(
-                name, 
-                pubid, 
-                sysid, 
+                name,
+                pubid,
+                sysid,
                 subset);
         }
 
@@ -301,11 +304,11 @@ namespace MfGames.Xml
         /// This method is being used to create an XML declaration after <see cref="M:System.Xml.XmlWriter.WriteStartDocument"/> has already been called.
         ///   </exception>
         public override void WriteProcessingInstruction(
-            string name, 
+            string name,
             string text)
         {
             this.UnderlyingWriter.WriteProcessingInstruction(
-                name, 
+                name,
                 text);
         }
 
@@ -330,13 +333,13 @@ namespace MfGames.Xml
         /// The buffer length minus <paramref name="index"/> is less than <paramref name="count"/>.
         ///   </exception>
         public override void WriteRaw(
-            char[] buffer, 
-            int index, 
+            char[] buffer,
+            int index,
             int count)
         {
             this.UnderlyingWriter.WriteRaw(
-                buffer, 
-                index, 
+                buffer,
+                index,
                 count);
         }
 
@@ -367,13 +370,13 @@ namespace MfGames.Xml
         /// The namespace URI for the attribute.
         /// </param>
         public override void WriteStartAttribute(
-            string prefix, 
-            string localName, 
+            string prefix,
+            string localName,
             string ns)
         {
             this.UnderlyingWriter.WriteStartAttribute(
-                prefix, 
-                localName, 
+                prefix,
+                localName,
                 ns);
         }
 
@@ -418,13 +421,13 @@ namespace MfGames.Xml
         /// The writer is closed.
         ///   </exception>
         public override void WriteStartElement(
-            string prefix, 
-            string localName, 
+            string prefix,
+            string localName,
             string ns)
         {
             this.UnderlyingWriter.WriteStartElement(
-                prefix, 
-                localName, 
+                prefix,
+                localName,
                 ns);
         }
 
@@ -455,11 +458,11 @@ namespace MfGames.Xml
         /// An invalid surrogate character pair was passed.
         ///   </exception>
         public override void WriteSurrogateCharEntity(
-            char lowChar, 
+            char lowChar,
             char highChar)
         {
             this.UnderlyingWriter.WriteSurrogateCharEntity(
-                lowChar, 
+                lowChar,
                 highChar);
         }
 

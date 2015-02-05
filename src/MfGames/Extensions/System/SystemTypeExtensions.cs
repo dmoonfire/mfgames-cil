@@ -1,7 +1,10 @@
 // <copyright file="SystemTypeExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System
 {
     using global::System;
@@ -28,7 +31,7 @@ namespace MfGames.Extensions.System
             where TAttribute : Attribute
         {
             object[] attributes = type.GetCustomAttributes(
-                typeof(TAttribute), 
+                typeof(TAttribute),
                 true);
 
             if (attributes.Length == 0)
@@ -53,12 +56,12 @@ namespace MfGames.Extensions.System
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this Type type, 
+            this Type type,
             Type attributeType)
         {
             return HasCustomAttribute(
-                type, 
-                attributeType, 
+                type,
+                attributeType,
                 true);
         }
 
@@ -86,11 +89,11 @@ namespace MfGames.Extensions.System
         /// <returns>
         /// </returns>
         public static bool HasCustomAttribute<TAttribute>(
-            this Type type, 
+            this Type type,
             bool inherited)
         {
             return type.HasCustomAttribute(
-                typeof(TAttribute), 
+                typeof(TAttribute),
                 inherited);
         }
 
@@ -111,8 +114,8 @@ namespace MfGames.Extensions.System
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this Type type, 
-            Type attributeType, 
+            this Type type,
+            Type attributeType,
             bool inherited)
         {
             // Check for null parameters.
@@ -123,7 +126,7 @@ namespace MfGames.Extensions.System
 
             // Go through the attributes of the member type and look for at least one.
             return type.GetCustomAttributes(
-                attributeType, 
+                attributeType,
                 inherited)
                 .Length > 0;
         }

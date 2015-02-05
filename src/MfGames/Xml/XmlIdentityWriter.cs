@@ -1,7 +1,10 @@
 ﻿// <copyright file="XmlIdentityWriter.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Xml
 {
     using System.Xml;
@@ -118,9 +121,9 @@ namespace MfGames.Xml
         protected virtual void WriteDocumentType(XmlReader reader)
         {
             this.WriteDocType(
-                reader.Name, 
-                reader.GetAttribute("PUBLIC"), 
-                reader.GetAttribute("SYSTEM"), 
+                reader.Name,
+                reader.GetAttribute("PUBLIC"),
+                reader.GetAttribute("SYSTEM"),
                 reader.Value);
         }
 
@@ -134,8 +137,8 @@ namespace MfGames.Xml
         {
             // Write out the start element using the input prefix and namespace.
             this.WriteStartElement(
-                reader.Prefix, 
-                reader.LocalName, 
+                reader.Prefix,
+                reader.LocalName,
                 reader.NamespaceURI);
 
             // Write out all the attributes.
@@ -146,9 +149,9 @@ namespace MfGames.Xml
                 do
                 {
                     this.WriteAttributeString(
-                        reader.Prefix, 
-                        reader.LocalName, 
-                        reader.NamespaceURI, 
+                        reader.Prefix,
+                        reader.LocalName,
+                        reader.NamespaceURI,
                         reader.Value);
                 }
                 while (reader.MoveToNextAttribute());
@@ -198,7 +201,7 @@ namespace MfGames.Xml
         protected virtual void WriteProcessingInstruction(XmlReader reader)
         {
             this.WriteProcessingInstruction(
-                reader.Name, 
+                reader.Name,
                 reader.Value);
         }
 

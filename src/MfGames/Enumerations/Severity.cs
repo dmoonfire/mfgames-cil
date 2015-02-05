@@ -1,7 +1,10 @@
 // <copyright file="Severity.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Enumerations
 {
     /// <summary>
@@ -13,27 +16,27 @@ namespace MfGames.Enumerations
         /// <summary>
         /// Indicates a severity used for debugging.
         /// </summary>
-        Debug, 
+        Debug,
 
         /// <summary>
         /// Used for informational purposes.
         /// </summary>
-        Info, 
+        Info,
 
         /// <summary>
         /// Used for warning notices.
         /// </summary>
-        Alert, 
+        Alert,
 
         /// <summary>
         /// Used for a non-fatal error condition.
         /// </summary>
-        Error, 
+        Error,
 
         /// <summary>
         /// Used for fatal conditions, usually indicating the application or
         /// something has stopped.
         /// </summary>
-        Fatal, 
+        Fatal,
     }
 }

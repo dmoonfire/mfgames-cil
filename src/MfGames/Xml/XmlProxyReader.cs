@@ -1,10 +1,12 @@
 ﻿// <copyright file="XmlProxyReader.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Xml
 {
-    using System.IO;
     using System.Xml;
 
     /// <summary>
@@ -134,20 +136,6 @@ namespace MfGames.Xml
         }
 
         /// <summary>
-        /// When overridden in a derived class, gets the <see cref="T:System.Xml.XmlNameTable"/> associated with this implementation.
-        /// </summary>
-        /// <returns>
-        /// The XmlNameTable enabling you to get the atomized version of a string within the node.
-        ///   </returns>
-        public override XmlNameTable NameTable
-        {
-            get
-            {
-                return this.UnderlyingReader.NameTable;
-            }
-        }
-
-        /// <summary>
         /// When overridden in a derived class, gets the namespace URI (as defined in the W3C Namespace specification) of the node on which the reader is positioned.
         /// </summary>
         /// <returns>
@@ -158,6 +146,20 @@ namespace MfGames.Xml
             get
             {
                 return this.UnderlyingReader.NamespaceURI;
+            }
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, gets the <see cref="T:System.Xml.XmlNameTable"/> associated with this implementation.
+        /// </summary>
+        /// <returns>
+        /// The XmlNameTable enabling you to get the atomized version of a string within the node.
+        ///   </returns>
+        public override XmlNameTable NameTable
+        {
+            get
+            {
+                return this.UnderlyingReader.NameTable;
             }
         }
 
@@ -291,11 +293,11 @@ namespace MfGames.Xml
         /// <paramref name="name"/> is null.
         ///   </exception>
         public override string GetAttribute(
-            string name, 
+            string name,
             string namespaceURI)
         {
             return this.UnderlyingReader.GetAttribute(
-                name, 
+                name,
                 namespaceURI);
         }
 
@@ -357,11 +359,11 @@ namespace MfGames.Xml
         /// true if the attribute is found; otherwise, false. If false, the reader's position does not change.
         /// </returns>
         public override bool MoveToAttribute(
-            string name, 
+            string name,
             string ns)
         {
             return this.UnderlyingReader.MoveToAttribute(
-                name, 
+                name,
                 ns);
         }
 

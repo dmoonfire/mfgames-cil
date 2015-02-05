@@ -1,7 +1,10 @@
 ﻿// <copyright file="SystemXmlWriterExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System.Xml
 {
     using global::System.Xml;
@@ -27,14 +30,14 @@ namespace MfGames.Extensions.System.Xml
         /// The value of the element.
         /// </param>
         public static void WriteNonNullElementString(
-            this XmlWriter writer, 
-            string localName, 
+            this XmlWriter writer,
+            string localName,
             string value)
         {
             if (value != null)
             {
                 writer.WriteElementString(
-                    localName, 
+                    localName,
                     value);
             }
         }
@@ -56,16 +59,16 @@ namespace MfGames.Extensions.System.Xml
         /// The value of the element.
         /// </param>
         public static void WriteNonNullElementString(
-            this XmlWriter writer, 
-            string localName, 
-            string ns, 
+            this XmlWriter writer,
+            string localName,
+            string ns,
             string value)
         {
             if (value != null)
             {
                 writer.WriteElementString(
-                    localName, 
-                    ns, 
+                    localName,
+                    ns,
                     value);
             }
         }
@@ -90,18 +93,18 @@ namespace MfGames.Extensions.System.Xml
         /// The value of the element.
         /// </param>
         public static void WriteNonNullElementString(
-            this XmlWriter writer, 
-            string prefix, 
-            string localName, 
-            string ns, 
+            this XmlWriter writer,
+            string prefix,
+            string localName,
+            string ns,
             string value)
         {
             if (value != null)
             {
                 writer.WriteElementString(
-                    prefix, 
-                    localName, 
-                    ns, 
+                    prefix,
+                    localName,
+                    ns,
                     value);
             }
         }

@@ -1,7 +1,10 @@
 ﻿// <copyright file="HierarchicalPathKeyValue.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.HierarchicalPaths
 {
     using System;
@@ -13,9 +16,9 @@ namespace MfGames.HierarchicalPaths
     /// </summary>
     /// <typeparam name="TValue">
     /// </typeparam>
-    public class HierarchicalPathKeyValue<TValue> : IHierarchicalPathContainer, 
-        IComparable<HierarchicalPath>, 
-        IComparable<IHierarchicalPathContainer>, 
+    public class HierarchicalPathKeyValue<TValue> : IHierarchicalPathContainer,
+        IComparable<HierarchicalPath>,
+        IComparable<IHierarchicalPathContainer>,
         IEquatable<HierarchicalPathKeyValue<TValue>>
     {
         #region Constructors and Destructors
@@ -30,9 +33,9 @@ namespace MfGames.HierarchicalPaths
         /// The value.
         /// </param>
         public HierarchicalPathKeyValue(
-            string hierarchialPath, 
+            string hierarchialPath,
             TValue value)
-            : this(new HierarchicalPath(hierarchialPath), 
+            : this(new HierarchicalPath(hierarchialPath),
                 value)
         {
         }
@@ -47,7 +50,7 @@ namespace MfGames.HierarchicalPaths
         /// The value.
         /// </param>
         public HierarchicalPathKeyValue(
-            HierarchicalPath hierarchicalPath, 
+            HierarchicalPath hierarchicalPath,
             TValue value)
         {
             if (hierarchicalPath == null)
@@ -85,11 +88,11 @@ namespace MfGames.HierarchicalPaths
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(HierarchicalPathKeyValue<TValue> left, 
+        public static bool operator ==(HierarchicalPathKeyValue<TValue> left,
             HierarchicalPathKeyValue<TValue> right)
         {
             return Equals(
-                left, 
+                left,
                 right);
         }
 
@@ -101,11 +104,11 @@ namespace MfGames.HierarchicalPaths
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(HierarchicalPathKeyValue<TValue> left, 
+        public static bool operator !=(HierarchicalPathKeyValue<TValue> left,
             HierarchicalPathKeyValue<TValue> right)
         {
             return !Equals(
-                left, 
+                left,
                 right);
         }
 
@@ -165,21 +168,21 @@ namespace MfGames.HierarchicalPaths
         public bool Equals(HierarchicalPathKeyValue<TValue> other)
         {
             if (ReferenceEquals(
-                null, 
+                null,
                 other))
             {
                 return false;
             }
 
             if (ReferenceEquals(
-                this, 
+                this,
                 other))
             {
                 return true;
             }
 
             return Equals(
-                other.HierarchicalPath, 
+                other.HierarchicalPath,
                 this.HierarchicalPath);
         }
 
@@ -199,14 +202,14 @@ namespace MfGames.HierarchicalPaths
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(
-                null, 
+                null,
                 obj))
             {
                 return false;
             }
 
             if (ReferenceEquals(
-                this, 
+                this,
                 obj))
             {
                 return true;
@@ -241,8 +244,8 @@ namespace MfGames.HierarchicalPaths
         public override string ToString()
         {
             return string.Format(
-                "{0} => {1}", 
-                this.HierarchicalPath, 
+                "{0} => {1}",
+                this.HierarchicalPath,
                 this.Value);
         }
 

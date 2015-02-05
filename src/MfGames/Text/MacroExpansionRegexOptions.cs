@@ -1,7 +1,10 @@
 ﻿// <copyright file="MacroExpansionRegexOptions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Text
 {
     using System;
@@ -15,11 +18,11 @@ namespace MfGames.Text
         /// <summary>
         /// The default value, which produces a capturing group.
         /// </summary>
-        Default = 0, 
+        Default = 0,
 
         /// <summary>
         /// Causes the generated regular expression to be non-capturing groups.
         /// </summary>
-        NonCapturing = 1, 
+        NonCapturing = 1,
     }
 }

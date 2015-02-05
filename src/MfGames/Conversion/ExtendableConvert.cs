@@ -1,7 +1,9 @@
 ﻿// <copyright file="ExtendableConvert.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
 
 using SystemConvert = System.Convert;
 
@@ -54,7 +56,7 @@ namespace MfGames.Conversion
         public TOutput Convert<TInput, TOutput>(TInput input)
         {
             return (TOutput)SystemConvert.ChangeType(
-                input, 
+                input,
                 typeof(TOutput),
                 CultureInfo.InvariantCulture);
         }

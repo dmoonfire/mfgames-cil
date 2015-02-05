@@ -1,7 +1,10 @@
 // <copyright file="SeverityMessage.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Reporting
 {
     using System;
@@ -25,7 +28,7 @@ namespace MfGames.Reporting
         /// The message text.
         /// </param>
         public SeverityMessage(string text)
-            : this(Severity.Info, 
+            : this(Severity.Info,
                 text)
         {
         }
@@ -40,7 +43,7 @@ namespace MfGames.Reporting
         /// The message text.
         /// </param>
         public SeverityMessage(
-            Severity severity, 
+            Severity severity,
             string text)
         {
             if (string.IsNullOrEmpty(text))

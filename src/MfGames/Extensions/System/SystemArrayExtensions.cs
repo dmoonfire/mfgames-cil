@@ -1,7 +1,10 @@
 ﻿// <copyright file="SystemArrayExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System
 {
     /// <summary>
@@ -27,12 +30,12 @@ namespace MfGames.Extensions.System
         /// <returns>
         /// </returns>
         public static TItem[] Splice<TItem>(
-            this TItem[] oldArray, 
+            this TItem[] oldArray,
             int offset)
         {
             return Splice(
-                oldArray, 
-                offset, 
+                oldArray,
+                offset,
                 oldArray.Length - offset);
         }
 
@@ -55,8 +58,8 @@ namespace MfGames.Extensions.System
         /// <returns>
         /// </returns>
         public static TItem[] Splice<TItem>(
-            this TItem[] oldArray, 
-            int offset, 
+            this TItem[] oldArray,
+            int offset,
             int count)
         {
             // Check for nulls and blanks.

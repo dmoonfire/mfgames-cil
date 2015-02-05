@@ -1,7 +1,10 @@
 // <copyright file="HierarchicalPathOptions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.HierarchicalPaths
 {
     using System;
@@ -15,12 +18,12 @@ namespace MfGames.HierarchicalPaths
         /// <summary>
         /// Defines no additional options.
         /// </summary>
-        None, 
+        None,
 
         /// <summary>
         /// If included, the path will intern the various string components of
         /// the path in an attempt to save memory.
         /// </summary>
-        InternStrings, 
+        InternStrings,
     }
 }

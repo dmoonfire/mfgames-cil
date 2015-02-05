@@ -1,7 +1,10 @@
 ﻿// <copyright file="XPointerInfo.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Xml
 {
     using System;
@@ -103,8 +106,8 @@ namespace MfGames.Xml
                 string argument;
 
                 if (this.TryParseFunction(
-                    ref xpointer, 
-                    out function, 
+                    ref xpointer,
+                    out function,
                     out argument))
                 {
                     // We parsed a function, so figure out what to do from there.
@@ -112,10 +115,10 @@ namespace MfGames.Xml
                     {
                         case "xmlns":
                             int equalIndex = argument.IndexOf(
-                                "=", 
+                                "=",
                                 StringComparison.Ordinal);
                             string prefix = argument.Substring(
-                                0, 
+                                0,
                                 equalIndex);
                             string ns = argument.Substring(equalIndex + 1);
 
@@ -152,8 +155,8 @@ namespace MfGames.Xml
         /// True if a function was found, otherwise false.
         /// </returns>
         private bool TryParseFunction(
-            ref string xpointer, 
-            out string function, 
+            ref string xpointer,
+            out string function,
             out string argument)
         {
             // If we have a null or blank string, skip it.
@@ -201,7 +204,7 @@ namespace MfGames.Xml
                         // the argument from the length we just figured out.
                         function = match.Groups[1].Value;
                         argument = xpointer.Substring(
-                            0, 
+                            0,
                             i);
 
                         // Strip off the function including the trailing ")".

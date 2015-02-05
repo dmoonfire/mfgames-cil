@@ -1,7 +1,10 @@
 // <copyright file="Logger.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Reporting
 {
     using MfGames.Enumerations;
@@ -55,12 +58,12 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Alert(
-            string format, 
+            string format,
             params object[] arguments)
         {
             this.Log(
-                Severity.Alert, 
-                format, 
+                Severity.Alert,
+                format,
                 arguments);
         }
 
@@ -74,12 +77,12 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Debug(
-            string format, 
+            string format,
             params object[] arguments)
         {
             this.Log(
-                Severity.Debug, 
-                format, 
+                Severity.Debug,
+                format,
                 arguments);
         }
 
@@ -93,12 +96,12 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Error(
-            string format, 
+            string format,
             params object[] arguments)
         {
             this.Log(
-                Severity.Error, 
-                format, 
+                Severity.Error,
+                format,
                 arguments);
         }
 
@@ -112,12 +115,12 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Fatal(
-            string format, 
+            string format,
             params object[] arguments)
         {
             this.Log(
-                Severity.Fatal, 
-                format, 
+                Severity.Fatal,
+                format,
                 arguments);
         }
 
@@ -131,12 +134,12 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Info(
-            string format, 
+            string format,
             params object[] arguments)
         {
             this.Log(
-                Severity.Info, 
-                format, 
+                Severity.Info,
+                format,
                 arguments);
         }
 
@@ -154,14 +157,14 @@ namespace MfGames.Reporting
         /// The arguments.
         /// </param>
         public void Log(
-            Severity severity, 
-            string format, 
+            Severity severity,
+            string format,
             params object[] arguments)
         {
             var message = new SeverityMessage(
-                severity, 
+                severity,
                 string.Format(
-                    format, 
+                    format,
                     arguments));
             this.Log(message);
         }
@@ -175,7 +178,7 @@ namespace MfGames.Reporting
         public void Log(SeverityMessage message)
         {
             LogManager.Log(
-                this.context, 
+                this.context,
                 message);
         }
 

@@ -1,7 +1,10 @@
 ﻿// <copyright file="Importance.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Enumerations
 {
     /// <summary>
@@ -13,36 +16,36 @@ namespace MfGames.Enumerations
         /// <summary>
         /// The lowest level of importance.
         /// </summary>
-        Lowest = -8, 
+        Lowest = -8,
 
         /// <summary>
         /// Indicates an importance  that is below average.
         /// </summary>
-        Lower = -4, 
+        Lower = -4,
 
         /// <summary>
         /// Indicates an importance that is slightly below average.
         /// </summary>
-        Low = -2, 
+        Low = -2,
 
         /// <summary>
         /// Indicates an average or normal importance.
         /// </summary>
-        Normal = 0, 
+        Normal = 0,
 
         /// <summary>
         /// Indicates an importance higher than average.
         /// </summary>
-        High = 2, 
+        High = 2,
 
         /// <summary>
         /// Indicates a higher importance than High.
         /// </summary>
-        Higher = 4, 
+        Higher = 4,
 
         /// <summary>
         /// Indicates the highest lvel of normal importance.
         /// </summary>
-        Highest = 8, 
+        Highest = 8,
     }
 }

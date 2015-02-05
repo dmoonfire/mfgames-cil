@@ -1,7 +1,10 @@
 // <copyright file="ConfigStorage.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames
 {
     using System;
@@ -54,7 +57,7 @@ namespace MfGames
         public static string GetDirectory(params string[] relativeDirectories)
         {
             return GetDirectoryInfo(
-                true, 
+                true,
                 relativeDirectories)
                 .FullName;
         }
@@ -69,11 +72,11 @@ namespace MfGames
         /// <returns>
         /// </returns>
         public static string GetDirectory(
-            bool create, 
+            bool create,
             params string[] relativeDirectories)
         {
             return GetDirectoryInfo(
-                create, 
+                create,
                 relativeDirectories)
                 .FullName;
         }
@@ -89,7 +92,7 @@ namespace MfGames
             params string[] relativeDirectories)
         {
             return GetDirectoryInfo(
-                true, 
+                true,
                 relativeDirectories);
         }
 
@@ -103,7 +106,7 @@ namespace MfGames
         /// <returns>
         /// </returns>
         public static DirectoryInfo GetDirectoryInfo(
-            bool create, 
+            bool create,
             params string[] relativeDirectories)
         {
             // Start at the top-level configuration directory and create all the relative
@@ -115,7 +118,7 @@ namespace MfGames
                 // Create the new child directory.
                 directory = new DirectoryInfo(
                     Path.Combine(
-                        directory.FullName, 
+                        directory.FullName,
                         relativeDirectory));
 
                 // Create the directory if we were requested to create it and it doesn't exist.

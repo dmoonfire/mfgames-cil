@@ -1,7 +1,10 @@
 ﻿// <copyright file="PeekableTextReaderAdapter.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.IO
 {
     using System;
@@ -39,7 +42,7 @@ namespace MfGames.IO
         /// The number of lines to peek ahead.
         /// </param>
         public PeekableTextReaderAdapter(
-            TextReader underlyingReader, 
+            TextReader underlyingReader,
             int peekableLineCount = 1)
         {
             // Establish our contracts.
@@ -51,7 +54,7 @@ namespace MfGames.IO
             if (peekableLineCount <= 0)
             {
                 throw new ArgumentOutOfRangeException(
-                    "peekableLineCount", 
+                    "peekableLineCount",
                     "peekableLineCount cannot be zero or less.");
             }
 

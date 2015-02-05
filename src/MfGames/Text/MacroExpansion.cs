@@ -1,7 +1,10 @@
 ﻿// <copyright file="MacroExpansion.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Text
 {
     using System;
@@ -26,7 +29,7 @@ namespace MfGames.Text
         /// Initializes a new instance of the <see cref="MacroExpansion"/> class.
         /// </summary>
         public MacroExpansion()
-            : this("$(", 
+            : this("$(",
                 ")")
         {
         }
@@ -41,14 +44,15 @@ namespace MfGames.Text
         /// The end delimiter.
         /// </param>
         public MacroExpansion(
-            string beginDelimiter, 
+            string beginDelimiter,
             string endDelimiter)
         {
             // Establish our contracts.
             if (string.IsNullOrEmpty(beginDelimiter)
                 || string.IsNullOrEmpty(endDelimiter))
             {
-                throw new Exception("beginDelimiter and endDelimiter must be valid.");
+                throw new Exception(
+                    "beginDelimiter and endDelimiter must be valid.");
             }
 
             // Save the member variables.
@@ -93,16 +97,16 @@ namespace MfGames.Text
         public string EscapeRegex(string text)
         {
             text = text.Replace(
-                @"\", 
+                @"\",
                 @"\\");
             text = text.Replace(
-                ".", 
+                ".",
                 @"\.");
             text = text.Replace(
-                "(", 
+                "(",
                 @"\(");
             text = text.Replace(
-                ")", 
+                ")",
                 @"\)");
             return text;
         }
@@ -122,11 +126,12 @@ namespace MfGames.Text
         /// <returns>
         /// </returns>
         public string Expand(
-            string format, 
+            string format,
             IDictionary<string, object> macros)
         {
             // If we have a null or blank string, return it immediately.
-            if (format == null || format.Trim().Length == 0)
+            if (format == null || format.Trim()
+                .Length == 0)
             {
                 return format;
             }
@@ -144,7 +149,7 @@ namespace MfGames.Text
                 }
 
                 int endIndex = format.IndexOf(
-                    this.EndDelimiter, 
+                    this.EndDelimiter,
                     beginIndex);
 
                 if (endIndex < 0)
@@ -155,15 +160,15 @@ namespace MfGames.Text
 
                 // Pull out the components.
                 int macroLength = endIndex - beginIndex
-                    - this.BeginDelimiter.Length;
+                                  - this.BeginDelimiter.Length;
                 int macroStart = beginIndex + this.BeginDelimiter.Length;
                 int macroEnd = endIndex + this.EndDelimiter.Length;
 
                 string before = format.Substring(
-                    0, 
+                    0,
                     beginIndex);
                 string macro = format.Substring(
-                    macroStart, 
+                    macroStart,
                     macroLength);
                 string after = format.Substring(macroEnd);
 
@@ -175,7 +180,7 @@ namespace MfGames.Text
                 {
                     macroFormat = macro.Substring(formatIndex + 1);
                     macro = macro.Substring(
-                        0, 
+                        0,
                         formatIndex);
                 }
 
@@ -183,7 +188,7 @@ namespace MfGames.Text
                 object value;
 
                 if (!macros.TryGetValue(
-                    macro, 
+                    macro,
                     out value))
                 {
                     // We couldn't find it.
@@ -200,15 +205,15 @@ namespace MfGames.Text
                 if (macroFormat != null)
                 {
                     value = string.Format(
-                        "{0:" + macroFormat + "}", 
+                        "{0:" + macroFormat + "}",
                         value);
                 }
 
                 // Replace the value in the string.
                 format = string.Join(
-                    string.Empty, 
-                    before, 
-                    value.ToString(), 
+                    string.Empty,
+                    before,
+                    value.ToString(),
                     after);
             }
         }
@@ -231,8 +236,8 @@ namespace MfGames.Text
             var additionalExpressions = new Dictionary<string, string>();
 
             return this.GetRegex(
-                macro, 
-                additionalExpressions, 
+                macro,
+                additionalExpressions,
                 MacroExpansionRegexOptions.Default);
         }
 
@@ -251,8 +256,8 @@ namespace MfGames.Text
         /// <returns>
         /// </returns>
         public Regex GetRegex(
-            string macro, 
-            Dictionary<string, string> additionalExpressions, 
+            string macro,
+            Dictionary<string, string> additionalExpressions,
             MacroExpansionRegexOptions options)
         {
             // Parse the macro and get the regular expression patterns.
@@ -260,10 +265,10 @@ namespace MfGames.Text
             List<string> groups;
 
             this.Parse(
-                macro, 
-                additionalExpressions, 
-                options, 
-                out pattern, 
+                macro,
+                additionalExpressions,
+                options,
+                out pattern,
                 out groups);
 
             // Create a regular expression from it and return the results.
@@ -284,7 +289,7 @@ namespace MfGames.Text
         public string GetRegexPattern(string format)
         {
             format = format.Replace(
-                "0", 
+                "0",
                 @"\d");
             return format;
         }
@@ -302,7 +307,7 @@ namespace MfGames.Text
         /// A dictionary of results.
         /// </returns>
         public Dictionary<string, string> Parse(
-            string macro, 
+            string macro,
             string input)
         {
             // Parse the macro and get the regular expression patterns.
@@ -310,10 +315,10 @@ namespace MfGames.Text
             List<string> groups;
 
             this.Parse(
-                macro, 
-                new Dictionary<string, string>(), 
-                MacroExpansionRegexOptions.Default, 
-                out pattern, 
+                macro,
+                new Dictionary<string, string>(),
+                MacroExpansionRegexOptions.Default,
+                out pattern,
                 out groups);
 
             // Create a regular expression from it and see if we can parse it.
@@ -324,8 +329,8 @@ namespace MfGames.Text
             {
                 throw new InvalidOperationException(
                     string.Format(
-                        "Cannot parse '{0}' from format '{1}'.", 
-                        input, 
+                        "Cannot parse '{0}' from format '{1}'.",
+                        input,
                         macro));
             }
 
@@ -368,16 +373,17 @@ namespace MfGames.Text
         /// Cannot build a regular expression from a macro that doesn't have a format for every substitution.
         /// </exception>
         private void Parse(
-            string macro, 
-            Dictionary<string, string> additionalExpressions, 
-            MacroExpansionRegexOptions options, 
-            out string pattern, 
+            string macro,
+            Dictionary<string, string> additionalExpressions,
+            MacroExpansionRegexOptions options,
+            out string pattern,
             out List<string> groups)
         {
             // Go through the string and start building up a regular expression. This
             // expression is always anchored at the beginning and end.
             bool isNonCapturing = (options
-                & MacroExpansionRegexOptions.NonCapturing) != 0;
+                                   & MacroExpansionRegexOptions.NonCapturing)
+                                  != 0;
             var buffer = new StringBuilder();
 
             if (!isNonCapturing)
@@ -388,7 +394,8 @@ namespace MfGames.Text
             // Loop through the macro and pull out the fields.
             groups = new List<string>();
 
-            while (!(macro == null || macro.Trim().Length == 0))
+            while (!(macro == null || macro.Trim()
+                .Length == 0))
             {
                 // Look for the next macro.
                 int start = macro.IndexOf(this.BeginDelimiter);
@@ -402,7 +409,7 @@ namespace MfGames.Text
 
                 // Make sure we have an end macro.
                 int end = macro.IndexOf(
-                    this.EndDelimiter, 
+                    this.EndDelimiter,
                     start);
 
                 if (end < 0)
@@ -416,7 +423,7 @@ namespace MfGames.Text
                 if (start > 0)
                 {
                     string before = macro.Substring(
-                        0, 
+                        0,
                         start);
                     buffer.Append(this.EscapeRegex(before));
                 }
@@ -424,7 +431,7 @@ namespace MfGames.Text
                 // Pull out the substitution element and trim the macro down to the
                 // text to the right of the macro.
                 string sub = macro.Substring(
-                    start + this.BeginDelimiter.Length, 
+                    start + this.BeginDelimiter.Length,
                     end - start - this.BeginDelimiter.Length);
                 string newMacro = macro.Substring(
                     end + this.EndDelimiter.Length);
@@ -432,16 +439,20 @@ namespace MfGames.Text
 
                 // If we don't have a colon format in the macro, then we have an invalid
                 // state.
-                int colonIndex = sub.IndexOf(":", StringComparison.Ordinal);
+                int colonIndex = sub.IndexOf(
+                    ":",
+                    StringComparison.Ordinal);
                 string[] parts;
 
                 if (colonIndex > 0)
                 {
                     parts = new string[]
-                        {
-                            sub.Substring(0, colonIndex),
-                            sub.Substring(colonIndex + 1)
-                        };
+                    {
+                        sub.Substring(
+                            0,
+                            colonIndex),
+                        sub.Substring(colonIndex + 1)
+                    };
                 }
                 else
                 {
@@ -449,7 +460,7 @@ namespace MfGames.Text
                     string additional;
 
                     if (additionalExpressions.TryGetValue(
-                        sub, 
+                        sub,
                         out additional))
                     {
                         parts = new[] { sub, additional };
@@ -458,7 +469,7 @@ namespace MfGames.Text
                     {
                         throw new InvalidOperationException(
                             "Cannot build a regular expression from a macro that doesn't have "
-                                + "a format for every substitution.");
+                            + "a format for every substitution.");
                     }
                 }
 
@@ -466,8 +477,8 @@ namespace MfGames.Text
                 string subPattern = this.GetRegexPattern(parts[1]);
 
                 buffer.AppendFormat(
-                    "{1}{0})", 
-                    subPattern, 
+                    "{1}{0})",
+                    subPattern,
                     isNonCapturing ? "(?:" : "(");
 
                 // Add the group to the list.

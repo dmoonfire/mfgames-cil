@@ -1,7 +1,10 @@
 ﻿// <copyright file="SystemByteArrayExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System
 {
     using global::System;
@@ -33,7 +36,7 @@ namespace MfGames.Extensions.System
             // This is a very inefficent method, but works for the time being.
             string hex = BitConverter.ToString(array)
                 .Replace(
-                    "-", 
+                    "-",
                     string.Empty);
             return hex;
         }

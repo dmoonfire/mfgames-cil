@@ -1,11 +1,13 @@
 ﻿// <copyright file="SystemReflectionMemberInfoExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System.Reflection
 {
     using global::System;
-
     using global::System.Reflection;
 
     /// <summary>
@@ -31,7 +33,7 @@ namespace MfGames.Extensions.System.Reflection
         {
             object[] attributes =
                 memberInfo.GetCustomAttributes(
-                    typeof(TAttribute), 
+                    typeof(TAttribute),
                     true);
 
             if (attributes.Length == 0)
@@ -67,11 +69,11 @@ namespace MfGames.Extensions.System.Reflection
         /// <returns>
         /// </returns>
         public static bool HasCustomAttribute<TAttribute>(
-            this MemberInfo memberInfo, 
+            this MemberInfo memberInfo,
             bool inherited)
         {
             return memberInfo.HasCustomAttribute(
-                typeof(TAttribute), 
+                typeof(TAttribute),
                 inherited);
         }
 
@@ -89,12 +91,12 @@ namespace MfGames.Extensions.System.Reflection
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this MemberInfo memberInfo, 
+            this MemberInfo memberInfo,
             Type attributeType)
         {
             return HasCustomAttribute(
-                memberInfo, 
-                attributeType, 
+                memberInfo,
+                attributeType,
                 true);
         }
 
@@ -115,8 +117,8 @@ namespace MfGames.Extensions.System.Reflection
         /// <c>true</c> if [has custom attribute] [the specified type]; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasCustomAttribute(
-            this MemberInfo memberInfo, 
-            Type attributeType, 
+            this MemberInfo memberInfo,
+            Type attributeType,
             bool inherited)
         {
             // Check for null parameters.
@@ -127,7 +129,7 @@ namespace MfGames.Extensions.System.Reflection
 
             // Go through the attributes of the member type and look for at least one.
             return memberInfo.GetCustomAttributes(
-                attributeType, 
+                attributeType,
                 inherited)
                 .Length > 0;
         }

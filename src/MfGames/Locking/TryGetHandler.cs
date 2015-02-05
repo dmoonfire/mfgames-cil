@@ -1,7 +1,10 @@
 // <copyright file="TryGetHandler.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Locking
 {
     /// <summary>
@@ -11,6 +14,6 @@ namespace MfGames.Locking
     /// </typeparam>
     /// <typeparam name="TOutput">
     /// </typeparam>
-    public delegate bool TryGetHandler<TInput, TOutput>(TInput input, 
+    public delegate bool TryGetHandler<TInput, TOutput>(TInput input,
         out TOutput output);
 }

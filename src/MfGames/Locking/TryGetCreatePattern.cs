@@ -1,7 +1,10 @@
 // <copyright file="TryGetCreatePattern.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Locking
 {
     using System;
@@ -31,8 +34,8 @@ namespace MfGames.Locking
         /// The create handler.
         /// </param>
         public static void Invoke(
-            ReaderWriterLockSlim readerWriterLockSlim, 
-            Func<bool> conditionHandler, 
+            ReaderWriterLockSlim readerWriterLockSlim,
+            Func<bool> conditionHandler,
             Action createHandler)
         {
             using (new ReadLock(readerWriterLockSlim))
@@ -88,9 +91,9 @@ namespace MfGames.Locking
         /// <returns>
         /// </returns>
         public static TOutput Invoke<TInput, TOutput>(
-            ReaderWriterLockSlim readerWriterLockSlim, 
-            TInput input, 
-            TryGetHandler<TInput, TOutput> tryGetHandler, 
+            ReaderWriterLockSlim readerWriterLockSlim,
+            TInput input,
+            TryGetHandler<TInput, TOutput> tryGetHandler,
             Func<TInput, TOutput> createHandler)
         {
             // First attempt to get the item using a read-only lock.
@@ -100,7 +103,7 @@ namespace MfGames.Locking
             {
                 // Try to get the item using the try/get handler.
                 if (tryGetHandler(
-                    input, 
+                    input,
                     out output))
                 {
                     // We successful got the item in the read-only cache, so just return it.
@@ -115,7 +118,7 @@ namespace MfGames.Locking
             {
                 // Try to get the item using the try/get handler.
                 if (tryGetHandler(
-                    input, 
+                    input,
                     out output))
                 {
                     // We successful got the item in this lock, so return it without

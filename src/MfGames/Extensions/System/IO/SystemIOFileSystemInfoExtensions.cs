@@ -1,13 +1,14 @@
 ﻿// <copyright file="SystemIOFileSystemInfoExtensions.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.Extensions.System.IO
 {
     using global::System;
-
     using global::System.IO;
-
     using global::System.Text;
 
     /// <summary>
@@ -56,7 +57,7 @@ namespace MfGames.Extensions.System.IO
         /// <returns>
         /// </returns>
         public static string GetRelativePathTo(
-            this FileSystemInfo targetInfo, 
+            this FileSystemInfo targetInfo,
             FileSystemInfo relatedInfo)
         {
             string targetPath = relatedInfo.FullName;
