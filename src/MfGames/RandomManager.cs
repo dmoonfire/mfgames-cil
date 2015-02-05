@@ -5,51 +5,48 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+
 namespace MfGames
 {
-    using System;
+	/// <summary>
+	/// Set of utility functions for creating a singleton instance of
+	/// a random number generator that may be used anywhere. This
+	/// takes any System.Random derived class as the singleton.
+	/// </summary>
+	public static class RandomManager
+	{
+		#region Static Fields
 
-    /// <summary>
-    /// Set of utility functions for creating a singleton instance of
-    /// a random number generator that may be used anywhere. This
-    /// takes any System.Random derived class as the singleton.
-    /// </summary>
-    public static class RandomManager
-    {
-        #region Static Fields
+		/// <summary>
+		/// </summary>
+		private static Random random;
 
-        /// <summary>
-        /// </summary>
-        private static Random random;
+		#endregion
 
-        #endregion
+		#region Public Properties
 
-        #region Public Properties
+		/// <summary>
+		/// Gets or sets a static random generator.
+		/// </summary>
+		/// <value>The random.</value>
+		public static Random Random
+		{
+			get
+			{
+				// Create a new random if it hasn't been set
+				if (random == null)
+				{
+					random = new Random();
+				}
 
-        /// <summary>
-        /// Gets or sets a static random generator.
-        /// </summary>
-        /// <value>The random.</value>
-        public static Random Random
-        {
-            get
-            {
-                // Create a new random if it hasn't been set
-                if (random == null)
-                {
-                    random = new Random();
-                }
+				// Return the results
+				return random;
+			}
 
-                // Return the results
-                return random;
-            }
+			set { random = value; }
+		}
 
-            set
-            {
-                random = value;
-            }
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

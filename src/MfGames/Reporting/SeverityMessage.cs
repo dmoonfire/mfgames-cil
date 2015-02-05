@@ -5,76 +5,76 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+
+using MfGames.Enumerations;
+
 namespace MfGames.Reporting
 {
-    using System;
+	/// <summary>
+	/// Represents a message with an associated severity. This is similar
+	/// to <see cref="Exception"/>, but can represents messages of other
+	/// levels.
+	/// </summary>
+	public class SeverityMessage
+	{
+		#region Constructors and Destructors
 
-    using MfGames.Enumerations;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SeverityMessage"/>
+		/// class with an info severity.
+		/// </summary>
+		/// <param name="text">
+		/// The message text.
+		/// </param>
+		public SeverityMessage(string text)
+			: this(Severity.Info,
+				text)
+		{
+		}
 
-    /// <summary>
-    /// Represents a message with an associated severity. This is similar
-    /// to <see cref="Exception"/>, but can represents messages of other
-    /// levels.
-    /// </summary>
-    public class SeverityMessage
-    {
-        #region Constructors and Destructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SeverityMessage"/> class.
+		/// </summary>
+		/// <param name="severity">
+		/// The severity.
+		/// </param>
+		/// <param name="text">
+		/// The message text.
+		/// </param>
+		public SeverityMessage(
+			Severity severity,
+			string text)
+		{
+			if (string.IsNullOrEmpty(text))
+			{
+				throw new ArgumentNullException("message");
+			}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SeverityMessage"/>
-        /// class with an info severity.
-        /// </summary>
-        /// <param name="text">
-        /// The message text.
-        /// </param>
-        public SeverityMessage(string text)
-            : this(Severity.Info,
-                text)
-        {
-        }
+			Severity = severity;
+			Text = text;
+			Created = DateTime.UtcNow;
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SeverityMessage"/> class.
-        /// </summary>
-        /// <param name="severity">
-        /// The severity.
-        /// </param>
-        /// <param name="text">
-        /// The message text.
-        /// </param>
-        public SeverityMessage(
-            Severity severity,
-            string text)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentNullException("message");
-            }
+		#endregion
 
-            this.Severity = severity;
-            this.Text = text;
-            this.Created = DateTime.UtcNow;
-        }
+		#region Public Properties
 
-        #endregion
+		/// <summary>
+		/// Gets when the message was created.
+		/// </summary>
+		public DateTime Created { get; protected set; }
 
-        #region Public Properties
+		/// <summary>
+		/// Contains the severity of the message.
+		/// </summary>
+		public Severity Severity { get; protected set; }
 
-        /// <summary>
-        /// Gets when the message was created.
-        /// </summary>
-        public DateTime Created { get; protected set; }
+		/// <summary>
+		/// Contains the message text.
+		/// </summary>
+		public string Text { get; protected set; }
 
-        /// <summary>
-        /// Contains the severity of the message.
-        /// </summary>
-        public Severity Severity { get; protected set; }
-
-        /// <summary>
-        /// Contains the message text.
-        /// </summary>
-        public string Text { get; protected set; }
-
-        #endregion
-    }
+		#endregion
+	}
 }

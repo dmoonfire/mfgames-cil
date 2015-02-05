@@ -1,15 +1,19 @@
 // <copyright file="HierarchicalPath.cs" company="Moonfire Games">
-//     Copyright (c) Moonfire Games. Some Rights Reserved.
+//   Copyright (c) Moonfire Games. Some Rights Reserved.
 // </copyright>
-// MIT Licensed (http://opensource.org/licenses/MIT)
+// <license href="http://mfgames.com/mfgames-cil/license">
+//   MIT License (MIT)
+// </license>
+
 namespace MfGames.HierarchicalPaths
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    using MfGames.Exceptions;
-    using MfGames.Extensions.System;
+    using Exceptions;
+
+    using Extensions.System;
 
     /// <summary>
     /// Represents an hierarchical path given in the same form as a Unix file

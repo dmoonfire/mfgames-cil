@@ -5,50 +5,50 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+using System.Threading;
+
 namespace MfGames.Locking
 {
-    using System;
-    using System.Threading;
+	/// <summary>
+	/// Defines a ReaderWriterLockSlim read-only lock.
+	/// </summary>
+	public class UpgradableLock : IDisposable
+	{
+		#region Fields
 
-    /// <summary>
-    /// Defines a ReaderWriterLockSlim read-only lock.
-    /// </summary>
-    public class UpgradableLock : IDisposable
-    {
-        #region Fields
+		/// <summary>
+		/// </summary>
+		private readonly ReaderWriterLockSlim readerWriterLockSlim;
 
-        /// <summary>
-        /// </summary>
-        private readonly ReaderWriterLockSlim readerWriterLockSlim;
+		#endregion
 
-        #endregion
+		#region Constructors and Destructors
 
-        #region Constructors and Destructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UpgradableLock"/> class.
+		/// </summary>
+		/// <param name="readerWriterLockSlim">
+		/// The reader writer lock slim.
+		/// </param>
+		public UpgradableLock(ReaderWriterLockSlim readerWriterLockSlim)
+		{
+			this.readerWriterLockSlim = readerWriterLockSlim;
+			readerWriterLockSlim.EnterUpgradeableReadLock();
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpgradableLock"/> class.
-        /// </summary>
-        /// <param name="readerWriterLockSlim">
-        /// The reader writer lock slim.
-        /// </param>
-        public UpgradableLock(ReaderWriterLockSlim readerWriterLockSlim)
-        {
-            this.readerWriterLockSlim = readerWriterLockSlim;
-            readerWriterLockSlim.EnterUpgradeableReadLock();
-        }
+		#endregion
 
-        #endregion
+		#region Public Methods and Operators
 
-        #region Public Methods and Operators
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		public void Dispose()
+		{
+			readerWriterLockSlim.ExitUpgradeableReadLock();
+		}
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            this.readerWriterLockSlim.ExitUpgradeableReadLock();
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

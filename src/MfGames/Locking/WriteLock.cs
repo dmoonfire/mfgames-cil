@@ -5,50 +5,50 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+using System.Threading;
+
 namespace MfGames.Locking
 {
-    using System;
-    using System.Threading;
+	/// <summary>
+	/// Defines a ReaderWriterLockSlim read-only lock.
+	/// </summary>
+	public class WriteLock : IDisposable
+	{
+		#region Fields
 
-    /// <summary>
-    /// Defines a ReaderWriterLockSlim read-only lock.
-    /// </summary>
-    public class WriteLock : IDisposable
-    {
-        #region Fields
+		/// <summary>
+		/// </summary>
+		private readonly ReaderWriterLockSlim readerWriterLockSlim;
 
-        /// <summary>
-        /// </summary>
-        private readonly ReaderWriterLockSlim readerWriterLockSlim;
+		#endregion
 
-        #endregion
+		#region Constructors and Destructors
 
-        #region Constructors and Destructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="WriteLock"/> class.
+		/// </summary>
+		/// <param name="readerWriterLockSlim">
+		/// The reader writer lock slim.
+		/// </param>
+		public WriteLock(ReaderWriterLockSlim readerWriterLockSlim)
+		{
+			this.readerWriterLockSlim = readerWriterLockSlim;
+			readerWriterLockSlim.EnterWriteLock();
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WriteLock"/> class.
-        /// </summary>
-        /// <param name="readerWriterLockSlim">
-        /// The reader writer lock slim.
-        /// </param>
-        public WriteLock(ReaderWriterLockSlim readerWriterLockSlim)
-        {
-            this.readerWriterLockSlim = readerWriterLockSlim;
-            readerWriterLockSlim.EnterWriteLock();
-        }
+		#endregion
 
-        #endregion
+		#region Public Methods and Operators
 
-        #region Public Methods and Operators
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		public void Dispose()
+		{
+			readerWriterLockSlim.ExitWriteLock();
+		}
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            this.readerWriterLockSlim.ExitWriteLock();
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

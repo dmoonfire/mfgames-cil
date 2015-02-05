@@ -5,59 +5,56 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+using System.IO;
+
 namespace MfGames.IO
 {
-    using System;
-    using System.IO;
+	/// <summary>
+	/// Encapsulates the event arguments for a callback stream event.
+	/// </summary>
+	/// <typeparam name="TStream">
+	/// The type of the stream.
+	/// </typeparam>
+	public class CalbackStreamEventArgs<TStream> : EventArgs
+		where TStream : Stream
+	{
+		#region Constructors and Destructors
 
-    /// <summary>
-    /// Encapsulates the event arguments for a callback stream event.
-    /// </summary>
-    /// <typeparam name="TStream">
-    /// The type of the stream.
-    /// </typeparam>
-    public class CalbackStreamEventArgs<TStream> : EventArgs
-        where TStream : Stream
-    {
-        #region Constructors and Destructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CalbackStreamEventArgs{TStream}"/> class.
+		/// </summary>
+		/// <param name="callbackStream">
+		/// The callback stream.
+		/// </param>
+		public CalbackStreamEventArgs(CallbackStream<TStream> callbackStream)
+		{
+			CallbackStream = callbackStream;
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CalbackStreamEventArgs{TStream}"/> class.
-        /// </summary>
-        /// <param name="callbackStream">
-        /// The callback stream.
-        /// </param>
-        public CalbackStreamEventArgs(CallbackStream<TStream> callbackStream)
-        {
-            this.CallbackStream = callbackStream;
-        }
+		#endregion
 
-        #endregion
+		#region Public Properties
 
-        #region Public Properties
+		/// <summary>
+		/// Gets the callback stream.
+		/// </summary>
+		/// <value>
+		/// The callback stream.
+		/// </value>
+		public CallbackStream<TStream> CallbackStream { get; private set; }
 
-        /// <summary>
-        /// Gets the callback stream.
-        /// </summary>
-        /// <value>
-        /// The callback stream.
-        /// </value>
-        public CallbackStream<TStream> CallbackStream { get; private set; }
+		/// <summary>
+		/// Gets the underlying stream.
+		/// </summary>
+		/// <value>
+		/// The underlying stream.
+		/// </value>
+		public TStream UnderlyingStream
+		{
+			get { return CallbackStream.UnderlyingStream; }
+		}
 
-        /// <summary>
-        /// Gets the underlying stream.
-        /// </summary>
-        /// <value>
-        /// The underlying stream.
-        /// </value>
-        public TStream UnderlyingStream
-        {
-            get
-            {
-                return this.CallbackStream.UnderlyingStream;
-            }
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

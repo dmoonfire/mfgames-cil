@@ -5,50 +5,50 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+using System.Collections.Generic;
+
+using MfGames.Enumerations;
+
 namespace MfGames.Reporting
 {
-    using System;
-    using System.Collections.Generic;
+	/// <summary>
+	/// Contains an unordered collection of messages along with various query
+	/// methods for determining the contents of the collection
+	/// </summary>
+	public class SeverityMessageCollection : List<SeverityMessage>
+	{
+		#region Public Properties
 
-    using MfGames.Enumerations;
+		/// <summary>
+		/// Gets the highest severity in the collection. If there are no elements
+		/// in the collection, this returns Severity.Debug.
+		/// </summary>
+		public Severity? HighestSeverity
+		{
+			get
+			{
+				// Check for an empty collection.
+				if (Count == 0)
+				{
+					return null;
+				}
 
-    /// <summary>
-    /// Contains an unordered collection of messages along with various query
-    /// methods for determining the contents of the collection
-    /// </summary>
-    public class SeverityMessageCollection : List<SeverityMessage>
-    {
-        #region Public Properties
+				// Go through and gather the severity from the collection.
+				var highest = (int)Severity.Debug;
 
-        /// <summary>
-        /// Gets the highest severity in the collection. If there are no elements
-        /// in the collection, this returns Severity.Debug.
-        /// </summary>
-        public Severity? HighestSeverity
-        {
-            get
-            {
-                // Check for an empty collection.
-                if (this.Count == 0)
-                {
-                    return null;
-                }
+				foreach (SeverityMessage message in this)
+				{
+					highest = Math.Max(
+						(int)message.Severity,
+						highest);
+				}
 
-                // Go through and gather the severity from the collection.
-                var highest = (int)Severity.Debug;
+				// Return the resulting severity.
+				return (Severity)highest;
+			}
+		}
 
-                foreach (SeverityMessage message in this)
-                {
-                    highest = Math.Max(
-                        (int)message.Severity,
-                        highest);
-                }
-
-                // Return the resulting severity.
-                return (Severity)highest;
-            }
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

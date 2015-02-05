@@ -5,40 +5,40 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+
 namespace MfGames.Reporting
 {
-    using System;
+	/// <summary>
+	/// Wraps a severity message in an event argument class.
+	/// </summary>
+	public class SeverityMessageEventArgs : EventArgs
+	{
+		#region Constructors and Destructors
 
-    /// <summary>
-    /// Wraps a severity message in an event argument class.
-    /// </summary>
-    public class SeverityMessageEventArgs : EventArgs
-    {
-        #region Constructors and Destructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
+		/// </summary>
+		/// <param name="message">
+		/// The message.
+		/// </param>
+		public SeverityMessageEventArgs(SeverityMessage message)
+		{
+			Message = message;
+		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SeverityMessageEventArgs"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public SeverityMessageEventArgs(SeverityMessage message)
-        {
-            this.Message = message;
-        }
+		#endregion
 
-        #endregion
+		#region Public Properties
 
-        #region Public Properties
+		/// <summary>
+		/// Gets the message associated with this event.
+		/// </summary>
+		/// <value>
+		/// The message.
+		/// </value>
+		public SeverityMessage Message { get; protected set; }
 
-        /// <summary>
-        /// Gets the message associated with this event.
-        /// </summary>
-        /// <value>
-        /// The message.
-        /// </value>
-        public SeverityMessage Message { get; protected set; }
-
-        #endregion
-    }
+		#endregion
+	}
 }

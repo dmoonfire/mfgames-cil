@@ -5,24 +5,24 @@
 //   MIT License (MIT)
 // </license>
 
+using System;
+
 namespace MfGames.Text
 {
-    using System;
+	/// <summary>
+	/// Provides the options for regular expression generation.
+	/// </summary>
+	[Flags]
+	public enum MacroExpansionRegexOptions
+	{
+		/// <summary>
+		/// The default value, which produces a capturing group.
+		/// </summary>
+		Default = 0,
 
-    /// <summary>
-    /// Provides the options for regular expression generation.
-    /// </summary>
-    [Flags]
-    public enum MacroExpansionRegexOptions
-    {
-        /// <summary>
-        /// The default value, which produces a capturing group.
-        /// </summary>
-        Default = 0,
-
-        /// <summary>
-        /// Causes the generated regular expression to be non-capturing groups.
-        /// </summary>
-        NonCapturing = 1,
-    }
+		/// <summary>
+		/// Causes the generated regular expression to be non-capturing groups.
+		/// </summary>
+		NonCapturing = 1
+	}
 }
