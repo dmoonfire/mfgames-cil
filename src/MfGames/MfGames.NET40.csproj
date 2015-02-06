@@ -65,6 +65,7 @@
     <Compile Include="Extensions\System\Reflection\SystemReflectionParameterInfoExtensions.cs" />
     <Compile Include="Extensions\System\SystemArrayExtensions.cs" />
     <Compile Include="Extensions\System\SystemByteArrayExtensions.cs" />
+    <Compile Include="Extensions\System\SystemStringExtensions.cs" />
     <Compile Include="Extensions\System\SystemTypeExtensions.cs" />
     <Compile Include="Extensions\System\Xml\SystemXmlWriterExtensions.cs" />
     <Compile Include="HierarchicalPaths\HierarchicalPath.cs" />
