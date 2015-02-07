@@ -15,8 +15,8 @@ namespace MfGames.Text
 
 		string Expand(IDictionary<string, object> macros);
 
-		#endregion
-
 		string GetRegex();
+
+		#endregion
 	}
 }

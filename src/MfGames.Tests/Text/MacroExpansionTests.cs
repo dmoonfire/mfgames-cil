@@ -116,6 +116,29 @@ namespace UnitTests.Text
 		}
 
 		/// <summary>
+		/// Verifies formatting of integer values.
+		/// </summary>
+		[Test]
+		public void FormattedIntegerExpansionNonPadded()
+		{
+			// Set up the input.
+			var format = "$(MacroA:d)";
+			var macros = new Dictionary<string, object>
+			{
+				{ "MacroA", 13 }
+			};
+
+			// Perform the expansion.
+			var expansion = new MacroExpansion(format);
+			string results = expansion.Expand(macros);
+
+			// Verify the results.
+			Assert.AreEqual(
+				"13",
+				results);
+		}
+
+		/// <summary>
 		/// Tests that a macro with an integer format will parse correctly.
 		/// </summary>
 		[Test]
@@ -137,7 +160,7 @@ namespace UnitTests.Text
 		/// Tests that a macro with an integer format will parse correctly.
 		/// </summary>
 		[Test]
-		public void GetRegexForSimplePaddedInteger()
+		public void GetRegexForSimpleInteger()
 		{
 			// Pull out the regular expression for a given format.
 			var format = "$(MacroA:0000)";
@@ -148,6 +171,24 @@ namespace UnitTests.Text
 			// Verify the results.
 			Assert.AreEqual(
 				@"^(\d\d\d\d)$",
+				regex.ToString());
+		}
+
+		/// <summary>
+		/// Tests that a macro with an integer format will parse correctly.
+		/// </summary>
+		[Test]
+		public void GetRegexForSimpleIntegerNonPadded()
+		{
+			// Pull out the regular expression for a given format.
+			var format = "$(MacroA:d)";
+			var expansion = new MacroExpansion(format);
+
+			Regex regex = expansion.GetRegex();
+
+			// Verify the results.
+			Assert.AreEqual(
+				@"^(\d+)$",
 				regex.ToString());
 		}
 
@@ -299,6 +340,33 @@ namespace UnitTests.Text
 				"Results don't contain MacroA.");
 			Assert.AreEqual(
 				"0123",
+				results["MacroA"],
+				"The macro value is unexpected.");
+		}
+
+		/// <summary>
+		/// Parses a simple format and returns the result.
+		/// </summary>
+		[Test]
+		public void ParseSimpleIntegerNonPadded()
+		{
+			// Pull out the regular expression for a given format.
+			var format = "$(MacroA:d)";
+			var input = "123";
+			var expansion = new MacroExpansion(format);
+
+			Dictionary<string, string> results = expansion.Parse(input);
+
+			// Verify the results.
+			Assert.AreEqual(
+				1,
+				results.Count,
+				"Number of macro results is unexpected.");
+			Assert.IsTrue(
+				results.ContainsKey("MacroA"),
+				"Results don't contain MacroA.");
+			Assert.AreEqual(
+				"123",
 				results["MacroA"],
 				"The macro value is unexpected.");
 		}

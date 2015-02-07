@@ -73,15 +73,33 @@ namespace MfGames.Text
 					"Cannot use GetRegex() without a format in all variables.");
 			}
 
+			// Look for simple formats.
+			string pattern = null;
+
 			// See if we have a zero-padding format.
 			if (Format == new string('0', Format.Length))
 			{
-				return "(" + Format.Replace("0", "\\d") + ")";
+				pattern = Format.Replace("0", "\\d");
+			}
+			else
+			{
+				switch (Format)
+				{
+					case "d":
+						pattern = "\\d+";
+						break;
+				}
 			}
 
 			// If we haven't figured it out, throw up.
-			throw new InvalidOperationException(
-				"Cannot create RegeEx from format: " + Format + ".");
+			if (pattern == null)
+			{
+				throw new InvalidOperationException(
+					"Cannot create RegeEx from format: " + Format + ".");
+			}
+
+			// Return the pattern.
+			return string.Format("({0})", pattern);
 		}
 
 		#endregion
