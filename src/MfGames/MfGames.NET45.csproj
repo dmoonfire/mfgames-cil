@@ -94,8 +94,11 @@
     <Compile Include="SemanticVersion.cs" />
     <Compile Include="Settings\SettingSearchOptions.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Text\IMacroExpansionSegment.cs" />
     <Compile Include="Text\MacroExpansion.cs" />
     <Compile Include="Text\MacroExpansionRegexOptions.cs" />
+    <Compile Include="Text\ConstantMacroExpansionSegment.cs" />
+    <Compile Include="Text\VariableMacroExpansionSegment.cs" />
     <Compile Include="TranslatorManager.cs" />
     <Compile Include="Xml\XIncludeReader.cs" />
     <Compile Include="Xml\XmlIdentityWriter.cs" />

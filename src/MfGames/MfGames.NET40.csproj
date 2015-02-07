@@ -97,6 +97,7 @@
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Text\MacroExpansion.cs" />
     <Compile Include="Text\MacroExpansionRegexOptions.cs" />
+    <Compile Include="Text\MacroExpansionSegment.cs" />
     <Compile Include="TranslatorManager.cs" />
     <Compile Include="Xml\XIncludeReader.cs" />
     <Compile Include="Xml\XmlIdentityWriter.cs" />
