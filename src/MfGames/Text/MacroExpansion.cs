@@ -35,17 +35,44 @@ namespace MfGames.Text
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MacroExpansion"/> class.
 		/// </summary>
-		/// <param name="beginDelimiter">
-		/// The begin delimiter.
-		/// </param>
-		/// <param name="endDelimiter">
-		/// The end delimiter.
-		/// </param>
+		/// <param name="format">The format string to process.</param>
+		/// <param name="beginDelimiter">The begin delimiter.</param>
+		/// <param name="endDelimiter">The end delimiter. </param>
+		/// <param name="escapeCharacter">The escape character to use.</param>
 		public MacroExpansion(
 			string format,
 			string beginDelimiter = "$(",
 			string endDelimiter = ")",
 			char escapeCharacter = '\\')
+			: this(beginDelimiter, endDelimiter, escapeCharacter)
+		{
+			segments = ParseSegments(format);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MacroExpansion"/> class.
+		/// </summary>
+		/// <param name="format">The format string to process.</param>
+		/// <param name="beginDelimiter">The begin delimiter.</param>
+		/// <param name="endDelimiter">The end delimiter. </param>
+		/// <param name="escapeCharacter">The escape character to use.</param>
+		public MacroExpansion(
+			IEnumerable<IMacroExpansionSegment> segments,
+			string beginDelimiter = "$(",
+			string endDelimiter = ")",
+			char escapeCharacter = '\\')
+			: this(beginDelimiter, endDelimiter, escapeCharacter)
+		{
+			if (segments != null)
+			{
+				this.segments = segments.ToArray();
+			}
+		}
+
+		private MacroExpansion(
+			string beginDelimiter,
+			string endDelimiter,
+			char escapeCharacter)
 		{
 			// Establish our contracts.
 			if (string.IsNullOrEmpty(beginDelimiter) ||
@@ -59,12 +86,6 @@ namespace MfGames.Text
 			BeginDelimiter = beginDelimiter;
 			EndDelimiter = endDelimiter;
 			EscapeCharacter = escapeCharacter;
-
-			// Parse the format and build up the segments.
-			if (format != null)
-			{
-				segments = ParseSegments(format);
-			}
 		}
 
 		#endregion
@@ -278,158 +299,20 @@ namespace MfGames.Text
 			return results;
 		}
 
-		#endregion
-
-		#region Methods
-
 		/// <summary>
-		/// Parses a given macro and produces a regular expression to parse it and
-		/// a list of macros in the same order.
+		/// Parses the given fragment and generates a list of segments
+		/// representing the pattern.
 		/// </summary>
-		/// <param name="macro">
-		/// The macro to parse.
-		/// </param>
-		/// <param name="additionalExpressions">
-		/// The additional expressions.
-		/// </param>
-		/// <param name="options">
-		/// The options.
-		/// </param>
-		/// <param name="pattern">
-		/// The resulting regex pattern.
-		/// </param>
-		/// <param name="groups">
-		/// The resulting groups.
-		/// </param>
-		/// <exception cref="System.InvalidOperationException">
-		/// Cannot build a regular expression from a macro that doesn't have a format for every substitution.
-		/// </exception>
-		private void Parse(
-			string macro,
-			Dictionary<string, string> additionalExpressions,
-			MacroExpansionRegexOptions options,
-			out string pattern,
-			out List<string> groups)
+		/// <param name="format"></param>
+		/// <returns></returns>
+		public IMacroExpansionSegment[] ParseSegments(string format)
 		{
-			//// Go through the string and start building up a regular expression. This
-			//// expression is always anchored at the beginning and end.
-			//bool isNonCapturing = (options
-			//	& MacroExpansionRegexOptions.NonCapturing)
-			//	!= 0;
-			//var buffer = new StringBuilder();
+			// Handle nulls properly.
+			if (format == null)
+			{
+				return null;
+			}
 
-			//if (!isNonCapturing)
-			//{
-			//	buffer.Append("^");
-			//}
-
-			//// Loop through the macro and pull out the fields.
-			//groups = new List<string>();
-
-			//while (!(macro == null || macro.Trim()
-			//	.Length == 0))
-			//{
-			//	// Look for the next macro.
-			//	int start = macro.IndexOf(BeginDelimiter);
-
-			//	if (start < 0)
-			//	{
-			//		// There are no more macros.
-			//		buffer.Append(EscapeRegex(macro));
-			//		break;
-			//	}
-
-			//	// Make sure we have an end macro.
-			//	int end = macro.IndexOf(
-			//		EndDelimiter,
-			//		start);
-
-			//	if (end < 0)
-			//	{
-			//		// This is an unterminated macro.
-			//		buffer.Append(EscapeRegex(macro));
-			//		break;
-			//	}
-
-			//	// If there is anything before the line, then add it to the buffer.
-			//	if (start > 0)
-			//	{
-			//		string before = macro.Substring(
-			//			0,
-			//			start);
-			//		buffer.Append(EscapeRegex(before));
-			//	}
-
-			//	// Pull out the substitution element and trim the macro down to the
-			//	// text to the right of the macro.
-			//	string sub = macro.Substring(
-			//		start + BeginDelimiter.Length,
-			//		end - start - BeginDelimiter.Length);
-			//	string newMacro = macro.Substring(
-			//		end + EndDelimiter.Length);
-			//	macro = newMacro;
-
-			//	// If we don't have a colon format in the macro, then we have an invalid
-			//	// state.
-			//	int colonIndex = sub.IndexOf(
-			//		":",
-			//		StringComparison.Ordinal);
-			//	string[] parts;
-
-			//	if (colonIndex > 0)
-			//	{
-			//		parts = new[]
-			//		{
-			//			sub.Substring(
-			//				0,
-			//				colonIndex),
-			//			sub.Substring(colonIndex + 1)
-			//		};
-			//	}
-			//	else
-			//	{
-			//		// Check to see if we have the variable in the additional expressions.
-			//		string additional;
-
-			//		if (additionalExpressions.TryGetValue(
-			//			sub,
-			//			out additional))
-			//		{
-			//			parts = new[] { sub, additional };
-			//		}
-			//		else
-			//		{
-			//			throw new InvalidOperationException(
-			//				"Cannot build a regular expression from a macro that doesn't have "
-			//					+ "a format for every substitution.");
-			//		}
-			//	}
-
-			//	// Convert the format into a regular expression.
-			//	string subPattern = GetRegexPattern(parts[1]);
-
-			//	buffer.AppendFormat(
-			//		"{1}{0})",
-			//		subPattern,
-			//		isNonCapturing ? "(?:" : "(");
-
-			//	// Add the group to the list.
-			//	groups.Add(parts[0]);
-			//}
-
-			//// Anchor the end of the string.
-			//if (!isNonCapturing)
-			//{
-			//	buffer.Append("$");
-			//}
-
-			//// Return the resulting regular expression.
-			//pattern = buffer.ToString();
-			throw new NotImplementedException();
-		}
-
-		private IMacroExpansionSegment[] ParseSegments(string format)
-		{
 			// Split apart the segments on the delimiters.
 			List<string> parts = SplitSegments(format);
 
@@ -465,6 +348,10 @@ namespace MfGames.Text
 			// be changing it again.
 			return list.ToArray();
 		}
+
+		#endregion
+
+		#region Methods
 
 		private List<string> SplitSegments(string format)
 		{
