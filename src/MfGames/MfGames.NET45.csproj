@@ -99,7 +99,6 @@
     <Compile Include="Text\MacroExpansionRegexOptions.cs" />
     <Compile Include="Text\ConstantMacroExpansionSegment.cs" />
     <Compile Include="Text\VariableMacroExpansionSegment.cs" />
-    <Compile Include="TranslatorManager.cs" />
     <Compile Include="Xml\XIncludeReader.cs" />
     <Compile Include="Xml\XmlIdentityWriter.cs" />
     <Compile Include="Xml\XmlNamespaces.cs" />
