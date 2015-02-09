@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.Tests", "MfGames.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.NET45", "MfGames\MfGames.NET45.csproj", "{8C31D262-6DA6-4FE4-BD24-11ACBAD53443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MfGames.NET40", "MfGames\MfGames.NET40.csproj", "{19190FB0-FC88-45B7-B6DA-3645F8BC72E1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{8C31D262-6DA6-4FE4-BD24-11ACBAD53443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C31D262-6DA6-4FE4-BD24-11ACBAD53443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C31D262-6DA6-4FE4-BD24-11ACBAD53443}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19190FB0-FC88-45B7-B6DA-3645F8BC72E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19190FB0-FC88-45B7-B6DA-3645F8BC72E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19190FB0-FC88-45B7-B6DA-3645F8BC72E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19190FB0-FC88-45B7-B6DA-3645F8BC72E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
