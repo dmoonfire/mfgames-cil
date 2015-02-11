@@ -46,7 +46,11 @@ namespace MfGames.Text
 			char escapeCharacter = '\\')
 			: this(beginDelimiter, endDelimiter, escapeCharacter)
 		{
-			segments = ParseSegments(format);
+			segments = ParseSegments(
+				format,
+				beginDelimiter,
+				endDelimiter,
+				escapeCharacter);
 		}
 
 		/// <summary>
@@ -147,6 +151,169 @@ namespace MfGames.Text
 				")",
 				@"\)");
 			return text;
+		}
+
+		/// <summary>
+		/// Parses the given fragment and generates a list of segments
+		/// representing the pattern.
+		/// </summary>
+		public static IMacroExpansionSegment[] ParseSegments(
+			string format,
+			string beginDelimiter = "$(",
+			string endDelimiter = ")",
+			char escapeCharacter = '\\')
+		{
+			// Check for parameters.
+			if (format == null)
+			{
+				return null;
+			}
+
+			if (beginDelimiter == null)
+			{
+				throw new ArgumentNullException("beginDelimiter");
+			}
+
+			if (endDelimiter == null)
+			{
+				throw new ArgumentNullException("endDelimiter");
+			}
+
+			// Split apart the segments on the delimiters.
+			List<string> parts = SplitSegments(
+				format,
+				beginDelimiter,
+				endDelimiter,
+				escapeCharacter);
+
+			// Create a list of segments.
+			var list = new List<IMacroExpansionSegment>();
+			var inMacro = false;
+			var macroIndex = 1;
+
+			foreach (string part in parts)
+			{
+				if (part == beginDelimiter)
+				{
+					inMacro = true;
+				}
+				else if (part == endDelimiter)
+				{
+					inMacro = false;
+				}
+				else if (inMacro)
+				{
+					var segment = new VariableMacroExpansionSegment(part, macroIndex);
+					macroIndex++;
+					list.Add(segment);
+				}
+				else
+				{
+					var segment = new ConstantMacroExpansionSegment(part);
+					list.Add(segment);
+				}
+			}
+
+			// Return the resulting collection as an array since we won't
+			// be changing it again.
+			return list.ToArray();
+		}
+
+		public static List<string> SplitSegments(
+			string format,
+			string beginDelimiter = "$(",
+			string endDelimiter = ")",
+			char escapeCharacter = '\\')
+		{
+			// Check for parameters.
+			if (format == null)
+			{
+				return null;
+			}
+
+			if (beginDelimiter == null)
+			{
+				throw new ArgumentNullException("beginDelimiter");
+			}
+
+			if (endDelimiter == null)
+			{
+				throw new ArgumentNullException("endDelimiter");
+			}
+
+			// We'll be using these quite a lot, so pull them out here.
+			int beginLength = beginDelimiter.Length;
+			int endLength = endDelimiter.Length;
+
+			// First start by breaking apart the string on the delimiters
+			// regardless of recursion.
+			var parts = new List<string>();
+			var buffer = new StringBuilder();
+			string current = format;
+
+			for (var stop = 0; stop < format.Length; stop++)
+			{
+				// If we have an escape character, just add the next character.
+				char c = format[stop];
+
+				if (c == escapeCharacter && stop + 2 < format.Length)
+				{
+					buffer.Append(format[stop + 1]);
+					stop++;
+					continue;
+				}
+
+				// If we at the beginning of a macro, then split it out.
+				if (current.StartsWith(beginDelimiter))
+				{
+					// If we have anything in the buffer, add it.
+					if (buffer.Length > 0)
+					{
+						parts.Add(buffer.ToString());
+						buffer.Length = 0;
+					}
+
+					// Add the delimiter.
+					parts.Add(beginDelimiter);
+					current = current.Substring(beginLength);
+					stop += beginLength - 1;
+					continue;
+				}
+
+				// If we are at the end of a macro, then split it out.
+				if (current.StartsWith(endDelimiter))
+				{
+					// If we have anything in the buffer, add it.
+					if (buffer.Length > 0)
+					{
+						parts.Add(buffer.ToString());
+						buffer.Length = 0;
+					}
+
+					// Add the delimiter.
+					parts.Add(endDelimiter);
+					current = current.Substring(endLength);
+					stop += endLength - 1;
+					continue;
+				}
+
+				// Otherwise, add it to the buffer.
+				buffer.Append(c);
+
+				if (current.Length > 0)
+				{
+					current = current.Substring(1);
+				}
+			}
+
+			// If we have anything left in the buffer, add it.
+			if (buffer.Length > 0)
+			{
+				parts.Add(buffer.ToString());
+			}
+
+			// Return the resulting list.
+			return parts;
 		}
 
 		/// <summary>
@@ -297,137 +464,6 @@ namespace MfGames.Text
 			}
 
 			return results;
-		}
-
-		/// <summary>
-		/// Parses the given fragment and generates a list of segments
-		/// representing the pattern.
-		/// </summary>
-		/// <param name="format"></param>
-		/// <returns></returns>
-		public IMacroExpansionSegment[] ParseSegments(string format)
-		{
-			// Handle nulls properly.
-			if (format == null)
-			{
-				return null;
-			}
-
-			// Split apart the segments on the delimiters.
-			List<string> parts = SplitSegments(format);
-
-			// Create a list of segments.
-			var list = new List<IMacroExpansionSegment>();
-			var inMacro = false;
-			var macroIndex = 1;
-
-			foreach (string part in parts)
-			{
-				if (part == BeginDelimiter)
-				{
-					inMacro = true;
-				}
-				else if (part == EndDelimiter)
-				{
-					inMacro = false;
-				}
-				else if (inMacro)
-				{
-					var segment = new VariableMacroExpansionSegment(part, macroIndex);
-					macroIndex++;
-					list.Add(segment);
-				}
-				else
-				{
-					var segment = new ConstantMacroExpansionSegment(part);
-					list.Add(segment);
-				}
-			}
-
-			// Return the resulting collection as an array since we won't
-			// be changing it again.
-			return list.ToArray();
-		}
-
-		#endregion
-
-		#region Methods
-
-		private List<string> SplitSegments(string format)
-		{
-			// We'll be using these quite a lot, so pull them out here.
-			int beginLength = BeginDelimiter.Length;
-			int endLength = EndDelimiter.Length;
-
-			// First start by breaking apart the string on the delimiters
-			// regardless of recursion.
-			var parts = new List<string>();
-			var buffer = new StringBuilder();
-			string current = format;
-
-			for (var stop = 0; stop < format.Length; stop++)
-			{
-				// If we have an escape character, just add the next character.
-				char c = format[stop];
-
-				if (c == EscapeCharacter && stop + 2 < format.Length)
-				{
-					buffer.Append(format[stop + 1]);
-					stop++;
-					continue;
-				}
-
-				// If we at the beginning of a macro, then split it out.
-				if (current.StartsWith(BeginDelimiter))
-				{
-					// If we have anything in the buffer, add it.
-					if (buffer.Length > 0)
-					{
-						parts.Add(buffer.ToString());
-						buffer.Length = 0;
-					}
-
-					// Add the delimiter.
-					parts.Add(BeginDelimiter);
-					current = current.Substring(beginLength);
-					stop += beginLength - 1;
-					continue;
-				}
-
-				// If we are at the end of a macro, then split it out.
-				if (current.StartsWith(EndDelimiter))
-				{
-					// If we have anything in the buffer, add it.
-					if (buffer.Length > 0)
-					{
-						parts.Add(buffer.ToString());
-						buffer.Length = 0;
-					}
-
-					// Add the delimiter.
-					parts.Add(EndDelimiter);
-					current = current.Substring(endLength);
-					stop += endLength - 1;
-					continue;
-				}
-
-				// Otherwise, add it to the buffer.
-				buffer.Append(c);
-
-				if (current.Length > 0)
-				{
-					current = current.Substring(1);
-				}
-			}
-
-			// If we have anything left in the buffer, add it.
-			if (buffer.Length > 0)
-			{
-				parts.Add(buffer.ToString());
-			}
-
-			// Return the resulting list.
-			return parts;
 		}
 
 		#endregion

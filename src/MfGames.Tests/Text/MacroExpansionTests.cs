@@ -99,7 +99,7 @@ namespace UnitTests.Text
 		public void FormattedIntegerExpansion()
 		{
 			// Set up the input.
-			var format = "$(MacroA:0000)";
+			var format = "$(MacroA:D4)";
 			var macros = new Dictionary<string, object>
 			{
 				{ "MacroA", 13 }
@@ -145,7 +145,7 @@ namespace UnitTests.Text
 		public void GetRegexForComplexPattern()
 		{
 			// Pull out the regular expression for a given format.
-			var format = "/test/section-$(MacroA:0000)/$(MacroB:00).txt";
+			var format = "/test/section-$(MacroA:D4)/$(MacroB:D2).txt";
 			var expansion = new MacroExpansion(format);
 
 			Regex regex = expansion.GetRegex();
@@ -163,7 +163,7 @@ namespace UnitTests.Text
 		public void GetRegexForSimpleInteger()
 		{
 			// Pull out the regular expression for a given format.
-			var format = "$(MacroA:0000)";
+			var format = "$(MacroA:D4)";
 			var expansion = new MacroExpansion(format);
 
 			Regex regex = expansion.GetRegex();
@@ -181,7 +181,7 @@ namespace UnitTests.Text
 		public void GetRegexForSimpleIntegerNonPadded()
 		{
 			// Pull out the regular expression for a given format.
-			var format = "$(MacroA:d)";
+			var format = "$(MacroA:G0)";
 			var expansion = new MacroExpansion(format);
 
 			Regex regex = expansion.GetRegex();
@@ -200,7 +200,7 @@ namespace UnitTests.Text
 		public void GetRegexThrowsWithOneSubstitionWithoutFormatting()
 		{
 			// Pull out the regular expression for a given format.
-			var format = "$(MacroA:00) $(MacroA)";
+			var format = "$(MacroA:D2) $(MacroA)";
 			var expansion = new MacroExpansion(format);
 
 			// Verify that it throws an exception.
@@ -324,7 +324,7 @@ namespace UnitTests.Text
 		public void ParseSimpleInteger()
 		{
 			// Pull out the regular expression for a given format.
-			var format = "$(MacroA:0000)";
+			var format = "$(MacroA:D4)";
 			var input = "0123";
 			var expansion = new MacroExpansion(format);
 
@@ -351,7 +351,7 @@ namespace UnitTests.Text
 		public void ParseSimpleIntegerNonPadded()
 		{
 			// Pull out the regular expression for a given format.
-			var format = "$(MacroA:d)";
+			var format = "$(MacroA:G0)";
 			var input = "123";
 			var expansion = new MacroExpansion(format);
 

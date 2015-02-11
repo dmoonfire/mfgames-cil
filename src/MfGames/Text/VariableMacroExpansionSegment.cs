@@ -45,18 +45,22 @@ namespace MfGames.Text
 
 		#region Public Methods and Operators
 
-		public string Expand(IDictionary<string, object> macros)
+		public static string Expand(
+			string field,
+			string format,
+			IDictionary<string, object> macros)
 		{
 			// Pull out the object from the macros.
-			object value = macros[Field];
+			object value = macros[field];
 
-			// See if we have a format.
-			if (Format != null)
+			// See if we have a format, if we do, try to parse it.
+			if (format != null)
 			{
-				// See if we have a zero-padding format.
-				if (Format == new string('0', Format.Length))
+				int intValue;
+
+				if (Int32.TryParse(value.ToString(), out intValue))
 				{
-					value = Convert.ToString(value).PadLeft(Format.Length, '0');
+					value = intValue.ToString(format);
 				}
 			}
 
@@ -64,10 +68,10 @@ namespace MfGames.Text
 			return Convert.ToString(value);
 		}
 
-		public string GetRegex()
+		public static string GetRegex(string format)
 		{
 			// If we don't have a format, blow up.
-			if (Format == null)
+			if (format == null)
 			{
 				throw new InvalidOperationException(
 					"Cannot use GetRegex() without a format in all variables.");
@@ -76,18 +80,28 @@ namespace MfGames.Text
 			// Look for simple formats.
 			string pattern = null;
 
-			// See if we have a zero-padding format.
-			if (Format == new string('0', Format.Length))
+			if (format.Length > 1)
 			{
-				pattern = Format.Replace("0", "\\d");
-			}
-			else
-			{
-				switch (Format)
+				char first = format[0];
+				int precision;
+
+				if (Int32.TryParse(format.Substring(1), out precision))
 				{
-					case "d":
-						pattern = "\\d+";
-						break;
+					switch (first)
+					{
+						case 'D':
+							pattern = "";
+
+							for (var i = 0; i < precision; i++)
+							{
+								pattern += "\\d";
+							}
+							break;
+
+						case 'G':
+							pattern = "\\d+";
+							break;
+					}
 				}
 			}
 
@@ -95,11 +109,21 @@ namespace MfGames.Text
 			if (pattern == null)
 			{
 				throw new InvalidOperationException(
-					"Cannot create RegeEx from format: " + Format + ".");
+					"Cannot create RegeEx from format: " + format + ".");
 			}
 
 			// Return the pattern.
 			return string.Format("({0})", pattern);
+		}
+
+		public string Expand(IDictionary<string, object> macros)
+		{
+			return Expand(Field, Format, macros);
+		}
+
+		public string GetRegex()
+		{
+			return GetRegex(Format);
 		}
 
 		#endregion
