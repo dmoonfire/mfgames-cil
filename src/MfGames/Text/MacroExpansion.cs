@@ -28,6 +28,8 @@ namespace MfGames.Text
 
 		private readonly IMacroExpansionSegment[] segments;
 
+		private Regex regex;
+
 		#endregion
 
 		#region Constructors and Destructors
@@ -357,6 +359,12 @@ namespace MfGames.Text
 		/// </exception>
 		public Regex GetRegex()
 		{
+			// If we have already calculated the regex, use it.
+			if (regex != null)
+			{
+				return regex;
+			}
+
 			// If we have no segments, then return null.
 			if (segments == null)
 			{
@@ -365,7 +373,8 @@ namespace MfGames.Text
 
 			// Get the pattern and format it.
 			string pattern = GetRegexPattern();
-			var regex = new Regex(pattern);
+
+			regex = new Regex(pattern);
 
 			return regex;
 		}
@@ -456,7 +465,7 @@ namespace MfGames.Text
 			// Go through and populate the dictionary.
 			var results = new Dictionary<string, string>();
 
-			foreach (var segment in segments)
+			foreach (IMacroExpansionSegment segment in segments)
 			{
 				segment.Match(results, match);
 			}
