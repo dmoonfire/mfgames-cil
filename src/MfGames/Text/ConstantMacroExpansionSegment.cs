@@ -6,6 +6,7 @@
 // </license>
 
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MfGames.Text
 {
@@ -39,6 +40,10 @@ namespace MfGames.Text
 		public string GetRegex()
 		{
 			return MacroExpansion.EscapeRegex(Text);
+		}
+
+		public void Match(Dictionary<string, string> results, Match match)
+		{
 		}
 
 		public override string ToString()

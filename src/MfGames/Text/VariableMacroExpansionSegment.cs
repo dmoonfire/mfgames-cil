@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MfGames.Text
 {
@@ -124,6 +125,11 @@ namespace MfGames.Text
 		public string GetRegex()
 		{
 			return GetRegex(Format);
+		}
+
+		public void Match(Dictionary<string, string> results, Match match)
+		{
+			results[Field] = match.Groups[MacroIndex].Value;
 		}
 
 		#endregion

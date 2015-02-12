@@ -455,12 +455,10 @@ namespace MfGames.Text
 
 			// Go through and populate the dictionary.
 			var results = new Dictionary<string, string>();
-			List<VariableMacroExpansionSegment> variables =
-				segments.OfType<VariableMacroExpansionSegment>().ToList();
 
-			foreach (VariableMacroExpansionSegment variable in variables)
+			foreach (var segment in segments)
 			{
-				results[variable.Field] = match.Groups[variable.MacroIndex].Value;
+				segment.Match(results, match);
 			}
 
 			return results;

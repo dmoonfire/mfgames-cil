@@ -6,6 +6,7 @@
 // </license>
 
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MfGames.Text
 {
@@ -16,6 +17,8 @@ namespace MfGames.Text
 		string Expand(IDictionary<string, object> macros);
 
 		string GetRegex();
+
+		void Match(Dictionary<string, string> results, Match match);
 
 		#endregion
 	}
