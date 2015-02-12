@@ -18,6 +18,11 @@ namespace MfGames.Text
 	{
 		#region Constructors and Destructors
 
+		static VariableMacroExpansionSegment()
+		{
+			StringSpecifierRegex = new Regex(@"^(\d+|\d+,(?:\d+)?|,\d+)$");
+		}
+
 		public VariableMacroExpansionSegment(string format, int macroIndex)
 		{
 			// Save the simple variables.
@@ -38,6 +43,7 @@ namespace MfGames.Text
 
 		#region Public Properties
 
+		public static Regex StringSpecifierRegex { get; private set; }
 		public string Field { get; private set; }
 		public string Format { get; private set; }
 		public int MacroIndex { get; private set; }
@@ -81,28 +87,33 @@ namespace MfGames.Text
 			// Look for simple formats.
 			string pattern = null;
 
-			if (format.Length > 1)
+			if (format.Length > 0)
 			{
 				char first = format[0];
+				string specifier = format.Substring(1);
 				int precision;
-
-				if (Int32.TryParse(format.Substring(1), out precision))
+				bool hasPrecision = Int32.TryParse(specifier, out precision);
+				switch (first)
 				{
-					switch (first)
-					{
-						case 'D':
+					case 'D':
+						if (hasPrecision)
+						{
 							pattern = "";
 
 							for (var i = 0; i < precision; i++)
 							{
 								pattern += "\\d";
 							}
-							break;
+						}
+						break;
 
-						case 'G':
-							pattern = "\\d+";
-							break;
-					}
+					case 'G':
+						pattern = "\\d+";
+						break;
+
+					case 'S':
+						pattern = GetStringPattern(specifier);
+						break;
 				}
 			}
 
@@ -130,6 +141,34 @@ namespace MfGames.Text
 		public void Match(Dictionary<string, string> results, Match match)
 		{
 			results[Field] = match.Groups[MacroIndex].Value;
+		}
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		/// Implements a macro extension to the format strings. This can be
+		/// any of: S#, S#-#, or S-#. Where "S" has been removed before calling
+		/// this and "#" is one or more numbers.
+		/// </summary>
+		/// <param name="specifier"></param>
+		/// <returns></returns>
+		private static string GetStringPattern(string specifier)
+		{
+			// See if the pattern matches.
+			Match match = StringSpecifierRegex.Match(specifier);
+
+			if (!match.Success)
+			{
+				throw new InvalidOperationException(
+					"Cannot parse string specifier 'S" + specifier + "'.");
+			}
+
+			// If the first value is non-blank, it is a simple value.
+			string length = match.Groups[1].Value;
+			string singlePattern = "\\w{" + length + "}";
+			return singlePattern;
 		}
 
 		#endregion

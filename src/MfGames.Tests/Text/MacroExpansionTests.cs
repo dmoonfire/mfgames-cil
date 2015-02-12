@@ -138,6 +138,66 @@ namespace UnitTests.Text
 				results);
 		}
 
+		[Test]
+		public void GetRegexForAlpha3()
+		{
+			// Pull out the regular expression for a given format.
+			var format = "$(MacroA:S3)";
+			var expansion = new MacroExpansion(format);
+
+			Regex regex = expansion.GetRegex();
+
+			// Verify the results.
+			Assert.AreEqual(
+				@"^(\w{3})$",
+				regex.ToString());
+		}
+
+		[Test]
+		public void GetRegexForAlpha3OrLess()
+		{
+			// Pull out the regular expression for a given format.
+			var format = "$(MacroA:S,3)";
+			var expansion = new MacroExpansion(format);
+
+			Regex regex = expansion.GetRegex();
+
+			// Verify the results.
+			Assert.AreEqual(
+				@"^(\w{,3})$",
+				regex.ToString());
+		}
+
+		[Test]
+		public void GetRegexForAlpha3OrMore()
+		{
+			// Pull out the regular expression for a given format.
+			var format = "$(MacroA:S3,)";
+			var expansion = new MacroExpansion(format);
+
+			Regex regex = expansion.GetRegex();
+
+			// Verify the results.
+			Assert.AreEqual(
+				@"^(\w{3,})$",
+				regex.ToString());
+		}
+
+		[Test]
+		public void GetRegexForAlpha3To5()
+		{
+			// Pull out the regular expression for a given format.
+			var format = "$(MacroA:S3,5)";
+			var expansion = new MacroExpansion(format);
+
+			Regex regex = expansion.GetRegex();
+
+			// Verify the results.
+			Assert.AreEqual(
+				@"^(\w{3,5})$",
+				regex.ToString());
+		}
+
 		/// <summary>
 		/// Tests that a macro with an integer format will parse correctly.
 		/// </summary>
