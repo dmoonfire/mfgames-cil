@@ -6,7 +6,6 @@
 // </license>
 
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace MfGames.Text
@@ -55,10 +54,10 @@ namespace MfGames.Text
 		public static string Expand(
 			string field,
 			string format,
-			IDictionary<string, object> macros)
+			IMacroExpansionContext context)
 		{
 			// Pull out the object from the macros.
-			object value = macros[field];
+			object value = context.Values[field];
 
 			// See if we have a format, if we do, try to parse it.
 			if (format != null)
@@ -128,9 +127,9 @@ namespace MfGames.Text
 			return string.Format("({0})", pattern);
 		}
 
-		public string Expand(IDictionary<string, object> macros)
+		public string Expand(IMacroExpansionContext context)
 		{
-			return Expand(Field, Format, macros);
+			return Expand(Field, Format, context);
 		}
 
 		public string GetRegex()
@@ -138,9 +137,9 @@ namespace MfGames.Text
 			return GetRegex(Format);
 		}
 
-		public void Match(Dictionary<string, string> results, Match match)
+		public void Match(IMacroExpansionContext context, Match match)
 		{
-			results[Field] = match.Groups[MacroIndex].Value;
+			context.Values[Field] = match.Groups[MacroIndex].Value;
 		}
 
 		#endregion

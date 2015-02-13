@@ -31,14 +31,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			string format = string.Empty;
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -54,14 +55,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "{MacroA}";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format, "{", "}");
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -77,14 +79,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "$(MacroA)";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format, "{", "}");
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -100,14 +103,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "$(MacroA:D4)";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", 13 }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", 13 }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -123,14 +127,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "$(MacroA:d)";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", 13 }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", 13 }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -292,14 +297,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "a$(MacroA)b";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -315,14 +321,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "$(Macro A)";
-			var macros = new Dictionary<string, object>
-			{
-				{ "Macro A", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "Macro A", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -338,14 +345,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			string format = null;
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -361,15 +369,16 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "$(MacroA)";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", 17 }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", 17 }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
 
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(
@@ -387,20 +396,21 @@ namespace UnitTests.Text
 			var format = "$(MacroA:D4)";
 			var input = "0123";
 			var expansion = new MacroExpansion(format);
+			var context = new MacroExpansionContext();
 
-			Dictionary<string, string> results = expansion.Parse(input);
+			expansion.Parse(context, input);
 
 			// Verify the results.
 			Assert.AreEqual(
 				1,
-				results.Count,
+				context.Values.Count,
 				"Number of macro results is unexpected.");
 			Assert.IsTrue(
-				results.ContainsKey("MacroA"),
+				context.Values.ContainsKey("MacroA"),
 				"Results don't contain MacroA.");
 			Assert.AreEqual(
 				"0123",
-				results["MacroA"],
+				context.Values["MacroA"],
 				"The macro value is unexpected.");
 		}
 
@@ -414,20 +424,21 @@ namespace UnitTests.Text
 			var format = "$(MacroA:G0)";
 			var input = "123";
 			var expansion = new MacroExpansion(format);
+			var context = new MacroExpansionContext();
 
-			Dictionary<string, string> results = expansion.Parse(input);
+			expansion.Parse(context, input);
 
 			// Verify the results.
 			Assert.AreEqual(
 				1,
-				results.Count,
+				context.Values.Count,
 				"Number of macro results is unexpected.");
 			Assert.IsTrue(
-				results.ContainsKey("MacroA"),
+				context.Values.ContainsKey("MacroA"),
 				"Results don't contain MacroA.");
 			Assert.AreEqual(
 				"123",
-				results["MacroA"],
+				context.Values["MacroA"],
 				"The macro value is unexpected.");
 		}
 
@@ -439,14 +450,15 @@ namespace UnitTests.Text
 		{
 			// Set up the input.
 			var format = "$(MacroA)";
-			var macros = new Dictionary<string, object>
-			{
-				{ "MacroA", "Value A" }
-			};
+			var context = new MacroExpansionContext(
+				new Dictionary<string, object>
+				{
+					{ "MacroA", "Value A" }
+				});
 
 			// Perform the expansion.
 			var expansion = new MacroExpansion(format);
-			string results = expansion.Expand(macros);
+			string results = expansion.Expand(context);
 
 			// Verify the results.
 			Assert.AreEqual(

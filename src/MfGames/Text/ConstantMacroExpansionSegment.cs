@@ -5,7 +5,6 @@
 //   MIT License (MIT)
 // </license>
 
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace MfGames.Text
@@ -32,7 +31,7 @@ namespace MfGames.Text
 
 		#region Public Methods and Operators
 
-		public string Expand(IDictionary<string, object> macros)
+		public string Expand(IMacroExpansionContext context)
 		{
 			return Text;
 		}
@@ -42,7 +41,7 @@ namespace MfGames.Text
 			return MacroExpansion.EscapeRegex(Text);
 		}
 
-		public void Match(Dictionary<string, string> results, Match match)
+		public void Match(IMacroExpansionContext context, Match match)
 		{
 		}
 

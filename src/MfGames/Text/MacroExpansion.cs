@@ -330,7 +330,7 @@ namespace MfGames.Text
 		/// <returns>
 		/// The expanded format with all of the parameters.
 		/// </returns>
-		public string Expand(IDictionary<string, object> macros)
+		public string Expand(IMacroExpansionContext context)
 		{
 			// If we have no segments, then return null.
 			if (segments == null)
@@ -339,7 +339,7 @@ namespace MfGames.Text
 			}
 
 			// Build up a list of all the strings and combine them together.
-			IEnumerable<string> texts = segments.Select(s => s.Expand(macros));
+			IEnumerable<string> texts = segments.Select(s => s.Expand(context));
 
 			return string.Concat(texts);
 		}
@@ -450,27 +450,23 @@ namespace MfGames.Text
 		/// <returns>
 		/// A dictionary of results.
 		/// </returns>
-		public Dictionary<string, string> Parse(string input)
+		public void Parse(IMacroExpansionContext context, string input)
 		{
 			// Get a regex of the pattern.
-			Regex regex = GetRegex();
-			Match match = regex.Match(input);
+			Regex parseRegex = GetRegex();
+			Match match = parseRegex.Match(input);
 
 			// If we weren't successful, then return null.
 			if (!match.Success)
 			{
-				return null;
+				return;
 			}
 
 			// Go through and populate the dictionary.
-			var results = new Dictionary<string, string>();
-
 			foreach (IMacroExpansionSegment segment in segments)
 			{
-				segment.Match(results, match);
+				segment.Match(context, match);
 			}
-
-			return results;
 		}
 
 		#endregion

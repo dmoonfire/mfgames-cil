@@ -5,7 +5,6 @@
 //   MIT License (MIT)
 // </license>
 
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace MfGames.Text
@@ -14,11 +13,11 @@ namespace MfGames.Text
 	{
 		#region Public Methods and Operators
 
-		string Expand(IDictionary<string, object> macros);
+		string Expand(IMacroExpansionContext context);
 
 		string GetRegex();
 
-		void Match(Dictionary<string, string> results, Match match);
+		void Match(IMacroExpansionContext context, Match match);
 
 		#endregion
 	}
